@@ -1,0 +1,18 @@
+Column_name;Description;Datatype;Unit;Data_details
+Species;Species name.;String;None;The species are named with reference to the Leipzig Catalogue of vascular plants (https://doi.org/10.1038/s41597-020-00702-z).
+Botanic_Garden;Name of Botanical garden.;String;None;None
+Species_ID;ID combining the species and the botanic garden;String;None;First three letters of the genus, the species, if needed the subspecies and the botanic garden
+Year;Year the phenological observation was conducted.;Integer;year;None
+InitGr;Initial growth, first appearance of a new shoot aboveground.;Integer;Day of Year;NA indicates not available. Noted only at first sight,considering any growth irrespective of its origin (shoot,leaf,leaf-sheath,flower).
+LeafUnf;Onset of leaf unfolding, the first leaf is unfolded.;Integer;Day of Year;NA indicates not available.
+FlOn;Onset of flowering, first flower is fully open.;Integer;Day of Year;NA indicates not available. Noted only at first sight.
+FlPeak;Peak of flowering, the day of the year with the highest flowering intensity.;Integer;Day of Year;NA indicates not available. Noted only once when maximum intensity is reached.
+FlMaxInt;Maximum intensity of flowering, the maximum percentage of open flowers in the observed population. The maximum number of flowers opening at the same time in each population is defined as the 100 % standard.;Integer;%;None
+FlEnd;End of flowering, no more flowers are open,stamen and stigma are withered.;Integer;Day of Year;NA indicates not available. Noted only at first sight.
+FlDur;Flowering duration, calculated from the number of days between the onset and the end of the flowering stage.;Integer;days;NA indicates not available.
+FrOn;Onset of fruiting, date of first ripe fruits.;Integer;Day of Year;NA indicates not available. Noted only at first sight.
+FrEnd;End of fruiting, no more ripe fruits are visible.;Integer;Day of Year;NA indicates not available. Noted only at first sight.
+SenOn;Onset of senescence, leaves are changing colour,drying out or falling off.;Integer;Day of Year;NA indicates not available. Noted only once,dry leaves as result of any pest infestation or summer drought are not evaluated as senescent.
+SenPeak;Peak of senescence,  the day of the year with the highest senescence intensity.;Integer;Day of Year;NA indicates not available. Noted only once when maximum intensity is reached.
+SenMaxInt;Maximum intensity of senescence, the maximum percentage of senescent leaves in the obeserved population.;Integer;%;None
+SenEnd;End of senescence, all leaves have fallen off.;Integer;Day of Year;NA indicates not available. Noted only at first sight.
