@@ -14,13 +14,19 @@ library(rgbif) #To extract taxonomic information
 library(stringr) #To process data
 library(ggplot2) #For plotting
 library(lubridate) #To manipulate dates
-
+library(readr)
 #Read data/takes a while
-data <- read_sheet("https://docs.google.com/spreadsheets/d/1K9zR8M8hpCJEoiSx1oGjaB4PNSD062S5cVdojNjnFpU/edit#gid=2114344765", 
-                         sheet = "Plant_poll_interactions",  na = "NA")
+#data <- read_sheet("https://docs.google.com/spreadsheets/d/1K9zR8M8hpCJEoiSx1oGjaB4PNSD062S5cVdojNjnFpU/edit#gid=2114344765", 
+#                         sheet = "Plant_poll_interactions",  na = "NA")
+
+data = read_csv("Data/PollObs_all.csv")
+
 #Create list of plants
-plant_list <- read_sheet("https://docs.google.com/spreadsheets/d/1K9zR8M8hpCJEoiSx1oGjaB4PNSD062S5cVdojNjnFpU/edit#gid=2114344765", 
-                         sheet = "Plant_Species")
+#plant_list <- read_sheet("https://docs.google.com/spreadsheets/d/1K9zR8M8hpCJEoiSx1oGjaB4PNSD062S5cVdojNjnFpU/edit#gid=2114344765", 
+#                         sheet = "Plant_Species")
+
+plant_list = read_csv("Data/PollObs_species.csv")
+
 
 #Generacte vector with species names
 spp_list = plant_list %>%  
