@@ -6,6 +6,8 @@
 #We recorded interaction frequency and number of flowers of each species per unit of time
 #In addition, focal species have the approximate number of surrounding flowers in a 1 meter radius
 
+#Note: There are few Hymenoptera specimens without id ~15 specimens 
+
 #In this script----
 #1) Check for typos in cols
 #2) Retrieve taxonomic info
