@@ -140,7 +140,7 @@ Halle,Potentilla sterilis,Andrena flavipes,checked,NA,Like H4,NA,NA,NA,1,30,No,N
 Halle,Pulmonaria mollissima,Bombylius discolor,checked,NA,H6,NA,NA,NA,1,200,No,NA,NA,14:00,14:30,1,2023,4,6,Sunny,HF Morgenroth & JB Lanuza,19,Random_census
 Halle,Pieris japonica,Aglais io,checked,NA,HP2,NA,NA,NA,1,100000,No,NA,NA,14:00,14:30,1,2023,4,6,Sunny,HF Morgenroth & JB Lanuza,20,Random_census
 Halle,Pieris japonica,Aglais io,checked,NA,Like HP2,NA,NA,NA,1,100000,No,NA,NA,14:00,14:30,1,2023,4,6,Sunny,HF Morgenroth & JB Lanuza,20,Random_census
-Jena,Primula denticulata,Apoidea sp,checked,NA,NA,NA,NA,NA,1,300,No,NA,15,12:00,12:15,15,2023,4,7,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Primula denticulata,Hymenoptera sp,checked,NA,NA,NA,NA,NA,1,300,No,NA,15,12:00,12:15,15,2023,4,7,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula denticulata,Anthophora plumipes,checked,M Hoffmann,J3,Male,NA,NA,1,300,No,NA,15,12:00,12:15,15,2023,4,7,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula denticulata,Anthophora plumipes,checked,M Hoffmann,Like J3,NA,NA,NA,1,300,No,NA,15,12:00,12:15,15,2023,4,7,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula denticulata,Anthophora plumipes,checked,M Hoffmann,Like J3,NA,NA,NA,5,300,No,NA,15,12:00,12:15,15,2023,4,7,Sunny,D Bottger & JB Lanuza,NA,Focal
@@ -191,8 +191,8 @@ Leipzig,Leucanthemum vulgare,Lasioglossum laticeps,checked,NA,Like L5,NA,NA,NA,1
 Leipzig,Vinca minor,Apis mellifera,checked,NA,NA,NA,NA,NA,8,120,No,NA,140,11:30,12:30,5,2023,4,6,Sunny,R Umazekabiri,3,Random_census
 Halle,Scopolia carniolica,Apis mellifera,checked,NA,NA,NA,NA,NA,3,80,No,NA,50,12:45,13:00,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
 Halle,Primula veris,Anthophora plumipes,checked,NA,NA,NA,NA,NA,15,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
-Halle,Primula veris,Apoidea sp,checked,NA,NA,NA,NA,NA,1,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
-Halle,Primula veris,Apoidea sp,checked,NA,NA,NA,NA,NA,1,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
+Halle,Primula veris,Hymenoptera sp,checked,NA,NA,NA,NA,NA,1,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
+Halle,Primula veris,Hymenoptera sp,checked,NA,NA,NA,NA,NA,1,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
 Halle,Primula veris,Anthophora plumipes,checked,NA,NA,NA,NA,NA,5,200,No,NA,0,13:00,13:15,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
 Halle,Pulsatilla vulgaris,None,checked,NA,NA,NA,NA,NA,0,5,No,NA,50,13:30,13:45,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
 Halle,Narcissus pseudonarcissus,None,checked,NA,NA,NA,NA,NA,0,28,No,NA,100,13:45,14:00,15,2023,4,10,Sunny,JB Lanuza,NA,Focal
@@ -470,7 +470,7 @@ Leipzig,Vinca minor,Anthophora plumipes,checked,NA,NA,NA,NA,NA,18,260,No,NA,80,1
 Leipzig,Vinca minor,Bombylius discolor,checked,NA,NA,NA,NA,NA,6,260,No,NA,80,12:40,12:55,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Scopolia carniolica,Diptera sp,checked,NA,NA,NA,NA,NA,1,40,No,NA,7,13:00,13:15,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Primula veris,Bombylius major,checked,NA,NA,NA,NA,NA,14,700,No,NA,0,13:00,13:15,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Lathyrus vernus,Myopa tessellatipennis,to_check_Jared,,L12,NA,NA,NA,1,100,No,NA,5,13:45,14:00,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Lathyrus vernus,Myopa testacea,checked,J Cobain,L12,Male,NA,NA,1,100,No,NA,5,13:45,14:00,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Lathyrus vernus,Lasioglossum pallens,checked,M Hoffmann,L13,Female,NA,NA,1,100,No,NA,5,13:45,14:00,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Lathyrus vernus,Lasioglossum pallens,checked,NA,Like L13,NA,NA,NA,1,100,No,NA,5,13:45,14:00,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Lathyrus vernus,Xylocopa violacea,checked,NA,NA,NA,NA,NA,1,100,No,NA,5,13:45,14:00,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
@@ -487,7 +487,7 @@ Leipzig,Pulsatilla vulgaris,Andrena bicolor,checked,NA,Like L3,NA,NA,NA,1,100,No
 Leipzig,Pulsatilla vulgaris,Bombylius major,checked,NA,NA,NA,NA,NA,2,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,Female,NA,NA,5,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,Female,NA,NA,4,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Pulsatilla vulgaris,Apoidea sp,checked,NA,NA,NA,NA,NA,2,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Pulsatilla vulgaris,Hymenoptera sp,checked,NA,NA,NA,NA,NA,2,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,Female,NA,NA,1,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,Female,NA,NA,2,100,No,NA,45,12:15,12:30,15,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Taraxacum officinale,Apis mellifera,checked,NA,NA,Female,NA,NA,6,50,Yes,70,,13:20,13:23,3,2023,4,21,Sunny,R Umazekabiri & JB Lanuza,1,Random_census
@@ -536,11 +536,11 @@ Jena,Lathyrus vernus,Eucera nigrescens,checked,NA,NA,Male,NA,NA,1,175,No,NA,5,12
 Jena,Lathyrus vernus,Bombus pascuorum,checked,NA,NA,NA,NA,NA,1,175,No,NA,5,12:00,12:15,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Lathyrus vernus,Eucera nigrescens,checked,NA,NA,Male,NA,NA,3,175,No,NA,5,12:00,12:15,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Lathyrus vernus,Bombylius major,checked,NA,NA,NA,NA,NA,1,175,No,NA,5,12:00,12:15,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,J8,NA,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J8,NA,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Botanophila striolata,checked,J Cobain,J8,Male,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Botanophila striolata,checked,NA,Like J8,NA,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Osmia bicornis,checked,NA,NA,NA,NA,NA,4,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J8,NA,NA,NA,3,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J8,NA,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Botanophila striolata,checked,NA,Like J8,NA,NA,NA,3,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Botanophila striolata,checked,NA,Like J8,NA,NA,NA,1,4000,No,NA,750,12:30,12:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Vinca minor,None,checked,NA,NA,NA,NA,NA,0,25,No,NA,0,13:25,13:40,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Anemonoides ranunculoides,None,checked,NA,NA,NA,NA,NA,0,33,No,NA,1,13:40,13:55,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Pulsatilla vulgaris,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,NA,13:40,13:40,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
@@ -548,7 +548,7 @@ Jena,Primula denticulata,None,checked,NA,NA,NA,NA,NA,0,40,No,NA,7,14:30,14:45,15
 Jena,Bergenia purpurascens,None,checked,NA,NA,NA,NA,NA,0,17,No,NA,40,14:45,15:00,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Trillium sessile,None,checked,NA,NA,NA,NA,NA,0,17,No,NA,20,16:10,16:25,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Actaea spicata,None,checked,NA,NA,NA,NA,NA,0,10,No,NA,20,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Brunnera macrophylla,Anthomyiidae sp,to_check_Jared,,Like J8,NA,NA,NA,2,380,No,NA,50,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Brunnera macrophylla,Botanophila striolata,checked,NA,Like J8,NA,NA,NA,2,380,No,NA,50,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Anthophora plumipes,checked,NA,Like J5,NA,NA,NA,1,380,No,NA,50,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Ipheion uniflorum,Anthophora plumipes,checked,NA,Like J5,NA,NA,NA,3,200,No,NA,50,15:02,15:05,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,1,Random_census
 Jena,Muscari botryoides,None,checked,NA,NA,NA,NA,NA,0,150,No,NA,200,15:02,15:05,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,1,Random_census
@@ -740,11 +740,11 @@ Jena,Brunnera macrophylla,Bombylius major,checked,NA,NA,NA,NA,NA,18,200,No,NA,50
 Jena,Brunnera macrophylla,Bombylius major,checked,NA,NA,NA,NA,NA,5,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Bombylius major,checked,NA,NA,NA,NA,NA,1,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Bombylius major,checked,NA,NA,NA,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Brunnera macrophylla,Anthomyiidae sp,to_check_Jared,,J14,NA,collected already the previous week,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Brunnera macrophylla,Leucophora personata,checked,J Cobain,J14,Male,collected already the previous week,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Melecta albifrons,checked,M Hoffmann,J10,Male,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Bombylius major,checked,NA,NA,NA,NA,NA,3,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Brunnera macrophylla,Diptera sp,to_check_Jared,,J9,NA,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Brunnera macrophylla,Diptera sp,to_check_Jared,,NA,NA,NA,NA,3,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Brunnera macrophylla,Diptera sp,checked,,J9,NA,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Brunnera macrophylla,Diptera sp,checked,,NA,NA,NA,NA,3,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Osmia bicornis,checked,NA,NA,NA,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Anthophora plumipes,checked,NA,NA,NA,NA,NA,3,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Osmia bicornis,checked,NA,NA,NA,NA,NA,2,200,No,NA,50,12:00,12:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
@@ -755,12 +755,12 @@ Jena,Vinca minor,None,checked,NA,NA,NA,NA,NA,0,18,No,NA,0,12:45,13:00,15,2023,5,
 Jena,Anemonoides nemorosa,None,checked,NA,NA,NA,NA,NA,0,25,No,NA,0,13:00,13:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Cetonia aurata,checked,NA,NA,NA,NA,NA,10,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Bombylius major,checked,NA,NA,NA,NA,NA,2,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J14,NA,NA,NA,3,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Leucophora personata,checked,NA,Like J14,NA,NA,NA,3,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Leucophora personata,checked,NA,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Anthophora plumipes,checked,NA,NA,NA,NA,NA,2,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Leucophora personata,checked,NA,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Lucilia sericata,checked,NA,Like H14,NA,"green fly, captured last week",NA,5,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Leucophora personata,checked,NA,Like J14,NA,NA,NA,1,4500,No,NA,400,13:15,13:30,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Lamium album,None,checked,NA,NA,NA,NA,NA,0,10,No,NA,500,15:00,15:15,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Paeonia officinalis,Anthophora plumipes,checked,NA,NA,NA,NA,NA,2,4,No,NA,5,13:30,13:45,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Paeonia officinalis,Anthophora plumipes,checked,NA,NA,NA,NA,NA,7,4,No,NA,5,13:30,13:45,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
@@ -786,7 +786,7 @@ Jena,Hepatica nobilis,Anthophora plumipes,checked,NA,Like J12,NA,NA,NA,1,6,No,NA
 Jena,Hepatica nobilis,Bombus terrestris,checked,NA,NA,NA,NA,NA,1,6,No,NA,30,14:35,14:50,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula denticulata,None,checked,NA,NA,NA,NA,NA,0,20,No,NA,350,14:55,15:05,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Bergenia purpurascens,None,checked,NA,NA,NA,NA,NA,0,13,No,NA,40,15:10,15:25,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
-Jena,Primula veris,Anthomyiidae sp,to_check_Jared,,Like J14,NA,NA,NA,1,125,No,NA,90,15:25,15:40,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
+Jena,Primula veris,Leucophora personata,checked,NA,Like J14,NA,NA,NA,1,125,No,NA,90,15:25,15:40,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula veris,Diptera sp,checked,,NA,NA,NA,NA,1,125,No,NA,90,15:25,15:40,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Primula veris,Diptera sp,checked,,NA,NA,NA,NA,1,125,No,NA,90,15:25,15:40,15,2023,5,4,Sunny,D Bottger & JB Lanuza,NA,Focal
 Jena,Lamium galeobdolon,Anthophora plumipes,checked,NA,Like J12,NA,NA,NA,5,500,No,NA,NA,15:00,15:03,3,2023,5,4,Sunny,D Bottger & JB Lanuza,1,Random_census
@@ -851,8 +851,8 @@ Halle,Iberis sempervirens,Lucilia sericata,checked,NA,NA,NA,NA,NA,3,45000,No,NA,
 Halle,Iberis sempervirens,Lucilia sericata,checked,NA,NA,NA,NA,NA,2,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Iberis sempervirens,Syrphidae sp,checked,NA,NA,NA,"no pic, no catch; red eyes, yellow and black, looking similiar to Lapposyrphus lapponicus",NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Iberis sempervirens,Tropinota hirta,checked,NA,NA,NA,picture; same as on Ranunculus bulbosus=in bottle with blue; Tropinota hirta/squalida/Oxythyrea funesta,NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
-Halle,Iberis sempervirens,Diptera sp,to_check_Jared,,H33,NA,"as on Alyssum saxatile; catch in Epi ""Aly Sax""",NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
-Halle,Iberis sempervirens,Diptera sp,to_check_Jared,,Like H33,NA,"as on Alyssum saxatile; catch in Epi ""Aly Sax""",NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
+Halle,Iberis sempervirens,Hymenoptera sp,to_check,,H33,NA,"as on Alyssum saxatile; catch in Epi ""Aly Sax""",NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
+Halle,Iberis sempervirens,Hymenoptera sp,to_check,,Like H33,NA,"as on Alyssum saxatile; catch in Epi ""Aly Sax""",NA,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Iberis sempervirens,Valgus hemipterus,checked,NA,NA,NA,Image,https://www.inaturalist.org/observations/159828967,1,45000,No,NA,2287,14:35,14:50,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Primula denticulata,Bombylius major,checked,NA,NA,NA,Image,https://www.inaturalist.org/observations/159828530,2,5,No,NA,100,14:50,15:05,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Lathyrus vernus,Eucera nigrescens,checked,M Hoffmann,H27,Male,catch in glass 1; picture,https://www.inaturalist.org/observations/159828180,5,200,No,NA,538,15:05,15:20,15,2023,5,4,Sunny,HF Morgenroth,NA,Focal
@@ -917,11 +917,11 @@ Halle,Cotoneaster adpressus,Apis mellifera,checked,NA,NA,Female,NA,NA,4,10000,No
 Halle,Cotoneaster adpressus,Apis mellifera,checked,NA,NA,Female,NA,NA,5,10000,No,NA,NA,12:20,12:23,3,2023,5,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Cotoneaster adpressus,Apis mellifera,checked,NA,NA,Female,NA,NA,5,10000,No,NA,NA,12:20,12:23,3,2023,5,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Cotoneaster adpressus,Apis mellifera,checked,NA,NA,Female,NA,NA,3,10000,No,NA,NA,12:20,12:23,3,2023,5,4,Sunny,HF Morgenroth,3,Random_census
-Halle,Alyssum saxatile,Diptera sp,to_check_Jared,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
-Halle,Alyssum saxatile,Diptera sp,to_check_Jared,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
-Halle,Alyssum saxatile,Diptera sp,to_check_Jared,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
-Halle,Alyssum saxatile,Diptera sp,to_check_Jared,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
-Halle,Alyssum saxatile,Diptera sp,to_check_Jared,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
+Halle,Alyssum saxatile,Hymenoptera sp,to_check,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
+Halle,Alyssum saxatile,Hymenoptera sp,to_check,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
+Halle,Alyssum saxatile,Hymenoptera sp,to_check,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
+Halle,Alyssum saxatile,Hymenoptera sp,to_check,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
+Halle,Alyssum saxatile,Hymenoptera sp,to_check,,Like H33,NA,"see Eppendorf ""Aly Sax 1""; flies are abuntant (about 80 min) but show very few flower interactions",NA,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
 Halle,Alyssum saxatile,Bombylius major,checked,NA,NA,NA,Image,https://www.inaturalist.org/observations/160156975,3,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
 Halle,Alyssum saxatile,Anthrenus scrophulariae,checked,NA,NA,NA,(not so good) picture,https://www.inaturalist.org/observations/160157581,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
 Halle,Alyssum saxatile,Lucilia sericata,checked,NA,NA,NA,usual green fly; picture,https://www.inaturalist.org/observations/160413976,1,33600,No,NA,NA,12:30,12:33,3,2023,5,4,Sunny,HF Morgenroth,4,Random_census
@@ -986,8 +986,8 @@ Leipzig,Pulsatilla vulgaris,Bombylius major,checked,NA,NA,NA,NA,NA,1,4,No,NA,25,
 Leipzig,Caltha palustris,Nomada fabriciana,checked,M Hoffmann,L20,Female,Jar 1,NA,1,25,No,NA,15,13:35,13:50,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Caltha palustris,Bombylius major,checked,NA,NA,NA,NA,NA,2,25,No,NA,15,13:35,13:50,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Bergenia purpurascens,None,checked,NA,NA,NA,NA,NA,0,120,No,NA,600,13:35,13:50,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,L21,NA,Jar 2,NA,1,200,No,NA,130,15:00,15:15,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Iberis sempervirens,Anthomyiidae sp,to_check_Jared,,Like L21,NA,Jar 2,NA,2,200,No,NA,130,15:00,15:15,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Iberis sempervirens,Botanophila depressa,checked,J Cobain,L21,Female,Jar 2,NA,1,200,No,NA,130,15:00,15:15,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Iberis sempervirens,Botanophila depressa,checked,NA,Like L21,NA,Jar 2,NA,2,200,No,NA,130,15:00,15:15,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Halictus tumulorum,checked,M Hoffmann,L22,Female,Jar 3,NA,6,200,No,NA,130,15:00,15:15,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Primula denticulata,Bombylius major,checked,NA,NA,NA,NA,NA,2,90,No,NA,50,15:15,15:30,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Primula denticulata,Apis mellifera,checked,NA,NA,Female,NA,NA,1,90,No,NA,50,15:15,15:30,15,2023,5,5,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
@@ -1203,10 +1203,10 @@ Leipzig,Iberis sempervirens,Bombylius venosus,checked,NA,NA,NA,"""bombylius"" no
 Leipzig,Iberis sempervirens,Andrena flavipes,checked,NA,L29,Female,Jar 1,NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Lasioglossum minutissimum,checked,M Hoffmann,L30,NA,Jar 2,NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Andrena flavipes,checked,NA,Like L29,NA,Jar 1,NA,2,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
-Leipzig,Iberis sempervirens,Diptera sp,to_check_Jared,,L31,NA,"Jar 3, maybe this Thecophora atra??",NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
+Leipzig,Iberis sempervirens,Dalmannia marginata,checked,J Cobain,L31,Male,"Jar 3, maybe this Thecophora atra??",NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Osmia bicornis,checked,NA,NA,NA,NA,NA,2,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Lasioglossum minutissimum,checked,NA,Like L30,NA,Jar 2,NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
-Leipzig,Iberis sempervirens,Diptera sp,to_check_Jared,,Like L31,NA,"Jar 3, maybe this Thecophora atra??",NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
+Leipzig,Iberis sempervirens,Dalmannia marginata,checked,NA,Like L31,NA,"Jar 3, maybe this Thecophora atra??",NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Iberis sempervirens,Bombylius venosus,checked,NA,NA,NA,"""bombylius"" no colour pattern on wings",NA,1,5000,No,NA,1000,12:15,12:30,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Lasioglossum calceatum,checked,M Hoffmann,L32,Female,Jar 4,NA,1,52,No,NA,135,12:30,12:45,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
 Leipzig,Pulsatilla vulgaris,Lasioglossum pauxillum,checked,M Hoffmann,L33,NA,Jar 5,NA,1,52,No,NA,135,12:30,12:45,15,2023,5,11,Partly_cloudy,JB Lanuza,NA,Focal
@@ -1333,8 +1333,8 @@ Leipzig,Geranium macrorrhizum,Ceratina cyanea,checked,M Hoffmann,L42,Male,Jar 1,
 Leipzig,Geranium macrorrhizum,Merodon equestris,checked,F Wolf,L43,Male,Jar 2,NA,3,200,No,NA,NA,11:30,11:33,3,2023,5,15,Partly_cloudy,JB Lanuza,1,Random_census
 Leipzig,Rhododendron brachycarpum,None,checked,NA,NA,NA,NA,NA,0,750,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
 Leipzig,Allium ursinum,Apis mellifera,checked,NA,NA,Female,NA,NA,2,500,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
-Leipzig,Allium ursinum,Anthomyiidae sp,to_check_Jared,,L44,NA,Jar 3,NA,1,500,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
-Leipzig,Allium ursinum,Apoidea sp,checked,NA,NA,NA,Little bee,NA,2,500,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
+Leipzig,Allium ursinum,Botanophila striolata,checked,J Cobain,L44,Male,Jar 3,NA,1,500,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
+Leipzig,Allium ursinum,Hymenoptera sp,checked,NA,NA,NA,Little bee,NA,2,500,No,NA,NA,11:35,11:38,3,2023,5,15,Partly_cloudy,JB Lanuza,2,Random_census
 Leipzig,Lunaria rediviva,Apis mellifera,checked,NA,NA,Female,NA,NA,2,220,No,NA,NA,11:40,11:43,3,2023,5,15,Partly_cloudy,JB Lanuza,3,Random_census
 Leipzig,Lunaria rediviva,Andrena flavipes,checked,NA,L45,NA,Jar 4,NA,1,220,No,NA,NA,11:40,11:43,3,2023,5,15,Partly_cloudy,JB Lanuza,3,Random_census
 Leipzig,Lunaria rediviva,Valgus hemipterus,checked,NA,NA,NA,NA,NA,1,220,No,NA,NA,11:40,11:43,3,2023,5,15,Partly_cloudy,JB Lanuza,3,Random_census
@@ -1420,15 +1420,15 @@ Jena,Vicia sepium,Eucera nigrescens,checked,NA,NA,Male,NA,NA,9,65,No,NA,200,16:1
 Jena,Vicia sepium,Eucera nigrescens,checked,NA,NA,Male,NA,NA,15,65,No,NA,200,16:15,16:18,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,8,Random_census
 Jena,Ranunculus sp,Chelostoma florisomne,checked,M Hoffmann,J29,Female,Jar 7,NA,2,15,No,NA,75,16:15,16:18,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,8,Random_census
 Jena,Cerastium arvense,Paragus constrictus/tibialis,checked,F Wolf,J30,Female,Jar 8,NA,1,225,No,NA,80,16:15,16:18,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,8,Random_census
-Jena,Cerastium arvense,Sarcophaga sp,to_check_Jared,,J31,Male,Jar 9,NA,1,225,No,NA,80,16:15,16:18,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,8,Random_census
+Jena,Cerastium arvense,Sarcophaga incisilobata,checked,J Cobain,J31,Male,Jar 9,NA,1,225,No,NA,80,16:15,16:18,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,8,Random_census
 Jena,Lathyrus aureus,Eucera nigrescens,checked,M Hoffmann,J32,NA,"not plumipes, check Jar 10",NA,2,1600,No,NA,NA,16:25,16:28,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,9,Random_census
 Jena,Lathyrus aureus,Eucera nigrescens,checked,NA,Like J32,NA,"not plumipes, check Jar 10",NA,1,1600,No,NA,NA,16:25,16:28,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,9,Random_census
 Jena,Lathyrus aureus,Bombus terrestris,checked,NA,NA,NA,NA,NA,1,1600,No,NA,NA,16:25,16:28,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,9,Random_census
 Jena,Philadelphus pekinensis,Anthophora plumipes,checked,M Hoffmann,J27,Female,Jar 5,NA,1,135,No,NA,NA,16:30,16:33,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,10,Random_census
 Jena,Philadelphus pekinensis,Bombus sp,checked,NA,NA,NA,NA,NA,2,135,No,NA,NA,16:30,16:33,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,10,Random_census
-Jena,Philadelphus pekinensis,Anthophora sp,checked,NA,NA,NA,NA,NA,2,135,No,NA,NA,16:30,16:33,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,10,Random_census
+Jena,Philadelphus pekinensis,Anthophora plumipes,checked,NA,NA,NA,NA,NA,2,135,No,NA,NA,16:30,16:33,3,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,10,Random_census
 Jena,Lamium album,Bombus terrestris,checked,NA,NA,NA,worker,NA,3,100,No,NA,30,12:05,12:20,15,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
-Jena,Allium ursinum,Minettia longipennis,to_check_Jared,,J23,Male,Jar 1,NA,3,300,No,NA,120,12:25,12:40,15,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Allium ursinum,Minettia longipennis,checked,NA,J23,NA,Jar 1,NA,3,300,No,NA,120,12:25,12:40,15,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Allium ursinum,Sphaerophoria rueppellii,checked,F Wolf,J24,Female,Jar 2,NA,2,300,No,NA,120,12:25,12:40,15,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Chelidonium majus,Anthophora plumipes,checked,NA,NA,Female,NA,NA,4,68,No,NA,0,12:25,12:40,15,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Vinca minor,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,NA,12:40,12:40,0,2023,5,17,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
@@ -1471,7 +1471,7 @@ Jena,Lamium album,Anthophora plumipes,checked,NA,NA,Female,NA,NA,3,150,No,NA,0,1
 Jena,Lamium album,Anthophora plumipes,checked,NA,NA,NA,NA,NA,1,150,No,NA,0,11:25,11:40,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Allium ursinum,None,checked,NA,NA,NA,NA,NA,0,40,No,NA,0,11:40,11:55,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Asphodelus albus,None,checked,NA,NA,NA,NA,NA,0,25,No,NA,250,11:55,12:10,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
-Jena,Iberis sempervirens,Apoidea sp,checked,NA,NA,NA,NA,NA,1,2250,No,NA,750,12:15,12:30,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
+Jena,Iberis sempervirens,Hymenoptera sp,checked,NA,NA,NA,NA,NA,1,2250,No,NA,750,12:15,12:30,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Bombylius major,checked,NA,NA,NA,NA,NA,3,2250,No,NA,750,12:15,12:30,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Iberis sempervirens,Anthophora plumipes,checked,NA,NA,NA,NA,NA,1,2250,No,NA,750,12:15,12:30,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Paeonia delavayi,Vespa crabro,checked,NA,NA,NA,NA,NA,5,35,No,NA,70,12:35,12:50,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
@@ -1529,7 +1529,7 @@ Leipzig,Primula denticulata,None,checked,NA,NA,NA,All flowers found dead,NA,0,0,
 Leipzig,Bergenia purpurascens,None,checked,NA,NA,NA,All flowers found dead,NA,0,0,No,NA,200,12:00,12:00,0,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Lathyrus vernus,None,checked,NA,NA,NA,All flowers found dead,NA,0,0,No,NA,35,12:05,12:05,0,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Allium ursinum,None,checked,NA,NA,NA,Almost dead,NA,0,0,No,NA,20,12:05,12:05,0,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Geranium sanguineum,Anthomyiidae sp,to_check_Jared,,L59,Male,Same species like in jar 7,NA,1,110,No,NA,300,12:10,12:25,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Geranium sanguineum,Botanophila striolata,checked,J Cobain,L59,Male,Same species like in jar 7,NA,1,110,No,NA,300,12:10,12:25,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Geranium sanguineum,Andrena curvungula,checked,M Hoffmann,L61,Male,Jar 9,NA,2,110,No,NA,300,12:10,12:25,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Geranium sanguineum,Andrena curvungula,checked,NA,Like L61,NA,Jar 9,NA,2,110,No,NA,300,12:10,12:25,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Geranium sanguineum,Andrena curvungula,checked,NA,Like L61,NA,Jar 9,NA,2,110,No,NA,300,12:10,12:25,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
@@ -1545,9 +1545,9 @@ Leipzig,Psephellus dealbatus,Andrena labiata,checked,M Hoffmann,L54,Female,Jar 2
 Leipzig,Psephellus dealbatus,Osmia cornuta,checked,NA,NA,NA,NA,NA,5,50,Yes,150,60,12:30,12:45,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Vincetoxicum hirundinaria,Apis mellifera,checked,NA,NA,Female,NA,NA,2,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Vincetoxicum hirundinaria,Apis mellifera,checked,NA,NA,Female,NA,NA,4,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,to_check_Jared,,L56,Male,Jar 4,NA,1,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,to_check_Jared,,Like L56,NA,Jar 4,NA,2,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
-Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,to_check_Jared,,Like L56,NA,Jar 4,NA,1,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,checked,J Cobain,L56,Male,Jar 4,NA,1,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,checked,NA,Like L56,NA,Jar 4,NA,2,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
+Leipzig,Vincetoxicum hirundinaria,Platystoma seminationis,checked,NA,Like L56,NA,Jar 4,NA,1,380,No,NA,500,12:45,13:00,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Fragaria vesca,None,checked,NA,NA,NA,NA,NA,0,20,No,NA,50,13:00,13:15,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Saxifraga paniculata,None,checked,NA,NA,NA,Flowers not fully open,NA,0,2,No,NA,0,13:15,13:15,0,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
 Leipzig,Silene viscaria,Anthophora plumipes,checked,NA,NA,NA,NA,NA,4,3200,No,NA,100,13:20,13:35,15,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,NA,Focal
@@ -1619,7 +1619,7 @@ Leipzig,Limnanthes douglasii,Apis mellifera,checked,NA,NA,Female,NA,NA,4,4000,No
 Leipzig,Limnanthes douglasii,Apis mellifera,checked,NA,NA,Female,NA,NA,4,4000,No,NA,NA,14:05,14:08,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,2,Random_census
 Leipzig,Limnanthes douglasii,Apis mellifera,checked,NA,NA,Female,NA,NA,4,4000,No,NA,NA,14:05,14:08,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,2,Random_census
 Leipzig,Limnanthes douglasii,Apis mellifera,checked,NA,NA,Female,NA,NA,4,4000,No,NA,NA,14:05,14:08,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,2,Random_census
-Leipzig,Limnanthes douglasii,Anthomyiidae sp,to_check_Jared,,Like L59,NA,Jar 7,NA,2,4000,No,NA,NA,14:05,14:08,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,2,Random_census
+Leipzig,Limnanthes douglasii,Botanophila striolata,checked,NA,Like L59,NA,Jar 7,NA,2,4000,No,NA,NA,14:05,14:08,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,2,Random_census
 Leipzig,Geranium macrorrhizum,Apis mellifera,checked,NA,NA,Female,NA,NA,3,600,No,NA,NA,14:08,14:11,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,3,Random_census
 Leipzig,Geranium macrorrhizum,Apis mellifera,checked,NA,NA,Female,NA,NA,3,600,No,NA,NA,14:08,14:11,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,3,Random_census
 Leipzig,Geranium macrorrhizum,Apis mellifera,checked,NA,NA,Female,NA,NA,3,600,No,NA,NA,14:08,14:11,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,3,Random_census
@@ -1653,7 +1653,7 @@ Leipzig,Knautia arvensis,Apis mellifera,checked,NA,NA,Female,NA,NA,1,1200,No,NA,
 Leipzig,Knautia arvensis,Oxythyrea funesta,checked,NA,NA,NA,NA,NA,1,1200,No,NA,NA,14:15,14:18,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,4,Random_census
 Leipzig,Salvia pratensis,Apis mellifera,checked,NA,NA,Female,NA,NA,1,1100,No,NA,NA,14:15,14:18,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,4,Random_census
 Leipzig,Salvia pratensis,Apis mellifera,checked,NA,NA,Female,NA,NA,2,1100,No,NA,NA,14:15,14:18,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,4,Random_census
-Leipzig,Salvia pratensis,Myopa tessellatipennis,to_check_Jared,,Like L12,NA,Fly parasite with red color- captured before; Sicus ferrugineus?,NA,1,1100,No,NA,NA,14:15,14:18,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,5,Random_census
+Leipzig,Salvia pratensis,Myopa testacea,checked,NA,Like L12,NA,Fly parasite with red color- captured before; Sicus ferrugineus?,NA,1,1100,No,NA,NA,14:15,14:18,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,5,Random_census
 Leipzig,Leucanthemum vulgare,Oxythyrea funesta,checked,NA,NA,NA,NA,NA,1,20,Yes,140,NA,14:20,14:23,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,5,Random_census
 Leipzig,Leucanthemum vulgare,Oxythyrea funesta,checked,NA,NA,NA,NA,NA,1,20,Yes,140,NA,14:20,14:23,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,5,Random_census
 Leipzig,Lathyrus roseus,Bombus pascuorum,checked,NA,NA,NA,NA,NA,7,750,No,NA,NA,14:30,14:33,3,2023,5,22,Sunny,R Umazekabiri & JB Lanuza,6,Random_census
@@ -1827,7 +1827,7 @@ Halle,Salvia officinalis,Anthophora quadrimaculata,checked,M Hoffmann,Like H287,
 Halle,Salvia officinalis,Anthidium manicatum,checked,NA,NA,Male,"extremely fast patrolling their flowers and being territorial, chases away Bombylius; hard to take a picture, impossible for me to catch",https://www.inaturalist.org/observations/164979349,10,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Anthidium manicatum,checked,NA,NA,Male,"might be the same specimen as the first one fled after I tried to catch it and may have returned to ""their"" flowers; extremely fast patroilling their flowers and being territorial, hard to take a picture, impossible for me to catch",https://www.inaturalist.org/observations/164986581,15,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Anthidium manicatum,checked,NA,NA,Male,"might be the same specimen as the first one fled after I tried to catch it and may have returned to ""their"" flowers; extremely fast patroilling their flowers and being territorial, hard to take a picture, impossible for me to catch",like above,15,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
-Halle,Salvia officinalis,Apoidea sp,checked,NA,NA,NA,Jar 22,NA,30,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
+Halle,Salvia officinalis,Hymenoptera sp,checked,NA,NA,NA,Jar 22,NA,30,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Bombylius venosus,checked,NA,NA,NA,B. posticus? picture,https://www.inaturalist.org/observations/164979353,15,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Bombylius venosus,checked,NA,NA,NA,B. posticus?,NA,10,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Bombylius venosus,checked,NA,NA,NA,B. posticus?,NA,20,7200,No,NA,0,9:15,9:30,15,2023,5,31,Sunny,HF Morgenroth,NA,Focal
@@ -1863,7 +1863,7 @@ Halle,Symphytum officinale,Anthophora plumipes,checked,NA,NA,NA,NA,https://www.i
 Halle,Symphytum officinale,Anthophora plumipes,checked,NA,NA,NA,NA,NA,20,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
 Halle,Symphytum officinale,Anthophora plumipes,checked,NA,NA,NA,NA,NA,10,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
 Halle,Symphytum officinale,Xylocopa violacea,checked,NA,NA,Male,NA,https://www.inaturalist.org/observations/164990082,5,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
-Halle,Symphytum officinale,Apoidea sp,checked,NA,NA,NA,Like jar 22,NA,2,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
+Halle,Symphytum officinale,Hymenoptera sp,checked,NA,NA,NA,Like jar 22,NA,2,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
 Halle,Symphytum officinale,Anthidium manicatum,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/164990079,3,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
 Halle,Symphytum officinale,Anthidium manicatum,checked,NA,NA,NA,NA,NA,2,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
 Halle,Symphytum officinale,Vespa crabro,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/164990085,2,400,No,NA,NA,10:35,10:38,3,2023,5,31,Sunny,HF Morgenroth,2,Random_census
@@ -2117,7 +2117,7 @@ Jena,Lamium album,None,checked,NA,NA,NA,NA,NA,0,70,No,,0,15:00,15:15,15,2023,6,5
 Jena,Pilosella officinarum,Polyommatus icarus,checked,NA,NA,NA,NA,NA,3,70,Yes,150,NA,15:20,15:23,3,2023,6,5,Partly_cloudy,JB Lanuza,1,Random_census
 Jena,Geranium sp,Hoplitis adunca,checked,M Hoffmann,J57,Female,"J57, like Geranium molle but unsure about the id, seems larger in size (~1m) but flowers are the same",NA,2,200,No,NA,NA,15:25,15:28,3,2023,6,5,Partly_cloudy,JB Lanuza,2,Random_census
 Jena,Papaver nudicaule,Megachile willughbiella,checked,M Hoffmann,J58,Female,Jar 5,NA,1,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
-Jena,Papaver nudicaule,Anthomyiidae sp,to_check_Jared,,J59,NA,Jar 6,NA,1,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
+Jena,Papaver nudicaule,Bombylius venosus,checked,J Cobain,J59,Female,Jar 6,NA,1,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
 Jena,Papaver nudicaule,Bombus terrestris,checked,NA,NA,NA,NA,NA,4,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
 Jena,Papaver nudicaule,Bombus terrestris,checked,NA,NA,NA,NA,NA,3,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
 Jena,Papaver nudicaule,Bombus terrestris,checked,NA,NA,NA,NA,NA,1,27,No,NA,NA,15:30,15:33,3,2023,6,5,Partly_cloudy,JB Lanuza,3,Random_census
@@ -2125,8 +2125,6 @@ Jena,Papaver nudicaule,Bombus terrestris,checked,NA,NA,NA,NA,NA,1,27,No,NA,NA,15
 Jena,Spartium junceum,Xylocopa violacea,checked,NA,NA,NA,NA,NA,14,750,No,NA,NA,15:40,15:43,3,2023,6,5,Partly_cloudy,JB Lanuza,4,Random_census
 Jena,Spartium junceum,Xylocopa violacea,checked,NA,NA,NA,NA,NA,4,750,No,NA,NA,15:40,15:43,3,2023,6,5,Partly_cloudy,JB Lanuza,4,Random_census
 Jena,Baptisia australis,Megachile willughbiella,checked,M Hoffmann,J60,Male,Jar 7,NA,3,561,No,NA,NA,15:50,15:53,3,2023,6,5,Partly_cloudy,JB Lanuza,5,Random_census
-Jena,Baptisia australis,Unidentified,to_check_Jared,,J61,NA,Jar 8 -not found-,NA,3,561,No,NA,NA,15:50,15:53,3,2023,6,5,Partly_cloudy,JB Lanuza,5,Random_census
-Jena,Baptisia australis,Unidentified,to_check_Jared,,Like J61,NA,Jar 8 -not found-,NA,2,561,No,NA,NA,15:50,15:53,3,2023,6,5,Partly_cloudy,JB Lanuza,5,Random_census
 Jena,Alkanna orientalis,Osmia bicornis,checked,M Hoffmann,J62,Female,Jar 9,NA,2,120,No,NA,NA,16:04,16:07,3,2023,6,5,Partly_cloudy,JB Lanuza,6,Random_census
 Jena,Alkanna orientalis,Osmia bicornis,checked,NA,Like J62,NA,Jar 9,NA,7,120,No,NA,NA,16:04,16:07,3,2023,6,5,Partly_cloudy,JB Lanuza,6,Random_census
 Jena,Alkanna orientalis,Bombus pratorum,checked,NA,NA,NA,NA,NA,10,120,No,NA,NA,16:04,16:07,3,2023,6,5,Partly_cloudy,JB Lanuza,6,Random_census
@@ -2139,7 +2137,7 @@ Jena,Anthyllis vulneraria,Bombus hortorum,checked,NA,NA,NA,NA,NA,28,1400,No,NA,N
 Jena,Anthyllis vulneraria,Anthophora aestivalis,checked,M Hoffmann,J63,Female,Jar 10,NA,3,1400,No,NA,NA,16:20,16:23,3,2023,6,5,Partly_cloudy,JB Lanuza,8,Random_census
 Jena,Anthyllis vulneraria,Eucera nigrescens,checked,M Hoffmann,J64,Female,Jar 11,NA,2,1400,No,NA,NA,16:20,16:23,3,2023,6,5,Partly_cloudy,JB Lanuza,8,Random_census
 Jena,Hypericum fragile,Bombus terrestris,checked,NA,NA,NA,NA,NA,5,42,No,NA,NA,14:25,14:28,3,2023,6,5,Partly_cloudy,JB Lanuza,9,Random_census
-Jena,Campanula glomerata,Apoidea sp,checked,NA,J65,NA,"Jar 12, Little bee",NA,1,190,No,NA,NA,14:25,14:28,3,2023,6,5,Partly_cloudy,JB Lanuza,9,Random_census
+Jena,Campanula glomerata,Hymenoptera sp,checked,NA,J65,NA,"Jar 12, Little bee",NA,1,190,No,NA,NA,14:25,14:28,3,2023,6,5,Partly_cloudy,JB Lanuza,9,Random_census
 Jena,Campanula glomerata,Bombus lapidarius,checked,NA,NA,NA,NA,NA,5,90,No,NA,NA,14:25,14:28,3,2023,6,5,Partly_cloudy,JB Lanuza,9,Random_census
 Jena,Dianthus petraeus,Anthophora aestivalis,checked,M Hoffmann,J66,Female,Jar 13,NA,2,125,No,NA,NA,14:25,14:28,3,2023,6,5,Partly_cloudy,JB Lanuza,10,Random_census
 Halle,Dictamnus albus,Apis mellifera,checked,NA,NA,Female,NA,https://www.inaturalist.org/observations/166762189,3,250,No,NA,150,9:00,9:15,15,2023,6,5,Sunny,HF Morgenroth,NA,Focal
@@ -2288,8 +2286,8 @@ Leipzig,Geranium sanguineum,Andrena bicolor,checked,M Hoffmann,L93,Female,Jar 22
 Leipzig,Geranium sanguineum,Melitta haemorrhoidalis,checked,M Hoffmann,L94,Male,Jar 23,NA,1,170,No,NA,50,12:40,12:55,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Geranium sanguineum,Eupeodes corollae,checked,F Wolf,L95,Female,Jar 24,NA,1,170,No,NA,50,12:40,12:55,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Geranium sanguineum,Merodon equestris,checked,F Wolf,L96,Male,Jar 25,NA,1,170,No,NA,50,12:40,12:55,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Fragaria vesca,Unidentified,to_check_Jared,,L97,NA,Jar 26,NA,1,18,No,NA,120,13:00,13:15,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Fragaria vesca,Unidentified,to_check_Jared,,Like L97,NA,like in Jar 26,NA,2,18,No,NA,120,13:00,13:15,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Fragaria vesca,Hymenoptera sp,to_check,,L97,NA,Jar 26,NA,1,18,No,NA,120,13:00,13:15,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Fragaria vesca,Hymenoptera sp,to_check,,Like L97,NA,like in Jar 26,NA,2,18,No,NA,120,13:00,13:15,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Aquilegia chrysantha,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,40,No,NA,20,13:15,13:30,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Aquilegia chrysantha,Apis mellifera,checked,NA,NA,Female,NA,NA,4,40,No,NA,20,13:15,13:30,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Aquilegia chrysantha,Xylocopa violacea,checked,NA,NA,NA,NA,NA,2,40,No,NA,20,13:15,13:30,15,2023,6,9,Sunny,R Umazekabiri,NA,Focal
@@ -2406,11 +2404,11 @@ Jena,Geranium sanguineum,Hemipenthes maurus,checked,J Cobain,J79,Female,Jar 13,N
 Jena,Geranium sanguineum,Chelostoma rapunculi,checked,NA,Like J78,NA,Jar 12,NA,1,39,No,NA,200,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Geranium sanguineum,Chelostoma rapunculi,checked,NA,Like J78,NA,Jar 12,NA,1,39,No,NA,200,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Linum perenne,Megachile willughbiella,checked,M Hoffmann,J76,Male,Jar 10,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Linum perenne,Apoidea sp,checked,NA,NA,NA,Large bee -not captured-,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Linum perenne,Hymenoptera sp,checked,NA,NA,NA,Large bee -not captured-,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Linum perenne,Chelostoma rapunculi,checked,NA,Like J78,NA,Jar 12,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Linum perenne,Megachile willughbiella,checked,M Hoffmann,J77,Female,Jar 11,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Linum perenne,Chelostoma rapunculi,checked,NA,Like J78,NA,Jar 12,NA,1,65,No,NA,30,13:00,13:15,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Campanula rotundifolia,Apoidea sp,checked,NA,NA,NA,Medium to little size bee -not captured-,NA,3,5,No,NA,0,13:15,13:30,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Campanula rotundifolia,Hymenoptera sp,checked,NA,NA,NA,Medium to little size bee -not captured-,NA,3,5,No,NA,0,13:15,13:30,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Hypericum olympicum,Apis mellifera,checked,NA,NA,Female,NA,NA,4,40,No,NA,500,14:35,14:50,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,40,No,NA,500,14:35,14:50,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,40,No,NA,500,14:35,14:50,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
@@ -2421,17 +2419,17 @@ Jena,Dictamnus albus,Megachile circumcincta,checked,NA,Like J80,NA,Jar 14,NA,8,1
 Jena,Dictamnus albus,Megachile circumcincta,checked,NA,Like J80,NA,Jar 14,NA,2,144,No,NA,0,14:50,15:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Vincetoxicum hirundinaria,None,checked,NA,NA,NA,NA,NA,0,50,No,NA,0,15:05,15:20,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Lamium album,None,checked,NA,NA,NA,NA,NA,0,20,No,NA,0,15:20,15:35,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,NA,J81,NA,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,NA,Like J81,NA,Jar 15,NA,1,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,M Hoffmann,J81,Male,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J81,NA,Jar 15,NA,1,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Colletes daviesanus,checked,M Hoffmann,J82,Male,Jar 16,NA,1,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,,Like J81,NA,NA,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J81,NA,NA,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J82,NA,Jar 16,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,,Like J81,NA,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,,Like J81,NA,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Unidentified,to_check_Jared,,Like J81,NA,Jar 15,NA,1,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J81,NA,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J81,NA,Jar 15,NA,2,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J81,NA,Jar 15,NA,1,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Colletes daviesanus,checked,NA,Like J82,NA,Jar 16,NA,5,20,Yes,140,0,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Achillea millefolium,Colletes daviesanus,checked,NA,Like J82,NA,Jar 16,NA,1,90,Yes,5,75,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
-Jena,Achillea millefolium,Unidentified,to_check_Jared,,J83,NA,Jar 17,NA,2,90,Yes,5,75,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
+Jena,Achillea millefolium,Hymenoptera sp,to_check,,J83,NA,Jar 17,NA,2,90,Yes,5,75,15:50,16:05,15,2023,6,12,Sunny,JB Lanuza,NA,Focal
 Jena,Coronilla orientalis,Megachile ericetorum,checked,M Hoffmann,J69,Female,Jar 3,NA,4,41,No,NA,NA,10:00,10:03,3,2023,6,12,Sunny,JB Lanuza,1,Random_census
 Jena,Coronilla orientalis,Megachile ericetorum,checked,NA,Like J69,NA,Jar 3,NA,1,41,No,NA,NA,10:00,10:03,3,2023,6,12,Sunny,JB Lanuza,1,Random_census
 Jena,Coronilla orientalis,Megachile pilidens,checked,M Hoffmann,J67,Male,Jar 1,NA,1,41,No,NA,NA,10:00,10:03,3,2023,6,12,Sunny,JB Lanuza,1,Random_census
@@ -2463,15 +2461,15 @@ Jena,Trifolium sp,Bombus pascuorum,checked,NA,NA,NA,NA,NA,20,3840,No,NA,NA,12:00
 Jena,Trifolium sp,Apis mellifera,checked,NA,NA,Female,NA,NA,1,3840,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
 Jena,Trifolium sp,Apis mellifera,checked,NA,NA,Female,NA,NA,1,3840,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
 Jena,Trifolium sp,Eucera nigrescens,checked,M Hoffmann,J73,Female,Jar 7,NA,3,3840,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
-Jena,Trifolium sp,Unidentified,to_check_Jared,,J74,NA,Jar 8,NA,2,3840,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
+Jena,Trifolium sp,Tephritidae,checked,J Cobain,J74,NA,Jar 8,NA,2,3840,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
 Jena,Trifolium rubens,Bombus hortorum,checked,NA,NA,NA,NA,NA,10,1600,No,NA,NA,12:00,12:03,3,2023,6,12,Sunny,JB Lanuza,8,Random_census
 Jena,Scutellaria cordifolia,Bombus hypnorum,checked,NA,NA,NA,NA,NA,30,3000,No,NA,NA,12:25,12:28,3,2023,6,12,Sunny,JB Lanuza,9,Random_census
 Jena,Scutellaria cordifolia,Bombus hortorum,checked,NA,NA,NA,NA,NA,20,3000,No,NA,NA,12:25,12:28,3,2023,6,12,Sunny,JB Lanuza,9,Random_census
 Jena,Scutellaria cordifolia,Bombus hortorum,checked,NA,NA,NA,NA,NA,5,3000,No,NA,NA,12:25,12:28,3,2023,6,12,Sunny,JB Lanuza,9,Random_census
 Jena,Scutellaria cordifolia,Anthophora quadrimaculata,checked,,Like J68,NA,Jar 2,NA,2,3000,No,NA,NA,12:25,12:28,3,2023,6,12,Sunny,JB Lanuza,9,Random_census
-Jena,Campanula persicifolia,Unidentified,to_check_Jared,,J75,NA,Jar 9,NA,1,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
-Jena,Campanula persicifolia,Unidentified,to_check_Jared,,Like J75,NA,Jar 9,NA,1,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
-Jena,Campanula persicifolia,Unidentified,to_check_Jared,,Like J75,NA,Jar 9,NA,3,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
+Jena,Campanula persicifolia,Unidentified,not_found,,J75,NA,Jar 9,NA,1,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
+Jena,Campanula persicifolia,Unidentified,not_found,,Like J75,NA,Jar 9,NA,1,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
+Jena,Campanula persicifolia,Unidentified,not_found,,Like J75,NA,Jar 9,NA,3,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
 Jena,Campanula persicifolia,Apis mellifera,checked,NA,NA,Female,NA,NA,1,63,No,NA,NA,12:30,12:33,3,2023,6,12,Sunny,JB Lanuza,10,Random_census
 Halle,Helianthemum nummularium,Bombus terrestris,checked,NA,NA,NA,buzz pollination,https://www.inaturalist.org/observations/167753695,40,250,No,NA,500,8:00,8:15,15,2023,6,13,Sunny,HF Morgenroth,NA,Focal
 Halle,Helianthemum nummularium,Bombus terrestris,checked,NA,NA,NA,buzz pollination,NA,150,250,No,NA,500,8:00,8:15,15,2023,6,13,Sunny,HF Morgenroth,NA,Focal
@@ -2664,7 +2662,7 @@ Leipzig,Centranthus ruber,Syrphidae sp,checked,NA,NA,NA,NA,NA,1,750,No,NA,0,14:3
 Leipzig,Veronica austriaca,Anthophora aestivalis,checked,M Hoffmann,L100,Female,Large bee; Jar 1,NA,4,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
 Leipzig,Veronica austriaca,Lasioglossum laticeps,checked,M Hoffmann,L101,Female,Little bee; Jar 2,NA,5,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
 Leipzig,Veronica austriaca,Lasioglossum laticeps,checked,NA,Like L101,NA,Little bee; Jar 2,NA,2,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
-Leipzig,Veronica austriaca,Volucella sp,checked,NA,NA,NA,NA,NA,1,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
+Leipzig,Veronica austriaca,Volucella zonaria,checked,NA,NA,NA,NA,NA,1,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
 Leipzig,Veronica austriaca,Oedemera sp,checked,NA,L102,NA,Jar 3,NA,1,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
 Leipzig,Veronica austriaca,Lasioglossum laticeps,checked,NA,Like L101,NA,Little bee,NA,2,860,No,NA,NA,11:00,11:03,3,2023,6,14,Sunny,JB Lanuza,1,Random_census
 Leipzig,Potentilla kurdica,Apis mellifera,checked,NA,NA,Female,NA,NA,14,80,No,NA,NA,11:25,11:28,3,2023,6,14,Sunny,JB Lanuza,2,Random_census
@@ -2682,14 +2680,14 @@ Leipzig,Trifolium sp,Osmia aurulenta,checked,M Hoffmann,Like L105,NA,Jar 6,NA,2,
 Leipzig,Trifolium sp,Holopyga ignicollis,checked,M Hoffmann,L106,NA,Chrysid wasp; Jar 7,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
 Leipzig,Trifolium sp,Holopyga ignicollis,checked,NA,NA,NA,NA,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
 Leipzig,Trifolium sp,Megachile rotundata,checked,M Hoffmann,L107,Female,Medium size and raises the abdomen when on flowers; Jar 8A,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
-Leipzig,Trifolium sp,Apoidea sp,checked,Not found,L108,NA,Jar 8B,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
+Leipzig,Trifolium sp,Hymenoptera sp,checked,Not found,L108,NA,Jar 8B,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
 Leipzig,Trifolium sp,Pseudovadonia livida,checked,NA,NA,NA,NA,NA,1,6360,No,NA,NA,11:40,11:43,3,2023,6,14,Sunny,JB Lanuza,3,Random_census
 Leipzig,Potentilla glabra,Formicidae sp,checked,NA,NA,NA,NA,NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Potentilla glabra,Formicidae sp,checked,NA,NA,NA,NA,NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Potentilla glabra,Pseudovadonia livida,checked,NA,NA,NA,NA,NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Potentilla glabra,Andrena minutula,checked,NA,L110,NA,Little bee; Jar 10,NA,2,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Potentilla glabra,Andrena minutula,checked,NA,Like L110,NA,Little bee; Jar 10,NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
-Leipzig,Potentilla glabra,Tephritidae sp,to_check_Jared,,L109,NA,"""Cool fly""; Jar 9",NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
+Leipzig,Potentilla glabra,Tephritidae sp,checked,NA,L109,NA,"""Cool fly""; Jar 9",NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Potentilla glabra,Sphaerophoria scripta,checked,NA,NA,NA,NA,NA,1,75,No,NA,NA,11:50,11:53,3,2023,6,14,Sunny,JB Lanuza,4,Random_census
 Leipzig,Euphorbia seguieriana,Tachina nupta,checked,J Cobain,L111,Female,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Holopyga ignicollis,checked,NA,Like L106,NA,Jar 7,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
@@ -2702,12 +2700,12 @@ Leipzig,Euphorbia seguieriana,Polyommatus icarus,checked,NA,NA,NA,NA,NA,2,3400,N
 Leipzig,Euphorbia seguieriana,Sphecodes pellucidus,checked,M Hoffmann,L115,NA,Large bee red abdome; Jar 15,NA,2,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Lucilia sericata,checked,NA,NA,NA,Green bottle fly,NA,2,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Lucilia sericata,checked,NA,NA,NA,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
-Leipzig,Euphorbia seguieriana,Volucella sp,checked,NA,NA,NA,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
+Leipzig,Euphorbia seguieriana,Volucella zonaria,checked,NA,NA,NA,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Hemiptera sp,checked,NA,L117,NA,Jar 17,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Holopyga ignicollis,checked,NA,Like L106,NA,Jar 7,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Holopyga ignicollis,checked,NA,Like L106,NA,Jar 7,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Sphecodes puncticeps,checked,NA,L116,NA,Red abdomen bee; Jar 16,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
-Leipzig,Euphorbia seguieriana,Apoidea sp,checked,NA,L118,NA,Little beee; Jar 18,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
+Leipzig,Euphorbia seguieriana,Hymenoptera sp,checked,NA,L118,NA,Little beee; Jar 18,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Mordellidae sp,checked,NA,L119,NA,Beetle; Jar 19,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Holopyga ignicollis,checked,NA,Like L106,NA,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
 Leipzig,Euphorbia seguieriana,Holopyga ignicollis,checked,NA,Like L106,NA,NA,NA,1,3400,No,NA,NA,12:00,12:03,3,2023,6,14,Sunny,JB Lanuza,5,Random_census
@@ -2787,7 +2785,7 @@ Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,3,350
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,5,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,4,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,1,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
-Jena,Leucanthemum vulgare,Diptera sp,to_check_Jared,,J89,NA,Jar 6,NA,4,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
+Jena,Leucanthemum vulgare,Hymenoptera sp,to_check,,J89,NA,Jar 6,NA,4,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,3,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,3,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
 Jena,Leucanthemum vulgare,Hylaeus nigritus,checked,NA,Like J92,NA,Jar 9,NA,2,350,Yes,140,70,12:55,13:10,15,2023,6,19,Cloudy,JB Lanuza,NA,Focal
@@ -2858,14 +2856,14 @@ Jena,Borago officinalis,Apis mellifera,checked,NA,NA,Female,NA,NA,15,175,No,NA,N
 Jena,Borago officinalis,Apis mellifera,checked,NA,NA,Female,NA,NA,20,175,No,NA,NA,13:15,13:18,3,2023,6,19,Cloudy,JB Lanuza,10,Random_census
 Jena,Borago officinalis,Bombus terrestris,checked,NA,NA,NA,NA,NA,10,175,No,NA,NA,13:15,13:18,3,2023,6,19,Cloudy,JB Lanuza,10,Random_census
 Jena,Euphorbia nicaeensis,Lucilia sericata,checked,J Cobain,J97,Male,green bottle fly; Jar 14,NA,3,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
-Jena,Euphorbia nicaeensis,Unidentified,to_check_Jared,,J98,NA,Jar 15,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
-Jena,Euphorbia nicaeensis,Sarcophaga sp,to_check_Jared,,J99,NA,Jar 16,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
-Jena,Euphorbia nicaeensis,Unidentified,to_check_Jared,,J100,NA,Jar 17,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
+Jena,Euphorbia nicaeensis,Hymenoptera sp,to_check,,J98,NA,Jar 15,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
+Jena,Euphorbia nicaeensis,Sarcophaga haemorrhoa,checked,J Cobain,J99,Male,Jar 16,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
+Jena,Euphorbia nicaeensis,Hymenoptera sp,to_check,,J100,NA,Jar 17,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
 Jena,Euphorbia nicaeensis,Cerceris rybyensis,checked,NA,J101,Male,Jar 18,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
 Jena,Euphorbia nicaeensis,Gymnosoma nudifrons,checked,J Cobain,J102,NA,Jar 19,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
 Jena,Euphorbia nicaeensis,Lucilia sericata,checked,NA,Like J97,NA,Jar 14,NA,2,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
 Jena,Euphorbia nicaeensis,Gymnosoma nudifrons,checked,NA,Like J102,NA,Jar 18,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
-Jena,Euphorbia nicaeensis,Apoidea sp,checked,NA,,NA,Jar 19,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
+Jena,Euphorbia nicaeensis,Hymenoptera sp,checked,NA,NA,NA,Jar 19,NA,1,1440,No,NA,NA,15:40,15:43,3,2023,6,19,Cloudy,JB Lanuza,11,Random_census
 Leipzig,Centranthus ruber,Episyrphus balteatus,checked,NA,L136,Male,red abdomen syrphid; Jar 1,NA,2,750,No,NA,0,9:45,10:00,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Centranthus ruber,Episyrphus balteatus,checked,NA,Like L136,NA,species like L136,NA,2,750,No,NA,0,9:45,10:00,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Centranthus ruber,Episyrphus balteatus,checked,NA,Like L136,NA,species like L136,NA,2,750,No,NA,0,9:45,10:00,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
@@ -3016,7 +3014,7 @@ Leipzig,Euphorbia seguieriana,Lasioglossum laticeps,checked,NA,Like L150,NA,Litt
 Leipzig,Euphorbia seguieriana,Lasioglossum laticeps,checked,NA,Like L150,NA,Little bee; Jar 8,NA,5,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
 Leipzig,Euphorbia seguieriana,Lasioglossum laticeps,checked,NA,Like L150,NA,Little bee; Jar 8,NA,5,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
 Leipzig,Euphorbia seguieriana,Sphex funerarius,checked,M Hoffmann,L155,Male,Large wasp red abdomen; Jar 13,NA,1,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
-Leipzig,Euphorbia seguieriana,Diptera sp,to_check_Jared,,L156,NA,Fly; Jar 14A,NA,1,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
+Leipzig,Euphorbia seguieriana,Angioneura sp,checked,J Cobain,L156,Male,Fly; Jar 14A,NA,1,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
 Leipzig,Euphorbia seguieriana,Cerceris rybyensis,checked,M Hoffmann,L157,Male,Jar 14B,NA,1,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
 Leipzig,Euphorbia seguieriana,Nomada flavoguttata,checked,M Hoffmann,L158,Male,Red abdomen; Jar 15,NA,5,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
 Leipzig,Euphorbia seguieriana,Nomada flavoguttata,checked,NA,Like L158,NA,Red abdomen; Jar 15,NA,5,5460,No,NA,NA,13:00,13:03,3,2023,6,21,Sunny,JB Lanuza,7,Random_census
@@ -3112,8 +3110,8 @@ Halle,Hypericum olympicum,Apis mellifera,checked,NA,NA,Female,NA,NA,50,300,No,NA
 Halle,Hypericum olympicum,Apis mellifera,checked,NA,NA,Female,NA,NA,100,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Apis mellifera,checked,NA,NA,Female,NA,NA,120,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Bombus terrestris,checked,M Hoffmann,H62,Intersex,jar 6,https://www.inaturalist.org/observations/168815538,10,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
-Halle,Hypericum olympicum,Bombus terrestris agg.,checked,NA,NA,NA,B. cryptarum?,https://www.inaturalist.org/observations/168815555,20,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
-Halle,Hypericum olympicum,Bombus terrestris agg.,checked,NA,NA,NA,B. cryptarum?,https://www.inaturalist.org/observations/168815532,25,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
+Halle,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,B. cryptarum?,https://www.inaturalist.org/observations/168815555,20,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
+Halle,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,B. cryptarum?,https://www.inaturalist.org/observations/168815532,25,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Sphaerophoria scripta,checked,NA,NA,Male,Sphaerophoria,https://www.inaturalist.org/observations/168815518,3,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Episyrphus balteatus,checked,NA,NA,Female,NA,https://www.inaturalist.org/observations/168815516,3,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Lasioglossum pauxillum,checked,M Hoffmann,Like H59,NA,like jar 3 on Hel num; Lasioglossum?,https://www.inaturalist.org/observations/168815550,5,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
@@ -3173,7 +3171,7 @@ Halle,Centranthus ruber,Lasioglossum sp,checked,NA,NA,NA,NA,https://www.inatural
 Halle,Centranthus ruber,Lasioglossum sp,checked,NA,NA,NA,NA,NA,5,2250,No,NA,80,14:05,14:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Centranthus ruber,Lasioglossum sp,checked,NA,NA,NA,NA,NA,10,2250,No,NA,80,14:05,14:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Centranthus ruber,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,2,2250,No,NA,80,14:05,14:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Centranthus ruber,Apoidea sp,checked,NA,NA,NA,bee,https://www.inaturalist.org/observations/168827804,5,2250,No,NA,80,14:05,14:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Centranthus ruber,Hymenoptera sp,checked,NA,NA,NA,bee,https://www.inaturalist.org/observations/168827804,5,2250,No,NA,80,14:05,14:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lotus corniculatus,Megachile pilidens,checked,M Hoffmann,NA,NA,M argentata/leachella?,https://www.inaturalist.org/observations/168827809,20,100,No,NA,600,14:20,14:35,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lotus corniculatus,Megachile pilidens,checked,M Hoffmann,H73,Female,brown big unlabled jar,NA,10,100,No,NA,600,14:20,14:35,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lotus corniculatus,Megachile pilidens,checked,NA,Like H73,NA,brown big unlabled jar,NA,5,100,No,NA,600,14:20,14:35,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
@@ -3246,7 +3244,7 @@ Halle,Knautia dipsacifolia,Apis mellifera,checked,NA,NA,Female,NA,https://www.in
 Halle,Knautia dipsacifolia,Lasioglossum sp,checked,NA,NA,NA,NA,NA,1,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
 Halle,Knautia dipsacifolia,Maniola jurtina,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/168827194,3,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
 Halle,Knautia dipsacifolia,Maniola jurtina,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/168827237,2,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
-Halle,Knautia dipsacifolia,Unidentified,to_check_Jared,,H72,NA,jar 48,NA,2,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
+Halle,Knautia dipsacifolia,Hymenoptera sp,to_check,,H72,NA,jar 48,NA,2,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
 Halle,Knautia dipsacifolia,Episyrphus balteatus,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/168827222,1,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
 Halle,Knautia dipsacifolia,Oxythyrea funesta,checked,NA,NA,NA,NA,NA,2,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
 Halle,Knautia dipsacifolia,Oxythyrea funesta,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/168827274,1,300,No,NA,NA,13:25,13:28,3,2023,6,21,Sunny,HF Morgenroth,10,Random_census
@@ -3314,7 +3312,7 @@ Halle,Achillea millefolium,Anthrenus sp,checked,NA,Like H82,NA,Anthrenus (smalle
 Halle,Achillea millefolium,Anthrenus sp,checked,NA,Like H82,NA,Anthrenus (smaller beetle in jar 7),NA,5,2000,Yes,5,50,11:00,11:15,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Anthrenus sp,checked,NA,Like H82,NA,Anthrenus (smaller beetle in jar 7),NA,2,2000,Yes,5,50,11:00,11:15,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Anthrenus sp,checked,NA,Like H82,NA,Anthrenus (smaller beetle in jar 7),NA,3,2000,Yes,5,50,11:00,11:15,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Diptera sp,to_check_Jared,NA,NA,NA,NA,https://www.inaturalist.org/observations/170075677,2,2000,Yes,5,50,11:00,11:15,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Diptera sp,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/170075677,2,2000,Yes,5,50,11:00,11:15,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Aconitum lycoctonum,Apis mellifera,checked,NA,NA,Female,NA,NA,1,40,No,NA,0,12:35,12:50,15,2023,6,27,Sunny,HF Morgenroth,NA,Focal
 Halle,Solanum dulcamara,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,7,No,NA,50,12:50,13:05,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lotus corniculatus,Bombus pascuorum,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/170114843,50,175,No,NA,2000,13:05,13:20,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
@@ -3695,7 +3693,7 @@ Leipzig,Salvia sclarea,Apis mellifera,checked,NA,NA,Female,NA,NA,3,660,No,NA,NA,
 Leipzig,Salvia sclarea,Apis mellifera,checked,NA,NA,Female,NA,NA,2,660,No,NA,NA,12:15,12:18,3,2023,6,28,Partly_cloudy,JB Lanuza,5,Random_census
 Leipzig,Achillea filipendulina,Lucilia sericata,checked,NA,NA,NA,Green bottle fly,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
 Leipzig,Achillea filipendulina,Coccinella septempunctata,checked,NA,NA,NA,NA,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
-Leipzig,Achillea filipendulina,Miltogramma sp,to_check_Jared,,L176,NA,Jar 12,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
+Leipzig,Achillea filipendulina,Miltogramma punctata,checked,J Cobain,L176,Female,Jar 12,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
 Leipzig,Achillea filipendulina,Colletes daviesanus,checked,M Hoffmann,L177,Female,Jar 13_Bee with white stripes on the abdomen,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
 Leipzig,Achillea filipendulina,Hylaeus nigritus,checked,NA,L178,Female,Jar 14_Little black bee,NA,2,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
 Leipzig,Achillea filipendulina,Hylaeus nigritus,checked,NA,Like L178,NA,Jar 14_Little black bee,NA,1,70,Yes,1000,NA,12:50,12:53,3,2023,6,28,Partly_cloudy,JB Lanuza,6,Random_census
@@ -3715,7 +3713,7 @@ Leipzig,Ferulago aucheri,Lygaeus equestris,checked,NA,NA,NA,NA,NA,1,12000,No,NA,
 Leipzig,Ferulago aucheri,Pseudovadonia livida,checked,NA,NA,NA,NA,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
 Leipzig,Ferulago aucheri,Villa modesta,checked,J Cobain,L180,Female,Jar 16,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
 Leipzig,Ferulago aucheri,Tiphia femorata,checked,M Hoffmann,L181,Female,Jar 17,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
-Leipzig,Ferulago aucheri,Sarcophaga sp,to_check_Jared,,L184,NA,Jar 20,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
+Leipzig,Ferulago aucheri,Sarcophaga sp,checked,J Cobain,L184,Male,Jar 20,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
 Leipzig,Ferulago aucheri,Nomada flavoguttata,checked,NA,Like L185,NA,Jar 21-Wasp,NA,1,12000,No,NA,NA,13:10,13:13,3,2023,6,28,Partly_cloudy,JB Lanuza,7,Random_census
 Leipzig,Stachys byzantina,Xylocopa violacea,checked,NA,NA,NA,NA,NA,33,850,No,NA,NA,13:30,13:33,3,2023,6,28,Partly_cloudy,JB Lanuza,8,Random_census
 Leipzig,Stachys byzantina,Megachile ericetorum,checked,M Hoffmann,L183,Male,Jar 19,NA,26,850,No,NA,NA,13:30,13:33,3,2023,6,28,Partly_cloudy,JB Lanuza,8,Random_census
@@ -3921,9 +3919,9 @@ Leipzig,Centranthus ruber,Lasioglossum morio,checked,NA,NA,NA,little black bee- 
 Leipzig,Hypericum olympicum,Eupeodes corollae,checked,NA,NA,NA,yellow syrphid- captured and photographed before,https://www.inaturalist.org/observations/168629145,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus hortorum,checked,NA,NA,NA,NA,NA,20,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Xylocopa violacea,checked,NA,NA,NA,NA,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Hypericum olympicum,Metopia sp,to_check_Jared,,L187,NA,Jar 1,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Hypericum olympicum,Metopia sp,to_check_Jared,,Like L187,NA,species like in jar 1,NA,3,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Hypericum olympicum,Metopia sp,to_check_Jared,,Like L187,NA,species like in jar 1,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Hypericum olympicum,Metopia sp,checked,J Cobain,L187,Female,Jar 1,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Hypericum olympicum,Metopia sp,checked,NA,Like L187,NA,species like in jar 1,NA,3,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Hypericum olympicum,Metopia sp,checked,NA,Like L187,NA,species like in jar 1,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Apis mellifera,checked,NA,NA,Female,NA,NA,2,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
@@ -3997,7 +3995,7 @@ Leipzig,Centaurea scabiosa,Halictus sp,checked,NA,NA,NA,large halictid,NA,5,46,Y
 Leipzig,Centaurea scabiosa,Bombus lapidarius,checked,NA,NA,NA,orange abdomen,NA,2,46,Yes,100,NA,10:30,10:33,3,2023,7,4,Sunny,J Botti-Anderson,6,Random_census
 Leipzig,Centaurea scabiosa,Sphaerophoria scripta,checked,F Wolf,L192,Male,Jar 6_large orange abdomen syrphid,NA,1,46,Yes,100,NA,10:30,10:33,3,2023,7,4,Sunny,J Botti-Anderson,6,Random_census
 Leipzig,Centaurea scabiosa,Megachilidae sp,checked,NA,NA,NA,"very large, wide megachilidae",NA,2,46,Yes,100,NA,10:30,10:33,3,2023,7,4,Sunny,J Botti-Anderson,6,Random_census
-Leipzig,Achillea filipendulina,Metopia sp,to_check_Jared,,Like L187,NA,Jar 1_small fly,NA,1,8,Yes,1000,NA,10:50,10:53,3,2023,7,4,Sunny,J Botti-Anderson,7,Random_census
+Leipzig,Achillea filipendulina,Metopia sp,checked,NA,Like L187,NA,Jar 1_small fly,NA,1,8,Yes,1000,NA,10:50,10:53,3,2023,7,4,Sunny,J Botti-Anderson,7,Random_census
 Leipzig,Achillea filipendulina,Halictus sp,checked,NA,NA,NA,small halictus,NA,2,8,Yes,1000,NA,10:50,10:53,3,2023,7,4,Sunny,J Botti-Anderson,7,Random_census
 Leipzig,Achillea filipendulina,Hylaeus sp,checked,NA,NA,NA,NA,NA,11,8,Yes,1000,NA,10:50,10:53,3,2023,7,4,Sunny,J Botti-Anderson,7,Random_census
 Leipzig,Achillea filipendulina,Lucilia sericata,checked,NA,NA,NA,green calliphoridae,NA,8,8,Yes,1000,NA,10:50,10:53,3,2023,7,4,Sunny,J Botti-Anderson,7,Random_census
@@ -4214,8 +4212,8 @@ Halle,Clematis integrifolia,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,120,No,NA
 Halle,Clematis integrifolia,Bombus terrestris,checked,NA,NA,NA,NA,foto,5,120,No,NA,700,12:10,12:25,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis integrifolia,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,120,No,NA,700,12:10,12:25,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis integrifolia,Lasioglossum nitidulum,checked,NA,Like H110,NA,"jar 11, small metallic green bee",NA,2,120,No,NA,700,12:10,12:25,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
-Halle,Clematis recta,Apoidea sp,checked,NA,NA,NA,tiny black bee like on HYPE,NA,1,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
-Halle,Clematis recta,Apoidea sp,checked,NA,NA,NA,tiny black bee like on HYPE,NA,1,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
+Halle,Clematis recta,Lasioglossum politum,checked,NA,NA,NA,tiny black bee like on HYPE,NA,1,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
+Halle,Clematis recta,Lasioglossum politum,checked,NA,NA,NA,tiny black bee like on HYPE,NA,1,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,2,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Lucilia sericata,checked,NA,NA,NA,Lucilia sericata like,NA,1,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Lucilia sericata,checked,NA,NA,NA,Lucilia sericata like,foto,3,700,No,NA,220,12:30,12:45,15,2023,7,4,Sunny,HF Morgenroth,NA,Focal
@@ -4342,7 +4340,7 @@ Halle,Eryngium planum,Maniola jurtina,checked,NA,NA,NA,NA,NA,1,250,Yes,50,NA,14:
 Halle,Eryngium planum,Maniola jurtina,checked,NA,NA,NA,NA,NA,3,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Eryngium planum,Apis mellifera,checked,NA,NA,Female,NA,NA,1,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Eryngium planum,Oedemera podagrariae,checked,NA,NA,NA,NA,NA,1,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
-Halle,Eryngium planum,Unidentified,to_check_Jared,,H116,NA,jar 17,NA,1,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
+Halle,Eryngium planum,Hymenoptera sp,to_check,,H116,NA,jar 17,NA,1,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Eryngium planum,Hylaeus gredleri,checked,M Hoffmann,H115,Female,"jar 16, small bee",NA,3,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Eryngium planum,Sphecodes pellucidus,checked,M Hoffmann,H117,Female,"jar 18, Nomada?",NA,1,250,Yes,50,NA,14:52,14:55,3,2023,7,4,Sunny,HF Morgenroth,3,Random_census
 Halle,Eschscholzia californica,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,40,No,NA,NA,15:25,15:28,3,2023,7,4,Sunny,HF Morgenroth,4,Random_census
@@ -4357,7 +4355,7 @@ Halle,Eschscholzia californica,Valgus hemipterus,checked,NA,NA,NA,NA,NA,1,40,No,
 Halle,Phedimus kamtschaticus,Maniola jurtina,checked,NA,NA,NA,NA,NA,5,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
 Halle,Phedimus kamtschaticus,Maniola jurtina,checked,NA,NA,NA,NA,NA,40,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
 Halle,Phedimus kamtschaticus,Bombus lapidarius,checked,NA,NA,NA,NA,NA,50,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
-Halle,Phedimus kamtschaticus,Diptera sp,to_check_Jared,,H122,NA,"jar 23, fly",,2,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
+Halle,Phedimus kamtschaticus,Sicus ferrugineus,checked,J Cobain,H122,Male,"jar 23, fly",,2,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
 Halle,Phedimus kamtschaticus,Bombus lapidarius,checked,NA,NA,NA,,,2,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
 Halle,Phedimus kamtschaticus,Apis mellifera,checked,NA,NA,Female,NA,,5,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
 Halle,Phedimus kamtschaticus,Coelioxys afra,checked,M Hoffmann,H125,Male,jar 26,https://www.inaturalist.org/observations/171410815,20,800,No,NA,NA,17:10,17:13,3,2023,7,4,Sunny,HF Morgenroth,5,Random_census
@@ -4809,7 +4807,7 @@ Jena,Hypericum perforatum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,10,60,No,N
 Jena,Hypericum perforatum,Apis mellifera,checked,NA,NA,Female,NA,NA,11,60,No,NA,500,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Anthidium manicatum,checked,NA,NA,NA,NA,NA,5,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Lucilia sericata,checked,NA,NA,NA,Green bottle fly,NA,1,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
-Jena,Betonica officinalis,Apoidea sp,checked,NA,NA,NA,Little black bee,NA,3,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
+Jena,Betonica officinalis,Hymenoptera sp,checked,NA,NA,NA,Little black bee,NA,3,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Anthidium manicatum,checked,NA,NA,NA,NA,NA,7,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Bombus terrestris,checked,NA,NA,NA,NA,NA,14,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Anthidium manicatum,checked,NA,NA,NA,NA,NA,5,750,No,NA,350,14:10,14:25,15,2023,7,11,Sunny,JB Lanuza,NA,Focal
@@ -5039,7 +5037,7 @@ Halle,Centranthus ruber,Lucilia sericata,checked,NA,NA,NA,NA,NA,1,550,No,NA,50,1
 Halle,Centranthus ruber,Oedemera lurida,checked,NA,NA,NA,NA,NA,1,550,No,NA,50,16:15,16:30,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Ancistrocerus gazella,checked,M Hoffmann,H173,Male,NA; Jar 30,NA,2,550,No,NA,50,16:15,16:30,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,NA,NA,60,75,No,NA,0,18:00,18:15,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Vincetoxicum hirundinaria,Diptera sp,to_check_Jared,,H183,NA,NA; Jar 40,NA,36,75,No,NA,0,18:00,18:15,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Vincetoxicum hirundinaria,Litophasia hyalipennis,checked,J Cobain,H183,Female,NA; Jar 40,NA,36,75,No,NA,0,18:00,18:15,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Bombus terrestris,checked,NA,NA,NA,NA,NA,90,300,No,NA,0,18:15,18:30,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Bombus lapidarius,checked,NA,NA,Male,NA,NA,90,300,No,NA,0,18:15,18:30,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,5,300,No,NA,0,18:15,18:30,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
@@ -5058,7 +5056,7 @@ Halle,Liatris pycnostachya,Bombus rupestris,checked,NA,NA,NA,NA,NA,63,100,No,NA,
 Halle,Liatris pycnostachya,Bombus terrestris,checked,NA,NA,NA,NA,NA,15,100,No,NA,NA,16:40,16:43,3,2023,7,13,Partly_cloudy,JB Lanuza,2,Random_census
 Halle,Liatris pycnostachya,Bombus lapidarius,checked,NA,NA,Male,NA,NA,6,100,No,NA,NA,16:40,16:43,3,2023,7,13,Partly_cloudy,JB Lanuza,2,Random_census
 Halle,Liatris pycnostachya,Maniola jurtina,checked,NA,NA,NA,NA,NA,2,100,No,NA,NA,16:40,16:43,3,2023,7,13,Partly_cloudy,JB Lanuza,2,Random_census
-Halle,Liatris pycnostachya,Unidentified,to_check_Jared,,H204,NA,Jar 30B,NA,5,100,No,NA,NA,16:40,16:43,3,2023,7,13,Partly_cloudy,JB Lanuza,2,Random_census
+Halle,Liatris pycnostachya,Syritta pipiens,checked,J Cobain,H204,Male,Jar 30B,NA,5,100,No,NA,NA,16:40,16:43,3,2023,7,13,Partly_cloudy,JB Lanuza,2,Random_census
 Halle,Marrubium peregrinum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,5000,No,NA,NA,16:45,16:48,3,2023,7,13,Partly_cloudy,JB Lanuza,3,Random_census
 Halle,Marrubium peregrinum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,5000,No,NA,NA,16:45,16:48,3,2023,7,13,Partly_cloudy,JB Lanuza,3,Random_census
 Halle,Marrubium peregrinum,Bombus lapidarius,checked,NA,H175,Male,NA; Jar 32,NA,1,5000,No,NA,NA,16:45,16:48,3,2023,7,13,Partly_cloudy,JB Lanuza,3,Random_census
@@ -5091,8 +5089,8 @@ Halle,Malva thuringiaca,Hylaeus nigritus,checked,NA,Like H146,NA,Little bee whit
 Halle,Malva thuringiaca,Hylaeus nigritus,checked,NA,Like H146,NA,Little bee white face; Jar 3,NA,2,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
 Halle,Malva thuringiaca,Hylaeus nigritus,checked,NA,Like H146,NA,Little bee white face; Jar 3,NA,3,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
 Halle,Malva thuringiaca,Lucilia sericata,checked,NA,NA,NA,Green bottle fly,NA,1,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
-Halle,Malva thuringiaca,Anthomyiidae sp,to_check_Jared,,H180,NA,NA; Jar 37,NA,1,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
-Halle,Malva thuringiaca,Anthomyiidae sp,to_check_Jared,,Like H180,NA,NA; Jar 37,NA,1,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
+Halle,Malva thuringiaca,Anthomyia procellaris,checked,J Cobain,H180,Male,NA; Jar 37,NA,1,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
+Halle,Malva thuringiaca,Anthomyia procellaris,checked,NA,Like H180,NA,NA; Jar 37,NA,1,60,No,NA,NA,17:42,17:45,3,2023,7,13,Partly_cloudy,JB Lanuza,5,Random_census
 Halle,Daucus carota,Mordellidae sp,checked,,NA,NA,Coleoptera long ovopositor,https://www.inaturalist.org/observations/173460206,3,19,Yes,42,NA,17:50,17:53,3,2023,7,13,Partly_cloudy,JB Lanuza,6,Random_census
 Halle,Daucus carota,Mordellidae sp,checked,,NA,NA,Coleoptera long ovopositor,https://www.inaturalist.org/observations/173460206,3,19,Yes,42,NA,17:50,17:53,3,2023,7,13,Partly_cloudy,JB Lanuza,6,Random_census
 Halle,Daucus carota,Mordellidae sp,checked,,NA,NA,Coleoptera long ovopositor,https://www.inaturalist.org/observations/173460206,3,19,Yes,42,NA,17:50,17:53,3,2023,7,13,Partly_cloudy,JB Lanuza,6,Random_census
@@ -5111,7 +5109,7 @@ Leipzig,Tanacetum vulgare,Hylaeus punctatus,checked,NA,Like L203,NA,Jar 8_Little
 Leipzig,Tanacetum vulgare,Hylaeus punctatus,checked,NA,Like L203,NA,Jar 8_Little black bee,NA,51,6000,Yes,170,830,9:45,10:00,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Tanacetum vulgare,Hylaeus punctatus,checked,NA,Like L203,NA,Jar 8_Little black bee,NA,51,6000,Yes,170,830,9:45,10:00,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Tanacetum vulgare,Pieris napi,checked,NA,NA,NA,NA,NA,1,6000,Yes,170,830,9:45,10:00,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Centranthus ruber,Syrphidae sp,to_check_Jared,,NA,NA,yellow-black syrphid- captured before,NA,2,250,No,NA,0,10:05,10:20,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Centranthus ruber,Syrphidae sp,checked,NA,NA,NA,yellow-black syrphid- captured before,NA,2,250,No,NA,0,10:05,10:20,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Anthericum ramosum,Lasioglossum sp,checked,NA,NA,NA,black bee with long abdomen,NA,16,320,No,NA,10,10:20,10:35,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Anthericum ramosum,Lasioglossum sp,checked,NA,NA,NA,black bee with long abdomen,NA,16,320,No,NA,10,10:20,10:35,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Anthericum ramosum,Lasioglossum sp,checked,NA,NA,NA,black bee with long abdomen,NA,16,320,No,NA,10,10:20,10:35,15,2023,7,18,Sunny,R Umazekabiri,NA,Focal
@@ -5485,8 +5483,8 @@ Halle,Tanacetum vulgare,Hylaeus nigritus,checked,NA,Like H137,NA,"small masked d
 Halle,Tanacetum vulgare,Hylaeus nigritus,checked,NA,Like H137,NA,"small masked dark bee, jar 12H",,120,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Tanacetum vulgare,Hylaeus nigritus,checked,NA,Like H137,NA,"small masked dark bee, jar 12H",,120,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Tanacetum vulgare,Cerceris sp,checked,NA,NA,NA,"Cerceris like seen before, same as on Achillea millefolia",,1,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Tanacetum vulgare,Miltogramma sp,to_check_Jared,,H138,Female,"jar 13H, small grey fly",https://www.inaturalist.org/observations/175751814,3,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Tanacetum vulgare,Miltogramma sp,to_check_Jared,NA,Like H138,NA,"jar 13H, small grey fly",,5,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Tanacetum vulgare,Miltogramma punctata,checked,J Cobain,H138,Female,"jar 13H, small grey fly",https://www.inaturalist.org/observations/175751814,3,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Tanacetum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,5,4200,Yes,200,15000,13:45,14:00,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Dinetus pictus,checked,NA,H140,NA,"jar 15H, black white bee with half red abdomen",https://www.inaturalist.org/observations/175778240,100,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Dinetus pictus,checked,NA,Like H140,NA,"jar 15H, black white bee with half red abdomen",,50,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Dinetus pictus,checked,NA,Like H140,NA,"jar 15H, black white bee with half red abdomen",,150,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
@@ -5499,22 +5497,22 @@ Halle,Achillea millefolium,Sapygina decemguttata,checked,NA,Like H139,NA,"jar 14
 Halle,Achillea millefolium,Lucilia sericata,checked,J Cobain,H187,Male,"jar 18, reddish ""Lucilia""",https://www.inaturalist.org/observations/175778242,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Lucilia sericata,checked,NA,Like H187,NA,"jar 18, reddish ""Lucilia""",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Lucilia sericata,checked,NA,Like H187,NA,"jar 18, reddish ""Lucilia""",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Miltogramma sp,to_check_Jared,,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Miltogramma sp,to_check_Jared,,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Miltogramma sp,to_check_Jared,,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Miltogramma sp,to_check_Jared,,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Miltogramma sp,to_check_Jared,,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, small grey fly",,60,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Cerceris rybyensis,checked,M Hoffmann,NA,NA,Cerceris,https://www.inaturalist.org/observations/175778245,5,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Colletes daviesanus,checked,M Hoffmann,Like H136,NA,"jar 11H, little yellow bee",,300,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Colletes daviesanus,checked,NA,Like H136,NA,"jar 11H, little yellow bee",,350,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Colletes daviesanus,checked,NA,Like H136,NA,"jar 11H, little yellow bee",,350,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Colletes daviesanus,checked,NA,Like H136,NA,"jar 11H, little yellow bee",,300,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Colletes daviesanus,checked,NA,Like H136,NA,"jar 11H, little yellow bee",,300,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Sarcophagidae sp,to_check_Jared,,H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Sarcophagidae sp,to_check_Jared,,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Sarcophagidae sp,to_check_Jared,,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Sarcophagidae sp,to_check_Jared,,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Achillea millefolium,Sarcophagidae sp,to_check_Jared,,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Litophasia hyalipennis,checked,J Cobain,H141,Male,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Litophasia hyalipennis,checked,NA,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Litophasia hyalipennis,checked,NA,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Litophasia hyalipennis,checked,NA,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Achillea millefolium,Litophasia hyalipennis,checked,NA,Like H141,NA,"jar 16H, small black fly",,500,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Hylaeus nigritus,checked,NA,Like H137,NA,"jar 12H, small masked black bee",,5,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Hylaeus nigritus,checked,NA,Like H137,NA,"jar 12H, small masked black bee",,5,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Hylaeus nigritus,checked,NA,Like H137,NA,"jar 12H, small masked black bee",,5,15000,Yes,12,4200,14:00,14:15,15,2023,7,19,Partly_cloudy,HF Morgenroth,NA,Focal
@@ -5535,7 +5533,7 @@ Halle,Centranthus ruber,Pieris rapae,checked,NA,NA,NA,NA,NA,5,864,No,NA,2,10:55,
 Halle,Centranthus ruber,Vespula germanica,checked,NA,NA,NA,Wasp,NA,2,864,No,NA,2,10:55,11:10,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Halictus sp,checked,NA,NA,NA,NA,NA,12,864,No,NA,2,10:55,11:10,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Eristalis pertinax,checked,NA,NA,NA,NA,NA,1,864,No,NA,2,10:55,11:10,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Centranthus ruber,Sarcophaga sp,to_check_Jared,,H131,NA,big grey fly; Jar 6 H,NA,1,864,No,NA,2,10:55,11:10,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Centranthus ruber,Sarcophaga subvicina,checked,J Cobain,H131,Female,big grey fly; Jar 6 H,NA,1,864,No,NA,2,10:55,11:10,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Lasioglossum nitidulum,checked,M Hoffmann,H189,Female,Little black bee; Jar 2 J,NA,20,160,No,NA,50,11:20,11:35,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Lasioglossum nitidulum,checked,NA,Like H189,NA,Little black bee; Jar 2 J,NA,20,160,No,NA,50,11:20,11:35,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Platycodon grandiflorus,Lasioglossum nitidulum,checked,NA,Like H189,NA,Little black bee; Jar 2 J,NA,20,160,No,NA,50,11:20,11:35,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
@@ -5591,8 +5589,8 @@ Halle,Origanum vulgare,Lasioglossum calceatum,checked,NA,Like H201,NA,Small bee 
 Halle,Origanum vulgare,Vespula germanica,checked,NA,NA,NA,NA,NA,2,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Lasioglossum laticeps,checked,NA,Like H188,NA,Little black bee; Jar 1 J,NA,30,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Lasioglossum laticeps,checked,NA,Like H188,NA,Little black bee; Jar 1 J,NA,30,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Origanum vulgare,Diptera sp,to_check_Jared,,H202,NA,Weird fly; Jar 15 J,NA,3,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Origanum vulgare,Diptera sp,to_check_Jared,,Like H202,NA,Weird fly; Jar 15 J,NA,3,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Origanum vulgare,Thecophora longirostris,checked,J Cobain,H202,Female,Weird fly; Jar 15 J,NA,3,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Origanum vulgare,Thecophora longirostris,checked,NA,Like H202,NA,Weird fly; Jar 15 J,NA,3,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Sphaerophoria scripta,checked,,NA,NA,NA,NA,1,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Bombus lucorum,checked,NA,NA,Male,NA,NA,2,500,No,NA,0,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,Green bottle fly,NA,100,20,No,NA,5,14:00,14:15,15,2023,7,19,Partly_cloudy,JB Lanuza,NA,Focal
@@ -5642,10 +5640,10 @@ Halle,Rudbeckia laciniata,Bombus rupestris,checked,NA,NA,NA,NA,,30,120,Yes,25,NA
 Halle,Rudbeckia laciniata,Halictus subauratus,checked,NA,NA,NA,golden bee,,10,120,Yes,25,NA,9:25,9:28,3,2023,7,19,Partly_cloudy,HF Morgenroth,3,Random_census
 Halle,Seseli gummiferum,Lucilia sericata,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/175744734,20,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Tachina nupta,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/175744697,30,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Miltogramma sp,to_check_Jared,NA,Like H138,NA,"jar 13H, tiny fly",,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,"jar 6H, fat grey fly",https://www.inaturalist.org/observations/175744740,30,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Sarcophaga sp,to_check_Jared,,Like H131,NA,"jar 6H, fat grey fly",,30,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Sarcophaga sp,to_check_Jared,,Like H131,NA,"jar 6H, fat grey fly",,5,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Miltogramma punctata,checked,NA,Like H138,NA,"jar 13H, tiny fly",,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Sarcophaga subvicina,checked,NA,Like H131,NA,"jar 6H, fat grey fly",https://www.inaturalist.org/observations/175744740,30,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Sarcophaga subvicina,checked,NA,Like H131,NA,"jar 6H, fat grey fly",,30,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Sarcophaga subvicina,checked,NA,Like H131,NA,"jar 6H, fat grey fly",,5,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Oedemera podagrariae,checked,NA,H132,NA,"jar 7H, Oedemera podagrariae probably",https://www.inaturalist.org/observations/175744693,20,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Andrena sp,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/175744706,20,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Andrena sp,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/175744706,20,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
@@ -5653,9 +5651,9 @@ Halle,Seseli gummiferum,Hylaeus sp,checked,NA,NA,NA,NA,https://www.inaturalist.o
 Halle,Seseli gummiferum,Hylaeus sp,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/175744717,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Lasioglossum laticeps,checked,M Hoffmann,H133,Male,"jar 8H, long black bee, Lasioglossum",,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Seseli gummiferum,Lasioglossum laticeps,checked,NA,Like H133,NA,"jar 8H, long black bee, Lasioglossum",,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Syrphidae sp,to_check_Jared,,,NA,"black Syrphid, Cheilsosia?",https://www.inaturalist.org/observations/175744683,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Diptera sp,to_check_Jared,,,NA,very tiny fly,https://www.inaturalist.org/observations/175744749,5,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
-Halle,Seseli gummiferum,Diptera sp,to_check_Jared,,,NA,very tiny fly,NA,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Syrphidae sp,checked,NA,NA,NA,"black Syrphid, Cheilsosia?",https://www.inaturalist.org/observations/175744683,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Diptera sp,checked,NA,NA,NA,very tiny fly,https://www.inaturalist.org/observations/175744749,5,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
+Halle,Seseli gummiferum,Diptera sp,checked,NA,NA,NA,very tiny fly,NA,10,1,Yes,8400,NA,10:22,10:25,3,2023,7,19,Partly_cloudy,HF Morgenroth,4,Random_census
 Halle,Lythrum salicaria,Andrena flavipes,checked,NA,Like H128,NA,like jar 3H,NA,100,1540,No,NA,NA,10:40,10:43,3,2023,7,19,Partly_cloudy,HF Morgenroth,5,Random_census
 Halle,Lythrum salicaria,Andrena flavipes,checked,NA,Like H128,NA,like jar 3H,NA,100,1540,No,NA,NA,10:40,10:43,3,2023,7,19,Partly_cloudy,HF Morgenroth,5,Random_census
 Halle,Lythrum salicaria,Andrena flavipes,checked,NA,Like H128,NA,like jar 3H,NA,100,1540,No,NA,NA,10:40,10:43,3,2023,7,19,Partly_cloudy,HF Morgenroth,5,Random_census
@@ -5705,7 +5703,7 @@ Jena,Coronilla varia,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,120,No,NA,100,12:
 Jena,Galega officinalis,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,80,No,NA,250,13:05,13:20,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Galega officinalis,Bombus pascuorum,checked,NA,NA,NA,NA,NA,1,80,No,NA,250,13:05,13:20,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Achillea millefolium,Hylaeus communis,checked,M Hoffmann,J207,Male,J7A,NA,2,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
-Jena,Achillea millefolium,Pseudocoenosia sp,to_check_Jared,,J209,NA,Jar 8,NA,3,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Achillea millefolium,Pseudocoenosia sp,checked,J Cobain,J209,NA,Jar 8,NA,3,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Achillea millefolium,Lucilia sericata,checked,J Cobain,J203,Male,Jar 3,NA,5,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Achillea millefolium,Eurychaeta palpalis,checked,J Cobain,J210,Male,Jar 9,NA,4,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Achillea millefolium,Sphaerophoria scripta,checked,NA,NA,NA,NA,NA,4,400,No,6,1100,13:25,13:40,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
@@ -5956,7 +5954,7 @@ Halle,Satureja montana,Hylaeus sp,checked,NA,NA,NA,NA,NA,24,1000,No,NA,NA,15:00,
 Halle,Satureja montana,Hylaeus sp,checked,NA,NA,NA,NA,NA,24,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
 Halle,Satureja montana,Vespidae sp,checked,NA,NA,NA,big wasp,NA,30,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
 Halle,Satureja montana,Syritta pipiens,checked,NA,Like H205,NA,jar 1,NA,3,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
-Halle,Satureja montana,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,"large grey fly, Sarcophagidae",NA,10,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
+Halle,Satureja montana,Sarcophaga subvicina,checked,NA,Like H131,NA,"large grey fly, Sarcophagidae",NA,10,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
 Halle,Satureja montana,Diptera sp,checked,NA,NA,NA,"black ""Lucilia""",NA,10,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
 Halle,Satureja montana,Diptera sp,checked,NA,NA,NA,medium sized black fly,NA,10,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
 Halle,Satureja montana,Cerceris rybyensis,checked,NA,Like H214,NA,jar 11,NA,10,1000,No,NA,NA,15:00,15:03,3,2023,8,4,Sunny,HF Morgenroth & JB Lanuza,5,Random_census
@@ -6167,7 +6165,7 @@ Jena,Daucus carota,Hylaeus punctatus,checked,NA,Like J217,NA,Jar 5,NA,75,1800,No
 Jena,Daucus carota,Hylaeus punctatus,checked,NA,Like J217,NA,Jar 5,NA,75,1800,No,NA,NA,11:05,11:08,3,2023,8,10,Sunny,D Bottger,4,Random_census
 Jena,Daucus carota,Hylaeus punctatus,checked,NA,Like J217,NA,Jar 5,NA,75,1800,No,NA,NA,11:05,11:08,3,2023,8,10,Sunny,D Bottger,4,Random_census
 Jena,Daucus carota,Hylaeus punctatus,checked,NA,Like J217,NA,Jar 5,NA,75,1800,No,NA,NA,11:05,11:08,3,2023,8,10,Sunny,D Bottger,4,Random_census
-Jena,Daucus carota,Diptera sp,to_check_Jared,,NA,NA,NA,NA,63,1800,No,NA,NA,11:30,11:33,3,2023,8,10,Sunny,D Bottger,4,Random_census
+Jena,Daucus carota,Diptera sp,checked,NA,NA,NA,NA,NA,63,1800,No,NA,NA,11:30,11:33,3,2023,8,10,Sunny,D Bottger,4,Random_census
 Jena,Daucus carota,Lucilia sericata,checked,NA,Like J213,NA,Jar 1,NA,18,1800,No,NA,NA,11:30,11:33,3,2023,8,10,Sunny,D Bottger,4,Random_census
 Jena,Daucus carota,Anthidium manicatum,checked,NA,NA,NA,NA,NA,45,1800,No,NA,NA,11:30,11:33,3,2023,8,10,Sunny,D Bottger,4,Random_census
 Jena,Knautia arvensis,Apis mellifera,checked,NA,NA,Female,NA,NA,3,1800,No,NA,NA,11:30,11:33,3,2023,8,10,Sunny,D Bottger,5,Random_census
@@ -6242,7 +6240,7 @@ Halle,Tanacetum vulgare,Hylaeus sp,checked,Not found,Like H231,NA,"super tiny bl
 Halle,Tanacetum vulgare,Hylaeus sp,checked,Not found,Like H231,NA,"super tiny black bee, jar 4 H",NA,1,100,Yes,100,12000,12:15,12:30,15,2023,8,11,Sunny,HFM,NA,Focal
 Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,3,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Sarcophaga sp,to_check_Jared,,H244,NA,jar 11 J,NA,3,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Sarcophaga incisilobata,checked,J Cobain,H244,Male,jar 11 J,NA,3,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Fuchsia magellanica,Hylaeus sp,checked,NA,NA,NA,"little black bee ""Hylaeus type""",NA,2,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
@@ -6281,8 +6279,8 @@ Halle,Eryngium maritimum,Polistes dominula,checked,NA,H248,NA,"wasp seen last we
 Halle,Eryngium maritimum,Lucilia sericata,checked,NA,NA,NA,Lucilia sp,NA,2,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
 Halle,Eryngium maritimum,Lucilia sericata,checked,NA,NA,NA,Lucilia sp,NA,2,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
 Halle,Eryngium maritimum,Polistes dominula,checked,NA,Like H248,NA,"wasp seen last week, jar 15 J",NA,10,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
-Halle,Eryngium maritimum,Miltogramma sp,to_check_Jared,NA,H232,NA,small grey fly seen before jar 5 H,NA,5,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
-Halle,Eryngium maritimum,Miltogramma sp,to_check_Jared,NA,Like H232,NA,small grey fly seen before jar 5 H,NA,10,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
+Halle,Eryngium maritimum,Miltogramma germari,checked,J Cobain,H232,Female,small grey fly seen before jar 5 H,NA,5,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
+Halle,Eryngium maritimum,Miltogramma germari,checked,NA,Like H232,NA,small grey fly seen before jar 5 H,NA,10,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
 Halle,Eryngium maritimum,Lucilia sericata,checked,NA,NA,NA,Lucilia sp,NA,5,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
 Halle,Eryngium maritimum,Cerceris sp,checked,NA,NA,NA,Cerceris sp,NA,5,140,Yes,50,NA,13:50,13:53,3,2023,8,11,Sunny,HFM,1,Random_census
 Halle,Lythrum salicaria,Xylocopa violacea,checked,NA,NA,NA,NA,NA,2,1470,No,NA,NA,13:50,13:53,3,2023,8,11,Sunny,JB Lanuza,2,Random_census
@@ -6305,8 +6303,8 @@ Halle,Ferula assa-foetida,Lucilia sericata,checked,NA,NA,NA,NA,NA,72,7840,No,NA,
 Halle,Ferula assa-foetida,Lucilia sericata,checked,NA,NA,NA,NA,NA,72,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
 Halle,Ferula assa-foetida,Lucilia sericata,checked,NA,NA,NA,NA,NA,72,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
 Halle,Ferula assa-foetida,Coccinella septempunctata,checked,NA,NA,NA,NA,NA,10,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
-Halle,Ferula assa-foetida,Sarcophaga sp,to_check_Jared,,H244,NA,jar 11 J,NA,90,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
-Halle,Ferula assa-foetida,Sarcophaga sp,to_check_Jared,,Like H244,NA,jar 11 J,NA,90,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
+Halle,Ferula assa-foetida,Sarcophaga incisilobata,checked,NA,Like H244,NA,jar 11 J,NA,90,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
+Halle,Ferula assa-foetida,Sarcophaga incisilobata,checked,NA,Like H244,NA,jar 11 J,NA,90,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
 Halle,Ferula assa-foetida,Hylaeus communis,checked,NA,Like H238,NA,jar 5 H,NA,180,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
 Halle,Ferula assa-foetida,Hylaeus communis,checked,NA,Like H238,NA,jar 5 H,NA,180,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
 Halle,Ferula assa-foetida,Hylaeus communis,checked,NA,Like H238,NA,jar 5 H,NA,180,7840,No,NA,NA,14:15,14:18,3,2023,8,11,Sunny,HF Morgenroth & JB Lanuza,3,Random_census
@@ -6394,9 +6392,9 @@ Jena,Allium tuberosum,Lucilia sericata,checked,NA,Like J226,NA,Jar 1,NA,30,1058,
 Jena,Allium tuberosum,Lucilia sericata,checked,NA,Like J226,NA,Jar 1,NA,30,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
 Jena,Allium tuberosum,Lucilia sericata,checked,NA,Like J226,NA,Jar 1,NA,30,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
 Jena,Allium tuberosum,Lucilia sericata,checked,NA,Like J226,NA,Jar 1,NA,30,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
-Jena,Allium tuberosum,Anthomyiidae sp,to_check_Jared,NA,J227,NA,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
-Jena,Allium tuberosum,Anthomyiidae sp,to_check_Jared,NA,Like J227,NA,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
-Jena,Allium tuberosum,Anthomyiidae sp,to_check_Jared,NA,Like J227,NA,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
+Jena,Allium tuberosum,Botanophila striolata,checked,J Cobain,J227,Male,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
+Jena,Allium tuberosum,Botanophila striolata,checked,NA,Like J227,NA,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
+Jena,Allium tuberosum,Botanophila striolata,checked,NA,Like J227,NA,Jar 2,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
 Jena,Allium tuberosum,Apis mellifera,checked,NA,NA,Female,NA,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
 Jena,Allium tuberosum,Vespula germanica,checked,M Hoffmann,J229,Female,Jar 4,NA,3,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
 Jena,Allium tuberosum,Syritta pipiens,checked,F Wolf,J228,Male,Jar 3,NA,1,1058,No,NA,NA,9:50,9:53,3,2023,8,18,Sunny,JB Lanuza,1,Random_census
@@ -6474,8 +6472,8 @@ Jena,Seseli montanum,Hylaeus punctatus,checked,NA,Like J238,NA,Jar 13,NA,120,150
 Jena,Seseli montanum,Hylaeus punctatus,checked,NA,Like J238,NA,Jar 13,NA,120,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
 Jena,Seseli montanum,Ectemnius lituratus,checked,M Hoffmann,J239,Male,Jar 14,NA,3,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
 Jena,Seseli montanum,Gymnosoma clavatum,checked,NA,Like H247,NA,Like H247,NA,5,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
-Jena,Seseli montanum,Unidentified,to_check_Jared,,J240,NA,Jar 15,NA,80,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
-Jena,Seseli montanum,Unidentified,to_check_Jared,,Like J240,NA,Jar 15,NA,80,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
+Jena,Seseli montanum,Hymenoptera sp,to_check,,J240,NA,Jar 15,NA,80,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
+Jena,Seseli montanum,Hymenoptera sp,to_check,,Like J240,NA,Jar 15,NA,80,15000,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,8,Random_census
 Jena,Heuchera villosa,Apis mellifera,checked,NA,NA,Female,NA,NA,60,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,9,Random_census
 Jena,Heuchera villosa,Apis mellifera,checked,NA,NA,Female,NA,NA,60,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,9,Random_census
 Jena,Heuchera villosa,Sphaerophoria scripta,checked,NA,Like J237,NA,Jar 12,NA,2,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,9,Random_census
@@ -6484,8 +6482,8 @@ Jena,Heuchera villosa,Syritta pipiens,checked,NA,Like J241,NA,Jar 16,NA,5,1500,N
 Jena,Heuchera villosa,Polistes dominula,checked,NA,NA,NA,NA,NA,7,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,9,Random_census
 Jena,Heuchera villosa,Lasioglossum politum,checked,M Hoffmann,J242,Female,Little black bee; Jar 17,NA,3,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,9,Random_census
 Jena,Hypochaeris maculata,Apis mellifera,checked,NA,NA,Female,NA,NA,12,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
-Jena,Hypochaeris maculata,Sphaerophoria scripta,to_check_Jared,,NA,Male,NA,NA,3,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
-Jena,Hypochaeris maculata,Sphaerophoria scripta,to_check_Jared,,NA,Male,NA,NA,3,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
+Jena,Hypochaeris maculata,Sphaerophoria scripta,checked,NA,NA,NA,NA,NA,3,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
+Jena,Hypochaeris maculata,Sphaerophoria scripta,checked,NA,NA,NA,NA,NA,3,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
 Jena,Hypochaeris maculata,Lasioglossum politum,checked,NA,NA,NA,Little black bee,NA,1,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
 Jena,Hypochaeris maculata,Apis mellifera,checked,NA,NA,Female,NA,NA,6,1500,No,NA,NA,11:50,11:53,3,2023,8,18,Sunny,JB Lanuza,10,Random_census
 Leipzig,Scabiosa ochroleuca,Bombus pascuorum,checked,NA,NA,NA,NA,NA,26,90,Yes,40,80,10:00,10:15,15,2023,8,11,Sunny,R Umazekabiri,NA,Focal
@@ -6911,13 +6909,13 @@ Halle,Foeniculum vulgare,Lucilia sericata,checked,NA,NA,NA,green,NA,60,26000,No,
 Halle,Foeniculum vulgare,Lucilia sericata,checked,NA,NA,NA,green,NA,60,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Myathropa florea,checked,NA,NA,Male,NA,https://www.inaturalist.org/observations/179177601,60,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Hylaeus communis,checked,NA,Like H259,NA,"jar 4, small black bee",NA,18,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Graphomya sp,to_check_Jared,NA,NA,Female,"Graphomya?, fly with grey pattern, size of Lucilia",https://www.inaturalist.org/observations/179654232,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Graphomya sp,to_check_Jared,NA,NA,NA,"also Graphomya? grey/orangebrown pattern, size of Lucilia",https://www.inaturalist.org/observations/179177611,90,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Sarcophaga subvicina,checked,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Sarcophaga subvicina,checked,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Sarcophaga subvicina,checked,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Sarcophaga subvicina,checked,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Sarcophaga subvicina,checked,NA,Like H131,NA,Sarcophagidae? big grey fly,NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Graphomya maculata,checked,NA,NA,Female,"Graphomya?, fly with grey pattern, size of Lucilia",https://www.inaturalist.org/observations/179654232,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Graphomya maculata,checked,NA,NA,NA,"also Graphomya? grey/orangebrown pattern, size of Lucilia",https://www.inaturalist.org/observations/179177611,90,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Cheilosia sp,checked,NA,NA,Female,"long black elegant Syrphid, already in collection",https://www.inaturalist.org/observations/179177616,90,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Cheilosia sp,checked,NA,NA,NA,"long black elegant Syrphid, already in collection",NA,90,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Cheilosia sp,checked,NA,NA,NA,"long black elegant Syrphid, already in collection",NA,90,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
@@ -6931,14 +6929,14 @@ Halle,Foeniculum vulgare,Tiphia femorata,checked,NA,NA,NA,"long black ""wasp"", 
 Halle,Foeniculum vulgare,Tiphia femorata,checked,NA,NA,NA,"long black ""wasp"", red legs",NA,60,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Tiphia femorata,checked,NA,NA,NA,"long black ""wasp"", red legs",NA,60,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Tiphia femorata,checked,NA,NA,NA,"long black ""wasp"", red legs",NA,60,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Miltogramma sp,to_check_Jared,NA,Like H138,NA,"small grey fly, already in collection",https://www.inaturalist.org/observations/179177590,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Sarcophaga sp,to_check_Jared,,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"small grey fly, already in collection",https://www.inaturalist.org/observations/179177590,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Miltogramma punctata,checked,NA,Like H138,NA,"small grey fly, already in collection",NA,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Polistes dominula,checked,NA,NA,NA,wasp like on Melilotus,https://www.inaturalist.org/observations/176730230,10,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Cylindromyia brevicornis,checked,NA,NA,NA,"fly with thin red abdomen, myabe parasitic",https://www.inaturalist.org/observations/179177618,10,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
-Halle,Foeniculum vulgare,Apocrita sp,checked,NA,NA,NA,"tiny wasp? black, very ling antenna",https://www.inaturalist.org/observations/179177627,25,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
+Halle,Foeniculum vulgare,Hymenoptera sp,checked,NA,NA,NA,"tiny wasp? black, very ling antenna",https://www.inaturalist.org/observations/179177627,25,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Foeniculum vulgare,Hylaeus sp,checked,NA,NA,NA,tiny black bee,https://www.inaturalist.org/observations/179177623,180,26000,No,NA,NA,15:21,15:24,3,2023,8,18,Sunny,HF Morgenroth,9,Random_census
 Halle,Allium turkestanicum,Bombus terrestris,checked,NA,NA,Female,NA,,60,1125,No,NA,NA,15:30,15:33,3,2023,8,18,Sunny,HF Morgenroth,10,Random_census
 Halle,Allium turkestanicum,Bombus lucorum,checked,NA,NA,Male,NA,,10,1125,No,NA,NA,15:30,15:33,3,2023,8,18,Sunny,HF Morgenroth,10,Random_census
@@ -7120,7 +7118,7 @@ Halle,Vincetoxicum hirundinaria,Sarcophagidae sp,checked,NA,NA,NA,Sarcophagidae,
 Halle,Vincetoxicum hirundinaria,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,H268,NA,jar 2; small green Lucilia-like fly,NA,4,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,Like H268,NA,jar 2; small green Lucilia-like fly,NA,2,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
-Halle,Vincetoxicum hirundinaria,Miltogramma sp,to_check_Jared,NA,Like H138,NA,"small grey fly, already in collection",NA,3,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
+Halle,Vincetoxicum hirundinaria,Miltogramma sp,checked,NA,Like H138,NA,"small grey fly, already in collection",NA,3,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,Like H268,NA,jar 2; small green Lucilia-like fly,https://www.inaturalist.org/observations/180135646,5,250,No,NA,0,10:50,11:05,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
 Halle,Saponaria officinalis,None,checked,NA,NA,NA,NA,NA,0,70,No,NA,100,11:10,11:25,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Lucilia sericata,checked,NA,NA,NA,NA,NA,1,21,No,NA,21,11:25,11:40,15,2023,8,23,Sunny,HF Morgenroth,NA,Focal
@@ -7192,26 +7190,26 @@ Halle,Seseli hippomarathrum,Cheilosia sp,checked,NA,Like H271,NA,jar 5; looks li
 Halle,Seseli hippomarathrum,Coccinella septempunctata,checked,NA,NA,NA,NA,,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Coccinella septempunctata,checked,NA,NA,NA,NA,,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Colletes daviesanus,checked,M Hoffmann,H272a,Female,jar 6 small black bee (Hyaelus?),,90,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Graphomya sp,to_check_Jared,,H275,NA,jar 9,,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Graphomya sp,to_check_Jared,,Like H275,NA,jar 9,,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Graphomya maculata,checked,J Cobain,H275,Female,jar 9,,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Graphomya maculata,checked,NA,Like H275,NA,jar 9,,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Lucilia sericata,checked,NA,Like H268,NA,jar 2,,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Lucilia sericata,checked,NA,Like H268,NA,jar 2',,156,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Tiphia femorata,not_found,NA,H273,NA,"jar 7; tiny wasp, long antenna",,20,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Miltogramma sp,to_check_Jared,NA,Like H138,NA,tiny grey fly,,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Graphomya sp,to_check_Jared,,H276,NA,"jar 10, fly with nice pattern",,10,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
-Halle,Seseli hippomarathrum,Diptera sp,to_check_Jared,,H277,NA,"jar 11, long fly",,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,J Cobain,H274,Female,,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Sarcophaga subvicina,checked,NA,Like H274,NA,jar 8,,120,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Miltogramma punctata,checked,NA,Like H138,NA,tiny grey fly,,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Graphomya maculata,checked,J Cobain,H276,Male,"jar 10, fly with nice pattern",,10,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
+Halle,Seseli hippomarathrum,Hymenoptera sp,to_check,,H277,NA,"jar 11, long fly",,5,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Seseli hippomarathrum,Myathropa florea,checked,NA,NA,NA,NA,,10,12000,No,NA,NA,13:05,13:08,3,2023,8,23,Sunny,HF Morgenroth,2,Random_census
 Halle,Moricandia arvensis,Pieris napi,checked,NA,NA,NA,NA,,10,80,No,NA,NA,13:36,13:39,3,2023,8,23,Sunny,HF Morgenroth,3,Random_census
 Halle,Moricandia arvensis,Pieris napi,checked,NA,NA,NA,NA,,10,80,No,NA,NA,13:36,13:39,3,2023,8,23,Sunny,HF Morgenroth,3,Random_census

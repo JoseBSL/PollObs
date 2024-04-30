@@ -19,6 +19,27 @@ library(stringr)
 #Read data
 data = read_csv("Data/PollObs_all.csv")
 
+#Read function to re-structure data
+#Fix str of data from GBIF
+change_str <- function(data) { 
+data = data %>% 
+select(!c(usageKey, confidence, kingdomKey,
+          phylumKey, classKey, orderKey, familyKey,
+         genusKey,  speciesKey, acceptedUsageKey,
+         verbatim_index)) %>% 
+rename(Fixed_name = verbatim_name,
+       Scientific_name  = scientificName,
+       Canonical_name  = canonicalName,
+       Accepted_name = species) %>% 
+select(Fixed_name, rank, status, matchType, 
+       Scientific_name, Canonical_name,
+       Accepted_name, phylum, order, family,
+       genus) %>% 
+  rename_all(~str_to_title(.))
+}
+
+
+
 #Check cols
 colnames(data)
 
@@ -46,7 +67,6 @@ levels(factor(data$Observer))
 levels(factor(data$Random_census_stop))
 levels(factor(data$Sampling))
 
-
 #2) Retrieve taxonomic info for plants 
 #2.1
 plant_spp = data %>% 
@@ -57,14 +77,33 @@ plant_spp = str_replace(plant_spp, "Erica herbacea", "Erica carnea")
 plant_spp = str_replace(plant_spp, "Potentilla sp", "Potentilla")
 plant_spp = str_replace(plant_spp, "Trifolium sp", "Trifolium")
 plant_spp = str_replace(plant_spp, "Erica herbacea", "Erica carnea")
-plant_spp = str_replace(plant_spp, "Erica herbacea", "Erica carnea")
+plant_spp = str_replace(plant_spp, "Penstemon grandiflorus", "Penstemon bradburyi")
+plant_spp = str_replace(plant_spp, "Seseli hippomarathrum", "Hippomarathrum vulgare")
 
 #Check for futher taxonomic info
 matched_gbif_plants = name_backbone_checklist(name = plant_spp, kingdom='plants')
+matched_gbif_plants = change_str(matched_gbif_plants)
+#Save data
+saveRDS(matched_gbif_plants, "Data/Working_files/matched_gbif_plants.rds")
+
 #2.2
 poll_spp = data %>% 
 distinct(Pollinator) %>% 
-pull()
+pull() %>% 
+str_replace(" sp", "") 
+
+
 #Check for futher taxonomic info
-matched_gbif_pollinators = name_backbone_checklist(name = plant_spp, kingdom='plants')
+matched_gbif_pollinators = name_backbone_checklist(name = poll_spp, kingdom='arthropoda')
+
+matched_gbif_pollinators = matched_gbif_pollinators %>% 
+filter(!verbatim_name == "None") %>% 
+filter(!verbatim_name == "Unidentified") %>% 
+mutate(matchType = case_when(verbatim_name == "Anthribidae" ~ "EXACT", 
+                             T ~ matchType))
+#Fix structure
+matched_gbif_pollinators = change_str(matched_gbif_pollinators)
+
+#Save data
+saveRDS(matched_gbif_pollinators, "Data/Working_files/matched_gbif_pollinators.rds")
 
