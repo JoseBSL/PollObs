@@ -85,15 +85,23 @@ plant_spp = str_replace(plant_spp, "Seseli hippomarathrum", "Hippomarathrum vulg
 #Check for futher taxonomic info
 matched_gbif_plants = name_backbone_checklist(name = plant_spp, kingdom='plants')
 matched_gbif_plants = change_str(matched_gbif_plants)
+#Add canonical name to accepted name when NA
+matched_gbif_plants = matched_gbif_plants %>% 
+mutate(Accepted_name = if_else(is.na(Accepted_name), Canonical_name, Accepted_name))
+#Rename with Plant as prefix
+matched_gbif_plants = matched_gbif_plants %>% 
+rename_with( ~ str_to_title(paste0("Plant_", .x))) %>% 
+select(!c("Plant_scientific_name", "Plant_canonical_name", "Plant_phylum")) %>% 
+rename(Plant = Plant_fixed_name)
+
 #Save data
 saveRDS(matched_gbif_plants, "Data/Working_files/matched_gbif_plants.rds")
 
 #2.2
 poll_spp = data %>% 
+mutate(Pollinator = str_replace(Pollinator, " sp", "")) %>% 
 distinct(Pollinator) %>% 
-pull() %>% 
-str_replace(" sp", "") 
-
+pull() 
 
 #Check for futher taxonomic info
 matched_gbif_pollinators = name_backbone_checklist(name = poll_spp, kingdom='arthropoda')
@@ -105,7 +113,14 @@ mutate(matchType = case_when(verbatim_name == "Anthribidae" ~ "EXACT",
                              T ~ matchType))
 #Fix structure
 matched_gbif_pollinators = change_str(matched_gbif_pollinators)
-
+#Add canonical name to accepted name when NA
+matched_gbif_pollinators = matched_gbif_pollinators %>% 
+mutate(Accepted_name = if_else(is.na(Accepted_name), Canonical_name, Accepted_name))
+#Rename with Pollinator as prefix
+matched_gbif_pollinators = matched_gbif_pollinators %>% 
+rename_with( ~ str_to_title(paste0("Pollinator_", .x))) %>% 
+select(!c("Pollinator_scientific_name", "Pollinator_canonical_name", "Pollinator_phylum")) %>% 
+rename(Pollinator = Pollinator_fixed_name)
 #Save data
 saveRDS(matched_gbif_pollinators, "Data/Working_files/matched_gbif_pollinators.rds")
 
