@@ -1,0 +1,22 @@
+---
+title: "PollObs"
+format: pdf
+---
+
+# Main objective
+
+Explore how traits, phenology and abundances shape species interactions in three botanical gardens from Germany. 
+
+Pending tasks:
+
+- Clean trait and phenology data for plants
+
+- Get Pollinator phenology and traits
+
+
+# The data has an important temporal component
+Think how to account for it. 
+
+
+
+
