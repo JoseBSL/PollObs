@@ -13,6 +13,8 @@ Pending tasks:
 
 - Get Pollinator phenology and traits
 
+- Easy things to check: alpha, beta and gamma diversity of pollinators across the three gardens.
+
 
 # The data has an important temporal component
 Think how to account for it. 
