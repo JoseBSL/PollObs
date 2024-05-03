@@ -546,6 +546,7 @@ Jena,Pulsatilla vulgaris,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,NA,13:40,13:40,15
 Jena,Primula denticulata,None,checked,NA,NA,NA,NA,NA,0,40,No,NA,7,14:30,14:45,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Bergenia purpurascens,None,checked,NA,NA,NA,NA,NA,0,17,No,NA,40,14:45,15:00,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Trillium sessile,None,checked,NA,NA,NA,NA,NA,0,17,No,NA,20,16:10,16:25,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
+Jena,Actaea spicata,None,checked,NA,NA,NA,NA,NA,0,10,No,NA,20,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Botanophila striolata,checked,NA,Like J8,NA,NA,NA,2,380,No,NA,50,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Brunnera macrophylla,Anthophora plumipes,checked,NA,Like J5,NA,NA,NA,1,380,No,NA,50,16:20,16:35,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,NA,Focal
 Jena,Ipheion uniflorum,Anthophora plumipes,checked,NA,Like J5,NA,NA,NA,3,200,No,NA,50,15:02,15:05,15,2023,4,27,Partly_cloudy,D Bottger & JB Lanuza,1,Random_census
@@ -1476,6 +1477,7 @@ Jena,Paeonia delavayi,Vespa crabro,checked,NA,NA,NA,NA,NA,5,35,No,NA,70,12:35,12
 Jena,Paeonia delavayi,Anthophora plumipes,checked,M Hoffmann,J36,Female,Jar 4,NA,4,35,No,NA,70,12:35,12:50,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Paeonia delavayi,Eucera nigrescens,checked,NA,NA,Male,NA,NA,1,35,No,NA,70,12:35,12:50,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Paeonia delavayi,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,35,No,NA,70,12:35,12:50,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
+Jena,Aquilegia vulgaris,None,checked,NA,NA,NA,NA,NA,0,85,No,NA,0,15:30,15:45,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Trillium sessile,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,0,15:45,15:45,0,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Vincetoxicum hirundinaria,None,checked,NA,NA,NA,NA,NA,0,50,No,NA,0,15:45,16:00,15,2023,5,22,Partly_cloudy,JB Lanuza,NA,Focal
 Jena,Cytisophyllum sessilifolium,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,5000,No,NA,NA,13:00,13:03,3,2023,5,22,Partly_cloudy,JB Lanuza,1,Random_census
@@ -4108,7 +4110,7 @@ Jena,Hypericum perforatum,Bombus lapidarius,checked,NA,NA,NA,NA,NA,30,58,No,NA,2
 Jena,Hypericum perforatum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,58,No,NA,200,14:50,15:05,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Anthidium manicatum,checked,NA,NA,NA,NA,NA,9,296,No,NA,100,14:50,15:05,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
 Jena,Betonica officinalis,Anthophora quadrimaculata,checked,NA,J143,Female,Black bee; Jar 16,NA,4,296,No,NA,100,14:50,15:05,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
-Jena,Lotus maritimus,Bombus pascuorum,checked,NA,NA,NA,NA,NA,3,21,No,NA,100,14:50,15:05,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
+Jena,Lotus corniculatus,Bombus pascuorum,checked,NA,NA,NA,NA,NA,3,21,No,NA,100,14:50,15:05,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
 Jena,Coronilla varia,Apis mellifera,checked,NA,NA,Female,NA,NA,1,294,No,NA,150,15:15,15:30,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
 Jena,Coronilla varia,Bombus pascuorum,checked,NA,NA,NA,NA,NA,10,294,No,NA,150,15:15,15:30,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
 Jena,Coronilla varia,Bombus lapidarius,checked,NA,NA,NA,NA,NA,2,294,No,NA,150,15:15,15:30,15,2023,7,4,Sunny,JB Lanuza,NA,Focal
