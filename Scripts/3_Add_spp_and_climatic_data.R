@@ -54,4 +54,10 @@ weather_conditions = bind_rows(leipzig_weather, halle_weather, jena_weather)
 interaction_data = left_join(interaction_data, 
     weather_conditions, by = join_by(Botanical_garden, Date_time))
 
+#Convert date time to date
+interaction_data = interaction_data %>% 
+mutate(Date = as.Date(Date_time)) %>% 
+select(!Date_time)
+
+
 saveRDS(interaction_data, "Data/Working_files/interaction_data.rds")
