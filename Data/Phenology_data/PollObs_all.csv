@@ -4991,9 +4991,9 @@ Halle,Lavandula angustifolia,Bombus terrestris,checked,NA,NA,NA,NA,NA,555,2000,N
 Halle,Lavandula angustifolia,Pieris rapae,checked,NA,NA,NA,NA,NA,4,2000,No,NA,0,13:20,13:35,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Lavandula angustifolia,Eupeodes corollae,checked,NA,NA,NA,NA,NA,3,2000,No,NA,0,13:20,13:35,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Hemerocallis fulva,None,checked,NA,NA,NA,NA,NA,0,6,No,NA,10,14:00,14:15,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,7,200,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus vestalis,checked,NA,NA,NA,NA,NA,14,200,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus vestalis,checked,NA,NA,NA,NA,NA,4,200,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,7,120,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus vestalis,checked,NA,NA,NA,NA,NA,14,120,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus vestalis,checked,NA,NA,NA,NA,NA,4,120,No,NA,100,14:30,14:45,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Saponaria officinalis,Xylocopa violacea,checked,NA,NA,NA,NA,NA,2,120,No,NA,100,14:50,15:05,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Saponaria officinalis,Xylocopa violacea,checked,NA,NA,NA,NA,NA,33,120,No,NA,100,14:50,15:05,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Saponaria officinalis,Xylocopa violacea,checked,NA,NA,NA,NA,NA,2,120,No,NA,100,14:50,15:05,15,2023,7,13,Partly_cloudy,JB Lanuza,NA,Focal
@@ -5691,11 +5691,11 @@ Halle,Marrubium peregrinum,Bombus lapidarius,checked,NA,NA,NA,NA,NA,10,2000,No,N
 Halle,Marrubium peregrinum,Lucilia sericata,checked,NA,NA,NA,green bottle fly,NA,2,2000,No,NA,NA,15:10,15:13,3,2023,7,19,Partly_cloudy,HF Morgenroth & JB Lanuza,6,Random_census
 Halle,Marrubium peregrinum,Lucilia sericata,checked,NA,NA,NA,green bottle fly,NA,2,2000,No,NA,NA,15:10,15:13,3,2023,7,19,Partly_cloudy,HF Morgenroth & JB Lanuza,6,Random_census
 Halle,Marrubium peregrinum,Bombus pascuorum,checked,NA,NA,NA,NA,NA,3,2000,No,NA,NA,15:10,15:13,3,2023,7,19,Partly_cloudy,HF Morgenroth & JB Lanuza,6,Random_census
-Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,7,130,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
-Jena,Anemone hupehensis,Bombus terrestris,checked,NA,NA,NA,NA,NA,15,130,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
-Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,26,130,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
-Jena,Anemone hupehensis,Bombus terrestris,checked,NA,NA,NA,NA,NA,13,130,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
-Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,17,130,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,7,125,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Anemone hupehensis,Bombus terrestris,checked,NA,NA,NA,NA,NA,15,125,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,26,125,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Anemone hupehensis,Bombus terrestris,checked,NA,NA,NA,NA,NA,13,125,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
+Jena,Anemone hupehensis,Apis mellifera,checked,NA,NA,Female,NA,NA,17,125,No,NA,10,12:30,12:45,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Coronilla varia,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,120,No,NA,100,12:45,13:00,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Galega officinalis,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,80,No,NA,250,13:05,13:20,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
 Jena,Galega officinalis,Bombus pascuorum,checked,NA,NA,NA,NA,NA,1,80,No,NA,250,13:05,13:20,15,2023,8,3,Partly_cloudy,D Bottger,NA,Focal
@@ -5792,13 +5792,13 @@ Halle,Clematis recta,Bombus lapidarius,checked,NA,NA,NA,NA,https://www.inaturali
 Halle,Clematis recta,Bombus pascuorum,checked,NA,NA,NA,NA,https://www.inaturalist.org/observations/176730207,7,600,No,NA,80,11:35,11:50,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Apis mellifera,checked,NA,NA,Female,NA,NA,10,600,No,NA,80,11:35,11:50,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Clematis recta,Pieris rapae,checked,NA,NA,NA,NA,NA,1,600,No,NA,80,11:35,11:50,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,3,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,6,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,7,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,3,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,2,170,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,3,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,6,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,7,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,2,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,3,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,2,132,No,NA,300,12:00,12:15,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Anthidium manicatum,checked,NA,NA,NA,NA,NA,2,150,No,NA,0,12:30,12:45,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Syritta pipiens,checked,F Wolf,H205,Male,jar 1 H/jar 1 J,NA,2,150,No,NA,0,12:30,12:45,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Origanum vulgare,Lasioglossum morio,checked,M Hoffmann,H207,NA,jar 4 J,NA,3,150,No,NA,0,12:30,12:45,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
@@ -6235,18 +6235,18 @@ Halle,Tanacetum vulgare,Halictus tumulorum,checked,M Hoffmann,H229,Male,"golden 
 Halle,Tanacetum vulgare,Hylaeus sp,checked,Not found,H231,NA,"super tiny black bee, jar 4 H",NA,1,100,Yes,100,12000,12:15,12:30,15,2023,8,11,Sunny,HFM,NA,Focal
 Halle,Tanacetum vulgare,Hylaeus sp,checked,Not found,Like H231,NA,"super tiny black bee, jar 4 H",NA,1,100,Yes,100,12000,12:15,12:30,15,2023,8,11,Sunny,HFM,NA,Focal
 Halle,Tanacetum vulgare,Hylaeus sp,checked,Not found,Like H231,NA,"super tiny black bee, jar 4 H",NA,1,100,Yes,100,12000,12:15,12:30,15,2023,8,11,Sunny,HFM,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,3,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Sarcophaga incisilobata,checked,J Cobain,H244,Male,jar 11 J,NA,3,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Hylaeus sp,checked,NA,NA,NA,"little black bee ""Hylaeus type""",NA,2,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,6,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,2,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
-Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,1,150,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,3,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Sarcophaga incisilobata,checked,J Cobain,H244,Male,jar 11 J,NA,3,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Hylaeus sp,checked,NA,NA,NA,"little black bee ""Hylaeus type""",NA,2,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,6,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,5,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Apis mellifera,checked,NA,NA,Female,NA,NA,2,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
+Halle,Fuchsia magellanica,Bombus pascuorum,checked,NA,NA,NA,NA,NA,1,170,No,NA,500,11:50,12:05,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Eristalis tenax,checked,F Wolf,H235,Female,Eristalis jar 2 J,NA,1,3526,No,NA,76,12:10,12:25,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Ancistrocerus gazella,checked,M Hoffmann,H236,Female,small wasp jar 3 J,NA,2,3526,No,NA,76,12:10,12:25,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
 Halle,Centranthus ruber,Lucilia sericata,checked,NA,NA,NA,Lucilia sp,NA,1,3526,No,NA,76,12:10,12:25,15,2023,8,11,Sunny,JB Lanuza,NA,Focal
@@ -6732,7 +6732,7 @@ Halle,Lotus corniculatus,Lucilia sericata,checked,NA,NA,NA,green,NA,2,29,No,NA,2
 Halle,Helianthemum nummularium,Apis mellifera,checked,NA,NA,Female,NA,NA,300,30,No,NA,10000,12:20,12:35,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
 Halle,Helianthemum nummularium,Bombus terrestris,checked,NA,NA,NA,NA,NA,2,30,No,NA,10000,12:20,12:35,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
 Halle,Helianthemum nummularium,Apis mellifera,checked,NA,NA,Female,NA,NA,5,30,No,NA,10000,12:20,12:35,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
-Halle,Fuchsia magellanica,None,checked,NA,NA,NA,NA,NA,0,130,No,NA,100,14:00,14:15,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
+Halle,Fuchsia magellanica,None,checked,NA,NA,NA,NA,NA,0,150,No,NA,100,14:00,14:15,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,large green,NA,3,252,No,NA,0,14:15,14:30,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,small green,NA,1,252,No,NA,0,14:15,14:30,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Pieris napi,checked,NA,NA,Male,NA,https://www.inaturalist.org/observations/179165547,1,252,No,NA,0,14:15,14:30,15,2023,8,18,Cloudy,HF Morgenroth,NA,Focal
