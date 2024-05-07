@@ -1,5 +1,5 @@
 #Script to prepare plant phenology (data from froPhenObs app)
-#To avoid a very long script, prepare only Jena here
+#Jena only
 #Load libraries
 library(dplyr)
 library(readr)
@@ -11,7 +11,7 @@ library(tidygam)
 #Load interaction data
 int_data = readRDS("Data/Working_files/interaction_data.rds")
 #Load phenology data
-jena_phenobs = read_csv("Data/Phenology_data/raw_phenology_jena.csv")
+jena_phenobs = read_csv("Data/Phenology_data/raw_plant_phenobs_jena.csv")
 #Set ggplot theme
 theme_set(theme_light())
 
@@ -34,7 +34,7 @@ flowering_data = jena_phenobs %>%
 select(Date, Doy, Species, Flowers_opening, Flowering_intensity) %>% 
 mutate(Date = as.Date(str_replace_all(Date, "[.]", "/"), "%d/%m/%Y")) %>% 
 group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
+#filter(Flowers_opening == "y") %>% 
 mutate(Species = recode_factor(Species, "Anemone pulsatilla" = "Pulsatilla vulgaris")) %>% 
 mutate(Species = recode_factor(Species, "Securigera varia" = "Coronilla varia")) %>% 
 mutate(Species = recode_factor(Species, "Anemone nemorosa" = "Anemonoides nemorosa")) %>% 
@@ -88,6 +88,18 @@ mutate(Garden = "Jena") %>%
 mutate(Species = "Silene viscaria") %>% 
 filter(Flowers_opening == "y")
 
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+s_viscaria_new = left_join(values_doy, s_viscaria_new) 
+s_viscaria_new = s_viscaria_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Jena") %>% 
+mutate(Species = "Silene viscaria")
+
 #Add S. viscaria phenology
 flowering_data = bind_rows(flowering_data, s_viscaria_new)
 
@@ -130,7 +142,19 @@ mutate(Garden = "Jena") %>%
 mutate(Species = "Anemone hupehensis") %>% 
 filter(Flowers_opening == "y")
 
-#Add S. viscaria phenology
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+a_hupehensis_new = left_join(values_doy, a_hupehensis_new) 
+a_hupehensis_new = a_hupehensis_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Jena") %>% 
+mutate(Species = "Anemone hupehensis")
+
+#Add A. hupehensis phenology
 flowering_data = bind_rows(flowering_data, a_hupehensis_new)
 
 #3. Fuchsia magellanica----
@@ -187,7 +211,19 @@ mutate(Garden = "Jena") %>%
 mutate(Species = "Fuchsia magellanica") %>% 
 filter(Flowers_opening == "y")
 
-#Add S. viscaria phenology
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+f_magellanica_new = left_join(values_doy, f_magellanica_new) 
+f_magellanica_new = f_magellanica_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Jena") %>% 
+mutate(Species = "Fuchsia magellanica")
+
+#Add F. magellanica phenology
 flowering_data = bind_rows(flowering_data, f_magellanica_new)
 
 #5. Leucanthemum vulgare----
@@ -230,16 +266,64 @@ mutate(Garden = "Jena") %>%
 mutate(Species = "Leucanthemum vulgare") %>% 
 filter(Flowers_opening == "y")
 
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+l_vulgare_new = left_join(values_doy, l_vulgare_new) 
+l_vulgare_new = l_vulgare_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Jena") %>% 
+mutate(Species = "Leucanthemum vulgare")
+
 #Add L. vulgare phenology
 flowering_data = bind_rows(flowering_data, l_vulgare_new)
 
-#Plot flowering intensity----
-d = left_join(jena_focals, flowering_data)
-d %>% 
+#Merge all----
+jena_phen = left_join(jena_focals, flowering_data)
+jena_phen %>% 
 filter(is.na(Doy))
+#Save phenology for Jena species
+saveRDS(jena_phen, "Data/Phenology_data/clean_plant_phenobs_jena.rds")
 
-d %>% 
-ggplot(aes(Doy, Flowering_intensity))+
-geom_line() +
-geom_point()+
-facet_grid(rows = vars(Species))
+
+#Plot all----
+#Because it may not work at 1st, generate a vector and do it for a subset of spp
+v = unique(jena_phen$Species)
+d1 = jena_phen %>% 
+filter(Species %in% v) %>% 
+mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
+#Find first numeric value of flowering intensity to order species
+lev_species = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+pull(Species)
+#This should be the order to be printed (from 1st flowering to last)
+d1$Species = factor(d1$Species, levels = lev_species)
+#Generate as many colors as species
+colfunc = colorRampPalette(c("cyan4", "brown3"))
+cols = colfunc(nlevels(d1$Species))
+#Plot
+d1 %>% 
+ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
+stat_smooth(method = "gam",
+method.args=list(family=poisson),
+geom = "area",
+alpha=0.75,
+span = 0.1) +
+theme_minimal()+
+theme(legend.position = "none", 
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      panel.spacing = unit(-1.5,'lines')) +
+coord_cartesian(expand = FALSE) +
+scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
+facet_wrap(~Species, ncol=1) +
+ylab("Flowering intensity") +
+xlab("Day of the year") +
+scale_fill_manual(values = cols) +
+ggtitle("Jena Botanical Garden")
