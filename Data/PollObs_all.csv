@@ -184,7 +184,7 @@ Leipzig,Vinca minor,Osmia cornuta,checked,NA,NA,NA,NA,NA,2,120,No,NA,40,11:30,12
 Leipzig,Vinca minor,Diptera sp,checked,NA,NA,NA,it was so quick- not easy to catch,NA,12,120,No,NA,40,11:30,12:30,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Vinca minor,Diptera sp,checked,NA,NA,NA,it was so quick- not easy to catch,NA,6,120,No,NA,40,11:30,12:30,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Tussilago farfara,Lasioglossum laticeps,checked,M Hoffmann,L5,Female,NA,NA,6,80,Yes,15,4,13:00,13:15,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,3,80,No,NA,40,13:20,13:35,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
+Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,3,250,No,NA,150,13:20,13:35,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Trillium sessile,None,checked,NA,NA,NA,NA,NA,0,20,No,NA,0,13:40,13:55,15,2023,4,6,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Muscari botryoides,Osmia cornuta,checked,NA,NA,NA,NA,NA,2,40,No,NA,120,11:30,12:30,5,2023,4,6,Sunny,R Umazekabiri,1,Random_census
 Leipzig,Leucanthemum vulgare,Lasioglossum laticeps,checked,NA,Like L5,NA,NA,NA,1,4,Yes,140,80,13:00,13:15,3,2023,4,6,Sunny,R Umazekabiri,2,Random_census
@@ -260,9 +260,9 @@ Leipzig,Vinca minor,Anthophora plumipes,checked,NA,NA,NA,NA,NA,6,130,No,NA,60,11
 Leipzig,Tussilago farfara,Anthophora plumipes,checked,NA,NA,NA,NA,NA,2,70,Yes,15,20,11:45,12:00,15,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Tussilago farfara,Apis mellifera,checked,NA,NA,NA,NA,NA,4,70,Yes,15,20,11:45,12:00,15,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Trillium sessile,None,checked,NA,NA,NA,NA,NA,0,26,No,NA,0,12:05,12:20,15,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
-Leipzig,Helleborus foetidus,Bombus lapidarius,checked,NA,Like L6,NA,NA,NA,12,250,No,NA,60,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
-Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,4,250,No,NA,60,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
-Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,2,250,No,NA,60,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
+Leipzig,Helleborus foetidus,Bombus lapidarius,checked,NA,Like L6,NA,NA,NA,12,200,No,NA,120,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
+Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,4,200,No,NA,120,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
+Leipzig,Helleborus foetidus,Apis mellifera,checked,NA,NA,NA,NA,NA,2,200,No,NA,120,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Pulsatilla vulgaris,Bombus lapidarius,checked,NA,Like L6,NA,NA,NA,8,60,No,NA,40,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,NA,NA,NA,12,60,No,NA,40,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Pulsatilla vulgaris,Apis mellifera,checked,NA,NA,NA,NA,NA,6,60,No,NA,40,12:30,13:00,30,2023,4,13,Partly_cloudy,R Umazekabiri,NA,Focal
@@ -2569,7 +2569,6 @@ Leipzig,Vincetoxicum hirundinaria,Apis mellifera,checked,NA,NA,Female,NA,NA,8,11
 Leipzig,Vincetoxicum hirundinaria,Apis mellifera,checked,NA,NA,Female,NA,NA,3,110,No,NA,100,10:35,10:50,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Gaultheria shallon,None,checked,NA,NA,NA,NA,NA,0,160,No,NA,100,10:50,10:50,0,2023,6,14,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Fragaria vesca,None,checked,NA,NA,NA,NA,NA,0,5,No,NA,60,10:50,11:05,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Arnica longifolia,None,checked,NA,NA,NA,NA,NA,0,10,No,NA,250,11:05,11:20,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,10,800,No,NA,300,11:25,11:40,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,36,800,No,NA,300,11:25,11:40,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Bombus terrestris,checked,NA,NA,NA,NA,NA,18,800,No,NA,300,11:25,11:40,15,2023,6,14,Sunny,R Umazekabiri,NA,Focal
@@ -2914,7 +2913,6 @@ Leipzig,Dictamnus albus,Anthophora quadrimaculata,checked,NA,Like L139,NA,specie
 Leipzig,Dictamnus albus,Anthophora quadrimaculata,checked,NA,Like L139,NA,species like L139,NA,2,11,No,NA,2500,11:40,11:55,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Dictamnus albus,Anthophora quadrimaculata,checked,NA,Like L139,NA,species like L139,NA,2,11,No,NA,2500,11:40,11:55,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Dictamnus albus,Anthophora quadrimaculata,checked,NA,Like L139,NA,species like L139,NA,2,11,No,NA,2500,11:40,11:55,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Arnica longifolia,None,checked,NA,NA,NA,NA,NA,0,2,Yes,15,0,11:55,11:55,0,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Geranium sanguineum,None,checked,NA,NA,NA,NA,NA,0,20,No,NA,140,12:00,12:15,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Aquilegia vulgaris,Episyrphus balteatus,checked,NA,NA,NA,syrphid fly like L136,NA,1,40,No,NA,55,13:00,13:15,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Silene vulgaris,Diptera sp,checked,NA,NA,NA,little fly (captured before),NA,1,80,No,NA,110,13:15,13:30,15,2023,6,21,Sunny,R Umazekabiri,NA,Focal
@@ -3135,7 +3133,6 @@ Halle,Hypericum olympicum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,3,300,No,N
 Halle,Hypericum olympicum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,3,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Eupeodes corollae,checked,NA,NA,Female,Eupeodes?,https://www.inaturalist.org/observations/168815548,2,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Eupeodes corollae,checked,NA,NA,Female,NA,https://www.inaturalist.org/observations/168815554,2,300,No,NA,150,10:20,10:35,15,2023,6,21,Sunny,HF Morgenroth,NA,Focal
-Halle,Oenothera fruticosa,Eupeodes corollae,checked,NA,NA,Male,Eupeodes?,https://www.inaturalist.org/observations/168824042,1,30,No,NA,20,10:50,11:05,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Fragaria vesca,None,checked,NA,NA,NA,NA,NA,0,1,No,NA,10,11:05,11:20,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lavandula angustifolia,Maniola jurtina,checked,NA,NA,Female,NA,https://www.inaturalist.org/observations/168824063,3,12500,No,NA,300,11:30,11:45,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lavandula angustifolia,Apis mellifera,checked,NA,NA,Female,NA,NA,30,12500,No,NA,300,11:30,11:45,15,2023,6,21,Partly_cloudy,HF Morgenroth,NA,Focal
@@ -3381,7 +3378,6 @@ Halle,Hypericum olympicum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,3,250,No,N
 Halle,Hypericum olympicum,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,250,No,NA,10000,15:30,15:45,15,2023,6,27,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Sphaerophoria scripta,checked,NA,Like H79,NA,like jar 5,NA,2,250,No,NA,10000,15:30,15:45,15,2023,6,27,Sunny,HF Morgenroth,NA,Focal
 Halle,Hypericum olympicum,Sphaerophoria scripta,checked,NA,Like H79,NA,like jar 5,NA,2,250,No,NA,10000,15:30,15:45,15,2023,6,27,Sunny,HF Morgenroth,NA,Focal
-Halle,Oenothera fruticosa,None,checked,NA,NA,NA,NA,NA,0,5,No,NA,0,15:55,16:10,15,2023,6,27,Sunny,HF Morgenroth,NA,Focal
 Halle,Salvia officinalis,Episyrphus balteatus,checked,NA,NA,NA,NA,NA,1,40,No,NA,2000,16:50,17:05,15,2023,6,27,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Gypsophila paniculata,Apis mellifera,checked,NA,NA,Female,NA,NA,50,200000,No,NA,NA,12:00,12:03,3,2023,6,27,Partly_cloudy,HF Morgenroth,1,Random_census
 Halle,Gypsophila paniculata,Apis mellifera,checked,NA,NA,Female,NA,NA,50,200000,No,NA,NA,12:00,12:03,3,2023,6,27,Partly_cloudy,HF Morgenroth,1,Random_census
@@ -3597,7 +3593,6 @@ Leipzig,Aquilegia vulgaris,Apis mellifera,checked,NA,NA,Female,NA,NA,1,18,No,NA,
 Leipzig,Aquilegia vulgaris,Bombus terrestris,checked,NA,NA,NA,NA,NA,5,18,No,NA,80,12:00,12:15,15,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Vincetoxicum hirundinaria,None,checked,NA,NA,NA,NA,NA,0,8,No,NA,10,12:20,12:20,0,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Dictamnus albus,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,6000,12:20,12:20,0,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
-Leipzig,Arnica longifolia,None,checked,NA,NA,NA,nA,NA,0,7,Yes,15,800,12:25,12:25,0,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Geranium sanguineum,None,checked,NA,NA,NA,NA,NA,0,0,No,NA,0,12:25,12:25,0,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Lavandula angustifolia,Bombus terrestris,checked,NA,NA,NA,NA,NA,460,8500,No,NA,25,12:40,12:55,15,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
 Leipzig,Lavandula angustifolia,Bombus terrestris,checked,NA,NA,NA,NA,NA,460,8500,No,NA,25,12:40,12:55,15,2023,6,28,Partly_cloudy,R Umazekabiri,NA,Focal
@@ -3928,7 +3923,6 @@ Leipzig,Hypericum olympicum,Lasioglossum politum,checked,NA,Like L188,NA,like ja
 Leipzig,Hypericum olympicum,Lasioglossum politum,checked,NA,Like L188,NA,like jar 2,NA,3,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Lasioglossum politum,checked,NA,Like L188,NA,like jar 2,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Hypericum olympicum,Lasioglossum politum,checked,NA,Like L188,NA,like jar 2,NA,1,56,No,NA,30,10:10,10:25,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
-Leipzig,Arnica longifolia,Apis mellifera,checked,NA,NA,Female,NA,NA,1,12,Yes,15,220,10:25,10:40,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Psephellus dealbatus,None,checked,NA,NA,NA,NA,NA,0,1,Yes,150,800,10:40,10:40,0,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Silene coronaria,Bombus terrestris,checked,NA,NA,NA,NA,NA,3,90,No,NA,910,10:50,11:05,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
 Leipzig,Silene coronaria,Eupeodes corollae,checked,NA,NA,NA,yellow syrphid- captured and photographed before,https://www.inaturalist.org/observations/168629145,1,90,No,NA,910,10:50,11:05,15,2023,7,4,Sunny,R Umazekabiri,NA,Focal
@@ -5835,7 +5829,6 @@ Halle,Achillea millefolium,Lucilia sericata,checked,NA,NA,NA,NA,NA,1,20000,Yes,1
 Halle,Achillea millefolium,Sarcophagidae sp,checked,NA,NA,NA,Sarcophagidae,NA,2,20000,Yes,14,300,12:40,12:55,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Achillea millefolium,Hedychrum gerstaeckeri,checked,NA,Like L179,NA,"Holopyga sp?, like L179",https://www.inaturalist.org/observations/176730216,20,20000,Yes,14,300,12:40,12:55,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Lotus corniculatus,None,checked,NA,NA,NA,NA,NA,0,40,No,NA,0,13:00,13:15,15,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,M Hoffmann,H208,Intersex,jar 5,https://www.inaturalist.org/observations/176730223,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,NA,NA,3,28,No,NA,0,14:15,15:00,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Vincetoxicum hirundinaria,Lucilia sericata,checked,NA,NA,NA,NA,NA,2,28,No,NA,0,14:15,15:00,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Vincetoxicum hirundinaria,Crossocerus podagricus,checked,M Hoffmann,H219,Female,"jar 16 J; little black wasp, looking similar to Hylaeus",NA,4,28,No,NA,0,14:15,15:00,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
@@ -5855,11 +5848,11 @@ Halle,Platycodon grandiflorus,Megachile willughbiella,checked,NA,Like H223,NA,ja
 Halle,Platycodon grandiflorus,Chelostoma rapunculi,checked,NA,Like H222,NA,jar 19 J,NA,1,26,No,NA,0,15:00,15:15,15,2023,8,4,Partly_cloudy,HF Morgenroth & JB Lanuza,NA,Focal
 Halle,Helianthemum nummularium,Sphecodes ferruginatus,checked,M Hoffmann,H213,Female,jar 10 J,NA,5,20,No,NA,340,15:25,15:40,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
 Halle,Helianthemum nummularium,Megachile willughbiella,checked,NA,Like H223,NA,jar 20 J,NA,3,20,No,NA,340,15:25,15:40,15,2023,8,4,Partly_cloudy,JB Lanuza,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
-Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,NA,Focal
+Halle,Impatiens glandulifera,Bombus pascuorum,checked,M Hoffmann,H208,Intersex,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,1,Random_census
+Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,1,Random_census
+Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,1,Random_census
+Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,1,Random_census
+Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth,1,Random_census
 Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth & JB Lanuza,1,Random_census
 Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth & JB Lanuza,1,Random_census
 Halle,Impatiens glandulifera,Bombus pascuorum,checked,NA,Like H208,NA,jar 5,NA,10,115,No,NA,NA,13:20,13:23,3,2023,8,4,Partly_cloudy,HF Morgenroth & JB Lanuza,1,Random_census
