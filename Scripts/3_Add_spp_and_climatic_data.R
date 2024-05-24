@@ -56,8 +56,7 @@ interaction_data = left_join(interaction_data,
 
 #Convert date time to date
 interaction_data = interaction_data %>% 
-mutate(Date = as.Date(Date_time)) %>% 
-select(!Date_time)
+mutate(Date = as.Date(Date_time)) 
 
 
 saveRDS(interaction_data, "Data/Working_files/interaction_data.rds")
