@@ -179,8 +179,21 @@ mutate(Species = "Primula veris")
 flowering_data = bind_rows(flowering_data, p_veris_new)
 
 # 3. Lamium album ----   
-
-
+l_album_jena = jena_phenobs %>% 
+select(Date, Doy, Species, Flowers_opening, Flowering_intensity) %>% 
+mutate(Date = as.Date(str_replace_all(Date, "[.]", "/"), "%d/%m/%Y")) %>% 
+filter(Species == "Lamium album")
+#Extract values for the dates of interest
+#Run a gam model in order to predict missing phenologies
+#Fit a regression model
+l_album_gam = mgcv::gam(Flowering_intensity ~ s(Doy, k=3),
+                   #bs="fs",
+                   gamma = 3,
+                   poisson,
+                   data = l_album_jena)
+#Plot predicted values
+predict_gam(l_album_gam, tran_fun = exp) %>%
+plot("Doy")
 
 
 
