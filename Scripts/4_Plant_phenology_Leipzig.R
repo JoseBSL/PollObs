@@ -13,6 +13,7 @@ int_data = readRDS("Data/Working_files/interaction_data.rds")
 #Load phenology data
 leipzig_phenobs = read_csv("Data/Phenology_data/raw_plant_phenobs_leipzig.csv")
 jena_phenobs = read_csv("Data/Phenology_data/raw_plant_phenobs_jena.csv")
+halle_phenobs = read_csv("Data/Phenology_data/raw_plant_phenobs_halle.csv")
 
 #Set ggplot theme
 theme_set(theme_light())
@@ -42,10 +43,14 @@ mutate(Species = recode_factor(Species, "Psephellus dealbata" = "Psephellus deal
 mutate(Species = recode_factor(Species, "Vincetoxicum hinrundinaria" = "Vincetoxicum hirundinaria")) %>% 
 mutate(Species = recode_factor(Species, "Hemerocallis dumotieri" = "Hemerocallis dumortieri"))
 
+#Filter out cyclamen coum as it has no interactions
+leipzig_focals = leipzig_focals %>% filter(!Species == "Cyclamen coum") 
+
 #Fix some species names first and homogenize with our dataset
 d = left_join(leipzig_focals, flowering_data)
 d %>% 
 filter(is.na(Date))
+
 
 #Missing phenologies 
 # 1. Helleborus foetidus  (simulate half of phenology based on my observations)
@@ -179,14 +184,28 @@ mutate(Species = "Primula veris")
 flowering_data = bind_rows(flowering_data, p_veris_new)
 
 # 3. Lamium album ----   
-l_album_jena = jena_phenobs %>% 
-select(Date, Doy, Species, Flowers_opening, Flowering_intensity) %>% 
-mutate(Date = as.Date(str_replace_all(Date, "[.]", "/"), "%d/%m/%Y")) %>% 
-filter(Species == "Lamium album")
+#We use halle flower counts, similar weather to leipzig
+#Plot available data of flower number
+int_data %>% 
+filter(Botanical_garden == "Halle") %>% 
+filter(Plant == "Lamium album") %>%
+filter(Sampling == "Focal") %>% 
+distinct(Botanical_garden, Floral_abundance, Date) %>% 
+ggplot(aes(Date, Floral_abundance, group = Botanical_garden)) +
+geom_point()+
+ggalt::geom_xspline(color = "black") 
+#looks good
+#store data and run model
+l_album_jena = int_data %>% 
+filter(Botanical_garden == "Jena") %>% 
+filter(Plant == "Lamium album") %>%
+filter(Sampling == "Focal") %>% 
+mutate(Doy = lubridate::yday(Date)) %>% 
+distinct(Botanical_garden, Floral_abundance, Doy)
 #Extract values for the dates of interest
 #Run a gam model in order to predict missing phenologies
 #Fit a regression model
-l_album_gam = mgcv::gam(Flowering_intensity ~ s(Doy, k=3),
+l_album_gam = mgcv::gam(Floral_abundance ~ s(Doy, k=3),
                    #bs="fs",
                    gamma = 3,
                    poisson,
@@ -195,18 +214,39 @@ l_album_gam = mgcv::gam(Flowering_intensity ~ s(Doy, k=3),
 predict_gam(l_album_gam, tran_fun = exp) %>%
 plot("Doy")
 
+#Check if it works. Round values so very small values are considered as zero
+l_album_new = tibble(Doy = c(unique(leipzig_phenobs$Doy)))
+l_album_new$Flowering_intensity = round(predict(l_album_gam, l_album_new, type = "response"))
+#Set values under 1 as 0, convert to percentage and add needed columns
+l_album_new = l_album_new %>% 
+mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity < 1, 0, Flowering_intensity)) %>% 
+mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Lamium album") %>% 
+filter(Flowers_opening == "y")
 
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+l_album_new = left_join(values_doy, l_album_new) 
+l_album_new = l_album_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Lamium album")
 
+#Add L. album phenology
+flowering_data = bind_rows(flowering_data, l_album_new)
 
-
-
-
+# 4. Silene viscaria ----   
 #Prepare data
 s_viscaria_jena = int_data %>% 
-filter(Botanical_garden == "Jena") %>% 
+filter(Botanical_garden == "Halle") %>% 
 filter(Plant == "Silene viscaria") %>%
 distinct(Floral_abundance, Date) %>% 
-mutate(Floral_abundance1 = Floral_abundance/max(Floral_abundance)) %>% 
 mutate(Doy = lubridate::yday(Date))
 #Run a gam model in order to predict missing phenologies
 #Fit a regression model
@@ -219,14 +259,14 @@ s_viscaria_gam = mgcv::gam(Floral_abundance ~ s(Doy, k=3),
 predict_gam(s_viscaria_gam, tran_fun = exp) %>%
 plot("Doy")
 #Check if it works. Round values so very small values are considered as zero
-s_viscaria_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
+s_viscaria_new = tibble(Doy = c(unique(leipzig_phenobs$Doy)))
 s_viscaria_new$Flowering_intensity = round(predict(s_viscaria_gam, s_viscaria_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 s_viscaria_new = s_viscaria_new %>% 
 mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
 mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
-mutate(Garden = "Jena") %>% 
+mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Silene viscaria") %>% 
 filter(Flowers_opening == "y")
 
@@ -239,17 +279,126 @@ mutate(Flowering_intensity =
       if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
 mutate(Flowers_opening = 
       if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
-mutate(Garden = "Jena") %>% 
+mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Silene viscaria")
 
 #Add S. viscaria phenology
 flowering_data = bind_rows(flowering_data, s_viscaria_new)
 
+# 5. Centranthus ruber----
+int_data %>% 
+filter(Botanical_garden == "Leipzig") %>% 
+filter(Plant == "Centranthus ruber") %>%
+filter(Sampling == "Focal") %>% 
+distinct(Botanical_garden, Floral_abundance, Date) %>% 
+ggplot(aes(Date, Floral_abundance, group = Botanical_garden)) +
+geom_point()+
+ggalt::geom_xspline(color = "black") 
 
+#Prepare data
+c_ruber_leipzig = int_data %>% 
+filter(Botanical_garden == "Leipzig") %>% 
+filter(Plant == "Centranthus ruber") %>%
+filter(Sampling == "Focal") %>% 
+distinct(Botanical_garden, Floral_abundance, Date) %>% 
+mutate(Doy = lubridate::yday(Date))
 
+#Add one date with low values at the beigining so the model can predict well
+#Create one row to be added that will make the flowering simulation work
+to_be_added = tibble(Botanical_garden = "Leipzig", Floral_abundance = 150, Date = as.Date("2023-06-01"))
+to_be_added = to_be_added %>% 
+mutate(Doy = lubridate::yday(Date))
+c_ruber_leipzig = bind_rows(c_ruber_leipzig, to_be_added)
+#Run a gam model in order to predict missing phenologies
+#Fit a regression model
+c_ruber_gam =mgcv::gam(Floral_abundance ~ s(Doy, k=3),
+                   #bs="fs",
+                   gamma = 3,
+                   poisson,
+                   data = c_ruber_leipzig)
+#Plot predicted values
+predict_gam(c_ruber_gam, tran_fun = exp) %>%
+plot("Doy")
 
+#Check if it works. Round values so very small values are considered as zero
+c_ruber_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
+c_ruber_new$Flowering_intensity = round(predict(c_ruber_gam, c_ruber_new, type = "response"))
+#Set values under 1 as 0, convert to percentage and add needed columns
+c_ruber_new = c_ruber_new %>% 
+mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
+mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Centranthus ruber") %>% 
+filter(Flowers_opening == "y")
 
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+c_ruber_new = left_join(values_doy, c_ruber_new) 
+c_ruber_new = c_ruber_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Centranthus ruber")
+#Add C. ruber phenology
+flowering_data = bind_rows(flowering_data, c_ruber_new)
 
+# 6. Platycodon grandiflorus -----
+#Rename cols with underscore
+colnames(halle_phenobs) = str_replace(colnames(halle_phenobs), " ", "_")
+p_grandiflorus_jena = halle_phenobs %>% 
+select(Date, Doy, Species, Flowers_opening, Flowering_intensity) %>% 
+mutate(Date = as.Date(str_replace_all(Date, "[.]", "/"), "%d/%m/%Y")) %>% 
+filter(Species == "Platycodon grandiflorum") %>% 
+mutate(Species = recode(Species, "Platycodon grandiflorum" = "Platycodon grandiflorus"))
+#Extract values for the dates of interest
+#Run a gam model in order to predict missing phenologies
+#Fit a regression model
+p_grandiflorus_gam = mgcv::gam(Flowering_intensity ~ s(Doy, k=3),
+                   #bs="fs",
+                   gamma = 3,
+                   poisson,
+                   data = p_grandiflorus_jena)
+#Plot predicted values
+predict_gam(p_grandiflorus_gam, tran_fun = exp) %>%
+plot("Doy")
+#Looks ok!
+
+#Check if it works. Round values so very small values are considered as zero
+p_grandiflorus_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
+p_grandiflorus_new$Flowering_intensity = round(predict(p_grandiflorus_gam, p_grandiflorus_new, type = "response"))
+#Set values under 1 as 0, convert to percentage and add needed columns
+p_grandiflorus_new = p_grandiflorus_new %>% 
+mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
+mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Platycodon grandiflorus") %>% 
+filter(Flowers_opening == "y")
+
+#To add 0' with dates without flowering 
+#let's recover the sampled dates and do left join with them
+values_doy = tibble(Doy = unique(flowering_data$Doy))
+p_grandiflorus_new = left_join(values_doy, p_grandiflorus_new) 
+p_grandiflorus_new = p_grandiflorus_new %>% 
+mutate(Flowering_intensity = 
+      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
+mutate(Flowers_opening = 
+      if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
+mutate(Garden = "Leipzig") %>% 
+mutate(Species = "Platycodon grandiflorus")
+#Add P. grandiflorus phenology
+flowering_data = bind_rows(flowering_data, p_grandiflorus_new)
+
+#Fix Silene vulgaris (late value)
+flowering_data = flowering_data %>% 
+mutate(Flowering_intensity = case_when(Doy == 228 ~ 0, 
+       T ~ Flowering_intensity))
+
+str(flowering_data)
 
 
 #Merge all----
@@ -261,7 +410,7 @@ saveRDS(leipzig_phen, "Data/Phenology_data/clean_plant_phenobs_leipzig.rds")
 #Plot all----
 #Because it may not work at 1st, generate a vector and do it for a subset of spp
 v = unique(leipzig_phen$Species)
-d1 = halle_phen %>% 
+d1 = leipzig_phen %>% 
 filter(Species %in% v) %>% 
 mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
 #Find first numeric value of flowering intensity to order species
@@ -277,6 +426,9 @@ d1$Species = factor(d1$Species, levels = lev_species)
 colfunc = colorRampPalette(c("cyan4", "brown3"))
 cols = colfunc(nlevels(d1$Species))
 #Plot
+spp = unique(d1$Species)
+
+
 d1 %>% 
 ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
 stat_smooth(method = "gam",
@@ -295,8 +447,7 @@ facet_wrap(~Species, ncol=1) +
 ylab("Flowering intensity") +
 xlab("Day of the year") +
 scale_fill_manual(values = cols) +
-ggtitle("Halle Botanical Garden")
-
+ggtitle("Leipzig Botanical Garden")
 
 
 
