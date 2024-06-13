@@ -93,7 +93,7 @@ filter(!Doy_difference == 0)
 h_foetidus_leipzig = bind_rows(hf_a, hf_b) %>% 
 select(!Doy_difference)
 #Check how the distribution looks
-ggplot(hf,aes(x = Date, y = Floral_abundance)) + 
+ggplot(h_foetidus_leipzig,aes(x = Date, y = Floral_abundance)) + 
 stat_smooth(method = "gam",
 method.args=list(family=poisson),
 geom = "area",
@@ -116,9 +116,9 @@ h_foetidus_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
 h_foetidus_new$Flowering_intensity = round(predict(h_foetidus_gam, h_foetidus_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 h_foetidus_new = h_foetidus_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
-mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
-mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity<1, NA, Flowering_intensity)) %>% 
+mutate(Flowers_opening = if_else(is.na(Flowering_intensity), "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Helleborus foetidus") %>% 
 filter(Flowers_opening == "y")
@@ -128,12 +128,18 @@ filter(Flowers_opening == "y")
 values_doy = tibble(Doy = unique(flowering_data$Doy))
 h_foetidus_new = left_join(values_doy, h_foetidus_new) 
 h_foetidus_new = h_foetidus_new %>% 
-mutate(Flowering_intensity = 
-      if_else(is.na(Flowering_intensity), 0,Flowering_intensity)) %>% 
 mutate(Flowers_opening = 
       if_else(is.na(Flowers_opening), "no", Flowers_opening)) %>% 
 mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Helleborus foetidus")
+
+ggplot(h_foetidus_new,aes(x = Doy, y = Flowering_intensity)) + 
+stat_smooth(method = "gam",
+method.args=list(family=poisson),
+geom = "area",
+alpha=0.75,
+span = 0.1)
+
 
 #Add H. foetidus phenology
 flowering_data = bind_rows(flowering_data, h_foetidus_new)
@@ -161,7 +167,7 @@ p_veris_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
 p_veris_new$Flowering_intensity = round(predict(p_veris_gam, p_veris_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 p_veris_new = p_veris_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
 mutate(Flowering_intensity = if_else(Flowering_intensity < 1, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
@@ -219,7 +225,7 @@ l_album_new = tibble(Doy = c(unique(leipzig_phenobs$Doy)))
 l_album_new$Flowering_intensity = round(predict(l_album_gam, l_album_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 l_album_new = l_album_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
 mutate(Flowering_intensity = if_else(Flowering_intensity < 1, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
@@ -263,7 +269,7 @@ s_viscaria_new = tibble(Doy = c(unique(leipzig_phenobs$Doy)))
 s_viscaria_new$Flowering_intensity = round(predict(s_viscaria_gam, s_viscaria_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 s_viscaria_new = s_viscaria_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
 mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
@@ -303,6 +309,13 @@ filter(Sampling == "Focal") %>%
 distinct(Botanical_garden, Floral_abundance, Date) %>% 
 mutate(Doy = lubridate::yday(Date))
 
+#Add one row to avoid over predicting values in early stage
+c_ruber_to_add = tibble(Botanical_garden = "Leipzig",
+                      Floral_abundance = 5,
+                      Doy = 150)
+
+c_ruber_leipzig = bind_rows(c_ruber_leipzig, c_ruber_to_add)
+
 #Add one date with low values at the beigining so the model can predict well
 #Create one row to be added that will make the flowering simulation work
 to_be_added = tibble(Botanical_garden = "Leipzig", Floral_abundance = 150, Date = as.Date("2023-06-01"))
@@ -325,8 +338,8 @@ c_ruber_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
 c_ruber_new$Flowering_intensity = round(predict(c_ruber_gam, c_ruber_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 c_ruber_new = c_ruber_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
-mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity<15, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Centranthus ruber") %>% 
@@ -354,6 +367,13 @@ select(Date, Doy, Species, Flowers_opening, Flowering_intensity) %>%
 mutate(Date = as.Date(str_replace_all(Date, "[.]", "/"), "%d/%m/%Y")) %>% 
 filter(Species == "Platycodon grandiflorum") %>% 
 mutate(Species = recode(Species, "Platycodon grandiflorum" = "Platycodon grandiflorus"))
+
+#Add one row to avoid over predicting values in early stage
+p_grandiflorus_to_add = tibble(Date= NA, Doy = 160, Species = "Platycodon grandiflorus",
+                       Flowers_opening = "no", Flowering_intensity= 1)
+
+p_grandiflorus_jena = bind_rows(p_grandiflorus_jena, p_grandiflorus_to_add)
+
 #Extract values for the dates of interest
 #Run a gam model in order to predict missing phenologies
 #Fit a regression model
@@ -372,8 +392,8 @@ p_grandiflorus_new = tibble(Doy = c(unique(jena_phenobs$Doy)))
 p_grandiflorus_new$Flowering_intensity = round(predict(p_grandiflorus_gam, p_grandiflorus_new, type = "response"))
 #Set values under 1 as 0, convert to percentage and add needed columns
 p_grandiflorus_new = p_grandiflorus_new %>% 
-mutate(Flowering_intensity = Flowering_intensity/ max(Flowering_intensity)*100) %>% 
-mutate(Flowering_intensity = if_else(Flowering_intensity<1, 0, Flowering_intensity)) %>% 
+mutate(Flowering_intensity = round(Flowering_intensity/ max(Flowering_intensity)*100)) %>% 
+mutate(Flowering_intensity = if_else(Flowering_intensity<15, 0, Flowering_intensity)) %>% 
 mutate(Flowers_opening = if_else(Flowering_intensity==0, "no", "y")) %>% 
 mutate(Garden = "Leipzig") %>% 
 mutate(Species = "Platycodon grandiflorus") %>% 
@@ -427,7 +447,6 @@ colfunc = colorRampPalette(c("cyan4", "brown3"))
 cols = colfunc(nlevels(d1$Species))
 #Plot
 spp = unique(d1$Species)
-
 
 d1 %>% 
 ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 

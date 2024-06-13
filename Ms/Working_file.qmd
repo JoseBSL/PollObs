@@ -1,7 +1,50 @@
 ---
-title: "PollObs"
-format: pdf
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+        \linenumbers
 ---
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE,}
+#Load libraries
+#Load libraries
+library(dplyr) #data organization
+library(vegan) #nmds
+library(tidyr) #pivot wider
+library(ggplot2) #plotting
+library(viridis) #plotting
+library(patchwork) #plotting
+library(tibble) #cols to rows
+
+```
+
+# Project: PollObs (no title for now)
+
+*Provisional author position:*
+
+Jose B. Lanuza^1^, Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Marc Hoffmann^1^, Panagiotis Theodorou^1,2^, Robert Paxton^1,2^, Isabell Hensen^1,2^,  Robert Rauschkolb^1,3^, Christine Römermann^1,3^, Oliver Schweiger ^1,5^, Martin Freiberg^1,4^, Alfonso Allen-Perkins^6^, Tiffany Knight^1^
+
+*Affiliations*
+
+1. German Centre for Integrative Biodiversity Research (iDiv) Halle-JenaLeipzig, Puschstr. 4, 04103 Leipzig, Germany 
+2. Institute for Biology, Martin-Luther-UniversityHalle-Wittenberg, Hoher Weg 8, 06120 Halle (Saale), Germany 
+3. Institute of Ecology and Evolution with Herbarium Haussknecht and Botanical Garden, Friedrich Schiller University Jena, Jena, Germany 
+4. Systematic Botany and Functional Biodiversity/Botanical Garden, Institute of Biology, Leipzig University, Johannisallee 21-23, 04103, Leipzig, Germany 
+5. UFZ-Helmholtz Centre for Environmental Research, Department of Community Ecology, 06120 Halle, Germany
+6. Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, 28040 Madrid, Spain.
+
+# Abstract
+
+Flowering plants exhibit an astonishing diversity of reproductive structures, which  shapes how they interact with their pollinators. However, to what extent reproductive traits or other drivers like phenology and species abundances shape plant-pollinator interactions is still an open question. To disentangle the relative effects of species phenology, abundances and traits in plant-pollinator interactions, we compared pollinator visitation rates, diet breath, specialization from plant species that vary in reproductive traits, phenology and abundances. To do this, we observed plant-pollinator interactions for a whole flowering season in three different botanical gardens located in an urban setting. We anticipate that the ecological role of the different plan t and pollinator species are largely driven by their phenological overlap and abundance, and only certain taxonomic groups are strongly influenced by trait matching processes. Our results highlight the relevance of considering multiple mechanisms to understand plant-pollinator interactions.
+
 
 # Main objective
 
@@ -17,8 +60,266 @@ Pending tasks:
 
 
 # The data has an important temporal component
-Think how to account for it. 
+
+In Figure 1 we can see in a color coded NMDS the strong temporal component of the composition across gardens and different taxonomic levels.
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8, fig.cap = "\\textbf{Figure 1}. Non-metric multidimensional scaling (NMDS) of the pollinator community composition by sampling day in the three gardens at family, genus and species level."}
+
+#Script to check how the pollinator community changes throughout the season
+#Ordination analyses-->NMDS
+#Load data
+data = readRDS("../Data/Working_files/interaction_data.rds")
+#Select columns of interest
+d = data %>% 
+select(Botanical_garden, Pollinator_rank, Pollinator_accepted_name,
+       Pollinator_family, Pollinator_genus, Date_time) %>% 
+mutate(Date = as.Date(Date_time)) %>% 
+mutate(Date = format(as.POSIXct(Date, format="%Y%m%d"),format="%d%b%y")) %>% 
+select(!Date_time) %>% 
+rename(Family = Pollinator_family) %>% 
+rename(Genus = Pollinator_genus) %>% 
+rename(Species = Pollinator_accepted_name)
+
+#Create function to run for each garden and taxonomic level
+nmds_plot = function(data, garden, taxanomic_level){
+#1)Pollinator family level
+d1 = d %>% 
+filter(Botanical_garden == garden) %>% 
+select(!!sym(taxanomic_level), Date) %>% 
+filter(!is.na(!!sym(taxanomic_level))) %>% 
+group_by(Date, !!sym(taxanomic_level)) %>% 
+count(name = "Number")
+#Convert to wide and then to matrix
+matrix = d1 %>% 
+pivot_wider(names_from = !!sym(taxanomic_level), 
+            values_from = Number, 
+            values_fill = 0) %>%
+remove_rownames %>% 
+column_to_rownames(var="Date") %>%
+as.matrix()
+#Ordination analysis
+nmds_output = metaMDS(matrix, 
+                     k=2, trace=FALSE) # The number of reduced dimensions
+#Visualize with ggplot
+nmds_output_data = nmds_output$points %>%
+as_tibble(rownames = "Date") %>%
+mutate(Date = as.Date(format(as.POSIXct(Date, format="%d%b%y"), format="%Y-%m-%d"))) 
+#Plot it
+plot_nmds = ggplot(nmds_output_data, aes(MDS1,MDS2)) +
+geom_point(stroke=1, aes(color=Date),size=2) + 
+scale_colour_viridis(name = "Flowering",
+                     labels=c("Start", "End"),
+                    # labels=function(x)as.Date(x, origin="1970-01-01"),
+                     breaks = c(min(nmds_output_data$Date), max(nmds_output_data$Date))) +
+theme_bw() +
+ggtitle(label = garden,
+              subtitle = taxanomic_level)
+
+plot_nmds
+}
+
+#Leipzig
+l1 = nmds_plot(d, "Leipzig", "Family")
+l2 = nmds_plot(d, "Leipzig", "Genus") + ggtitle(NULL)
+l3 = nmds_plot(d, "Leipzig", "Species") + ggtitle(NULL)
+#Halle
+h1 = nmds_plot(d, "Halle", "Family")
+h2 = nmds_plot(d, "Halle", "Genus") + ggtitle(NULL)
+h3 = nmds_plot(d, "Halle", "Species") + ggtitle(NULL)
+#Jena
+j1 = nmds_plot(d, "Jena", "Family")
+j2 = nmds_plot(d, "Jena", "Genus") + ggtitle(NULL)
+j3 = nmds_plot(d, "Jena", "Species") + ggtitle(NULL)
+
+#Family level
+family_panel = j1 + h1 + l1   & theme(legend.position = "none", plot.title = element_text(size=16, face= "bold", hjust = 0.5))
+#Genus level
+genus_panel = j2 + h2 + l2   + plot_layout(guides = "collect") & theme(plot.title = element_text(size=16, face= "bold", hjust = 0.5))
+#Species level
+species_panel = j3 + h3 + l3   & theme(legend.position = "none", plot.title = element_text(size=16, face= "bold", hjust = 0.5))
+
+family_panel /
+genus_panel /
+species_panel 
+
+
+```
+
+\newpage
+
+# Plant phenologies
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure 2}."}
+
+
+#Plot plant phenology together in this script
+
+#Load libraries
+library(dplyr)
+library(ggplot2)
+
+#Read botanical garden data
+jena_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_jena.rds")
+halle_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_halle.rds")
+leipzig_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_leipzig.rds")
+
+#Jena----
+v = unique(jena_phen$Species)
+d1 = jena_phen %>% 
+filter(Species %in% v) %>% 
+mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
+#Find first numeric value of flowering intensity to order species
+lev_species = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+pull(Species)
+#This should be the order to be printed (from 1st flowering to last)
+d1$Species = factor(d1$Species, levels = lev_species)
+#Generate as many colors as species
+colfunc = colorRampPalette(c("cyan4", "brown3"))
+cols = colfunc(nlevels(d1$Species))
+
+
+#Edit this
+label_data = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+mutate(Flowering_intensity = 0) %>% 
+select(Species, Doy, Flowering_intensity) %>% 
+mutate(Doy = Doy-30)
+
+
+#Plot
+jena_plot = d1 %>% 
+ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
+geom_text(data = label_data, aes(label = Species), fontface="italic",
+            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
+stat_smooth(method = "gam",
+method.args=list(family=poisson),
+geom = "area",
+alpha=0.75,
+span = 0.1) +
+theme_minimal()+
+theme(legend.position = "none", 
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      panel.spacing = unit(-1.5,'lines')) +
+coord_cartesian(expand = FALSE) +
+scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
+facet_wrap(~Species, ncol=1) +
+ylab("Flowering intensity") +
+xlab("Day of the year") +
+scale_fill_manual(values = cols)  +
+ggtitle("Jena")
+
+#Halle----
+v = unique(halle_phen$Species)
+d1 = halle_phen %>% 
+filter(Species %in% v) %>% 
+mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
+#Find first numeric value of flowering intensity to order species
+lev_species = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+pull(Species)
+#This should be the order to be printed (from 1st flowering to last)
+d1$Species = factor(d1$Species, levels = lev_species)
+#Generate as many colors as species
+colfunc = colorRampPalette(c("cyan4", "brown3"))
+cols = colfunc(nlevels(d1$Species))
+#Edit this
+label_data = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+mutate(Flowering_intensity = 0) %>% 
+select(Species, Doy, Flowering_intensity) %>% 
+mutate(Doy = Doy-30)
+
+#Plot
+halle_plot = d1 %>% 
+ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
+geom_text(data = label_data, aes(label = Species), fontface="italic",
+            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
+stat_smooth(method = "gam",
+method.args=list(family=poisson),
+geom = "area",
+alpha=0.75,
+span = 0.1) +
+theme_minimal()+
+theme(legend.position = "none", 
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      panel.spacing = unit(-1.5,'lines')) +
+coord_cartesian(expand = FALSE) +
+scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
+facet_wrap(~Species, ncol=1) +
+ylab(NULL) +
+xlab("Day of the year") +
+scale_fill_manual(values = cols)  +
+ggtitle("Halle")
+
+##Leipzig----
+v = unique(leipzig_phen$Species)
+d1 = leipzig_phen %>% 
+filter(Species %in% v) %>% 
+mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
+#Find first numeric value of flowering intensity to order species
+lev_species = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+pull(Species)
+#This should be the order to be printed (from 1st flowering to last)
+d1$Species = factor(d1$Species, levels = lev_species)
+#Generate as many colors as species
+colfunc = colorRampPalette(c("cyan4", "brown3"))
+cols = colfunc(nlevels(d1$Species))
+#Edit this
+label_data = d1 %>% 
+group_by(Species) %>% 
+filter(Flowers_opening == "y") %>% 
+slice_min(Doy) %>% 
+arrange(Doy) %>% 
+mutate(Flowering_intensity = 0) %>% 
+select(Species, Doy, Flowering_intensity) %>% 
+mutate(Doy = Doy-30)
+
+#Plot
+leipzig_plot = d1 %>% 
+ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
+geom_text(data = label_data, aes(label = Species), fontface="italic",
+            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
+stat_smooth(method = "gam",
+method.args=list(family=poisson),
+geom = "area",
+alpha=0.75,
+span = 0.1) +
+theme_minimal()+
+theme(legend.position = "none", 
+      strip.background = element_blank(),
+      strip.text.x = element_blank(),
+      panel.spacing = unit(-1.5,'lines')) +
+coord_cartesian(expand = FALSE) +
+scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
+facet_wrap(~Species, ncol=1) +
+ylab(NULL) +
+xlab("Day of the year") +
+scale_fill_manual(values = cols)  +
+ggtitle("Leipzig")
+
+#Order Jena-Halle-Leipzig
+library(patchwork)
+jena_plot + halle_plot + leipzig_plot & theme(axis.title = element_text(size=16, face= "bold"), plot.title = element_text(size=20, face= "bold", hjust = 0.5))
 
 
 
-
+```
