@@ -309,6 +309,7 @@ colfunc = colorRampPalette(c("cyan4", "brown3"))
 cols = colfunc(nlevels(d1$Species))
 #Plot
 d1 %>% 
+filter(Species=="Hepatica nobilis") %>% 
 ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
 stat_smooth(method = "gam",
 method.args=list(family=poisson),
