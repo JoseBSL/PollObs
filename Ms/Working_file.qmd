@@ -58,6 +58,9 @@ Pending tasks:
 
 - Easy things to check: alpha, beta and gamma diversity of pollinators across the three gardens.
 
+# Methods
+
+WRITE XXXXX
 
 # The data has an important temporal component
 
