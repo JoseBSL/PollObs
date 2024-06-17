@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 .DS_Store
+.Data/Occurrence_data_gbif.csv
