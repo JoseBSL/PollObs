@@ -123,6 +123,9 @@ st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), dim = "XY") %>%
 st_set_crs(4326)
 oc_extraction = sf::st_intersection(rectangle, oc_2023)
 #SAVE!
+saveRDS(oc_extraction, "Data/Working_files/oc_extraction.rds")
+
+colnames(oc_extraction)
 
 #Alternative methods
 #If this takes too long let's do it with a simple filter
