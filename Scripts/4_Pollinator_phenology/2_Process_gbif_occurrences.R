@@ -122,6 +122,11 @@ oc_2023 = oc_2023 %>%
 st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), dim = "XY") %>% 
 st_set_crs(4326)
 oc_extraction = sf::st_intersection(rectangle, oc_2023)
+#SAVE!
+
+#Alternative methods
+#If this takes too long let's do it with a simple filter
+#Values unde and over x and y
 
 #I may leave this code running
 #Maybe try a spatial join
