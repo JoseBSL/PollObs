@@ -4,6 +4,8 @@ library(data.table)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(stringr)
+
 occurrence = fread("Data/Occurrence_data_gbif.csv", select = c("order", "family", 
                                          "genus", "species",
                                          "taxonRank", "verbatimScientificName",
@@ -96,51 +98,52 @@ rectangle = c(
   sf::st_transform(crs = 4326)
 
 world <- map_data("world")
-ggplot() +
-geom_map(
-  data = world,
-  map = world,
-  aes(long, lat, map_id = region),
-  color = "white",
-  fill = "lightgray",
-  size = 0.01) +
-ylim(0, 70) +
-geom_point(data = centroid, aes(lon_centroid_deg, lat_centroid_deg), color= "red") +
-geom_point(data = oc_2023,
-             aes(decimalLongitude, decimalLatitude),
-             alpha = 0.7,
-             size = 0.05) +
-geom_sf(data = rectangle, colour = "red", fill = NA) +
-coord_sf(xlim = c(-15, 44),
-         ylim = c(33, 73),
-         expand = FALSE) 
-
+#ggplot() +
+#geom_map(
+#  data = world,
+#  map = world,
+#  aes(long, lat, map_id = region),
+#  color = "white",
+#  fill = "lightgray",
+#  size = 0.01) +
+#ylim(0, 70) +
+#geom_point(data = centroid, aes(lon_centroid_deg, lat_centroid_deg), color= "red") +
+#geom_point(data = oc_2023,
+#             aes(decimalLongitude, decimalLatitude),
+#             alpha = 0.7,
+#             size = 0.05) +
+#geom_sf(data = rectangle, colour = "red", fill = NA) +
+#coord_sf(xlim = c(-15, 44),
+#         ylim = c(33, 73),
+#         expand = FALSE) 
+#
   
 #Now extract point within the rectangle
 library(sf)
 oc_2023 = oc_2023 %>% 
 st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), dim = "XY") %>% 
 st_set_crs(4326)
-oc_extraction = sf::st_intersection(rectangle, oc_2023)
-#SAVE!
-saveRDS(oc_extraction, "Data/Working_files/oc_extraction.rds")
-
-colnames(oc_extraction)
-
-#Alternative methods
-#If this takes too long let's do it with a simple filter
-#Values unde and over x and y
-
-#I may leave this code running
-#Maybe try a spatial join
-tictoc::tic()
-result <- st_join(pt, bioregions)
-tictoc::toc()
-
-
-#Maybe build phenology graphs
-oc_2023 %>% filter(species == spp_order[8]) %>% 
-ggplot(aes(x = Doy)) + geom_density()
-
-
+#This is the cool way but takes too long
+#oc_extraction = sf::st_intersection(rectangle, oc_2023)
+colnames(oc_2023)
+#Let's apply the filters manually...
+#Ok for now :)
+oc_2023_1 = oc_2023 %>% 
+ dplyr::mutate(longitude = sf::st_coordinates(.)[,1],
+                latitude = sf::st_coordinates(.)[,2])
+#Drop geometry
+oc_2023_1 = sf::st_drop_geometry(oc_2023_1)
+#Make upper case all columns
+oc_2023_1 = oc_2023_1 %>%
+rename_with(str_to_title)
+#Check colnames
+colnames(oc_2023_1)
+#apply manual filter
+oc_2023_2 = oc_2023_1 %>% 
+filter(Latitude > lat_centroid_deg-2) %>% 
+filter(Latitude < lat_centroid_deg+2) %>% 
+filter(Longitude > lon_centroid_deg-6.1) %>% 
+filter(Longitude < lon_centroid_deg+6.1) 
+#Save
+saveRDS(oc_2023_2, "Data/Working_files/oc_extraction.rds")
 

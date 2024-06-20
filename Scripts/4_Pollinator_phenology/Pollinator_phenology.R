@@ -65,6 +65,12 @@ group_by(Pollinator, Date) %>%
 summarise(Individuals = n()) %>% 
 mutate(Doy = lubridate::yday(Date))
 
+#Save dates
+unique_dates = poll_phenology_counts %>% 
+ungroup() %>% 
+distinct(Date, Doy)
+saveRDS(unique_dates, "Data/Working_files/unique_dates.rds")
+
 #Bind to this dataset the one with info of min, max dates and flying period
 poll_phen = left_join(poll_phenology, poll_phenology_counts)
 
