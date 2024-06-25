@@ -21,29 +21,37 @@ select(Species, Doy)
 #Count individuals, number of records by date and species
 oc1 = oc %>% 
 group_by(Species, Doy) %>% 
-summarise(n_individuals = length(Doy))
+summarise(n_individuals = length(Doy)) %>%
+mutate(Week = ceiling(Doy / 7))
 #Arrange by number of cases per species
 spp_order = oc %>% 
 group_by(Species) %>% 
 summarise(n_records = length(Species)) %>% 
 arrange(-n_records) %>% 
+filter(n_records > 50) %>% 
 pull(Species)
 #Order the tibble by number of cases per species
 oc1 = oc1 %>%
 arrange(match(Species, spp_order))
+
+#Aggregate by week
+#Let's see if models work better with aggregated data
+oc2 = oc1 %>% 
+group_by(Species, Week) %>% 
+summarise(n_ind_week = sum(n_individuals))
+
 
 #Create general function 
 #This function runs a GAM and plots 
 #the probabilities relative to the maximum abundance
 #Define the function
 create_prediction <- function(species) {
-    tryCatch({
-
   #Filter data for the specified species
   sp_data = oc1 %>% filter(Species == species)
   #Fit the GAM model
-  sp_model = gam(n_individuals ~ s(Doy, k = 20),
-               family = nb(link = "log"), data = sp_data, method = "REML")
+  sp_model = gam(n_individuals ~ s(Doy, k = 18, m=2),
+  #default is m=2 to avoid overfitting m=1 will provide less smooth outputs 
+  family = nb(link = "log"), data = sp_data, method = "REML")
   #Create a new data frame with unique Doy values
   unique_dates = tibble(Doy = seq(from = 1, to = 365, by = 1))
   #Make predictions using the new data frame
@@ -65,10 +73,7 @@ create_prediction <- function(species) {
     theme_minimal()
 # Return a tibble with the predictions and the plot
   return(tibble(Species = species, Predictions = list(unique_dates), Plot = list(plot)))
-  }, error = function(e) {
-    message(paste("Error for species:", species, ":", e$message))
-    return(NULL)
-  })}
+  }
 
 #Run it species by species
 # Assuming oc1 and spp_order are already defined
@@ -86,11 +91,10 @@ all_predictions <- bind_rows(predictions_list, .id = "Species")
 
 #Now save all plots in a folder ordered by number so I can see if it worked
 #For some species is not working, let's ensure that we have a plot for all species
-
 sp_tibble = tibble(Species = spp_order)
 all_predictions1 = left_join(sp_tibble, all_predictions) 
 
-for (i in length(all_predictions1$Species)) {
+for (i in 1:length(all_predictions1$Species)) {
   species <- all_predictions1$Species[i]
   
   # Extract the plot from the tibble using double brackets [[i]]
@@ -110,12 +114,21 @@ for (i in length(all_predictions1$Species)) {
   }
 }
 
-
-#Check fit of specific gam plots---
-sp_data = oc1 %>% filter(Species == spp_order[8])
-sp_model = gam(n_individuals ~ s(Doy, k = 15),
+# Note the fit of the models look ok/check for examples...
+sp_data = oc1 %>% filter(Species == spp_order[2])
+sp_model = gam(n_individuals ~ s(Doy, k = 30),
                family = nb(link = "log"), data = sp_data, method = "REML")
 qq.gam(sp_model, main = "QQ plot of residuals")
+
+#Now check the generated plots in the folder one by one
+#Create vector of plots that are not creating a nice phenology
+
+
+
+
+
+
+
 #Looks good
 #Create a new data frame with unique Doy values
 unique_dates = tibble(Doy = seq(from = 1, to = 365, by = 1))
@@ -128,11 +141,11 @@ max_abundance = max(unique_dates$Abundances)
 unique_dates = unique_dates %>%
 mutate(Probability = Abundances / max_abundance)
 #Add the species name to the data frame
-unique_dates$Species = spp_order[8]
+unique_dates$Species = spp_order[48]
 #Plot the predicted probabilities
 ggplot(unique_dates, aes(x = Doy, y = Probability)) +
   geom_line(color = "blue") +
-    labs(title = paste("Predicted Probabilities for", spp_order[], "Over Day of Year (Doy)"),
+    labs(title = paste("Predicted Probabilities for", spp_order[48], "Over Day of Year (Doy)"),
          x = "Day of Year (Doy)",
          y = "Predicted Probability") +
     theme_minimal()
