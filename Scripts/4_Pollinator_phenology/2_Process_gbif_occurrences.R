@@ -87,10 +87,10 @@ lon_centroid_deg = rad2deg(lon_centroid)
 centroid = tibble(Latitude = lat_centroid_deg, Longitude = lon_centroid_deg)
 #Create a rectangle with +/- 2 lat and +/- 6 lon
 rectangle = c(
-    "xmin" = lon_centroid_deg-6.1,
-    "xmax" = lon_centroid_deg+6.1,
-    "ymin" = lat_centroid_deg-2,
-    "ymax" = lat_centroid_deg+2
+    "xmin" = lon_centroid_deg-6.8,
+    "xmax" = lon_centroid_deg+6.8,
+    "ymin" = lat_centroid_deg-2.5,
+    "ymax" = lat_centroid_deg+2.5
   ) %>%
   sf::st_bbox() %>%
   sf::st_as_sfc() %>%
@@ -98,25 +98,25 @@ rectangle = c(
   sf::st_transform(crs = 4326)
 
 world <- map_data("world")
-#ggplot() +
-#geom_map(
-#  data = world,
-#  map = world,
-#  aes(long, lat, map_id = region),
-#  color = "white",
-#  fill = "lightgray",
-#  size = 0.01) +
-#ylim(0, 70) +
-#geom_point(data = centroid, aes(lon_centroid_deg, lat_centroid_deg), color= "red") +
-#geom_point(data = oc_2023,
-#             aes(decimalLongitude, decimalLatitude),
-#             alpha = 0.7,
-#             size = 0.05) +
-#geom_sf(data = rectangle, colour = "red", fill = NA) +
-#coord_sf(xlim = c(-15, 44),
-#         ylim = c(33, 73),
-#         expand = FALSE) 
-#
+ggplot() +
+geom_map(
+  data = world,
+  map = world,
+  aes(long, lat, map_id = region),
+  color = "white",
+  fill = "lightgray",
+  size = 0.01) +
+ylim(0, 70) +
+geom_point(data = centroid, aes(lon_centroid_deg, lat_centroid_deg), color= "red") +
+geom_point(data = oc_2023,
+             aes(decimalLongitude, decimalLatitude),
+             alpha = 0.7,
+             size = 0.05) +
+geom_sf(data = rectangle, colour = "red", fill = NA) +
+coord_sf(xlim = c(-15, 44),
+         ylim = c(33, 73),
+         expand = FALSE) 
+
   
 #Now extract point within the rectangle
 library(sf)
@@ -140,10 +140,10 @@ rename_with(str_to_title)
 colnames(oc_2023_1)
 #apply manual filter
 oc_2023_2 = oc_2023_1 %>% 
-filter(Latitude > lat_centroid_deg-2) %>% 
-filter(Latitude < lat_centroid_deg+2) %>% 
-filter(Longitude > lon_centroid_deg-6.1) %>% 
-filter(Longitude < lon_centroid_deg+6.1) 
+filter(Latitude > lat_centroid_deg-2.5) %>% 
+filter(Latitude < lat_centroid_deg+2.5) %>% 
+filter(Longitude > lon_centroid_deg-6.8) %>% 
+filter(Longitude < lon_centroid_deg+6.8) 
 #Save
 saveRDS(oc_2023_2, "Data/Working_files/oc_extraction.rds")
 
