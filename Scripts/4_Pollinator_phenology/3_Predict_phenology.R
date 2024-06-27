@@ -41,13 +41,64 @@ group_by(Species, Week) %>%
 summarise(n_ind_week = sum(n_individuals))
 
 
+#Create phenological predictions for pollinators
+#Need to be done species by species given that each species
+#has different number of records and their case can be context specific
+#species with no records are likely excluded as there is no enough information
+
+#Load libraries
+library(mgcv)
+library(tidygam)
+library(dplyr)
+library(ggplot2)
+
+#Load data
+#Clean occurrence data
+oc_extraction_coords = readRDS("Data/Working_files/oc_extraction.rds")
+#Unique dates 
+unique_dates = readRDS("Data/Working_files/unique_dates.rds")
+
+#Select columns of interest
+oc = oc_extraction_coords %>% 
+select(Species, Doy)
+#Count individuals, number of records by date and species
+oc1 = oc %>% 
+group_by(Species, Doy) %>% 
+summarise(n_individuals = length(Doy)) 
+#Arrange by number of cases per species
+spp_order = oc %>% 
+group_by(Species) %>% 
+summarise(n_records = length(Species)) %>% 
+arrange(-n_records) %>% 
+filter(n_records > 50) %>% 
+pull(Species)
+#Order the tibble by number of cases per species
+oc1 = oc1 %>%
+arrange(match(Species, spp_order))
+
+#Now make the absence of value as a zero so it models better the extremes
+#Create for each species 
+#Create tibble
+unique_species_sequence = oc1 %>% 
+distinct(Species) %>% 
+group_by(Species) %>% 
+tidyr::crossing(Doy = 1:365)
+
+#Bind both datasets
+oc2 = left_join(unique_species_sequence, oc1)
+#Convert NA's into 0's
+oc2 = oc2 %>% 
+mutate(n_individuals = case_when(is.na(n_individuals) ~ 0,
+                                 TRUE ~ n_individuals))
+
+
 #Create general function 
 #This function runs a GAM and plots 
 #the probabilities relative to the maximum abundance
 #Define the function
 create_prediction <- function(species) {
   #Filter data for the specified species
-  sp_data = oc1 %>% filter(Species == species)
+  sp_data = oc2 %>% filter(Species == species)
   #Fit the GAM model
   sp_model = gam(n_individuals ~ s(Doy, k = 18, m=2),
   #default is m=2 to avoid overfitting m=1 will provide less smooth outputs 
