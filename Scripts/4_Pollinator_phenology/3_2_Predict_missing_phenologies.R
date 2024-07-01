@@ -1,22 +1,15 @@
-#Create phenological predictions for pollinators
-#Need to be done species by species given that each species
-#has different number of records and their case can be context specific
-#species with no records are likely excluded as there is no enough information
+#Now try to generate models with all occurrences for these species
+#Read unprocessed occurrences
+occurrences = readRDS("Data/Working_files/oc_extraction_non_filtered.rds")
+spp_missing_phenology = readRDS("Data/Working_files/pollinator_spp_with_missing_phenology.rds")
 
-#Load libraries
-library(mgcv)
-library(tidygam)
-library(dplyr)
-library(ggplot2)
-
-#Load data
-#Clean occurrence data
-oc_extraction_coords = readRDS("Data/Working_files/oc_extraction.rds")
-#Unique dates 
-unique_dates = readRDS("Data/Working_files/unique_dates.rds")
+#Select only records for species with missing phenology 
+occurrences1 = occurrences %>% 
+filter(species %in% spp_missing_phenology) %>% 
+rename(Species = species)
 
 #Select columns of interest
-oc = oc_extraction_coords %>% 
+oc = occurrences1 %>% 
 select(Species, Doy)
 #Count individuals, number of records by date and species
 oc1 = oc %>% 
@@ -54,6 +47,9 @@ summarise(n_individuals = length(Pollinator)) %>%
 mutate(Doy = lubridate::yday(Date)) %>% 
 select(!Date) %>% 
 rename(Species = Pollinator)
+str(int_data_polls)
+str(oc1)
+
 #Bind rows
 oc1 = bind_rows(oc1, int_data_polls)
 #Aggregate individuals per species and date
@@ -84,7 +80,7 @@ create_prediction <- function(species) {
   #Filter data for the specified species
   sp_data = oc2 %>% filter(Species == species)
   #Fit the GAM model
-  sp_model = gam(n_individuals ~ s(Doy, k = 18, m=2),
+  sp_model = gam(n_individuals ~ s(Doy, k = 10, m=1),
   #default is m=2 to avoid overfitting m=1 will provide less smooth outputs 
   family = nb(link = "log"), data = sp_data, method = "REML")
   #Create a new data frame with unique Doy values
@@ -138,7 +134,7 @@ for (i in 1:length(all_predictions1$Species)) {
   # Check if plot is not NULL before saving
   if (!is.null(plot)) {
     # Construct the filename with the species index and name
-    plot_filename <- paste0("Data/Pollinator_phenology/", i, "_", stringr::str_replace(species, " ","_"), ".png")
+    plot_filename <- paste0("Data/Pollinator_phenology/Missing_phenologies/", i, "_", stringr::str_replace(species, " ","_"), ".png")
     
     # Save the plot to a file
     ggsave(filename = plot_filename, plot = plot, width = 8, height = 6)
@@ -150,31 +146,11 @@ for (i in 1:length(all_predictions1$Species)) {
 }
 
 
-#Now check the generated plots in the folder one by one
-#Create vector of plots that are not creating a nice phenology
-#and re rerun GAM with all occurrences!
-to_fix = c(44, 56, 58, 62, 63, 64, 68, 78, 81, 86, 87, 99, 
-           101, 102, 114, 116, 117, 120, 121, 124, 128, 
-           131, 132, 133)
-#Include also species that did not have sufficient records
-spp_order_raw = spp_order_raw %>% pull(Species)
-until_max = seq(from = max(to_fix), to = length(spp_order_raw), by = 1)
-to_fix1 = c(to_fix, until_max)
-spp_missing_phenology = spp_order_raw[to_fix1]
-#save species with missing phenology
-saveRDS(spp_missing_phenology, "Data/Working_files/pollinator_spp_with_missing_phenology.rds")
-
-
-#Create now 
-
-
-
-
 
 
 # Note the fit of the models look ok/check for examples...
-sp_data = oc1 %>% filter(Species == spp_order[44])
-sp_model = gam(n_individuals ~ s(Doy, k = 15, m=1),
+sp_data = oc1 %>% filter(Species == spp_order[1])
+sp_model = gam(n_individuals ~ s(Doy, k = 4, m=1),
                family = nb(link = "log"), data = sp_data, method = "REML")
 qq.gam(sp_model, main = "QQ plot of residuals")
 
@@ -191,13 +167,14 @@ max_abundance = max(unique_dates$Abundances)
 unique_dates = unique_dates %>%
 mutate(Probability = Abundances / max_abundance)
 #Add the species name to the data frame
-unique_dates$Species = spp_order[44]
+unique_dates$Species = spp_order[1]
 #Plot the predicted probabilities
 ggplot(unique_dates, aes(x = Doy, y = Probability)) +
   geom_line(color = "blue") +
-    labs(title = paste("Predicted Probabilities for", spp_order[44], "Over Day of Year (Doy)"),
+    labs(title = paste("Predicted Probabilities for", spp_order[1], "Over Day of Year (Doy)"),
          x = "Day of Year (Doy)",
          y = "Predicted Probability") +
     theme_minimal()
+
 
 
