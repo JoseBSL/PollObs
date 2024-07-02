@@ -24,10 +24,12 @@ group_by(Species, Doy) %>%
 summarise(n_individuals = length(Doy)) %>%
 mutate(Week = ceiling(Doy / 7))
 #Arrange by number of cases per species
-spp_order = oc %>% 
+spp_order_raw = oc %>% 
 group_by(Species) %>% 
 summarise(n_records = length(Species)) %>% 
-arrange(-n_records) %>% 
+arrange(-n_records) 
+
+spp_order = spp_order_raw %>% 
 filter(n_records > 60) %>% 
 pull(Species)
 #Order the tibble by number of cases per species
@@ -164,20 +166,198 @@ spp_missing_phenology = spp_order_raw[to_fix1]
 #save species with missing phenology
 saveRDS(spp_missing_phenology, "Data/Working_files/pollinator_spp_with_missing_phenology.rds")
 
+#Create now long tibble with everything
+all_to_bind = all_predictions1 %>% select(Predictions)
+#Bind all
+all_binded1 = purrr::map(all_to_bind, bind_rows)
+all_binded2 = bind_rows(all_binded1)
 
-#Create now 
+#Now group by species
+all_binded3 = all_binded2 %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+
+#Would be nice to check if all species retain the pattern No-Yes-No
+pattern_check = all_binded3 %>% 
+group_by(Species) %>% 
+mutate(Next_value = lead(Flying_period)) %>%
+filter(Flying_period != Next_value | is.na(Next_value)) %>%
+select(-Next_value)
+#Now filter species that do not contain the pattern
+p_c = pattern_check %>% 
+group_by(Species) %>%
+filter(!n() == 3 & first(Flying_period) == "No" & 
+         nth(Flying_period, 2) == "Yes" & 
+         last(Flying_period) == "No") %>% 
+distinct(Species)
+ #1 Aglais io            
+#Has become a bivoltine species in Europe
+#10.3390/insects12080683
+#we can confirm this phenological pattern
+#2 Harmonia axyridis
+#Fix with a softer modelling approach
+sp_data = oc1 %>% filter(Species == "Harmonia axyridis")
+sp_model = gam(n_individuals ~ s(Doy, k = 5, m=1),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+h_axyridis = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, h_axyridis, type = "response")
+#Assign the predicted values to the new data frame
+h_axyridis$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(h_axyridis$Abundances)
+h_axyridis = h_axyridis %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+h_axyridis$Species = "Harmonia axyridis"
+#Plot the predicted probabilities
+ggplot(h_axyridis, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Harmonia axyridis", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Fix
+h_axyridis = h_axyridis %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+
+fixed_phenologies = h_axyridis
+#3Pieris rapae         
+#Shows also a bivoltine phenology https://doi.org/10.1038/s41467-023-39359-8
+#We can improve it a bit
+#Fix with a softer modelling approach
+sp_data = oc1 %>% filter(Species == "Pieris rapae")
+sp_model = gam(n_individuals ~ s(Doy, k = 12, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+p_rapae = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, p_rapae, type = "response")
+#Assign the predicted values to the new data frame
+p_rapae$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(p_rapae$Abundances)
+p_rapae = p_rapae %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+p_rapae$Species = "Pieris rapae"
+#Plot the predicted probabilities
+ggplot(p_rapae, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Pieris rapae", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix
+p_rapae = p_rapae %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, p_rapae)
+#4Pieris napi        
+#Shows also a bivoltine phenology https://doi.org/10.1038/s41467-023-39359-8
+#We can improve it a bit
+#Fix with a softer modelling approach
+sp_data = oc1 %>% filter(Species == "Pieris napi")
+sp_model = gam(n_individuals ~ s(Doy, k = 9, m=1),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+p_napi = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, p_napi, type = "response")
+#Assign the predicted values to the new data frame
+p_napi$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(p_napi$Abundances)
+p_napi = p_napi %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+p_napi$Species = "Pieris napi"
+#Plot the predicted probabilities
+ggplot(p_napi, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Pieris napi", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+ #Looks a bit better now
+#Fix
+p_napi = p_napi %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, p_napi)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+#5 Cydalima perspectalis
+#several generations per year https://doi.org/10.1093/jipm/pmac020
+#The observed pattern seems right
+
+#6 Polygonia c-album
+# bivoltine https://www.monaconatureencyclopedia.com/polygonia-c-album/?lang=en
+#Looks good too
+
+#7 Polyommatus icarus   
+
+# 8 Bombus lapidarius    
+# Maybe we can improve it a bit
+#This should follow more a Guassian than a bivoltine phenology
+#Fix with a softer modelling approach
+sp_data = oc1 %>% filter(Species == "Bombus lapidarius")
+sp_model = gam(n_individuals ~ s(Doy, k = 6, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+b_lapidarius = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, b_lapidarius, type = "response")
+#Assign the predicted values to the new data frame
+b_lapidarius$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(b_lapidarius$Abundances)
+b_lapidarius = b_lapidarius %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+b_lapidarius$Species = "Bombus lapidarius"
+#Plot the predicted probabilities
+ggplot(b_lapidarius, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Bombus lapidarius", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix
+b_lapidarius = b_lapidarius %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, b_lapidarius)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+#9 Aricia agestis       
+#https://gdoremi.altervista.org/lycaenidae/Aricia_agestis_en.html
+#Bivoltine species, maybe improve a bit but doesn't look terrible
+
+#10 Aglais urticae       
+#Same is bivoltine and the fit could be further improved.
+
+#11Eristalis pertinax
+#Bivoltine species
+
+#12Xylocopa violacea
 
 
+p_c
 
 
-
-
-# Note the fit of the models look ok/check for examples...
-sp_data = oc1 %>% filter(Species == spp_order[44])
-sp_model = gam(n_individuals ~ s(Doy, k = 15, m=1),
+# Check fit of some models
+sp_data = oc1 %>% filter(Species == spp_order[4])
+sp_model = gam(n_individuals ~ s(Doy, k = 12, m=2),
                family = nb(link = "log"), data = sp_data, method = "REML")
 qq.gam(sp_model, main = "QQ plot of residuals")
-
 
 #Looks good
 #Create a new data frame with unique Doy values
@@ -191,11 +371,11 @@ max_abundance = max(unique_dates$Abundances)
 unique_dates = unique_dates %>%
 mutate(Probability = Abundances / max_abundance)
 #Add the species name to the data frame
-unique_dates$Species = spp_order[44]
+unique_dates$Species = spp_order[4]
 #Plot the predicted probabilities
 ggplot(unique_dates, aes(x = Doy, y = Probability)) +
   geom_line(color = "blue") +
-    labs(title = paste("Predicted Probabilities for", spp_order[44], "Over Day of Year (Doy)"),
+    labs(title = paste("Predicted Probabilities for", spp_order[4], "Over Day of Year (Doy)"),
          x = "Day of Year (Doy)",
          y = "Predicted Probability") +
     theme_minimal()
