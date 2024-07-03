@@ -162,6 +162,9 @@ to_fix = c(44, 56, 58, 62, 63, 64, 68, 78, 81, 86, 87, 99,
 spp_order_raw = spp_order_raw %>% pull(Species)
 until_max = seq(from = max(to_fix), to = length(spp_order_raw), by = 1)
 to_fix1 = c(to_fix, until_max)
+
+length(to_fix1)
+
 spp_missing_phenology = spp_order_raw[to_fix1]
 #save species with missing phenology
 saveRDS(spp_missing_phenology, "Data/Working_files/pollinator_spp_with_missing_phenology.rds")
@@ -190,7 +193,7 @@ filter(!n() == 3 & first(Flying_period) == "No" &
          nth(Flying_period, 2) == "Yes" & 
          last(Flying_period) == "No") %>% 
 distinct(Species)
- #1 Aglais io            
+#1 Aglais io            
 #Has become a bivoltine species in Europe
 #10.3390/insects12080683
 #we can confirm this phenological pattern
@@ -217,6 +220,7 @@ ggplot(h_axyridis, aes(x = Doy, y = Probability)) +
     labs(title = paste("Predicted Probabilities for", "Harmonia axyridis", "Over Day of Year (Doy)"),
          x = "Day of Year (Doy)",
          y = "Predicted Probability") +
+  geom_point(data = sp_data, aes(x = Doy, y = n_individuals/max(n_individuals) )) +
     theme_minimal()
 #Fix
 h_axyridis = h_axyridis %>% 
@@ -348,6 +352,194 @@ fixed_phenologies %>%  distinct(Species) %>% pull()
 #Bivoltine species
 
 #12Xylocopa violacea
+#I think is a univoltine species
+#We could soften the curves so it is detected as flying all the time that is present
+sp_data = oc1 %>% filter(Species == "Xylocopa violacea")
+sp_model = gam(n_individuals ~ s(Doy, k = 8, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+x_violacea = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, x_violacea, type = "response")
+#Assign the predicted values to the new data frame
+x_violacea$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(x_violacea$Abundances)
+x_violacea = x_violacea %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+x_violacea$Species = "Xylocopa violacea"
+#Plot the predicted probabilities
+ggplot(x_violacea, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Xylocopa violacea", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix
+x_violacea = x_violacea %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, x_violacea)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+#13 Tachina fera
+#Is a bivoltine species so the observed pattern is completely logical
+#https://en.wikipedia.org/wiki/Tachina_fera
+
+#14 Andrena flavipes
+#It is also a bivoltine species
+#https://bwars.com/index.php/bee/andrenidae/andrena-flavipes
+
+#15Bombus campestris
+#It is a cucko species that does not seem to have more than 1 generation per gear
+#But their host can be bivoltine so it cannot be discarded
+#Cannot improve the model for now
+
+#16 Sphecodes albilabris
+#Females over winter and search for nest in spring
+#Then males and females appear
+#https://www.wildbienen.de/wba-kale.htm
+#The pattern is correct
+
+#17Andrena bicolor
+#Andrena bicolor is a bivoltine species and has two generations per year
+#https://www.wildbienen.de/wba-kale.htm
+#The pattern is correct
+
+#18Anthomyia procellaris
+#doesn't seem to have two generations, maybe soften fit
+sp_data = oc1 %>% filter(Species == "Anthomyia procellaris")
+sp_model = gam(n_individuals ~ s(Doy, k = 6, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+a_procellaris = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, a_procellaris, type = "response")
+#Assign the predicted values to the new data frame
+a_procellaris$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(a_procellaris$Abundances)
+a_procellaris = a_procellaris %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+a_procellaris$Species = "Anthomyia procellaris"
+#Plot the predicted probabilities
+ggplot(a_procellaris, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Anthomyia procellaris", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix
+a_procellaris = a_procellaris %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, a_procellaris)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+#19Timarcha goettingensis
+sp_data = oc1 %>% filter(Species == "Timarcha goettingensis")
+sp_model = gam(n_individuals ~ s(Doy, k = 10, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+t_goettingensis = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, t_goettingensis, type = "response")
+#Assign the predicted values to the new data frame
+t_goettingensis$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(t_goettingensis$Abundances)
+t_goettingensis = t_goettingensis %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+t_goettingensis$Species = "Timarcha goettingensis"
+#Plot the predicted probabilities
+ggplot(t_goettingensis, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Timarcha goettingensis", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix
+t_goettingensis = t_goettingensis %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.15, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, t_goettingensis)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+#20 Meliscaeva auricollis
+#Fit again as is not dtecting a smooth pattern with ecological sense
+sp_data = oc1 %>% filter(Species == "Meliscaeva auricollis")
+sp_model = gam(n_individuals ~ s(Doy, k = 20, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+m_auricollis = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, m_auricollis, type = "response")
+#Assign the predicted values to the new data frame
+m_auricollis$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(m_auricollis$Abundances)
+m_auricollis = m_auricollis %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+m_auricollis$Species = "Meliscaeva auricollis"
+#Plot the predicted probabilities
+ggplot(m_auricollis, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Meliscaeva auricollis", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix, in this case we set a less generous tresshold, to keep a narrow phenology
+m_auricollis = m_auricollis %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.35, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, m_auricollis)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+##20 Minettia longipennis
+sp_data = oc1 %>% filter(Species == "Minettia longipennis")
+sp_model = gam(n_individuals ~ s(Doy, k = 20, m=2),
+               family = nb(link = "log"), data = sp_data, method = "REML")
+#Create a new data frame with unique Doy values
+m_longipennis = tibble(Doy = seq(from = 1, to = 365, by = 1))
+#Make predictions using the new data frame
+predicted_values = predict(sp_model, m_auricollis, type = "response")
+#Assign the predicted values to the new data frame
+m_auricollis$Abundances = round(predicted_values)
+#Normalize the predicted values to convert to probabilities
+max_abundance = max(m_auricollis$Abundances)
+m_auricollis = m_auricollis %>%
+mutate(Probability = Abundances / max_abundance)
+#Add the species name to the data frame
+m_auricollis$Species = "Minettia longipennis"
+#Plot the predicted probabilities
+ggplot(m_auricollis, aes(x = Doy, y = Probability)) +
+  geom_line(color = "blue") +
+    labs(title = paste("Predicted Probabilities for", "Minettia longipennis", "Over Day of Year (Doy)"),
+         x = "Day of Year (Doy)",
+         y = "Predicted Probability") +
+    theme_minimal()
+#Looks a bit better now
+#Fix, in this case we set a less generous tresshold, to keep a narrow phenology
+m_auricollis = m_auricollis %>% 
+group_by(Species) %>% 
+mutate(Flying_period = if_else(Probability <= 0.35, "No", "Yes"))
+#save and bind rows
+fixed_phenologies = bind_rows(fixed_phenologies, m_auricollis)
+fixed_phenologies %>%  distinct(Species) %>% pull()
+
+
 
 
 p_c
