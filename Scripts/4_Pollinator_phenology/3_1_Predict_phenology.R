@@ -206,6 +206,7 @@ mutate(Reference = NA_character_)
 #Save 
 readr::write_csv(to_fill, "Data/Working_files/to_fill_poll_phenology.csv")
 #Load data with natural history
+poll_phenology_info = readr::read_csv("Data/Working_files/filled_poll_phenology.csv")
 
 
 
