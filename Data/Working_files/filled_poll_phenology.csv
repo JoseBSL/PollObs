@@ -1,134 +1,205 @@
-Species,Phenology,Comment,Reference1
-Gonepteryx rhamni,bimodal,"hybenates as adult, univoltine",https://doi.org/10.1111/gcb.14592
-Aglais io,bimodal,bivoltine,https://doi.org/10.3390/insects12080683
-Harmonia axyridis,bimodal,bivoltine,https://doi.org/10.1111/een.12203
-Pieris rapae,bimodal,bivoltine,https://doi.org/10.1038/s41467-023-39359-8
-Apis mellifera,unimodal,From data,NA
-Maniola jurtina,unimodal,NA,https://doi.org/10.1002/ece3.8111
-Pyrrhocoris apterus,uni_bimodal,NA,NA
-Autographa gamma,unimodal,NA,http://www.pyrgus.de/Autographa_gamma_en.html
-Bombus pascuorum,unimodal,NA,https://doi.org/10.12688/wellcomeopenres.19248.1
-Coccinella septempunctata,uni_bimodal,NA,https://doi.org/10.1007/BF02769837
-Pieris napi,bimodal,bivoltine,https://doi.org/10.1038/s41467-023-39359-8
-Bombus terrestris,unimodal,NA,https://doi.org/10.1007/s13592-020-00822-w
-Vespa crabro,unimodal,From data,NA
-Cydalima perspectalis,bimodal,NA,https://doi.org/10.1016/j.ecolmodel.2020.109229
-Episyrphus balteatus,bimodal,NA,https://doi.org/10.1016/S0022-1910(97)00097-8
-Eristalis tenax,bimodal,"hybenates as adult, univoltine",https://en.wikipedia.org/wiki/Eristalis_tenax
-Anthocharis cardamines,unimodal,NA,https://doi.org/10.1111/j.1365-2311.2012.01359.x
-Polygonia c-album,bimodal,NA,https://www.jstor.org/stable/44577885
-Polyommatus icarus,unimodal,NA,https://doi.org/10.1111/j.1365-2311.2012.01359.x
-Graphosoma italicum,unimodal,NA,https://phrygana.eu/Fauna/Heteroptera/Pentatomidae/Graphosoma-italicum/Graphosoma-italicum.html
-Pieris brassicae,unimodal,NA,https://doi.org/10.14411/eje.2011.047
-Bombus lapidarius,unimodal,NA,https://maps.biodiversityireland.ie/Species/55990
-Aricia agestis,bimodal,NA,https://doi.org/10.1111/j.0307-6946.2005.00741.x
-Issoria lathonia,unimodal,From data,NA
-Macroglossum stellatarum,bimodal,trimodal,http://dx.doi.org/10.57065/shilap.885
-Aglais urticae,bimodal,NA,https://www.researchgate.net/publication/340935429_Voltinism_in_British_Aglais_urticae_L_Lep_Nymphalidae_Variation_in_space_and_time
-Myathropa florea,bimodal,From data,NA
-Volucella zonaria,unimodal,NA,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
-Eristalis pertinax,bimodal,NA,https://doi.org/10.14411/eje.2016.064
-Argynnis paphia,unimodal,NA,https://species.biodiversityireland.ie/profile.php?taxonId=77219
-Sphaerophoria scripta,unimodal,From data,NA
-Bombus pratorum,bimodal,NA,https://doi.org/10.12688%2Fwellcomeopenres.19250.1
-Eupeodes corollae,unimodal,From data,NA
-Oxythyrea funesta,unimodal,From data,NA
-Halictus scabiosae,bimodal,Several generations per year,https://www.wildbienen.de/wba-kale.htm
-Bombus hypnorum,unimodal,NA,https://www.wildbienen.de/wba-kale.htm
-Osmia cornuta,unimodal,NA,https://www.wildbienen.de/eb-ocorn.htm
-Philanthus triangulum,unimodal,From data,NA
-Osmia bicornis,unimodal,NA,https://www.wildbienen.de/eb-orufa.htm
-Volucella pellucens,unimodal,NA,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
-Xylocopa violacea,unimodal,NA,https://doi.org/10.1080/11250009609356139
-Carpocoris fuscispinus,unimodal,From data,NA
-Polistes dominula,unimodal,NA,https://en.wikipedia.org/wiki/Polistes_nimpha
-Tachina fera,bimodal,NA,https://en.wikipedia.org/wiki/Tachina_fera
-Syritta pipiens,uni_bimodal,From data,NA
-Merodon equestris,unimodal,NA,NA
-Valgus hemipterus,unimodal,NA,NA
-Bombylius major,unimodal,NA,https://www.wildbienen.de/wbi-p872.htm
-Heriades truncorum,unimodal,NA,https://bwars.com/bee/megachilidae/heriades-truncorum
-Scaeva pyrastri,unimodal,But some info states multivoltine,https://www.wallisroughley.ca/Sca1.html
-Sicus ferrugineus,unimodal,From data,NA
-Cerceris rybyensis,unimodal,NA,https://naturportal-suedwest.de/de/insekten-spinnen/systematik/art/hautfluegler-hymenoptera/grabwespen-crabronidae/cerceris/rybyensis/
-Cetonia aurata,uni_bimodal,From data,NA
-Bombus hortorum,bimodal,NA,https://www.wildbienen.de/huarten.htm
-Pseudovadonia livida,unimodal,From data,NA
-Calliphora vicina,uni_bimodal,NA,https://doi.org/10.3390/biology12010111
-Anthidium manicatum,unimodal,NA,https://www.wildbienen.de/wba-kale.htm
-Andrena flavipes,bimodal,NA,https://www.wildbienen.de/wba-kale.htm
-Anthophora plumipes,unimodal,NA,https://www.wildbienen.de/eb-aplum.htm
-Stenurella melanura,unimodal,From data,NA
-Sphex funerarius,unimodal,From data,NA
-Bombus campestris,unimodal,NA,https://www.wildbienen.de/huarten.htm
-Vespula germanica,unimodal,NA,"https://bwars.com/wasp/vespidae/vespinae/vespula-germanica#:~:text=of%20temperate%20habitats.-,Vespula%20germanica%20and%20V.,nest%20in%20September%20and%20October."
-Sphecodes albilabris,bimodal,but univoltine,https://www.wildbienen.de/eb-salbi.htm
-Tiphia femorata,unimodal,univoltine,https://doi.org/10.12688%2Fwellcomeopenres.18893.1
-Graphomya maculata,unimodal,From data,NA
-Sapygina decemguttata,unimodal,univoltine,https://www.wildbienen.de/wbi-p971.htm
-Andrena bicolor,bimodal,bivoltine,NA
-Hemipenthes morio,unimodal,From data,NA
-Trichodes apiarius,unimodal,NA,https://www.ukbeetles.co.uk/trichodes-spp
-Bombus lucorum,unimodal,univoltine,https://www.wildbienen.de/huarten.htm
-Andrena nitida,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Anthomyia procellaris,unimodal,From data,NA
-Malachius bipustulatus,unimodal,From data,NA
-Anthrenus verbasci,unimodal,From data,https://www.jstor.org/stable/3598986
-Physocephala rufipes,unimodal,univoltine,https://www.wildbienen.de/wbi-p811.htm
-Chelostoma rapunculi,unimodal,univoltine,https://www.wildbienen.de/eb-crapu.htm
-Timarcha goettingensis,uni_bimodal,From data,NA
-Anthaxia nitidula,unimodal,From data,NA
-Andrena minutula,unimodal,bivoltine but the pattern is unimodal,https://www.wildbienen.de/wba-kale.htm
-Meliscaeva auricollis,unimodal,Not clear distribution,NA
-Oedemera podagrariae,unimodal,From data,NA
-Hedychrum nobile,unimodal,univoltine,https://www.wildbienen.de/wbi-p941.htm
-Megachile ericetorum,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Osmia caerulescens,uni_bimodal,NA,https://www.wildbienen.de/wba-kale.htm
-Bombus rupestris,unimodal,univoltine,https://www.wildbienen.de/huarten.htm
-Bombus vestalis,unimodal,univoltine,https://www.wildbienen.de/huarten.htm
-Tropinota hirta,unimodal,univoltine,https://www.gbif.org/es/species/1084559
-Platystoma seminationis,unimodal,From data,NA
-Scolia hirta,unimodal,univoltine,https://doi.org/10.1127/entom.gen/26/2002/107
-Bombylius discolor,unimodal,univoltine,https://www.deutschlands-natur.de/tierarten/fliegen/cheilosia-fasciata/
-Andrena hattorfiana,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Hylaeus communis,unimodal,uni-biboltine,https://www.wildbienen.de/wba-kale.htm
-Lucilia sericata,unimodal,univoltine,10.4172/2157-7145.1000109
-Anthophora furcata,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Hoplitis adunca,unimodal,univoltine,https://bwars.com/bee/megachilidae/hoplitis-adunca
-Megachile willughbiella,unimodal,uni-biboltine,https://www.wildbienen.de/wba-kale.htm
-Melitta haemorrhoidalis,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Minettia longipennis,unimodal,univoltine,http://dx.doi.org/10.11646/zootaxa.3012.1.2
-Trichius gallicus,unimodal,From data,NA
-Colletes daviesanus,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Lygaeus equestris,unimodal,univoltine,https://doi.org/10.2307/3544381
-Ammophila sabulosa,unimodal,From data,NA
-Andrena gravida,unimodal,univoltine,https://www.wildbienen.de/eb-agrav.htm
-Oedemera femorata,unimodal,From data,NA
-Stelis punctulatissima,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Ectemnius lituratus,unimodal,univoltine,https://bwars.com/wasp/crabronidae/crabroninae/ectemnius-lituratus
-Colletes hederae,unimodal,univoltine,https://bwars.com/bee/colletidae/colletes-hederae
-Halictus subauratus,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Ancistrocerus nigricornis,unimodal,univoltine,https://de.wikipedia.org/wiki/Ancistrocerus_nigricornis
-Oedemera lurida,unimodal,From data,NA
-Chelostoma florisomne,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Volucella inanis,unimodal,NA,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
-Nomada zonata,bimodal,bivoltine,https://www.wildbienen.de/eb-nzona.htm
-Andrena labiata,unimodal,univoltine,https://www.wildbienen.de/eb-alabi.htm
-Eristalinus aeneus,unimodal,From data,NA
-Nowickia ferox,unimodal,From data,NA
-Eucera nigrescens,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Melecta albifrons,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Anthophora quadrimaculata,unimodal,univoltine,https://www.wildbienen.de/eb-aquad.htm
-Syrphus vitripennis,unimodal,From data,NA
-Hylaeus hyalinatus,unimodal,univoltine,https://www.wildbienen.de/eb-hhyal.htm
-Hylaeus signatus,unimodal,univoltine,https://bwars.com/bee/colletidae/hylaeus-signatus
-Lasioglossum calceatum,unimodal,univoltine,https://www.wildbienen.de/eb-lcalc.htm
-Nomada bifasciata,unimodal,univoltine,https://www.wildbienen.de/eb-nbifa.htm
-Anthidium oblongatum,unimodal,univoltine,https://www.wildbienen.de/eb-anthi.htm
-Nomada fulvicornis,unimodal,univoltine,https://bwars.com/bee/apidae/nomada-fulvicornis
-Megachile centuncularis,unimodal,univoltine,https://www.wildbienen.de/eb-mcirc.htm
-Nomada lathburiana,unimodal,univoltine,https://www.wildbienen.de/wba-kale.htm
-Myopa testacea,unimodal,univoltine,https://treatment.plazi.org/id/03E26E36D042FFD6FF18E3EFE4B8FCF2
-Bombus bohemicus,unimodal,univoltine,https://www.wildbienen.de/b-bohemi.htm
-Lasioglossum morio,unimodal,univoltine,https://www.wildbienen.de/eb-lmori.htm
-Dolichovespula saxonica,unimodal,From data,NA
+Species,Phenology,Voltinism,Comment,Reference1
+Gonepteryx rhamni,bimodal,univoltine,"hybenates as adult, univoltine",https://doi.org/10.1111/gcb.14592
+Aglais io,bimodal,bivoltine,bivoltine,https://doi.org/10.3390/insects12080683
+Harmonia axyridis,bimodal,bivoltine,bivoltine,https://doi.org/10.1111/een.12203
+Pieris rapae,bimodal,bivoltine,bivoltine,https://doi.org/10.1038/s41467-023-39359-8
+Apis mellifera,unimodal,multivoltine,From data,NA
+Maniola jurtina,unimodal,univoltine,NA,https://doi.org/10.1002/ece3.8111
+Pyrrhocoris apterus,uni_bimodal,multivoltine,NA,https://www.jstor.org/stable/24526344
+Autographa gamma,unimodal,univoltine,NA,http://www.pyrgus.de/Autographa_gamma_en.html
+Bombus pascuorum,unimodal,univoltine,overwintered females,https://www.wildbienen.de/b-terres.htm
+Coccinella septempunctata,uni_bimodal,multivoltine,NA,https://doi.org/10.1007/BF02769837
+Pieris napi,bimodal,bivoltine,bivoltine,https://doi.org/10.1038/s41467-023-39359-8
+Bombus terrestris,unimodal,univoltine,overwintered females,https://www.wildbienen.de/b-terres.htm
+Vespa crabro,unimodal,univoltine,From data,https://bwars.com/wasp/crabronidae/crabroninae/ectemnius-lituratus
+Cydalima perspectalis,bimodal,bivoltine,NA,10.1111/jen.12078
+Episyrphus balteatus,bimodal,multivoltine,NA,https://doi.org/10.1016/S0022-1910(97)00097-8
+Eristalis tenax,bimodal,univoltine,"hybenates as adult, univoltine",https://en.wikipedia.org/wiki/Eristalis_tenax
+Anthocharis cardamines,unimodal,univoltine,NA,https://doi.org/10.1111/j.1365-2311.2012.01359.x
+Polygonia c-album,bimodal,bivoltine,NA,https://www.jstor.org/stable/44577885
+Polyommatus icarus,unimodal,univoltine,NA,https://doi.org/10.1111/j.1365-2311.2012.01359.x
+Graphosoma italicum,unimodal,univoltine,NA,https://phrygana.eu/Fauna/Heteroptera/Pentatomidae/Graphosoma-italicum/Graphosoma-italicum.html
+Pieris brassicae,bimodal,bivoltine,NA,https://doi.org/10.14411/eje.2011.047
+Bombus lapidarius,unimodal,univoltine,overwintered females,https://www.wildbienen.de/b-lapida.htm
+Aricia agestis,bimodal,bivoltine,NA,https://doi.org/10.1111/j.0307-6946.2005.00741.x; https://gdoremi.altervista.org/lycaenidae/Aricia_agestis_en.html
+Issoria lathonia,bimodal,bivoltine,NA,https://butterfliesofcroatia.com/issoria-lathonia/
+Macroglossum stellatarum,bimodal,multivoltine,trimodal,http://dx.doi.org/10.57065/shilap.885
+Aglais urticae,bimodal,bivoltine,overwintered adults,https://species.biodiversityireland.ie/profile.php?taxonId=77199&taxonName=small%20tort
+Myathropa florea,bimodal,bivoltine,From data,NA
+Volucella zonaria,unimodal,univoltine,From data and article,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
+Eristalis pertinax,bimodal,bivoltine,NA,https://doi.org/10.14411/eje.2016.064; https://www.smagy.de/index.php?func=insect&task=showInsect&taskID=keilfleckschwebfliege
+Argynnis paphia,unimodal,univoltine,NA,https://species.biodiversityireland.ie/profile.php?taxonId=77219
+Sphaerophoria scripta,unimodal,multivoltine,NA,"https://maltawildplants.com/!faunafungi/maltawildlife.php?species=Sphaerophoria%20scripta#:~:text=Sphaerophoria%20scripta%20is%20a%20European,occur%20in%20a%20single%20year."
+Bombus pratorum,bimodal,univoltine,overwintered females,https://doi.org/10.12688%2Fwellcomeopenres.19250.1; https://www.wildbienen.de/b-prator.htm
+Eupeodes corollae,unimodal,multivoltine,From data,https://www.biodiversityexplorer.info/flies/syrphidae/syrphinae/eupeodes/eupeodes_corollae.htm
+Oxythyrea funesta,unimodal,multivoltine,From data,NA
+Halictus scabiosae,bimodal,multivoltine,"Several generations per year, overwintered females",https://www.wildbienen.de/wba-kale.htm
+Bombus hypnorum,unimodal,univoltine,overwintered females,https://www.wildbienen.de/wba-kale.htm
+Osmia cornuta,unimodal,univoltine,NA,https://www.wildbienen.de/eb-ocorn.htm
+Philanthus triangulum,unimodal,univoltine,NA,https://en.wikipedia.org/wiki/European_beewolf
+Osmia bicornis,unimodal,univoltine,NA,https://www.wildbienen.de/eb-orufa.htm
+Volucella pellucens,unimodal,NA,NA,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
+Xylocopa violacea,unimodal,univoltine,NA,https://doi.org/10.1080/11250009609356139
+Carpocoris fuscispinus,unimodal,univoltine,From data,NA
+Polistes dominula,unimodal,univoltine,NA,https://en.wikipedia.org/wiki/Polistes_nimpha
+Tachina fera,bimodal,bivoltine,NA,https://en.wikipedia.org/wiki/Tachina_fera
+Syritta pipiens,uni_bimodal,multivoltine,From data,https://de.wikipedia.org/wiki/Kleine_Mistbiene
+Merodon equestris,unimodal,univoltine,NA,https://www.stadtwiesenmensch.de/arten/?S=1&tx_psbfieldguide_fg%5Baction%5D=show&tx_psbfieldguide_fg%5Bcontroller%5D=Species&tx_psbfieldguide_fg%5Bspecies%5D=714&cHash=e5f52c4bd1529b472869bf9cddb91d30
+Valgus hemipterus,unimodal,univoltine,NA,https://en.wikipedia.org/wiki/Valgus_hemipterus
+Bombylius major,unimodal,univoltine,NA,https://www.wildbienen.de/wbi-p872.htm
+Heriades truncorum,unimodal,univoltine,NA,https://bwars.com/bee/megachilidae/heriades-truncorum
+Scaeva pyrastri,unimodal,multivoltine,NA,https://www.wallisroughley.ca/Sca1.html
+Sicus ferrugineus,unimodal,univoltine,From data,https://www.wildbienen.de/wbi-p811.htm
+Cerceris rybyensis,unimodal,univoltine,NA,https://naturportal-suedwest.de/de/insekten-spinnen/systematik/art/hautfluegler-hymenoptera/grabwespen-crabronidae/cerceris/rybyensis/
+Cetonia aurata,uni_bimodal,univoltine,NA,https://es.wikipedia.org/wiki/Cetonia_aurata
+Bombus hortorum,bimodal,univoltine,overwintered females,https://www.wildbienen.de/huarten.htm
+Pseudovadonia livida,unimodal,semivoltine,NA,NA
+Calliphora vicina,uni_bimodal,multivoltine,NA,https://doi.org/10.3390/biology12010111
+Anthidium manicatum,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Andrena flavipes,bimodal,bivoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Anthophora plumipes,unimodal,univoltine,NA,https://www.wildbienen.de/eb-aplum.htm
+Stenurella melanura,unimodal,semivoltine,NA,https://www.ukbeetles.co.uk/stenurella-melanura
+Sphex funerarius,unimodal,univoltine,From data and spp from the genus,https://en.wikipedia.org/wiki/Priocnemis_perturbator
+Bombus campestris,unimodal,univoltine,overwintered females,https://www.wildbienen.de/huarten.htm
+Vespula germanica,unimodal,multivoltine,NA,"https://bwars.com/wasp/vespidae/vespinae/vespula-germanica#:~:text=of%20temperate%20habitats.-,Vespula%20germanica%20and%20V.,nest%20in%20September%20and%20October."
+Sphecodes albilabris,bimodal,univoltine,overwintered females,https://www.wildbienen.de/eb-salbi.htm
+Tiphia femorata,unimodal,univoltine,univoltine,https://doi.org/10.12688%2Fwellcomeopenres.18893.1
+Graphomya maculata,unimodal,NA,From data,NA
+Sapygina decemguttata,unimodal,univoltine,univoltine,https://www.wildbienen.de/wbi-p971.htm
+Andrena bicolor,bimodal,bivoltine,bivoltine,https://www.wildbienen.de/eb-abico.htm
+Hemipenthes morio,unimodal,univoltine,"Typical of this group, dont find a ref",NA
+Trichodes apiarius,unimodal,univoltine,NA,https://www.ukbeetles.co.uk/trichodes-spp
+Bombus lucorum,unimodal,univoltine,overwintered females,https://www.wildbienen.de/huarten.htm
+Andrena nitida,unimodal,univoltine,NA,https://www.wildbienen.de/eb-aniti.htm
+Anthomyia procellaris,bimodal,bivoltine,From data,NA
+Malachius bipustulatus,unimodal,univoltine,NA,10.12688/wellcomeopenres.17381.1
+Anthrenus verbasci,unimodal,multivoltine,NA,https://www.jstor.org/stable/3598986
+Physocephala rufipes,unimodal,univoltine,NA,https://www.wildbienen.de/wbi-p811.htm
+Chelostoma rapunculi,unimodal,univoltine,NA,https://www.wildbienen.de/eb-crapu.htm
+Timarcha goettingensis,uni_bimodal,NA,From data,NA
+Anthaxia nitidula,unimodal,univoltine,likely univoltine,https://www.ukbeetles.co.uk/buprestidae
+Andrena minutula,unimodal,bivoltine,bivoltine but the pattern is unimodal,https://www.wildbienen.de/wba-kale.htm
+Meliscaeva auricollis,unimodal,bivoltine,NA,https://www.naturespot.org.uk/species/meliscaeva-auricollis
+Oedemera podagrariae,unimodal,univoltine,From data and like the other beetles so far,NA
+Hedychrum nobile,unimodal,univoltine,NA,https://www.wildbienen.de/wbi-p941.htm
+Megachile ericetorum,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Osmia caerulescens,uni_bimodal,uni-bivoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Bombus rupestris,unimodal,univoltine,overwintered females,https://www.wildbienen.de/huarten.htm
+Bombus vestalis,unimodal,univoltine,overwintered females,https://www.wildbienen.de/huarten.htm
+Tropinota hirta,unimodal,univoltine,NA,https://www.gbif.org/es/species/1084559
+Platystoma seminationis,unimodal,univoltine,From data,NA
+Scolia hirta,unimodal,univoltine,univoltine,https://doi.org/10.1127/entom.gen/26/2002/107
+Bombylius discolor,unimodal,univoltine,NA,https://www.deutschlands-natur.de/tierarten/fliegen/cheilosia-fasciata/
+Andrena hattorfiana,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Hylaeus communis,unimodal,uni-bivoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Lucilia sericata,unimodal,multivoltine,NA,https://arthropodafotos.de/dbsp.php?lang=deu&sc=0&ta=t_38_dipt_bra_call&sci=Lucilia&scisp=sericata
+Anthophora furcata,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Hoplitis adunca,unimodal,univoltine,NA,https://bwars.com/bee/megachilidae/hoplitis-adunca
+Megachile willughbiella,unimodal,uni-biboltine,NA,https://www.wildbienen.de/wba-kale.htm
+Melitta haemorrhoidalis,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Minettia longipennis,unimodal,univoltine,NA,http://dx.doi.org/10.11646/zootaxa.3012.1.2
+Trichius gallicus,unimodal,univoltine,From data and like the other beetles so far,NA
+Colletes daviesanus,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Lygaeus equestris,unimodal,univoltine,NA,https://doi.org/10.2307/3544381
+Ammophila sabulosa,unimodal,uni-biboltine,"From data, maybe multivoltine",https://doi.org/10.1098/rsbl.2022.0007
+Andrena gravida,unimodal,univoltine,NA,https://www.wildbienen.de/eb-agrav.htm; https://arthropodafotos.de/dbsp.php?lang=deu&sc=0&ta=t_43_hym_apo_sph&sci=Ammophila&scisp=sabulosa
+Oedemera femorata,unimodal,univoltine,From data and like the other beetles so far,https://arthropodafotos.de/dbsp.php?lang=deu&sc=0&ta=t_35_coleo_pol_oed&sci=Oedemera&scisp=femorata
+Stelis punctulatissima,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Ectemnius lituratus,unimodal,univoltine,NA,https://bwars.com/wasp/crabronidae/crabroninae/ectemnius-lituratus
+Colletes hederae,unimodal,univoltine,NA,https://bwars.com/bee/colletidae/colletes-hederae
+Halictus subauratus,unimodal,univoltine,overwintered females,https://www.wildbienen.de/wba-kale.htm
+Ancistrocerus nigricornis,unimodal,univoltine,NA,https://de.wikipedia.org/wiki/Ancistrocerus_nigricornis
+Oedemera lurida,unimodal,univoltine,From data and like the other beetles so far,NA
+Chelostoma florisomne,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Volucella inanis,unimodal,univoltine,NA,https://www.researchgate.net/publication/338194873_Effects_of_the_2018_heatwave_on_British_hoverflies_Diptera_Syrphidae
+Nomada zonata,bimodal,bivoltine,bivoltine,https://www.wildbienen.de/eb-nzona.htm
+Andrena labiata,unimodal,univoltine,univoltine,https://www.wildbienen.de/eb-alabi.htm
+Eristalinus aeneus,unimodal,multivoltine,From data,NA
+Nowickia ferox,unimodal,multivoltine,From data,NA
+Eucera nigrescens,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Melecta albifrons,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Anthophora quadrimaculata,unimodal,univoltine,NA,https://www.wildbienen.de/eb-aquad.htm
+Syrphus vitripennis,unimodal,multivoltine,From data,NA
+Hylaeus hyalinatus,unimodal,univoltine,NA,https://www.wildbienen.de/eb-hhyal.htm
+Hylaeus signatus,unimodal,univoltine,NA,https://bwars.com/bee/colletidae/hylaeus-signatus
+Lasioglossum calceatum,unimodal,univoltine,NA,https://www.wildbienen.de/eb-lcalc.htm
+Nomada bifasciata,unimodal,univoltine,NA,https://www.wildbienen.de/eb-nbifa.htm
+Anthidium oblongatum,unimodal,univoltine,NA,https://www.wildbienen.de/eb-anthi.htm
+Nomada fulvicornis,unimodal,univoltine,NA,https://bwars.com/bee/apidae/nomada-fulvicornis
+Megachile centuncularis,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mcirc.htm
+Nomada lathburiana,unimodal,univoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Myopa testacea,unimodal,univoltine,NA,https://treatment.plazi.org/id/03E26E36D042FFD6FF18E3EFE4B8FCF2
+Bombus bohemicus,unimodal,univoltine,NA,https://www.wildbienen.de/b-bohemi.htm
+Lasioglossum morio,unimodal,univoltine,NA,https://www.wildbienen.de/eb-lmori.htm
+Dolichovespula saxonica,unimodal,multivoltine,https://de.wikipedia.org/wiki/S%C3%A4chsische_Wespe,NA
+Melitta nigricans,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mnigc.htm
+Osmia bicolor,unimodal,univoltine,NA,https://www.wildbienen.de/eb-obico.htm
+Nomada fabriciana,unimodal,univoltine,NA,https://www.wildbienen.de/eb-nlath.htm
+Osmia aurulenta,unimodal,univoltine,NA,https://www.wildbienen.de/eb-oauru.htm
+Halictus tumulorum,unimodal,univoltine,NA,https://www.wildbienen.de/eb-htumu.htm
+Megachile maritima,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mmari.htm
+Lasioglossum leucozonium,unimodal,univoltine,NA,https://www.wildbienen.de/eb-lleuc.htm
+Anthrenus scrophulariae,unimodal,univoltine,NA,https://schaedlingskunde.de/schaedlinge/steckbriefe/kaefer/gefurchter-dickmaulruessler-otiorhynchus-sulcatus/gefurchter-dickmaulruessler-otiorhynchus-sulcatus/
+Prosena siberita,unimodal,univoltine,NA,https://en.wikipedia.org/wiki/Prosena_siberita
+Sphaerophoria rueppellii,uni_bimodal,NA,from_data,NA
+Ceratina cyanea,unimodal,univoltine,NA,https://www.wildbienen.de/eb-ccyan.htm
+Lapposyrphus lapponicus,uni_bimodal,NA,from_data,NA
+Bombus soroeensis,unimodal,univoltine,NA,https://www.wildbienen.de/b-soroee.htm
+Anthophora aestivalis,unimodal,univoltine,NA,https://www.wildbienen.de/eb-aaest.htm
+Macropis fulvipes,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mfulv.htm
+Lasioglossum pauxillum,unimodal,univoltine,NA,https://www.wildbienen.de/eb-lpaux.htm
+Hemipenthes maura,unimodal,NA,from_data,NA
+Andrena pilipes,bimodal,bivoltine,NA,https://www.wildbienen.de/eb-apili.htm
+Megachile rotundata,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mrotu.htm
+Lasioglossum pallens,unimodal,univoltine,NA,https://www.wildbienen.de/eb-lpall.htm
+Lasioglossum fulvicorne,bimodal,univoltine,overwintered females,https://www.wildbienen.de/wba-kale.htm
+Hylaeus brevicornis,unimodal,uni-bivoltine,NA,https://www.wildbienen.de/wba-kale.htm
+Andrena curvungula,unimodal,univoltine,NA,https://www.wildbienen.de/eb-acurv.htm
+Megachile pilidens,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mpili.htm
+Sphecodes monilicornis,uni_bimodal,univoltine,overwintered females,https://www.wildbienen.de/eb-smoni.htm
+Lasioglossum politum,bimodal,bivoltine,NA,http://www.atlashymenoptera.net/page.aspx?id=95
+Coelioxys afra,unimodal,univoltine,NA,https://www.wildbienen.de/eb-cafra.htm
+Hylaeus nigritus,unimodal,univoltine,NA,https://www.wildbienenwelt.de/wildbienen-bestimmen/wildbienen-finder/article-6515492-190818/hylaeus-nigritus-.html
+Pollenia vagabunda,uni_bimodal,NA,from_data,NA
+Megachile circumcincta,unimodal,univoltine,NA,https://www.wildbienenwelt.de/wildbienen-bestimmen/wildbienen-finder/article-6515909-190818/megachile-circumcincta-.html
+Lasioglossum laticeps,bimodal,univoltine,likely overwintered females,https://www.wildbienen.de/wba-kale.htm
+Lasioglossum villosulum,bimodal,univoltine,overwintered females,https://www.wildbienen.de/wba-kale.htm
+Bombylius venosus,unimodal,univoltine,from_data and by checking other bombylius,NA
+Dinetus pictus,unimodal,NA,from_data,NA
+Gymnosoma nudifrons,unimodal,NA,from_data,NA
+Ancistrocerus gazella,unimodal,univoltine,NA,https://bwars.com/wasp/vespidae/eumeninae/ancistrocerus-gazella
+Cerceris quadricincta,unimodal,NA,from_data,NA
+Megachile lagopoda,unimodal,univoltine,NA,https://www.wildbienenwelt.de/wildbienen-bestimmen/wildbienen-finder/article-6515912-190818/megachile-lagopoda-.html
+Gymnomerus laevipes,unimodal,univoltine,NA,https://bwars.com/index.php/wasp/vespidae/eumeninae/gymnomerus-laevipes
+Lasioglossum interruptum,bimodal,univoltine,overwintered females,https://www.wildbienen.de/eb-lniti.htm
+Osmia brevicornis,unimodal,univoltine,NA,https://www.wildbienen.de/eb-obrev.htm
+Andrena fulvago,unimodal,univoltine,NA,https://www.wildbienen.de/eb-afago.htm
+Nomada flavoguttata,uni_bimodal,uni-bivoltine,depending on host,https://www.wildbienen.de/eb-nflag.htm
+Megachile versicolor,unimodal,univoltine,NA,https://www.wildbienen.de/eb-mrotu.htm
+Hylaeus confusus,uni_bimodal,uni-bivoltine,partially bivoltine,https://www.wildbienen.de/eb-hconf.htm
+Cerceris quinquefasciata,unimodal,univoltine,from_data and by checking other spp from the genus,NA
+Phasia barbifrons,unimodal,NA,from_data,NA
+Nysson maculosus,unimodal,univoltine,from_data and by checking other spp from the genus,https://bwars.com/wasp/crabronidae/nyssoninae/nysson-spinosus
+Hylaeus punctatus,unimodal,univoltine,NA,https://www.wildbienen.de/eb-hylae.htm
+Lasioglossum nitidulum,bimodal,univoltine,overwintered females,https://www.wildbienen.de/eb-lniti.htm
+Phasia pusilla,bimodal,bivoltine,from_data and by checking other spp from the genus,10.11646/zootaxa.276.1.1
+Bombus subterraneus,unimodal,univoltine,overwintered females,https://www.wildbienen.de/b-subter.htm
+Chrysogaster virescens,unimodal,univoltine,from_data,NA
+Coelioxys aurolimbatus,unimodal,univoltine,NA,https://www.wildbienen.de/eb-cauro.htm
+Thyreus orbatus,unimodal,univoltine,NA,https://www.wildbienen.de/eb-torba.htm
+Miltogramma punctata,unimodal,univoltine,parasite of a univoltine bee,https://bwars.com/index.php/bee/colletidae/colletes-daviesanus
+Andrena minutuloides,uni_bimodal,uni-bivoltine,NA,https://www.wildbienen.de/eb-nflag.htm
+Coelioxys elongatus,unimodal,univoltine,from_data and by checking other spp from the genus,https://www.wildbienen.de/eb-celon.htm
+Sphecodes pellucidus,uni_bimodal,uni-bivoltine,overwintered females,https://www.wildbienen.de/eb-spell.htm
+Lasioglossum minutissimum,bimodal,univoltine,from_data and by checking other spp from the genus,NA
+Hedychrum gerstaeckeri,unimodal,univoltine,from_data and by checking other spp from the genus,https://bwars.com/wasp/chrysididae/elampinae/hedychrum-rutilans
+Sphecodes ferruginatus,unimodal,univoltine,overwintered females,https://www.wildbienen.de/eb-lpaux.htm
+Miltogramma germari,unimodal,NA,from_data,NA
+Pollenia amentaria,uni_bimodal,NA,from_data,NA
+Coelioxys rufescens,unimodal,univoltine,NA,https://www.wildbienen.de/eb-crufe.htm
+Pollenia pediculata,uni_bimodal,NA,from_data,NA
+Bellardia viarum,uni_bimodal,NA,from_data,NA
+Lasioglossum nitidiusculum,bimodal,univoltine,NA,https://www.wildbienen.de/eb-smini.htm
+Megachile alpicola,uni_bimodal,uni-bivoltine,NA,https://www.wildbienen.de/eb-coeli.htm
+Andrena chrysopus,unimodal,univoltine,NA,https://www.wildbienen.info/steckbriefe/andrena_chrysopus.php
+Botanophila striolata,unimodal,univoltine,NA,https://fr.wikipedia.org/wiki/Botanophila
