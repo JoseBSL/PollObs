@@ -25,6 +25,8 @@ spp_order_raw = oc %>%
 group_by(Species) %>% 
 summarise(n_records = length(Species)) %>% 
 arrange(-n_records) 
+#Save spp order raw
+saveRDS(spp_order_raw, "Data/Working_files/poll_spp_order_raw.rds")
 
 #Filter out species with insufficient number of records
 spp_order = spp_order_raw %>% 
@@ -92,7 +94,7 @@ unique(oc2$Species)
 oc2 = oc2 %>% 
 mutate(k_value = 18) %>% 
 mutate(m_value = 2) %>% 
-mutate(flying_probability = 0.15)
+mutate(prob_value = 0.15)
 #Save oc2, to re-run in the next script
 #When we have check eacg graph for all the species
 saveRDS(oc2, "Data/Working_files/poll_occurrences_over_60_records.rds")
@@ -112,7 +114,7 @@ create_prediction <- function(species) {
   sp_data = oc2 %>% filter(Species == species)
   k_value = sp_data %>% distinct(k_value) %>% pull()
   m_value = sp_data %>% distinct(m_value) %>% pull()
-  prob_value = sp_data %>% distinct(flying_probability) %>% pull()
+  prob_value = sp_data %>% distinct(prob_value) %>% pull()
   sp_data1 = oc3 %>% filter(Species == species)
   #Fit the GAM model
   sp_model = gam(n_individuals ~ s(Doy, k = k_value, m=m_value),
@@ -195,42 +197,7 @@ all_to_bind = all_predictions1 %>% select(Predictions)
 #Bind all
 all_binded1 = purrr::map(all_to_bind, bind_rows)
 all_binded2 = bind_rows(all_binded1)
-#Now group by species
-all_binded3 = all_binded2 %>% 
-group_by(Species) 
 
 
-#Now based on natural history and model outputs
-#Edit critical values if necessary
-#and rerun those that are not making ecological sense or fitting well
-#Save species tibble and load it back with some natural history information
-to_fill = all_binded3 %>% 
-distinct(Species) %>% 
-mutate(Phenology = NA_character_) %>% 
-mutate(Comment = NA_character_) %>% 
-mutate(Reference = NA_character_)
-#Save 
-readr::write_csv(to_fill, "Data/Working_files/to_fill_poll_phenology.csv")
-#Load data with natural history
-poll_phenology_info = readr::read_csv("Data/Working_files/filled_poll_phenology.csv")
-#select cols of interest
-poll_phenology_info = poll_phenology_info %>% 
-select(Species, Phenology)
-#Use this expected phenologies
-#To adjust values of models in accordance to the 
-#species phenology
-oc2_informative = left_join(poll_phenology_info, oc2)
-#Now adjust with a case_when
-#Add k equal to 5 when unimodal
-#Add k equal to 20 when bimodal 
-#Keep uni-bimodal as it is
-#Check levels
-#Add default K and m values for each species
-oc2_informative = oc2_informative %>% 
-mutate(k_value = case_when(
-   Phenology == "bimodal" ~ 20,
-   Phenology == "unimodal" ~ 5,
-   NA ~ TRUE))
-#Now fix some particular cases that I have fixed manually      
 
 
