@@ -1,9 +1,21 @@
 
 
+
+match("Meliscaeva auricollis", spp_order)
+
+
 # Check fit of some models
-species =  "Andrena hattorfiana"
+species =  "Pseudovadonia livida"
 sp_data = oc2 %>% filter(Species == species)
-sp_model = gam(n_individuals ~ s(Doy, k = 8, m=2),
+
+#Exclude zeros within records
+sp_data = sp_data %>%
+  filter(!(n_individuals == 0 & 
+             Doy > min(sp_data$Doy[sp_data$n_individuals > 0]) & 
+             Doy < max(sp_data$Doy[sp_data$n_individuals > 0])))
+
+
+sp_model = gam(n_individuals ~ s(Doy, k = 20, m=1),
                family = nb(link = "log"), data = sp_data, method = "REML")
 qq.gam(sp_model, main = "QQ plot of residuals")
 sp_data1 = oc3 %>% filter(Species == species)
