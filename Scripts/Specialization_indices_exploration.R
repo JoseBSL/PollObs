@@ -152,6 +152,60 @@ for (Botanical_garden_i in Botanical_garden_list) {
 }
 
 
+library(ggplot2)
+
+av_dprime_plant_plot <- ggplot(average_specialization, aes(x=Week,y=av_dprime_plant, color = Botanical_garden))+
+  geom_point(size=3)+
+  geom_line(linewidth=1.5)+
+  ylim(0,1)+
+  labs(x="Week number", y= "Average species level\nspecialization index for plants", color = NULL)+
+  theme_bw()+
+  theme(legend.position = "bottom", legend.title = element_blank())+
+  theme(legend.text = element_text(size = 18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=18,face="bold"),
+        plot.title=element_text(size=19,face="bold"),
+        strip.text = element_text(size = 18))
+
+av_dprime_poll_plot <- ggplot(average_specialization, aes(x=Week,y=av_dprime_poll, color = Botanical_garden))+
+  geom_point(size=3)+
+  geom_line(linewidth=1.5)+
+  ylim(0,1)+
+  labs(x="Week number", y= "Average species level\nspecialization index for pollinators", color = NULL)+
+  theme_bw()+
+  theme(legend.position = "bottom", legend.title = element_blank())+
+  theme(legend.text = element_text(size = 18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=18,face="bold"),
+        plot.title=element_text(size=19,face="bold"),
+        strip.text = element_text(size = 18))
+
+av_dprime_plant_poll_plot <- ggplot(average_specialization, aes(x=Week,y=av_dprime_plant-av_dprime_poll, color = Botanical_garden))+
+  geom_point(size=3)+
+  geom_line(linewidth=1.5)+
+  ylim(0,1)+
+  labs(x="Week number", y= "Difference between the species level\nspecialization index of plants and pollinators", color = NULL)+
+  theme_bw()+
+  theme(legend.position = "bottom", legend.title = element_blank())+
+  theme(legend.text = element_text(size = 18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=18,face="bold"),
+        plot.title=element_text(size=19,face="bold"),
+        strip.text = element_text(size = 18))
 
 
+av_H2prime_poll_plot <- ggplot(average_specialization, aes(x=Week,y=H2prime, color = Botanical_garden))+
+  geom_point(size=3)+
+  geom_line(linewidth=1.5)+
+  ylim(0,1)+
+  labs(x="Week number", y= "Network-level specialization index", color = NULL)+
+  theme_bw()+
+  theme(legend.position = "bottom", legend.title = element_blank())+
+  theme(legend.text = element_text(size = 18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=18,face="bold"),
+        plot.title=element_text(size=19,face="bold"),
+        strip.text = element_text(size = 18))
 
+library(patchwork)
+(av_dprime_plant_plot|av_dprime_poll_plot|av_H2prime_poll_plot) + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
