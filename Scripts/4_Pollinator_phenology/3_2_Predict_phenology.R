@@ -20,6 +20,7 @@ select(Species, Phenology)
 #To adjust values of models in accordance to the 
 #species phenology
 oc2 = left_join(poll_phenology_info, oc2)
+oc2_raw = oc2
 #Now adjust with a case_when
 #Add k equal to 5 when unimodal
 #Add k equal to 20 when bimodal 
@@ -50,10 +51,33 @@ mutate(k_value = case_when(
    Species == "Coccinella septempunctata" ~ 5,
    Species == "Calliphora vicina" ~ 4,
    Species == "Andrena gravida" ~ 4,
+   Species == "Osmia caerulescens" ~ 4,
+   Species == "Andrena nitida" ~ 4,
    TRUE ~ k_value))
+#Adjust probability cutoff for some species 
+#that have our phenological observations on the edge
+#Eristalis hybernates as adults, reduce probability
+oc2 = oc2 %>% 
+mutate(prob_value = case_when(
+   Species == "Eristalis tenax" ~ 0.02,
+   Species == "Macroglossum stellatarum" ~ 0.05,
+   Species == "Volucella zonaria" ~ 0.05,
+   Species == "Sphaerophoria scripta" ~ 0.05,
+   Species == "Bombus pratorum" ~ 0.02,
+   Species == "Osmia cornuta" ~ 0.05,
+   Species == "Valgus hemipterus" ~ 0.02,
+   Species == "Pseudovadonia livida" ~ 0.05,
+   Species == "Andrena flavipes" ~ 0.05,
+   Species == "Anthophora plumipes" ~ 0.05,
+   Species == "Andrena bicolor" ~ 0.05,
+   Species == "Andrena hattorfiana" ~ 0.05,
+   Species == "Eucera nigrescens" ~ 0.05,
+   Species == "Nomada fulvicornis" ~ 0.05,
+   TRUE ~ prob_value))
+
 #Maybe adjust p for Minettia longipennis 0.35
 spp_order = oc2 %>% distinct(Species) %>% pull()
-
+#spp_order = spp_order[1:133] #Se
 #Adjust after for species that these doesn't work
 #To show vertical lines that indicate when they where detected with sampling
 oc3 = oc2 %>% 
@@ -63,7 +87,8 @@ filter(!is.na(PollObs))
 #These are an artefact that we added in order to force the curves being zero on the extremes
 #We do it for these species because they have low records
 #So absent values appear within their pheneology
-species_to_filter = spp_order[65:133]
+species_to_filter = spp_order[c(16, 30:32,35:40,55,65:71, 73:80, 82:133)]
+
 # Define the filtering function
 filter_sp_data <- function(data) {
   # Calculate the min and max Doy where n_individuals is greater than 0
@@ -94,6 +119,7 @@ create_prediction <- function(species) {
   #Filter data for the specified species
   #Generate dataset and store critical values (for modelling and cutoff probability)
   sp_data = oc2 %>% filter(Species == species)
+  sp_data_raw = oc2_raw %>% filter(Species == species)
   k_value = sp_data %>% distinct(k_value) %>% pull()
   m_value = sp_data %>% distinct(m_value) %>% pull()
   prob_value = sp_data %>% distinct(prob_value) %>% pull()
@@ -119,11 +145,12 @@ create_prediction <- function(species) {
   unique_dates$Species = species
   #Add column of flying period
   #default cutoff 0.15
-  unique_dates$Flying_period = if_else(unique_dates$Probability <= prob_value, "No", "Yes")
+  unique_dates$Flying_period = if_else(unique_dates$Probability < prob_value, "No", "Yes")
   #Store again critical values in case we re-run them again
   unique_dates$k_value = k_value
   unique_dates$m_value = m_value
   unique_dates$prob_value = prob_value
+  unique_dates$PollObs = sp_data_raw$PollObs
   #Plot the predicted probabilities
   plot = ggplot(unique_dates, aes(x = Doy, y = Probability)) +
   geom_line(color = "blue") +
@@ -142,6 +169,7 @@ create_prediction <- function(species) {
 # Assuming oc1 and spp_order are already defined
 predictions_list <- list()
 
+spp_order = spp_order[1:133]
 
 for (i in 1:length(spp_order)) {
   species <- spp_order[i]
@@ -183,4 +211,11 @@ all_to_bind = all_predictions1 %>% select(Predictions)
 #Bind all
 all_binded1 = purrr::map(all_to_bind, bind_rows)
 all_binded2 = bind_rows(all_binded1)
+
+#Safety check
+#Evaluate which records of PollObs are considered out of the flying period
+colnames(all_binded2)
+checks = all_binded2 %>% 
+filter(PollObs == "Yes" & Flying_period == "No")
+nrow(checks) #35 rows! Try to fix it
 
