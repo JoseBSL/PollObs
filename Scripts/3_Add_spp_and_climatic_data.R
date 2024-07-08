@@ -59,4 +59,16 @@ interaction_data = interaction_data %>%
 mutate(Date = as.Date(Date_time)) 
 
 
+#Fix one record that is out of phenology
+#Anthophora plumipes 2023-07-04 is likey Anthophora quadrimaculata
+interaction_data = interaction_data %>% 
+mutate(Pollinator = case_when(
+  Pollinator == "Anthophora plumipes" & Date == "2023-07-04" ~ "Anthophora quadrimaculata",
+  TRUE ~ Pollinator))
+interaction_data = interaction_data %>% 
+mutate(Pollinator_accepted_name = case_when(
+  Pollinator_accepted_name == "Anthophora plumipes" & Date == "2023-07-04" ~ "Anthophora quadrimaculata",
+  TRUE ~ Pollinator_accepted_name))
+
+
 saveRDS(interaction_data, "Data/Working_files/interaction_data.rds")
