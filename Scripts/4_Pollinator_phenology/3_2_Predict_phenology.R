@@ -219,3 +219,72 @@ checks = all_binded2 %>%
 filter(PollObs == "Yes" & Flying_period == "No")
 nrow(checks) #35 rows! Try to fix it
 
+#Create funtion that
+#if PollObs == "Yes" & Flying_period == "No"
+colnames(all_binded2)
+
+#Filter out species with a critical value that is out of the modelling
+spp_to_filter = c("Pseudovadonia livida", "Eucera nigrescens", 
+                  "Nomada fulvicornis", "Andrena hattorfiana")
+#Fix manually not worth to create a function for this
+p_livida = all_binded2 %>% 
+filter(Species %in% "Pseudovadonia livida")
+unique_dates = p_livida
+max_day = max(unique_dates$Doy[unique_dates$Probability > 0 & unique_dates$Flying_period == "No"], na.rm = TRUE)
+max_day1 = max(unique_dates$Doy[unique_dates$PollObs == "Yes"], na.rm = TRUE)
+min_prob_max_day = unique_dates %>% filter(Doy == max_day) %>%  pull(Probability)
+#Assign to every value between max_day+1 and min_prob_max_day max_day1 this min_prob_max_day
+unique_dates1 = unique_dates %>% 
+mutate(Probability = if_else(Doy > (max_day) & Doy <= max_day1, min_prob_max_day, Probability))
+#Fix Flyin_probability == No
+p_livida1 = unique_dates1 %>% 
+mutate(Flying_period = if_else(Doy > (max_day) & Doy <= max_day1 & Flying_period == "No", "Yes", Flying_period))
+#Next species
+e_nigrescens = all_binded2 %>% 
+filter(Species %in% "Eucera nigrescens")
+unique_dates = p_livida
+max_day = max(unique_dates$Doy[unique_dates$Probability > 0 & unique_dates$Flying_period == "No"], na.rm = TRUE)
+max_day1 = max(unique_dates$Doy[unique_dates$PollObs == "Yes"], na.rm = TRUE)
+min_prob_max_day = unique_dates %>% filter(Doy == max_day) %>%  pull(Probability)
+#Assign to every value between max_day+1 and min_prob_max_day max_day1 this min_prob_max_day
+unique_dates1 = unique_dates %>% 
+mutate(Probability = if_else(Doy > (max_day) & Doy <= max_day1, min_prob_max_day, Probability))
+#Fix Flyin_probability == No
+e_nigrescens1 = unique_dates1 %>% 
+mutate(Flying_period = if_else(Doy > (max_day) & Doy <= max_day1 & Flying_period == "No", "Yes", Flying_period))
+
+#Next species
+n_fulvicornis = all_binded2 %>% 
+filter(Species %in% "Nomada fulvicornis")
+prob_val_before = n_fulvicornis %>% 
+filter(Doy==199) %>% 
+pull(Probability)
+n_fulvicornis1 = n_fulvicornis %>% 
+mutate(Probability = if_else(Doy == 200, prob_val_before, Probability)) %>% 
+mutate(Flying_period = if_else(Doy == 200, "Yes", Flying_period))
+
+#Next species
+a_hattorfiana = all_binded2 %>% 
+filter(Species %in% "Andrena hattorfiana")
+prob_val_after = a_hattorfiana %>% 
+filter(Doy==136) %>% 
+pull(Probability)
+a_hattorfiana1 = a_hattorfiana %>% 
+mutate(Probability = if_else(Doy == 135, prob_val_after, Probability)) %>% 
+mutate(Flying_period = if_else(Doy == 135, "Yes", Flying_period))
+#bind all fixed spp
+fixed = bind_rows(p_livida1, e_nigrescens1, n_fulvicornis1, a_hattorfiana1)
+#Filter out these species and paste them back
+all_binded2 = all_binded2 %>% 
+filter(!Species %in% spp_to_filter) 
+#Bind them back
+all_binded2 = bind_rows(all_binded2, fixed)
+#Conduct safety check now
+colnames(all_binded2)
+checks = all_binded2 %>% 
+filter(PollObs == "Yes" & Flying_period == "No")
+nrow(checks) #35 rows! Try to fix it
+
+#Now save data (these 133 spp seem ready for now)
+saveRDS(all_binded2, "Data/Working_files/poll_phenology_first_133_spp.rds")
+
