@@ -203,6 +203,8 @@ for (Botanical_garden_i in Botanical_garden_list) {
     # Save species results
     ############################################
     
+    rownames(specialization_plant_Garden_i_Week_j) <- 1:nrow(specialization_plant_Garden_i_Week_j)
+    rownames(specialization_poll_Garden_i_Week_j) <- 1:nrow(specialization_poll_Garden_i_Week_j)
     species_specialization_Garden_Week <- 
       bind_rows(species_specialization_Garden_Week,
                 specialization_plant_Garden_i_Week_j %>% 
