@@ -3,7 +3,6 @@
 #as some species have different peaks also associated with their life cycle
 #eg., species that hybernate as adults 
 
-
 #Load libraries
 library(mgcv)
 library(tidygam)
@@ -11,7 +10,7 @@ library(dplyr)
 library(ggplot2)
 
 #Load data
-oc2 = readRDS("Data/Working_files/poll_occurrences_over_60_records.rds")
+oc2 = readRDS("Data/Working_files/poll_occurrences_under_60_records.rds")
 poll_phenology_info = readr::read_csv("Data/Working_files/filled_poll_phenology.csv")
 #select cols of interest
 poll_phenology_info = poll_phenology_info %>% 
@@ -32,50 +31,29 @@ mutate(k_value = case_when(
    Phenology == "bimodal" ~ 20,
    Phenology == "unimodal" ~ 5,
    TRUE ~ k_value))
-#Now fix some particular cases that I have checked manually
-oc2 = oc2 %>% 
-mutate(m_value = case_when(
-   Species == "Nomada zonata" ~ 1,
-   Species == "Eucera nigrescens" ~ 1,
-   TRUE ~ m_value))
-#Now fix some particular cases that I have checked manually
+
 oc2 = oc2 %>% 
 mutate(k_value = case_when(
-   Species == "Pieris rapae" ~ 9,
-   Species == "Pieris napi" ~ 16,
-   Species == "Xylocopa violacea" ~ 8,
-   Species == "Timarcha goettingensis" ~ 4,
-   Species == "Meliscaeva auricollis" ~ 8,
-   Species == "Minettia longipennis" ~ 4,
-   Species == "Eristalinus aeneus" ~ 4,
-   Species == "Bombus pascuorum" ~ 5,
-   Species == "Coccinella septempunctata" ~ 5,
-   Species == "Calliphora vicina" ~ 4,
-   Species == "Andrena gravida" ~ 4,
-   Species == "Osmia caerulescens" ~ 4,
-   Species == "Andrena nitida" ~ 4,
-   Species == "Eucera nigrescens" ~ 20,
+   Species == "Coelioxys aurolimbatus" ~ 15,
+    Species == "Coelioxys elongatus" ~ 15,
+    Species == "Miltogramma germari" ~ 13,
+    Species == "Andrena chrysopus" ~ 20,
+    Species == "Botanophila striolata" ~ 20,
    TRUE ~ k_value))
-#Adjust probability cutoff for some species 
-#that have our phenological observations on the edge
-#Eristalis hybernates as adults, reduce probability
+
+oc2 = oc2 %>% 
+mutate(m_value = case_when(
+   Species == "Lasioglossum nitidiusculum" ~ 1,
+   Species == "Andrena chrysopus" ~ 1,
+   Species == "Botanophila striolata" ~ 1,
+   TRUE ~ m_value))
+
 oc2 = oc2 %>% 
 mutate(prob_value = case_when(
-   Species == "Eristalis tenax" ~ 0.02,
-   Species == "Macroglossum stellatarum" ~ 0.05,
-   Species == "Volucella zonaria" ~ 0.05,
-   Species == "Sphaerophoria scripta" ~ 0.05,
-   Species == "Bombus pratorum" ~ 0.02,
-   Species == "Osmia cornuta" ~ 0.05,
-   Species == "Valgus hemipterus" ~ 0.02,
-   Species == "Pseudovadonia livida" ~ 0.05,
-   Species == "Andrena flavipes" ~ 0.05,
-   Species == "Anthophora plumipes" ~ 0.05,
-   Species == "Andrena bicolor" ~ 0.05,
-   Species == "Andrena hattorfiana" ~ 0.05,
-   Species == "Eucera nigrescens" ~ 0.05,
-   Species == "Nomada fulvicornis" ~ 0.05,
+   Species == "Chrysogaster virescens" ~ 0.14,
+   Species == "Botanophila striolata" ~ 0.08,
    TRUE ~ prob_value))
+
 
 #Maybe adjust p for Minettia longipennis 0.35
 spp_order = oc2 %>% distinct(Species) %>% pull()
@@ -89,7 +67,10 @@ filter(!is.na(PollObs))
 #These are an artefact that we added in order to force the curves being zero on the extremes
 #We do it for these species because they have low records
 #So absent values appear within their pheneology
-species_to_filter = spp_order[c(16, 30:32,35:40,55,65:71, 73:80, 82:133)]
+
+match("Pollenia vagabunda", spp_order)
+
+species_to_filter = spp_order
 
 # Define the filtering function
 filter_sp_data <- function(data) {
@@ -171,7 +152,7 @@ create_prediction <- function(species) {
 # Assuming oc1 and spp_order are already defined
 predictions_list <- list()
 
-spp_order = spp_order[1:133]
+spp_order = spp_order[134:length(spp_order)]
 
 for (i in 1:length(spp_order)) {
   species <- spp_order[i]
@@ -197,7 +178,7 @@ for (i in 1:length(all_predictions1$Species)) {
   # Check if plot is not NULL before saving
   if (!is.null(plot)) {
     # Construct the filename with the species index and name
-    plot_filename <- paste0("Data/Pollinator_phenology/", i, "_", stringr::str_replace(species, " ","_"), ".png")
+    plot_filename <- paste0("Data/Pollinator_phenology/Missing_phenologies/", i, "_", stringr::str_replace(species, " ","_"), ".png")
     
     # Save the plot to a file
     ggsave(filename = plot_filename, plot = plot, width = 8, height = 6)
@@ -221,49 +202,37 @@ checks = all_binded2 %>%
 filter(PollObs == "Yes" & Flying_period == "No")
 nrow(checks) #35 rows! Try to fix it
 
-#Create funtion that
-#if PollObs == "Yes" & Flying_period == "No"
-colnames(all_binded2)
-
-unique(all_binded2$Species)
-
 #Filter out species with a critical value that is out of the modelling
-spp_to_filter = c("Pseudovadonia livida", "Nomada fulvicornis", "Andrena hattorfiana")
+spp_to_filter = c("Sphecodes ferruginatus", "Lasioglossum nitidiusculum")
 #Fix manually not worth to create a function for this
-p_livida = all_binded2 %>% 
-filter(Species %in% "Pseudovadonia livida")
-unique_dates = p_livida
-max_day = max(unique_dates$Doy[unique_dates$Probability > 0 & unique_dates$Flying_period == "No"], na.rm = TRUE)
+s_ferruginatus = all_binded2 %>% 
+filter(Species %in% "Sphecodes ferruginatus")
+unique_dates = s_ferruginatus
+max_day = 207
 max_day1 = max(unique_dates$Doy[unique_dates$PollObs == "Yes"], na.rm = TRUE)
 min_prob_max_day = unique_dates %>% filter(Doy == max_day) %>%  pull(Probability)
 #Assign to every value between max_day+1 and min_prob_max_day max_day1 this min_prob_max_day
 unique_dates1 = unique_dates %>% 
 mutate(Probability = if_else(Doy > (max_day) & Doy <= max_day1, min_prob_max_day, Probability))
 #Fix Flyin_probability == No
-p_livida1 = unique_dates1 %>% 
+s_ferruginatus1 = unique_dates1 %>% 
 mutate(Flying_period = if_else(Doy > (max_day) & Doy <= max_day1 & Flying_period == "No", "Yes", Flying_period))
 
-#Next species
-n_fulvicornis = all_binded2 %>% 
-filter(Species %in% "Nomada fulvicornis")
-prob_val_before = n_fulvicornis %>% 
-filter(Doy==199) %>% 
-pull(Probability)
-n_fulvicornis1 = n_fulvicornis %>% 
-mutate(Probability = if_else(Doy == 200, prob_val_before, Probability)) %>% 
-mutate(Flying_period = if_else(Doy == 200, "Yes", Flying_period))
+l_nitidiusculum = all_binded2 %>% 
+filter(Species %in% "Lasioglossum nitidiusculum")
+unique_dates = l_nitidiusculum
+min_day = 112
+max_day = 126
+prob_to_add = 0.5
+#Assign to every value between max_day+1 and min_prob_max_day max_day1 this min_prob_max_day
+unique_dates1 = unique_dates %>% 
+mutate(Probability = if_else(Doy >= (min_day) & Doy <= max_day1, prob_to_add, Probability))
+#Fix Flyin_probability == No
+l_nitidiusculum1 = unique_dates1 %>% 
+mutate(Flying_period = if_else(Doy >= (min_day) & Doy <= max_day1 & Flying_period == "No", "Yes", Flying_period))
 
-#Next species
-a_hattorfiana = all_binded2 %>% 
-filter(Species %in% "Andrena hattorfiana")
-prob_val_after = a_hattorfiana %>% 
-filter(Doy==136) %>% 
-pull(Probability)
-a_hattorfiana1 = a_hattorfiana %>% 
-mutate(Probability = if_else(Doy == 135, prob_val_after, Probability)) %>% 
-mutate(Flying_period = if_else(Doy == 135, "Yes", Flying_period))
 #bind all fixed spp
-fixed = bind_rows(p_livida1, n_fulvicornis1, a_hattorfiana1)
+fixed = bind_rows(s_ferruginatus1, l_nitidiusculum1)
 #Filter out these species and paste them back
 all_binded2 = all_binded2 %>% 
 filter(!Species %in% spp_to_filter) 
@@ -275,8 +244,7 @@ checks = all_binded2 %>%
 filter(PollObs == "Yes" & Flying_period == "No")
 nrow(checks) #35 rows! Try to fix it
 
-unique(all_binded2$Species)
+#Now save data for the remaining species
+saveRDS(all_binded2, "Data/Working_files/poll_phenology_remaining_spp.rds")
 
-#Now save data (these 133 spp seem ready for now)
-saveRDS(all_binded2, "Data/Working_files/poll_phenology_first_133_spp.rds")
 

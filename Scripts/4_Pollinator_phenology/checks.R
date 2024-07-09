@@ -5,14 +5,8 @@ match("Meliscaeva auricollis", spp_order)
 
 
 # Check fit of some models
-species =  "Pseudovadonia livida"
+species =  "Eucera nigrescens"
 sp_data = oc2 %>% filter(Species == species)
-
-#Exclude zeros within records
-sp_data = sp_data %>%
-  filter(!(n_individuals == 0 & 
-             Doy > min(sp_data$Doy[sp_data$n_individuals > 0]) & 
-             Doy < max(sp_data$Doy[sp_data$n_individuals > 0])))
 
 
 sp_model = gam(n_individuals ~ s(Doy, k = 20, m=1),
@@ -23,6 +17,7 @@ sp_data1 = oc3 %>% filter(Species == species)
 #Looks good
 #Create a new data frame with unique Doy values
 unique_dates = tibble(Doy = seq(from = 1, to = 365, by = 1))
+
 #Make predictions using the new data frame
 predicted_values = predict(sp_model, unique_dates, type = "response")
 #Assign the predicted values to the new data frame

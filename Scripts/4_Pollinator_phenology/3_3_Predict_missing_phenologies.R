@@ -94,6 +94,11 @@ mutate(k_value = 18) %>%
 mutate(m_value = 2) %>% 
 mutate(prob_value = 0.15)
 
+#Save oc2, to re-run in the next script
+#When we have check eacg graph for all the species
+saveRDS(oc2, "Data/Working_files/poll_occurrences_under_60_records.rds")
+
+
 #Adjust after for species that these doesn't work
 #To show vertical lines that indicate when they where detected with sampling
 oc3 = oc2 %>% 
