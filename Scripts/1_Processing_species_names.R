@@ -74,6 +74,8 @@ levels(factor(data$Sampling))
 plant_spp = data %>% 
 distinct(Plant) %>% 
 pull()
+
+plant_spp_raw = plant_spp
 #Fix some synonyms
 plant_spp = str_replace(plant_spp, "Erica herbacea", "Erica carnea")
 plant_spp = str_replace(plant_spp, "Potentilla sp", "Potentilla")
@@ -93,6 +95,10 @@ matched_gbif_plants = matched_gbif_plants %>%
 rename_with( ~ str_to_title(paste0("Plant_", .x))) %>% 
 select(!c("Plant_scientific_name", "Plant_canonical_name", "Plant_phylum")) %>% 
 rename(Plant = Plant_fixed_name)
+
+#Revert
+#Fix some synonyms
+matched_gbif_plants$Plant = plant_spp_raw
 
 #Save data
 saveRDS(matched_gbif_plants, "Data/Working_files/matched_gbif_plants.rds")
