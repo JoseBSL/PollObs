@@ -13,6 +13,9 @@ interaction_data = read_csv("Data/PollObs_all.csv")
 #Load taxonomy
 plants = readRDS("Data/Working_files/matched_gbif_plants.rds") 
 polls = readRDS("Data/Working_files/matched_gbif_pollinators.rds") 
+
+
+
 #Load climatic data
 leipzig_weather = readRDS("Data/Working_files/leipzig_weather.rds") %>% 
 rename(Botanical_garden = Weather_station)
