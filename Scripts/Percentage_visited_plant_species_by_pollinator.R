@@ -11,10 +11,10 @@ raw_data = readRDS("Data/Working_files/interaction_data.rds")
 interaction_data <- raw_data  %>% filter(!is.na(Interactions),
                                          !is.na(Floral_abundance),
                                          Pollinator != "None") %>% 
-  select(Botanical_garden, Plant_accepted_name, 
-         Pollinator_accepted_name, Date_time, 
+  select(Botanical_garden, Plant_family, 
+         Pollinator_family, Date_time, 
          Interactions, Floral_abundance) %>% 
-  rename(Plant = Plant_accepted_name, Pollinator = Pollinator_accepted_name) %>% 
+  rename(Plant = Plant_family, Pollinator = Pollinator_family) %>% 
   mutate(Date = as.Date(Date_time)) %>% 
   mutate(Week = lubridate::week(Date)) %>% 
   select(-Date_time, -Date) %>% filter(!is.na(Pollinator)) %>% ungroup()
@@ -61,5 +61,5 @@ data_visited_plant_Sp_by_poll_season <- total_visited_plant_Sp_by_poll_season %>
 # save results
 ############################################################################
 
-readr::write_csv(data_visited_plant_Sp_by_poll_week,"Data/Working_files/data_visited_plant_Sp_by_poll_week.csv")
-readr::write_csv(data_visited_plant_Sp_by_poll_season,"Data/Working_files/data_visited_plant_Sp_by_poll_season.csv")
+readr::write_csv(data_visited_plant_Sp_by_poll_week,"Data/Working_files/data_visited_plant_FAMILY_by_poll_FAMILY_week.csv")
+readr::write_csv(data_visited_plant_Sp_by_poll_season,"Data/Working_files/data_visited_plant_FAMILY_by_poll_FAMILY_season.csv")
