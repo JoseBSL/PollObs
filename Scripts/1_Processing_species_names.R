@@ -105,18 +105,21 @@ saveRDS(matched_gbif_plants, "Data/Working_files/matched_gbif_plants.rds")
 
 #2.2
 poll_spp = data %>% 
+distinct(Pollinator) 
+
+poll_spp_raw = poll_spp %>% pull()
+
+poll_spp = poll_spp %>% 
 mutate(Pollinator = str_replace(Pollinator, " sp", "")) %>% 
-distinct(Pollinator) %>% 
 pull() 
 
 #Check for futher taxonomic info
 matched_gbif_pollinators = name_backbone_checklist(name = poll_spp, kingdom='arthropoda')
 
 matched_gbif_pollinators = matched_gbif_pollinators %>% 
-filter(!verbatim_name == "None") %>% 
-filter(!verbatim_name == "Unidentified") %>% 
 mutate(matchType = case_when(verbatim_name == "Anthribidae" ~ "EXACT", 
                              T ~ matchType))
+
 #Fix structure
 matched_gbif_pollinators = change_str(matched_gbif_pollinators)
 #Add canonical name to accepted name when NA
@@ -127,6 +130,15 @@ matched_gbif_pollinators = matched_gbif_pollinators %>%
 rename_with( ~ str_to_title(paste0("Pollinator_", .x))) %>% 
 select(!c("Pollinator_scientific_name", "Pollinator_canonical_name", "Pollinator_phylum")) %>% 
 rename(Pollinator = Pollinator_fixed_name)
+
+#Revert
+#Fix some synonyms
+matched_gbif_pollinators$Pollinator = poll_spp_raw
+
+#matched_gbif_pollinators = matched_gbif_pollinators %>% 
+#filter(!verbatim_name == "None") %>% 
+#filter(!verbatim_name == "Unidentified")
+
 #Save data
 saveRDS(matched_gbif_pollinators, "Data/Working_files/matched_gbif_pollinators.rds")
 
