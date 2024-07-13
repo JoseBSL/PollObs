@@ -30,3 +30,16 @@ ggplot(poll_specialization_data, aes(x=dprime,y=100*percentage_vivited_plant_sp,
         axis.title=element_text(size=16,face="bold"),
         plot.title=element_text(size=16,face="bold"),
         strip.text = element_text(size = 18))
+
+ggplot(poll_specialization_data, aes(x=dprime,y=100*percentage_vivited_plant_sp, size = ))+
+  geom_point(size=3, alpha=0.25)+
+  xlim(0,1)+ylim(0,100)+
+  facet_wrap(~Botanical_garden)+
+  labs(x="d prime for pollinators per week", y= "Percentage of vivited plant families\nper week (%)")+
+  theme_bw()+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=16,face="bold"),
+        plot.title=element_text(size=16,face="bold"),
+        strip.text = element_text(size = 18))
