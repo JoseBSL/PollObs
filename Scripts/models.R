@@ -3,6 +3,9 @@ library(dplyr)
 library(tidyr)
 library(lubridate)
 library(glmmTMB)
+library(DHARMa)
+library(ggeffects)
+library(ggplot2)
 
 # ONLY FOCALS + RD OBSERVATIONS
 
@@ -37,15 +40,31 @@ poll_abundance_week <- interaction_data %>%
 data_model <- interaction_data %>%
   left_join(poll_abundance_week, 
             by = c("Botanical_garden", "Pollinator", "Week")) %>%
-  mutate(Visitation_rate = Total_pair_interactions/Total_sampling_time)
+  mutate(Visitation_rate = Total_pair_interactions/Total_sampling_time,
+         log_Total_floral_abundance = log(Total_floral_abundance))
 
 
-model1 <- glmmTMB::glmmTMB(Total_pair_interactions~scale(Total_floral_abundance)*
+ggplot(data_model, aes(y = log(Total_pair_interactions), x = Week))+
+  geom_point()
+
+ggplot(data_model, aes(y = log(Total_pair_interactions), x = Week))+
+  geom_point()
+
+
+data_model_fil <- data_model %>% filter(Total_pair_interactions<2e4)
+
+model1 <- glmmTMB::glmmTMB(Total_pair_interactions ~ scale(Total_floral_abundance)*
                              scale(Total_pollinator_abundance)+
+                             offset(scale(Total_sampling_time))+
+                             #scale(Total_sampling_time):scale(Total_pollinator_abundance)+
                              scale(Mean_Temperature)+
-                             scale(Mean_Humidity)+
-                             scale(Mean_Rainfall)+
-                             scale(Week) + Botanical_garden + (1|Pair),
+                             #scale(Mean_Humidity)+
+                             #scale(Mean_Rainfall)+
+                             Botanical_garden + 
+                             (1|Week/Pair),
+                           disp=~scale(Total_floral_abundance)*
+                             scale(Total_pollinator_abundance),
+                           zi=~1,
                            family=nbinom2,
                            data = data_model)
 
@@ -53,22 +72,95 @@ summary(model1)
 
 performance::check_collinearity(model1)
 
-library(DHARMa)
 simulationOutput1 <- DHARMa::simulateResiduals(fittedModel = model1, plot = F)
 plot(simulationOutput1)
+testDispersion(simulationOutput1)
+testZeroInflation(simulationOutput1)
+testQuantiles(simulationOutput1)
+#testCategorical(simulationOutput1, catPred = data_model_fil$Pair)
+plotResiduals(simulationOutput1, data_model$Total_floral_abundance)
+plotResiduals(simulationOutput1, data_model$Total_pollinator_abundance)
+plotResiduals(simulationOutput1, data_model$Mean_Temperature)
 
-model2 <- glmmTMB::glmmTMB(Visitation_rate ~scale(Total_floral_abundance)+scale(Total_pollinator_abundance)+
+
+model11 <- glmmTMB::glmmTMB(log(Total_pair_interactions) ~ scale(Total_floral_abundance)*
+                             scale(Total_pollinator_abundance)+
+                             offset(scale(Total_sampling_time))+
+                             #scale(Total_sampling_time):scale(Total_pollinator_abundance)+
                              scale(Mean_Temperature)+
-                             scale(Mean_Humidity)+
-                             scale(Mean_Rainfall)+Botanical_garden+
-                             scale(Week) + (1|Pair)+ (1|Pair),
-                           family=gaussian,
+                             #scale(Mean_Humidity)+
+                             #scale(Mean_Rainfall)+
+                             Botanical_garden + 
+                             (1|Week/Pair),
+                           family=Gamma(link = "log"),
+                           data = data_model %>% filter(Total_pair_interactions>1))
+
+summary(model11)
+
+performance::check_collinearity(model11)
+
+simulationOutput11 <- DHARMa::simulateResiduals(fittedModel = model11, plot = F)
+plot(simulationOutput11)
+testDispersion(simulationOutput11)
+testZeroInflation(simulationOutput11)
+testQuantiles(simulationOutput11)
+#testCategorical(simulationOutput1, catPred = data_model_fil$Pair)
+plotResiduals(simulationOutput11, data_model$Total_floral_abundance)
+plotResiduals(simulationOutput11, data_model$Total_pollinator_abundance)
+plotResiduals(simulationOutput11, data_model$Mean_Temperature)
+
+
+
+model2 <- glmmTMB::glmmTMB(Visitation_rate ~ scale(Total_floral_abundance)*scale(Total_pollinator_abundance)+
+                             scale(Mean_Temperature)+
+                             #scale(Mean_Humidity)+
+                             #scale(Mean_Rainfall)+
+                             Botanical_garden+
+                             #scale(Week) + 
+                             (1|Week/Pair),
+                           family=Gamma(link = "log"),
                            data = data_model)
 
 summary(model2)
 
 performance::check_collinearity(model2)
 
-library(DHARMa)
-simulationOutput2 <- DHARMa::simulateResiduals(fittedModel = model2, plot = F)
+simulationOutput2 <- DHARMa::simulateResiduals(fittedModel = model2)
 plot(simulationOutput2)
+testDispersion(simulationOutput2)
+testZeroInflation(simulationOutput2)
+plotResiduals(simulationOutput2, data_model$Total_floral_abundance)
+plotResiduals(simulationOutput2, data_model$Total_pollinator_abundance)
+plotResiduals(simulationOutput2, data_model$Mean_Temperature)
+
+
+scale( data_model$Total_floral_abundance)
+
+# Obtener los efectos marginales
+effects_model2 <- ggpredict(model2, terms = c("Total_pollinator_abundance", "Total_floral_abundance", "Mean_Temperature", "Botanical_garden"))
+plot(effects_model2)
+
+mean_fl_ab <- mean(data_model$Total_floral_abundance)
+sd_fl_ab <- sd(data_model$Total_floral_abundance)
+
+effects_model2 <- effects_model2 %>% mutate(BothLabels = paste0(panel,": ",facet, " ºC" ),
+                                            group2 = round(as.numeric(group)*sd_fl_ab+mean_fl_ab,0))
+
+
+ggplot(effects_model2, aes(x = x, y = predicted, color = as.factor(group2))) +
+  geom_line(size = 1.3) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = as.factor(group2)), alpha = 0.2, color =NA) +
+  labs(x = "Total pollinator abundance by species (counts)",
+       y = "Predicted visitation rate (counts per minute)",
+       color =  "Total number of flowers by species (counts)",
+       fill = "Total number of flowers by species (counts)") +
+  facet_wrap(~BothLabels)+
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 18),
+        legend.title=element_text(size=18,face="bold"),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=18,face="bold"),
+        plot.title=element_text(size=19,face="bold"),
+        strip.text = element_text(size = 18))
