@@ -1,6 +1,4 @@
-
 #Bind pollinator phenology and explore it visually
-
 #Load libraries
 library(dplyr)
 library(viridis)
@@ -13,13 +11,13 @@ file1 = readRDS("Data/Working_files/poll_phenology_first_133_spp.rds")
 file2 = readRDS("Data/Working_files/poll_phenology_remaining_spp.rds")
 #Bind together
 all = bind_rows(file1, file2)
-
 #Check number of species
 unique(file1$Species)
-
 #Select columns of interest
 all = all %>% 
 select(!c(k_value, m_value, prob_value))
+#Save pollinator phenology
+saveRDS(all, "Data/Working_files/pollinator_phenology.rds")
 
 #Plot phenologies
 #Create order of species for plotting
