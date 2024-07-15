@@ -176,8 +176,8 @@ ggplot(effects_model2, aes(x = x, y = predicted, color = as.factor(group2))) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = as.factor(group2)), alpha = 0.2, color =NA) +
   labs(x = "Total pollinator abundance by species (counts)",
        y = "Predicted visitation rate (counts per minute)",
-       color =  "Log. of the total number of flowers by species (counts)",
-       fill = "Log. of the total number of flowers by species (counts)") +
+       color =  "Log. of the total number of flowers by species",
+       fill = "Log. of the total number of flowers by species") +
   facet_wrap(~BothLabels)+
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))+
