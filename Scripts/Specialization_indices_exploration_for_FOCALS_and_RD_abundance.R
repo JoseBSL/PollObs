@@ -40,10 +40,6 @@ interaction_data_week <- interaction_data_week_aux %>%
   left_join(data_floral_ab_sampling_time_by_sp, 
             by = c("Botanical_garden", "Plant", "Week"))
 
-xcvx <- interaction_data_week %>% filter(Botanical_garden == "Leipzig", Week == 20)
-
-dfgx <- data_floral_ab_sampling_time_by_sp %>% filter(Botanical_garden == "Leipzig", Week == 20)
-
 
 # Prepare dfs to store the specialization information
 average_specialization <- interaction_data %>% 
