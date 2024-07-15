@@ -135,7 +135,7 @@ data_model %>% filter(Total_floral_abundance>1e5) %>% arrange(desc(Total_floral_
 
 
 
-model2 <- glmmTMB::glmmTMB(Visitation_rate ~ scale(log(Total_floral_abundance))*scale(Total_pollinator_abundance)+
+model2 <- glmmTMB::glmmTMB(Visitation_rate ~ scale(log_Total_floral_abundance)*scale(Total_pollinator_abundance)+
                              scale(Mean_Temperature)+
                              #scale(Mean_Humidity)+
                              #scale(Mean_Rainfall)+
@@ -161,11 +161,11 @@ plotResiduals(simulationOutput2, data_model$Mean_Temperature)
 scale( data_model$Total_floral_abundance)
 
 # Obtener los efectos marginales
-effects_model2 <- ggpredict(model2, terms = c("Total_pollinator_abundance", "Total_floral_abundance", "Mean_Temperature", "Botanical_garden"))
+effects_model2 <- ggpredict(model2, terms = c("Total_pollinator_abundance", "log_Total_floral_abundance", "Mean_Temperature", "Botanical_garden"))
 plot(effects_model2)
 
-mean_fl_ab <- mean(data_model$Total_floral_abundance)
-sd_fl_ab <- sd(data_model$Total_floral_abundance)
+mean_fl_ab <- mean(data_model$log_Total_floral_abundance)
+sd_fl_ab <- sd(data_model$log_Total_floral_abundance)
 
 effects_model2 <- effects_model2 %>% mutate(BothLabels = paste0(panel,": ",facet, " ºC" ),
                                             group2 = round(as.numeric(group)*sd_fl_ab+mean_fl_ab,0))
@@ -176,8 +176,8 @@ ggplot(effects_model2, aes(x = x, y = predicted, color = as.factor(group2))) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = as.factor(group2)), alpha = 0.2, color =NA) +
   labs(x = "Total pollinator abundance by species (counts)",
        y = "Predicted visitation rate (counts per minute)",
-       color =  "Total number of flowers by species (counts)",
-       fill = "Total number of flowers by species (counts)") +
+       color =  "Log. of the total number of flowers by species (counts)",
+       fill = "Log. of the total number of flowers by species (counts)") +
   facet_wrap(~BothLabels)+
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))+
