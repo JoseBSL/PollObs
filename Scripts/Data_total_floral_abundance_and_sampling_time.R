@@ -9,15 +9,23 @@ data_floral_ab_sampling_time <- raw_data  %>% filter(!is.na(Interactions),
                                                      !is.na(Floral_abundance),
                                                      Pollinator != "None") %>% 
   mutate(Individual = paste0(Sampling,Random_census_stop)) %>% 
-  dplyr::select(Botanical_garden, Plant_family, Plant,
-         Pollinator_family, Date_time, 
+  dplyr::select(Botanical_garden, Plant_family, Plant_accepted_name, 
+         Pollinator_accepted_name, Date_time, 
          Floral_abundance, Total_time_species, Individual) %>% 
-  mutate(Date = as.Date(Date_time)) %>% 
+  mutate(Plant = Plant_accepted_name, Date = as.Date(Date_time)) %>% 
   mutate(Week = lubridate::week(Date)) %>% 
-  dplyr::select(-Date_time, -Date) %>% filter(!is.na(Pollinator_family)) %>% ungroup() %>% 
+  dplyr::select(-Date_time, -Date) %>% filter(!is.na(Pollinator_accepted_name)) %>% ungroup() %>% 
   dplyr::select(Botanical_garden,Plant_family, Plant, Week, 
          Floral_abundance, Total_time_species, Individual) %>% 
   unique()
+
+data_floral_ab_sampling_time_by_individual <- data_floral_ab_sampling_time %>%
+  group_by(Botanical_garden, Plant_family, Plant, Individual, Week) %>%
+  summarise(
+    Total_floral_abundance_family = sum(Floral_abundance),
+    Total_sampling_time_family = sum(Total_time_species)
+  ) %>% ungroup()
+
 
 data_floral_ab_sampling_time_by_family <- data_floral_ab_sampling_time %>%
   group_by(Botanical_garden, Plant_family, Week) %>%
@@ -34,5 +42,6 @@ data_floral_ab_sampling_time_by_sp <- data_floral_ab_sampling_time %>%
   ) %>% 
   ungroup()
 
+readr::write_csv(data_floral_ab_sampling_time_by_individual,"Data/Working_files/data_floral_ab_sampling_time_by_individual.csv")
 readr::write_csv(data_floral_ab_sampling_time_by_family,"Data/Working_files/data_floral_ab_sampling_time_by_family.csv")
 readr::write_csv(data_floral_ab_sampling_time_by_sp,"Data/Working_files/data_floral_ab_sampling_time_by_sp.csv")
