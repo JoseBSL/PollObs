@@ -26,7 +26,7 @@ interaction_data_week_aux <- interaction_data %>%
   group_by(Botanical_garden, Plant, Pollinator, Week) %>%
   summarise(
     Total_pair_interactions = sum(Interactions),
-    Total_floral_abundance = sum(Floral_abundance)
+    Total_floral_abundance = mean(Floral_abundance)
   ) %>% ungroup()
 
 poll_abundance_week <- interaction_data %>%
