@@ -25,7 +25,6 @@ interaction_data_week_aux <- interaction_data %>%
   group_by(Botanical_garden, Plant, Pollinator, Week) %>%
   summarise(
     Total_pair_interactions = sum(Interactions),
-    Total_floral_abundance = sum(Floral_abundance)
   ) %>% ungroup()
 
 poll_abundance_week <- interaction_data %>%
@@ -33,9 +32,17 @@ poll_abundance_week <- interaction_data %>%
   count() %>% 
   rename(Total_pollinator_abundance = n) %>% ungroup()
 
+data_floral_ab_sampling_time_by_sp <- readr::read_csv("Data/Working_files/data_floral_ab_sampling_time_by_sp.csv")
+
 interaction_data_week <- interaction_data_week_aux %>%
   left_join(poll_abundance_week, 
-            by = c("Botanical_garden", "Pollinator", "Week"))
+            by = c("Botanical_garden", "Pollinator", "Week")) %>%
+  left_join(data_floral_ab_sampling_time_by_sp, 
+            by = c("Botanical_garden", "Plant", "Week"))
+
+xcvx <- interaction_data_week %>% filter(Botanical_garden == "Leipzig", Week == 20)
+
+dfgx <- data_floral_ab_sampling_time_by_sp %>% filter(Botanical_garden == "Leipzig", Week == 20)
 
 
 # Prepare dfs to store the specialization information
@@ -96,9 +103,7 @@ for (Botanical_garden_i in Botanical_garden_list) {
     
     plant_abundance_Garden_i_Week_j <- interaction_data_week %>% ungroup() %>%
       filter(Botanical_garden == Botanical_garden_i, Week == Week_j) %>%
-      dplyr::select(Plant, Total_floral_abundance) %>% group_by(Plant) %>%
-      count(wt = Total_floral_abundance) %>%
-      rename(Plant_total_floral_abundance = n) %>% unique() %>% ungroup()
+      dplyr::select(Plant, Total_floral_abundance) %>% unique() %>% ungroup()
     
    
     poll_abundance_Garden_i_Week_j <-  interaction_data_week %>% ungroup() %>%
@@ -150,7 +155,7 @@ for (Botanical_garden_i in Botanical_garden_list) {
     # Results for pollinator species
     
     all_results_specialization_poll_Garden_i_Week_j <- 
-      dfun(t(interaction_matrix_Garden_i_Week_j), abuns = plant_abundance_Garden_i_Week_j$Plant_total_floral_abundance)
+      dfun(t(interaction_matrix_Garden_i_Week_j), abuns = plant_abundance_Garden_i_Week_j$Total_floral_abundance)
     specialization_poll_Garden_i_Week_j <- 
       all_results_specialization_poll_Garden_i_Week_j$dprime %>% as.data.frame() %>%
       mutate(Botanical_garden = Botanical_garden_i, Week = Week_j)
