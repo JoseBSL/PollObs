@@ -265,8 +265,8 @@ Jena,Brassicaceae,18,5600,21
 Jena,Brassicaceae,19,8190,21
 Jena,Brassicaceae,20,2800,15
 Jena,Brassicaceae,21,2710,18
-Jena,Campanulaceae,23,163,33
-Jena,Campanulaceae,24,63,3
+Jena,Campanulaceae,23,353,36
+Jena,Campanulaceae,24,68,18
 Jena,Campanulaceae,25,34,3
 Jena,Campanulaceae,26,474,9
 Jena,Campanulaceae,27,644,6
@@ -374,6 +374,7 @@ Jena,Primulaceae,18,125,15
 Jena,Primulaceae,26,828,3
 Jena,Primulaceae,28,120,3
 Jena,Ranunculaceae,14,162,38
+Jena,Ranunculaceae,15,200,15
 Jena,Ranunculaceae,18,21,18
 Jena,Ranunculaceae,19,100,3
 Jena,Ranunculaceae,20,15,3
@@ -462,7 +463,7 @@ Leipzig,Boraginaceae,25,200,6
 Leipzig,Brassicaceae,16,240,3
 Leipzig,Brassicaceae,18,320,18
 Leipzig,Brassicaceae,19,8000,18
-Leipzig,Brassicaceae,20,10220,6
+Leipzig,Brassicaceae,20,10470,21
 Leipzig,Brassicaceae,21,230,15
 Leipzig,Brassicaceae,27,58,3
 Leipzig,Campanulaceae,26,150,3
@@ -484,6 +485,7 @@ Leipzig,Caprifoliaceae,33,308,21
 Leipzig,Caprifoliaceae,34,370,36
 Leipzig,Caryophyllaceae,21,3200,15
 Leipzig,Caryophyllaceae,22,2598,21
+Leipzig,Caryophyllaceae,25,80,15
 Leipzig,Caryophyllaceae,26,107,30
 Leipzig,Caryophyllaceae,27,151,33
 Leipzig,Caryophyllaceae,28,860,3
@@ -567,6 +569,7 @@ Leipzig,Plantaginaceae,25,280,15
 Leipzig,Plantaginaceae,26,120,15
 Leipzig,Plantaginaceae,27,38,15
 Leipzig,Plantaginaceae,29,376,6
+Leipzig,Poaceae,12,1000,5
 Leipzig,Primulaceae,16,980,30
 Leipzig,Primulaceae,17,430,30
 Leipzig,Primulaceae,18,240,30
@@ -579,7 +582,7 @@ Leipzig,Ranunculaceae,17,100,45
 Leipzig,Ranunculaceae,18,89,45
 Leipzig,Ranunculaceae,19,327,45
 Leipzig,Ranunculaceae,20,124,30
-Leipzig,Ranunculaceae,21,120,15
+Leipzig,Ranunculaceae,21,140,30
 Leipzig,Ranunculaceae,22,80,15
 Leipzig,Ranunculaceae,23,840,30
 Leipzig,Ranunculaceae,25,40,15
@@ -593,7 +596,7 @@ Leipzig,Ranunculaceae,34,250,15
 Leipzig,Rosaceae,18,30,3
 Leipzig,Rosaceae,19,14,15
 Leipzig,Rosaceae,21,280,3
-Leipzig,Rosaceae,23,290,6
+Leipzig,Rosaceae,23,308,21
 Leipzig,Rosaceae,24,155,6
 Leipzig,Rosaceae,25,383,9
 Leipzig,Rutaceae,23,140,15
@@ -603,6 +606,7 @@ Leipzig,Rutaceae,32,500000,3
 Leipzig,Saxifragaceae,16,160,15
 Leipzig,Scrophulariaceae,27,120,3
 Leipzig,Solanaceae,14,140,15
+Leipzig,Solanaceae,16,40,15
 Leipzig,Solanaceae,27,1400,3
 Leipzig,Solanaceae,28,220,3
 Leipzig,Tropaeolaceae,34,850,3
