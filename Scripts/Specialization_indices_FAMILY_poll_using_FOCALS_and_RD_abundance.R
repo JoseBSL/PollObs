@@ -13,19 +13,22 @@ interaction_data <- raw_data  %>% filter(!is.na(Interactions),
                                          Pollinator != "None") %>% 
   select(Botanical_garden, Plant_family, 
          Pollinator_family, Date_time, 
-         Interactions, Floral_abundance) %>% 
+         Interactions, Floral_abundance,Sampling) %>% 
   rename(Plant = Plant_family, Pollinator = Pollinator_family) %>% 
   mutate(Date = as.Date(Date_time)) %>% 
   mutate(Week = lubridate::week(Date)) %>% 
   select(-Date_time, -Date) %>% filter(!is.na(Pollinator)) %>% ungroup()
+
+data_floral_ab_sampling_time_by_family <- 
+  readr::read_csv("Data/Working_files/data_floral_ab_sampling_time_by_family.csv") %>% 
+rename(Plant = Plant_family,Total_floral_abundance=Total_floral_abundance_family)
 
 # Extract interaction and abundance data per sp, garden and week
 
 interaction_data_week_aux <- interaction_data %>%
   group_by(Botanical_garden, Plant, Pollinator, Week) %>%
   summarise(
-    Total_pair_interactions = sum(Interactions),
-    Total_floral_abundance = sum(Floral_abundance)
+    Total_pair_interactions = sum(Interactions)
   ) %>% ungroup()
 
 poll_abundance_week <- interaction_data %>%
@@ -35,7 +38,9 @@ poll_abundance_week <- interaction_data %>%
 
 interaction_data_week <- interaction_data_week_aux %>%
   left_join(poll_abundance_week, 
-            by = c("Botanical_garden", "Pollinator", "Week"))
+            by = c("Botanical_garden", "Pollinator", "Week")) %>%
+  left_join(data_floral_ab_sampling_time_by_family, 
+            by = c("Botanical_garden", "Plant", "Week"))
 
 
 # Prepare dfs to store the specialization information
