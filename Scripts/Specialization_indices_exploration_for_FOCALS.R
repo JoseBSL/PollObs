@@ -3,6 +3,8 @@ library(dplyr)
 library(tidyr)
 library(lubridate)
 library(bipartite)
+library(ggplot2)
+library(patchwork)
 
 # ONLY FOCALS
 
@@ -26,7 +28,7 @@ interaction_data_week_aux <- interaction_data %>%
   group_by(Botanical_garden, Plant, Pollinator, Week) %>%
   summarise(
     Total_pair_interactions = sum(Interactions),
-    Total_floral_abundance = sum(Floral_abundance)
+    Total_floral_abundance = mean(Floral_abundance)
   ) %>% ungroup()
 
 poll_abundance_week <- interaction_data %>%
@@ -216,8 +218,7 @@ for (Botanical_garden_i in Botanical_garden_list) {
   
 }
 
-
-library(ggplot2)
+# Plot results
 
 av_dprime_plant_plot <- ggplot(average_specialization, aes(x=Week,y=av_dprime_plant, color = Botanical_garden))+
   geom_point(size=3)+
@@ -274,5 +275,5 @@ av_H2prime_poll_plot <- ggplot(average_specialization, aes(x=Week,y=H2prime, col
         plot.title=element_text(size=19,face="bold"),
         strip.text = element_text(size = 18))
 
-library(patchwork)
+
 (av_dprime_plant_plot|av_dprime_poll_plot|av_H2prime_poll_plot) + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
