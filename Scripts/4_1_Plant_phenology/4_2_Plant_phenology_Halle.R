@@ -152,9 +152,6 @@ predict_flowering_intensity <- function(spp_name_halle, plant_phen) {
   # Add the species name to the data frame
   unique_dates$Species <- spp_name_halle
   
-  #Delete col
-  unique_dates = unique_dates %>% select(!Abundances)
-  
   # Add column of flowering period
   unique_dates$Flowering_period <- if_else(unique_dates$Probability <= 0.1, "No", "Yes")
   
@@ -166,7 +163,6 @@ predict_flowering_intensity <- function(spp_name_halle, plant_phen) {
          y = "Predicted Probability") +
     theme_minimal() +
     geom_point(data = sp_data, aes(x = Doy, y = Flowering_intensity/max(Flowering_intensity, na.rm = TRUE)))
-  
   
   # Create tibble
   result <- tibble(Species = spp_name_halle, Predictions = list(unique_dates), Plot = list(plot))
