@@ -90,8 +90,6 @@ predict_flowering_intensity <- function(spp_name_leipzig, plant_phen) {
   # Add the species name to the data frame
   unique_dates$Species <- spp_name_leipzig
 
-  #Delete col
-  unique_dates = unique_dates %>% select(!Abundances)
   # Add column of flowering period
   unique_dates$Flowering_period <- if_else(unique_dates$Probability <= 0.1, "No", "Yes")
   
