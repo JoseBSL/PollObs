@@ -1,0 +1,102 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4,fig.width=9, out.width="70%"}
+
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(patchwork)
+
+# Load data
+d_prime_poll_interactions <- readr::read_csv("../../Data/Working_files/average_d_prime_by_week_corrected_by_int.csv") %>%
+  dplyr::select(Botanical_garden, Week, av_dprime_poll, 
+                av_dprime_poll_upper, av_dprime_poll_lower) %>%
+  rename(av_dprime_poll_int = av_dprime_poll, 
+         av_dprime_poll_int_upper = av_dprime_poll_upper, 
+         av_dprime_poll_int_lower = av_dprime_poll_lower)
+
+d_prime_poll_abundance <- readr::read_csv("../../Data/Working_files/average_d_prime_by_week_corrected_by_ab.csv") %>%
+  dplyr::select(Botanical_garden, Week, av_dprime_poll, 
+                av_dprime_poll_upper, av_dprime_poll_lower) %>%
+  rename(av_dprime_poll_ab = av_dprime_poll, 
+         av_dprime_poll_ab_upper = av_dprime_poll_upper, 
+         av_dprime_poll_ab_lower = av_dprime_poll_lower)
+
+average_specialization <- d_prime_poll_interactions %>%
+  left_join(d_prime_poll_abundance, by = c("Botanical_garden","Week"))
+
+average_specialization_SEASON_int <- readr::read_csv("../../Data/Working_files/average_d_prime_by_SEASON_corrected_by_int.csv")
+average_specialization_SEASON_ab <- readr::read_csv("../../Data/Working_files/average_d_prime_by_SEASON_corrected_by_ab.csv")
+
+# First plot
+plot_av_dprime_poll_interactions <- ggplot(average_specialization, aes(x=Week, y=av_dprime_poll_int, color=Botanical_garden)) +
+  geom_point(size=3) +
+  geom_line(linewidth=1.5) +
+  scale_colour_manual(values=c("#440154FF", "#2A788EFF", "#7AD151FF")) +
+  geom_hline(yintercept=average_specialization_SEASON_int$av_dprime_poll[average_specialization_SEASON_int$Botanical_garden=="Jena"],
+             linewidth=1.5, color="#2A788EFF", linetype="dashed") +
+  geom_hline(yintercept=average_specialization_SEASON_int$av_dprime_poll[average_specialization_SEASON_int$Botanical_garden=="Halle"],
+             linewidth=1.5, color="#440154FF", linetype="dashed") +
+  geom_hline(yintercept=average_specialization_SEASON_int$av_dprime_poll[average_specialization_SEASON_int$Botanical_garden=="Leipzig"],
+             linewidth=1.5, color="#7AD151FF", linetype="dashed") +
+  labs(x="Week number", y=" ", title=NULL, color=NULL) +
+  theme_bw() +
+  theme(legend.position="bottom", legend.title=element_blank(),
+        legend.text=element_text(size=18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=16, face="bold"),
+        plot.title=element_text(size=16, face="bold"),
+        strip.text=element_text(size=18),
+         panel.border = element_rect(colour = "black", fill=NA, size=2)) +
+  guides(fill="none") +
+  scale_y_continuous(breaks=c(0, 0.5, 1), limits=c(0, 1), expand=expansion(mult=c(0.05, 0.05))) +
+  scale_x_continuous(breaks=c(15, 25, 35), limits=c(12, 35))
+
+# Second plot
+plot_av_dprime_poll_abundance <- ggplot(average_specialization, aes(x=Week, y=av_dprime_poll_ab, color=Botanical_garden)) +
+  geom_point(size=3) +
+  geom_line(linewidth=1.5) +
+  scale_colour_manual(values=c("#440154FF", "#2A788EFF", "#7AD151FF")) +
+  geom_hline(yintercept=average_specialization_SEASON_ab$av_dprime_poll[average_specialization_SEASON_ab$Botanical_garden=="Jena"],
+             linewidth=1.5, color="#2A788EFF", linetype="dashed") +
+  geom_hline(yintercept=average_specialization_SEASON_ab$av_dprime_poll[average_specialization_SEASON_ab$Botanical_garden=="Halle"],
+             linewidth=1.5, color="#440154FF", linetype="dashed") +
+  geom_hline(yintercept=average_specialization_SEASON_ab$av_dprime_poll[average_specialization_SEASON_ab$Botanical_garden=="Leipzig"],
+             linewidth=1.5, color="#7AD151FF", linetype="dotted") +
+  labs(x="Week number", y="  \n  ", title=NULL, color=NULL) +
+  theme_bw() +
+  theme(legend.position="bottom", legend.title=element_blank(),
+        legend.text=element_text(size=18),
+        axis.text=element_text(size=16),
+        axis.title=element_text(size=16, face="bold"),
+        plot.title=element_text(size=16, face="bold"),
+        strip.text=element_text(size=18),
+         panel.border = element_rect(colour = "black", fill=NA, size=2)) +
+  guides(fill="none") +
+  scale_y_continuous(breaks=c(0, 0.5, 1), limits=c(0, 1), expand=expansion(mult=c(0.05, 0.05))) +
+  scale_x_continuous(breaks=c(15, 25, 35), limits=c(12, 35))
+
+# Combine plots with a single legend
+combined_plot <- (plot_av_dprime_poll_interactions | plot_av_dprime_poll_abundance) + 
+  plot_layout(guides = "collect") & 
+  theme(legend.position = 'bottom')
+
+print(combined_plot)
+
+
+```
+
