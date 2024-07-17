@@ -58,6 +58,8 @@ for (Botanical_garden_i in Botanical_garden_list) {
   
   for (Week_j in vector_weeks4Botanical_garden_i) {
     
+    set.seed(123)
+    
     for (sample_k in c(1:Total_number_samples_week)) {
       
       
@@ -88,8 +90,6 @@ for (Botanical_garden_i in Botanical_garden_list) {
       
       total_poll_int_Botanical_garden_i_Week_j <- 
         sum(data_poll_int_genus_Botanical_garden_i_Week_j$Total_interactions)
-      
-      set.seed(123)
       
       # Sample plant genus partners
       
