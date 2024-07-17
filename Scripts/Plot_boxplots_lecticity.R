@@ -7,7 +7,9 @@ library(readr)
 library(ggplot2)
 
 poll_lecticity <- 
-  readr::read_csv("Data/Working_files/lecticity.csv")
+  readr::read_csv("Data/Working_files/Lecticity.csv") %>% 
+select(Pollinator, Strict_lecticity) %>% 
+rename(Lecticity = Strict_lecticity)
 
 plant_species_visited_by_poll_week <- 
   readr::read_csv("Data/Working_files/data_visited_plant_Sp_by_poll_week.csv") 
