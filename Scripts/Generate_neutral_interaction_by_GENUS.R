@@ -134,5 +134,6 @@ for (Botanical_garden_i in Botanical_garden_list) {
   }
 }
 
-readr::write_csv(results_rand_int,
-                 paste0("Data/Working_files/neutral_weekly_interactions_by_GENUS_",Total_number_samples_week,"_samples.csv"))
+# Commented for security reasons
+# readr::write_csv(results_rand_int,
+#                  paste0("Data/Working_files/neutral_weekly_interactions_by_GENUS_",Total_number_samples_week,"_samples.csv"))
