@@ -25,6 +25,12 @@ data_interactions_genus <- raw_data  %>% filter(!is.na(Interactions),
     Total_interactions = sum(Interactions),
   ) %>% ungroup() %>% arrange(Week)
 
+#  1,486 interacciones observadas
+
+
+data_interactions_genus %>% dplyr::select(Plant_genus, Pollinator_genus) %>%
+  unique()
+
 #Load neutral interactions data
 Total_number_samples_week <- 1000
 data_neutral_interactions_genus <-  
@@ -37,6 +43,8 @@ data_neutral_interactions_genus <-
     SD_total_interactions = sd(Total_interactions),
   ) %>% ungroup() %>% arrange(Week)
 
+data_neutral_interactions_genus %>% dplyr::select(Plant_genus, Pollinator_genus) %>%
+  unique() #7,419 interactions
 
 # Estimate z_scores
 
@@ -53,6 +61,13 @@ z_sc_data_interactions_genus_final <- z_sc_data_interactions_genus_aux %>%
 z_sc_data_interactions_genus_final$Type <- "Normal"
 z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score >= 1.96] <- "Over-represented"
 z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score <= -1.96] <- "Under-represented"
+
+
+ggplot(z_sc_data_interactions_genus_final, aes(x=z_score, fill = as.factor(Week)))+
+  geom_histogram(position = "stack")+
+  scale_fill_viridis_d(option = "viridis", name = "Week") +
+  facet_wrap(~Botanical_garden)+
+  theme_bw()
 
 z_sc_data_interactions_genus_final_filtered <- z_sc_data_interactions_genus_final %>%
   filter(z_score >= 1.96 | z_score <= -1.96)
@@ -79,5 +94,23 @@ ggplot(significant_pairs_week,
         strip.text = element_text(size = 18))
 
 
-significant_pairs_week %>% filter(Weeks_significant>= 6)
+significant_pairs_week %>% filter(Weeks_significant>= 4) %>% arrange(desc(Weeks_significant))
+
+all_pairs_week <- z_sc_data_interactions_genus_final %>% 
+  mutate(Pair = paste0(Plant_genus,"_",Pollinator_genus)) %>% 
+  group_by(Botanical_garden,Pair,Type) %>% count() %>% 
+  rename(Total_weeks = n) 
   
+ggplot(all_pairs_week,
+       aes(x=Total_weeks, fill = Type))+
+  geom_bar(position = "fill")+
+  facet_wrap(~Botanical_garden)+
+  labs(x="Total number of weeks in the study where a pairwise\ninteraction was found", 
+       y = "Number of pairwise interactions\nduring the sampling period", fill=NULL)+
+  theme_bw()+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 16),
+        axis.text=element_text(size=17),
+        axis.title=element_text(size=16,face="bold"),
+        plot.title=element_text(size=16,face="bold"),
+        strip.text = element_text(size = 18))

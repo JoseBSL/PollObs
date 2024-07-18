@@ -1,0 +1,52 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=5,fig.width=2.2, out.width="67%"}
+
+
+#Lecticity graph
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+
+poll_lecticity <- 
+  readr::read_csv("../../Data/Working_files/Lecticity.csv") %>% 
+select(Pollinator, Strict_lecticity) %>% 
+rename(Lecticity = Strict_lecticity)
+
+
+poll_lecticity %>% 
+filter(!is.na(Lecticity)) %>% 
+group_by(Lecticity) %>% 
+summarise(Counts = length(Lecticity)) %>% 
+ggplot(aes(x = "", y = Counts, fill = Lecticity)) + 
+  geom_bar(stat = "identity", width = 1, alpha=0.9, color=NA) + 
+scale_fill_manual(values=c("#FDE725FF","#287D8EFF"), labels = c("","")) +
+theme_classic() +
+coord_cartesian(expand = FALSE) +
+#theme(panel.border = element_rect(linewidth=2)) +
+ylab("")+
+xlab("")+
+  theme(axis.text = element_blank(), 
+        axis.title = element_blank(),
+        legend.position = "right",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(16, "mm"),
+        legend.margin = margin(0, 0, 0, 0),
+        legend.box.margin = margin(-8, -5, -5, -5)) 
+
+
+```

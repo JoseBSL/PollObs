@@ -1,0 +1,131 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=3,fig.width=3, out.width="67%"}
+
+
+
+#Read interaction daa
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(readr)
+library(ggplot2)
+library(viridis)
+library(scales)
+#Load data
+raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+
+poll_species = raw_data %>% 
+filter(Pollinator_rank == "SPECIES") %>% 
+filter(Pollinator_order == "Hymenoptera" | Pollinator_order == "Diptera"| 
+      Pollinator_order == "Coleoptera" |  Pollinator_order == "Lepidoptera") %>% 
+select(Pollinator_accepted_name, Pollinator_order) %>% 
+group_by(Pollinator_order) %>% 
+summarise(Species = n_distinct(Pollinator_accepted_name)/n_distinct(.),
+          Interactions = length(Pollinator_accepted_name)/ nrow(.))
+
+# Combine Interactions and Species into a single column
+data_long = pivot_longer(poll_species, cols = c(Interactions, Species), names_to = "Variable", values_to = "Value")
+
+
+#Set order of levels for plotting
+data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Coleoptera", "Lepidoptera", "Diptera", "Hymenoptera"))
+
+data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
+
+ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) + 
+geom_bar(stat = "identity", width = 0.7, alpha=0.85) +
+theme_classic() +
+scale_fill_viridis(discrete=TRUE, direction = -1, name="Pollinator order") +
+xlab(NULL) +
+ylab(NULL) + 
+scale_y_continuous(breaks=c(0,0.5,1),labels = percent_format(), expand = c(0, 0)) +
+theme(axis.text.y = element_text(size=14), 
+     axis.text.x = element_text(size=14), 
+     axis.title.y = element_text(face = "bold", size = 18, vjust = -2),  
+     axis.title.x = element_text(face="bold", size = 18),
+     legend.position = "none",
+     legend.title = element_text(size = 14, face = "bold"),
+     legend.text = element_text(size = 14),
+     legend.key.size = unit(1, "mm"),
+     legend.margin=margin(0,0,0,0),
+     legend.box.margin=margin(-8,-5,-5,-5)) +
+guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+```
+
+\newpage
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=3,fig.width=3, out.width="67%"}
+
+
+
+
+#Read interaction daa
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(readr)
+library(ggplot2)
+library(viridis)
+library(scales)
+#Load data
+raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+
+poll_species = raw_data %>% 
+filter(Pollinator_rank == "SPECIES") %>% 
+filter(Pollinator_order == "Hymenoptera" | Pollinator_order == "Diptera"| 
+      Pollinator_order == "Coleoptera" |  Pollinator_order == "Lepidoptera") %>% 
+select(Pollinator_accepted_name, Pollinator_order) %>% 
+group_by(Pollinator_order) %>% 
+summarise(Species = n_distinct(Pollinator_accepted_name)/n_distinct(.),
+          Interactions = length(Pollinator_accepted_name)/ nrow(.))
+
+# Combine Interactions and Species into a single column
+data_long = pivot_longer(poll_species, cols = c(Interactions, Species), names_to = "Variable", values_to = "Value")
+
+
+#Set order of levels for plotting
+data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Coleoptera", "Lepidoptera", "Diptera", "Hymenoptera"))
+
+data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
+
+ggplot(data_long, aes(x = "", y = Value, fill = Pollinator_order)) + 
+  geom_bar(stat = "identity", width = 1) + 
+  coord_polar(theta = "y") + 
+  theme_classic() + 
+  scale_fill_viridis(discrete = TRUE, direction = -1, name = NULL) + 
+  xlab(NULL) + 
+  ylab("Percentage") + 
+  scale_y_continuous(labels = percent_format(), expand = c(0, 0)) + 
+  theme(axis.text = element_text(size = 16), 
+        axis.title.y = element_text(face = "bold", size = 12, vjust = -2),  
+        axis.title.x = element_text(face = "bold", size = 12),
+        legend.position = "right",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(8, "mm"),
+        legend.margin = margin(0, 0, 0, 0),
+        legend.box.margin = margin(-8, -5, -5, -5)) + 
+  guides(fill = guide_legend(ncol = 1, label.position = "right")) +
+  ggtitle("(c)") + 
+  theme(plot.title = element_text(size = 10, hjust = -0.3, vjust = -6)) + 
+  facet_wrap(~Variable)
+
+
+
+```
+
