@@ -148,7 +148,6 @@ model2 <- glmmTMB::glmmTMB(Visitation_rate ~ scale(log_Total_floral_abundance)*s
 summary(model2)
 
 performance::check_collinearity(model2)
-
 simulationOutput2 <- DHARMa::simulateResiduals(fittedModel = model2)
 plot(simulationOutput2)
 testDispersion(simulationOutput2)
@@ -162,14 +161,30 @@ scale( data_model$Total_floral_abundance)
 
 # Obtener los efectos marginales
 effects_model2 <- ggpredict(model2, terms = c("Total_pollinator_abundance", "log_Total_floral_abundance", "Mean_Temperature", "Botanical_garden"))
+
 plot(effects_model2)
 
 mean_fl_ab <- mean(data_model$log_Total_floral_abundance)
 sd_fl_ab <- sd(data_model$log_Total_floral_abundance)
 
-effects_model2 <- effects_model2 %>% mutate(BothLabels = paste0(panel,": ",facet, " ºC" ),
-                                            group2 = round(as.numeric(group)*sd_fl_ab+mean_fl_ab,0))
+str(effects_model2)
+class(effects_model2)
 
+#An R version seem to doesnt work with this type of dataframe 
+#effects_model2_for_plotting =
+#effects_model2 %>%
+#mutate(BothLabels = paste0(panel,": ",facet, " ºC" ),
+#group2 = round(as.numeric(group)*sd_fl_ab+mean_fl_ab,0))
+#Ensure reproducibility with R base
+
+effects_model2$BothLabels = paste0(effects_model2$panel,": ",effects_model2$facet, " ºC" )
+effects_model2$group2 = round(as.numeric(effects_model2$group)*sd_fl_ab+mean_fl_ab,0)
+
+effects_model2$group2 =signif(round(exp(as.numeric(effects_model2$group)*sd_fl_ab+mean_fl_ab),0), 1)
+
+
+#Save data for plotting
+#saveRDS(effects_model2, "Data/Working_files/effects_model2.rds")
 
 ggplot(effects_model2, aes(x = x, y = predicted, color = as.factor(group2))) +
   geom_line(size = 1.3) +
