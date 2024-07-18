@@ -1,0 +1,97 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=8, out.width="67%"}
+
+#Bind pollinator phenology and explore it visually
+#Load libraries
+library(dplyr)
+library(viridis)
+library(tidyr)
+library(ggplot2)
+
+
+#Load clean phenologies
+#File 1
+file1 = readRDS("../../Data/Working_files/poll_phenology_first_133_spp.rds")
+#File 2
+file2 = readRDS("../../Data/Working_files/poll_phenology_remaining_spp.rds")
+#Plot a unique example (to help people understand this figure)
+oc2 = readRDS("../../Data/Working_files/poll_occurrences_over_60_records.rds")
+#Bind together
+all = bind_rows(file1, file2)
+#Select columns of interest
+all = all %>% 
+select(!c(k_value, m_value, prob_value))
+#Plot phenologies
+#Create order of species for plotting
+plot_order = all %>% 
+filter(Flying_period == "Yes") %>% 
+group_by(Species) %>% 
+slice_min(Doy) %>% 
+arrange(-Doy) %>% 
+select(Doy, Species) %>% 
+rename(Order = Doy) %>% 
+ungroup() %>% 
+mutate(Order_number = row_number()  * 50) #To add some species across bars
+#Arrange dataframe by this order
+all_ordered = left_join(all, plot_order)
+#arrange
+all_ordered = all_ordered %>% 
+group_by(Species) %>% 
+arrange(Order_number)
+#Add NA's so when there is probability 0 nothing is plotted
+all_ordered = all_ordered %>% 
+mutate(Order_number = if_else(Flying_period== "No", NA, Order_number))
+
+highlight_species <- "Sphecodes albilabris"
+highlighted_species_data = all_ordered %>% filter(Species == highlight_species) %>% 
+filter(Flying_period == "Yes") %>% 
+slice_min(Doy) %>% 
+mutate(Doy = 80)
+
+#Prepare all tibbles for plotting
+#Curves
+example_sp = all_ordered %>% 
+filter(Species == highlight_species)
+#Raw points
+sp_data = oc2 %>% 
+filter(Species == highlight_species)
+sp_data = left_join(sp_data, example_sp)
+#Vertical lines
+sp_data1 = oc2 %>% 
+filter(Species == highlight_species) %>% 
+filter(!is.na(PollObs))
+#Plot
+library(ggplot2)
+
+ggplot(example_sp, aes(x = Doy, y = Probability)) +
+  geom_line(color = "black", size = 1.5) +
+  geom_point(data = sp_data, aes(x = Doy, y = n_individuals / max(n_individuals), color = Probability), 
+             alpha = 0.5, size = 4) +  # Increase size of points for better visibility
+xlab(NULL)+
+ylab(NULL)+
+  theme_classic() +
+  geom_vline(data = sp_data1, aes(xintercept = Doy), linetype = "dashed", color = "black", size = 1.5) +
+  scale_color_viridis_c(name = NULL) +  # Removed color legend title to avoid redundancy
+  guides(color = "none") +  # Removed color legend completely
+  theme(axis.text = element_text(size = 22),  # Increase axis text size
+        axis.title = element_text(size = 20),
+        panel.border = element_rect(colour = "black", fill=NA, size=4)) +
+scale_y_continuous(breaks = c(0,0.5,1))
+
+
+
+```
+
