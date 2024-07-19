@@ -58,10 +58,14 @@ z_sc_data_interactions_genus_aux[is.na(z_sc_data_interactions_genus_aux)] <- 0
 z_sc_data_interactions_genus_final <- z_sc_data_interactions_genus_aux %>%
   mutate(z_score = (Total_interactions-Mean_total_interactions)/SD_total_interactions)
 
-z_sc_data_interactions_genus_final$Type <- "Normal"
+z_sc_data_interactions_genus_final$Type <- "Non-significant"
 z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score >= 1.96] <- "Over-represented"
 z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score <= -1.96] <- "Under-represented"
 
+
+z_sc_data_interactions_genus_final %>% select(Plant_genus, Pollinator_genus, Type) %>%
+  unique() %>% group_by(Plant_genus, Pollinator_genus) %>% count() %>%
+  filter(n>1)
 
 ggplot(z_sc_data_interactions_genus_final, aes(x=z_score, fill = as.factor(Week)))+
   geom_histogram(position = "stack")+
@@ -114,3 +118,20 @@ ggplot(all_pairs_week,
         axis.title=element_text(size=16,face="bold"),
         plot.title=element_text(size=16,face="bold"),
         strip.text = element_text(size = 18))
+
+
+library(scales)
+ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
+       aes(x=z_score, y = Total_interactions, color= Type))+
+         geom_point(size=3, alpha= 0.35)+
+  scale_x_continuous(trans=scales::pseudo_log_trans(base = 10), breaks=c(-100,-10,-1.96,1.96, 10, 100))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  labs(y="Total number of observed interactions by genus", 
+       x = "Z-score estimated", color=NULL)+
+theme_bw()+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 17),
+        axis.text=element_text(size=17),
+        axis.title=element_text(size=16,face="bold"))
+       
