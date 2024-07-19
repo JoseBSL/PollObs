@@ -43,6 +43,10 @@ average_specialization_SEASON_int <- readr::read_csv("../../Data/Working_files/a
 average_specialization_SEASON_ab <- readr::read_csv("../../Data/Working_files/average_d_prime_by_SEASON_corrected_by_ab.csv")
 
 # First plot
+
+average_specialization$Botanical_garden = factor(average_specialization$Botanical_garden,
+                                                 levels = c("Halle", "Leipzig", "Jena"))
+
 plot_av_dprime_poll_interactions <- ggplot(average_specialization, aes(x=Week, y=av_dprime_poll_int, color=Botanical_garden)) +
   geom_point(size=3) +
   geom_line(linewidth=1.5) +

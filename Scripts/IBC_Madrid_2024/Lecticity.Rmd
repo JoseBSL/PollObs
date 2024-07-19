@@ -30,7 +30,7 @@ rename(Lecticity = Strict_lecticity)
 poll_lecticity %>% 
 filter(!is.na(Lecticity)) %>% 
 group_by(Lecticity) %>% 
-summarise(Counts = length(Lecticity)) %>% 
+summarise(Counts = length(Lecticity)/nrow(.)*100) %>% 
 ggplot(aes(x = "", y = Counts, fill = Lecticity)) + 
   geom_bar(stat = "identity", width = 1, alpha=0.9, color=NA) + 
 scale_fill_manual(values=c("#FDE725FF","#287D8EFF"), labels = c("","")) +
@@ -46,7 +46,8 @@ xlab("")+
         legend.text = element_text(size = 10),
         legend.key.size = unit(16, "mm"),
         legend.margin = margin(0, 0, 0, 0),
-        legend.box.margin = margin(-8, -5, -5, -5)) 
+        legend.box.margin = margin(-8, -5, -5, -5)) +
+scale_y_continuous(breaks=c(0,50,100))
 
 
 ```
