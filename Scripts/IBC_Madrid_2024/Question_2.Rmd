@@ -16,10 +16,35 @@ format:
 
 library(ggplot2)
 library(extrafont)
+library(dplyr)
 loadfonts()
 
-
+#Load data
 effects_model2 = readRDS("../../Data/Working_files/effects_model2.rds")
+#Print rounded values (nicer visualization)
+label_mapping <- c(
+  "Halle: 17.3 ºC" = "Halle: 17 ºC", 
+  "Halle: 21.81 ºC" = "Halle: 22 ºC", 
+  "Halle: 26.33 ºC" = "Halle: 26 ºC",
+  "Leipzig: 17.3 ºC" = "Leipzig: 17 ºC", 
+  "Leipzig: 21.81 ºC" = "Leipzig: 22 ºC", 
+  "Leipzig: 26.33 ºC" = "Leipzig: 26 ºC",
+  "Jena: 17.3 ºC" = "Jena: 17 ºC", 
+  "Jena: 21.81 ºC" = "Jena: 22 ºC", 
+  "Jena: 26.33 ºC" = "Jena: 26 ºC")
+
+#Verify the new levels
+effects_model2 = as_tibble(effects_model2)
+
+#Recode the levels in BothLabels
+effects_model2 <- effects_model2 %>%
+  mutate(BothLabels = recode(BothLabels, !!!label_mapping))
+
+#Order them for plotting
+effects_model2$BothLabels = factor(effects_model2$BothLabels,
+levels = c("Halle: 17 ºC", "Halle: 22 ºC", "Halle: 26 ºC",
+  "Leipzig: 17 ºC", "Leipzig: 22 ºC", "Leipzig: 26 ºC",
+  "Jena: 17 ºC", "Jena: 22 ºC", "Jena: 26 ºC"))
 
 # Plot
 ggplot(effects_model2, aes(x = x, y = predicted, color = as.factor(group2))) +

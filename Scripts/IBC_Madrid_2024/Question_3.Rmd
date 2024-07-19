@@ -1,0 +1,176 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=5.5,fig.width=6.5, out.width="70%"}
+
+library(scales)
+library(viridis)
+library(dplyr)
+library(ggplot2)
+
+#Load data
+raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+
+# Prepare observed interaction data by genus
+data_interactions_genus <- raw_data  %>% filter(!is.na(Interactions),
+                                             !is.na(Floral_abundance),
+                                             Pollinator != "None",
+                                             !is.na(Pollinator_genus)) %>% 
+  dplyr::select(Botanical_garden, Plant_genus, Pollinator_genus,
+                Date_time, Interactions) %>% 
+  mutate(Date = as.Date(Date_time)) %>% 
+  mutate(Week = lubridate::week(Date)) %>% 
+  dplyr::select(-Date_time, -Date) %>% ungroup() %>% 
+  dplyr::select(Botanical_garden,Plant_genus, Pollinator_genus, Week,
+                Interactions) %>%
+  group_by(Botanical_garden, Week, Plant_genus, Pollinator_genus) %>%
+  summarise(
+    Total_interactions = sum(Interactions),
+  ) %>% ungroup() %>% arrange(Week)
+
+#Load neutral interactions data
+Total_number_samples_week <- 1000
+data_neutral_interactions_genus <-  
+  readr::read_csv(paste0("../../Data/Working_files/neutral_weekly_interactions_by_GENUS_",
+                 Total_number_samples_week,
+                 "_samples.csv")) %>%
+  group_by(Botanical_garden, Week, Plant_genus, Pollinator_genus) %>%
+  summarise(
+    Mean_total_interactions = mean(Total_interactions),
+    SD_total_interactions = sd(Total_interactions),
+  ) %>% ungroup() %>% arrange(Week)
+
+# Estimate z_scores
+
+z_sc_data_interactions_genus_aux <- data_interactions_genus %>%
+  left_join(data_neutral_interactions_genus,
+            by = c("Botanical_garden", "Week", 
+            "Plant_genus", "Pollinator_genus"))
+
+z_sc_data_interactions_genus_aux[is.na(z_sc_data_interactions_genus_aux)] <- 0
+
+z_sc_data_interactions_genus_final <- z_sc_data_interactions_genus_aux %>%
+  mutate(z_score = (Total_interactions-Mean_total_interactions)/SD_total_interactions)
+
+z_sc_data_interactions_genus_final$Type <- "Non-significant"
+z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score >= 1.96] <- "Over-represented"
+z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score <= -1.96] <- "Under-represented"
+
+z_sc_data_interactions_genus_final$Type <- factor(z_sc_data_interactions_genus_final$Type, 
+                                                  levels = c("Under-represented", 
+                                                             "Non-significant", 
+                                                             "Over-represented"))
+
+ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
+       aes(x=z_score, y = Total_interactions, fill= Type, color=Type))+
+         geom_point(size=3.5, alpha= 0.35, shape=21,stroke=0.5)+
+  scale_x_continuous(trans=scales::pseudo_log_trans(base = 10), breaks=c(-100,-10,0, 10, 100))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  labs(y="", 
+       x = "", fill=NULL)+
+  scale_fill_viridis_d() +
+    scale_color_viridis_d() +
+theme_bw()+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 17),
+        axis.text=element_text(size=20),
+        axis.title=element_text(size=16,face="bold"),
+         panel.border = element_rect(colour = "black", fill=NA, size=3.25))
+
+```
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=5.5,fig.width=12, out.width="70%"}
+
+#Plot it again to get a ncier legend
+
+library(scales)
+library(viridis)
+library(dplyr)
+library(ggplot2)
+
+#Load data
+raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+
+# Prepare observed interaction data by genus
+data_interactions_genus <- raw_data  %>% filter(!is.na(Interactions),
+                                             !is.na(Floral_abundance),
+                                             Pollinator != "None",
+                                             !is.na(Pollinator_genus)) %>% 
+  dplyr::select(Botanical_garden, Plant_genus, Pollinator_genus,
+                Date_time, Interactions) %>% 
+  mutate(Date = as.Date(Date_time)) %>% 
+  mutate(Week = lubridate::week(Date)) %>% 
+  dplyr::select(-Date_time, -Date) %>% ungroup() %>% 
+  dplyr::select(Botanical_garden,Plant_genus, Pollinator_genus, Week,
+                Interactions) %>%
+  group_by(Botanical_garden, Week, Plant_genus, Pollinator_genus) %>%
+  summarise(
+    Total_interactions = sum(Interactions),
+  ) %>% ungroup() %>% arrange(Week)
+
+#Load neutral interactions data
+Total_number_samples_week <- 1000
+data_neutral_interactions_genus <-  
+  readr::read_csv(paste0("../../Data/Working_files/neutral_weekly_interactions_by_GENUS_",
+                 Total_number_samples_week,
+                 "_samples.csv")) %>%
+  group_by(Botanical_garden, Week, Plant_genus, Pollinator_genus) %>%
+  summarise(
+    Mean_total_interactions = mean(Total_interactions),
+    SD_total_interactions = sd(Total_interactions),
+  ) %>% ungroup() %>% arrange(Week)
+
+# Estimate z_scores
+
+z_sc_data_interactions_genus_aux <- data_interactions_genus %>%
+  left_join(data_neutral_interactions_genus,
+            by = c("Botanical_garden", "Week", 
+            "Plant_genus", "Pollinator_genus"))
+
+z_sc_data_interactions_genus_aux[is.na(z_sc_data_interactions_genus_aux)] <- 0
+
+z_sc_data_interactions_genus_final <- z_sc_data_interactions_genus_aux %>%
+  mutate(z_score = (Total_interactions-Mean_total_interactions)/SD_total_interactions)
+
+z_sc_data_interactions_genus_final$Type <- "Non-significant"
+z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score >= 1.96] <- "Over-represented"
+z_sc_data_interactions_genus_final$Type[z_sc_data_interactions_genus_final$z_score <= -1.96] <- "Under-represented"
+
+z_sc_data_interactions_genus_final$Type <- factor(z_sc_data_interactions_genus_final$Type, 
+                                                  levels = c("Under-represented", 
+                                                             "Non-significant", 
+                                                             "Over-represented"))
+
+ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
+       aes(x=z_score, y = Total_interactions, fill= Type, color=Type))+
+         geom_point(size=3.5, alpha= 0.55, shape=21,stroke=0.5)+
+  scale_x_continuous(trans=scales::pseudo_log_trans(base = 10), breaks=c(-100,-10,0, 10, 100))+
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  labs(y="", 
+       x = "", fill=NULL)+
+  scale_fill_viridis_d() +
+    scale_color_viridis_d() +
+theme_bw()+
+  theme(legend.position = "bottom")+
+  theme(legend.text = element_text(size = 17),
+        axis.text=element_text(size=18),
+        axis.title=element_text(size=16,face="bold"),
+         panel.border = element_rect(colour = "black", fill=NA, size=3.25)) +
+guides(colour = "none")
+
+```
