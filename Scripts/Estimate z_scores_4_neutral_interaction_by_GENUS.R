@@ -121,14 +121,22 @@ ggplot(all_pairs_week,
 
 
 library(scales)
+library(viridis)
+levels(z_sc_data_interactions_genus_final$Type)
+z_sc_data_interactions_genus_final$Type <- factor(z_sc_data_interactions_genus_final$Type, 
+                                                  levels = c("Under-represented", 
+                                                             "Non-significant", 
+                                                             "Over-represented"))
+
 ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
-       aes(x=z_score, y = Total_interactions, color= Type))+
-         geom_point(size=3, alpha= 0.35)+
+       aes(x=z_score, y = Total_interactions, fill= Type))+
+         geom_point(size=3.2, alpha= 0.35, shape=21, color="gray", stroke=0.5)+
   scale_x_continuous(trans=scales::pseudo_log_trans(base = 10), breaks=c(-100,-10,-1.96,1.96, 10, 100))+
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x))) +
   labs(y="Total number of observed interactions by genus", 
-       x = "Z-score estimated", color=NULL)+
+       x = "Estimated z-score", fill=NULL)+
+  scale_fill_viridis_d() +
 theme_bw()+
   theme(legend.position = "bottom")+
   theme(legend.text = element_text(size = 17),
