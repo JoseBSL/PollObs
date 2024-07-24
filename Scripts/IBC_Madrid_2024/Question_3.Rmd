@@ -73,7 +73,7 @@ z_sc_data_interactions_genus_final$Type <- factor(z_sc_data_interactions_genus_f
                                                              "Non-significant", 
                                                              "Over-represented"))
 
-ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
+p1 = ggplot(z_sc_data_interactions_genus_final %>% filter(!is.infinite(z_score)), 
        aes(x=z_score, y = Total_interactions, fill= Type, color=Type))+
          geom_point(size=3.5, alpha= 0.35, shape=21,stroke=0.5)+
   scale_x_continuous(trans=scales::pseudo_log_trans(base = 10), breaks=c(-100,-10,0, 10, 100))+
@@ -89,6 +89,12 @@ theme_bw()+
         axis.text=element_text(size=20),
         axis.title=element_text(size=16,face="bold"),
          panel.border = element_rect(colour = "black", fill=NA, size=3.25))
+
+
+# Save the plot as a high-quality PNG
+ggsave("question3.png", plot = p1, width = 6.5, height = 5.5, dpi = 500)
+
+
 
 ```
 

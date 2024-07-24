@@ -27,7 +27,7 @@ select(Pollinator, Strict_lecticity) %>%
 rename(Lecticity = Strict_lecticity)
 
 
-poll_lecticity %>% 
+p1 = poll_lecticity %>% 
 filter(!is.na(Lecticity)) %>% 
 group_by(Lecticity) %>% 
 summarise(Counts = length(Lecticity)/nrow(.)*100) %>% 
@@ -48,6 +48,9 @@ xlab("")+
         legend.margin = margin(0, 0, 0, 0),
         legend.box.margin = margin(-8, -5, -5, -5)) +
 scale_y_continuous(breaks=c(0,50,100))
+
+# Save the plot as a high-quality PNG
+ggsave("lecticity.png", plot = p1, width = 2.2, height = 5, dpi = 500)
 
 
 ```

@@ -39,13 +39,12 @@ summarise(Species = n_distinct(Pollinator_accepted_name)/n_distinct(.),
 # Combine Interactions and Species into a single column
 data_long = pivot_longer(poll_species, cols = c(Interactions, Species), names_to = "Variable", values_to = "Value")
 
-
 #Set order of levels for plotting
 data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Coleoptera", "Lepidoptera", "Diptera", "Hymenoptera"))
 
 data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
 
-ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) + 
+p1 = ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) + 
 geom_bar(stat = "identity", width = 0.7, alpha=0.85) +
 theme_classic() +
 scale_fill_viridis(discrete=TRUE, direction = -1, name="Pollinator order") +
@@ -63,6 +62,10 @@ theme(axis.text.y = element_text(size=14),
      legend.margin=margin(0,0,0,0),
      legend.box.margin=margin(-8,-5,-5,-5)) +
 guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+# Save the plot as a high-quality PNG
+ggsave("main_poll_orders.png", plot = p1, width = 3, height = 3, dpi = 500)
 
 
 ```
@@ -103,7 +106,7 @@ data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Cole
 
 data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
 
-ggplot(data_long, aes(x = "", y = Value, fill = Pollinator_order)) + 
+p2 = ggplot(data_long, aes(x = "", y = Value, fill = Pollinator_order)) + 
   geom_bar(stat = "identity", width = 1) + 
   coord_polar(theta = "y") + 
   theme_classic() + 
@@ -124,6 +127,7 @@ ggplot(data_long, aes(x = "", y = Value, fill = Pollinator_order)) +
   ggtitle("(c)") + 
   theme(plot.title = element_text(size = 10, hjust = -0.3, vjust = -6)) + 
   facet_wrap(~Variable)
+
 
 
 
