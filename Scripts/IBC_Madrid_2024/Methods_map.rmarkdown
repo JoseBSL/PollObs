@@ -92,9 +92,6 @@ ggsave("high_quality_map.png", plot = panel1, width = 8, height = 8, dpi = 500)
 
 ```
 
-
-
-
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8.5,fig.width=6.5,out.width="50%"}
 
 #Read now the downloaded occurrence data
@@ -216,3 +213,4 @@ p2
 ggsave("interactions.png", plot = p2, width = 6.5, height = 8.5, dpi = 500)
 
 ```
+

@@ -101,6 +101,10 @@ combined_plot <- (plot_av_dprime_poll_interactions | plot_av_dprime_poll_abundan
 
 print(combined_plot)
 
+# Save the plot as a high-quality PNG
+ggsave("question1.png", plot = combined_plot, width = 9, height = 4, dpi = 500)
+
+
 
 ```
 
