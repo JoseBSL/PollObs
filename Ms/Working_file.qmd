@@ -1,4 +1,5 @@
 ---
+title: "Relationships of water related leaf traits in the genus Anthurium"
 format:
   pdf:
     include-in-header: 
@@ -9,10 +10,14 @@ format:
         \usepackage{caption}
         \captionsetup[figure]{labelformat=empty}
         \captionsetup[table]{labelformat=empty}
-        \usepackage{lineno}
-        \linenumbers
----
+        \usepackage{float}
+        \floatplacement{figure}{H}
 
+latex-tinytex: false
+link-citations: TRUE
+linkcolor: RoyalBlue
+urlcolor: RoyalBlue
+---
 ```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE,}
 #Load libraries
 #Load libraries
@@ -151,6 +156,10 @@ species_panel
 \newpage
 
 # Plant phenologies
+
+The phenology of plants and pollinators was monitored weekly on each of the three gardens. Unlike plants, pollinator phenology relies on 'stochastic' interaction obervations that may not represent their complete flying period. Thus, we built a comprehensive flying period of all pollinators by retrieving GBIF records for all observed floral visitors during the sampling year. In addition, this download was limited by area, where we considered a rectangular shape that extends more on the longitude range than the latitude one, as we expect more homogeneous environmental conditions in the former (**Figure X**). 
+
+
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure 2}."}
 
