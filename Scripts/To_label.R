@@ -3,6 +3,8 @@
 
 #Load libraries
 library(dplyr) #To manipulate data
+library(readr)
+library(lubridate)
 #Read data
 interaction_data = read_csv("Data/PollObs_all.csv")
 #Load taxonomy
@@ -81,8 +83,8 @@ mutate(ID_by = case_when(
   is.na(ID_by) & Pollinator_order == "Coleoptera" ~ "HF Morgenroth",
   is.na(ID_by) & Pollinator_order == "Lepidoptera" ~ "HF Morgenroth",
   TRUE ~ ID_by)) %>% 
-select(Pollinator, ID_by) %>% 
-mutate(ID_by = paste("det", ID_by, "2024"))
+select(Pollinator_id, Pollinator, ID_by) %>% 
+mutate(ID_by = paste("det.", ID_by, "2024"))
 
 #
 checks = label_2_formatted %>% 
@@ -170,4 +172,17 @@ label_2_formatted = label_2_formatted %>%
 mutate(Pollinator = str_replace(Pollinator, " sp", ""))
 
 label_2_formatted_clean = left_join(label_2_formatted, gbif_clean, by = "Pollinator")
+
+#Final edits
+label_2_final= label_2_formatted_clean %>% 
+select(!Pollinator) %>% 
+tidyr::extract(scientificName, into = c("V1", "V2"), "^(\\S+\\s+\\S+)\\s+(.*)") %>% 
+rename(ScientificName = V1) %>% 
+rename(Scientificauthor = V2)
+
+library(xlsx)
+write.xlsx(label_1_formatted, file = "Insect_labels/Label1.xlsx", append = FALSE)
+write.xlsx(label_2_final, file = "Insect_labels/Label2.xlsx", append = FALSE)
+
+
 
