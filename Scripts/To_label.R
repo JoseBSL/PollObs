@@ -188,7 +188,9 @@ mutate(Sex = if_else(Sex == "Intersex", "⚥", Sex))
 max_length <- max(nchar(label_2_final$Pollinator_id)) # Get max length of Pollinator_id
 nchar(label_2_final$Pollinator_id)
 # Pad the Pollinator_id column with spaces
-label_2_final$Pollinator_id <- str_pad(label_2_final$Pollinator_id, width = max_length, side = "right")
+#label_2_final$Pollinator_id <- str_pad(label_2_final$Pollinator_id, width = max_length, side = "right")
+#label_2_final$Pollinator_id <- paste0('"', label_2_final$Pollinator_id, '"')
+label_2_final$Pollinator_id <- str_pad(label_2_final$Pollinator_id, width = max_length, side = "right", pad = "\u00A0")
 
 
 
@@ -197,5 +199,10 @@ library(xlsx)
 write.xlsx(label_1_formatted, file = "Insect_labels/Label1.xlsx", append = FALSE)
 write.xlsx(label_2_final, file = "Insect_labels/Label2.xlsx", append = FALSE)
 
+
+#library(openxlsx)
+
+# Write to Excel
+#write.xlsx(label_2_final, "Insect_labels/Label2.xlsx", asTable = TRUE)
 
 
