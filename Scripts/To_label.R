@@ -59,7 +59,7 @@ strings = c("Like", "like", "red bee")
 #Create label 1 with ID, date, location, plant and observer
 label = interaction_data %>% 
 select(Pollinator_id, Day, Month, Year, Botanical_garden, 
-       Plant, Observer, Pollinator, ID_by, Pollinator_order) %>% 
+       Plant, Observer, Pollinator, ID_by, Pollinator_order, Sex) %>% 
 filter(!is.na(Pollinator_id)) %>% 
 filter(!str_detect(Pollinator_id, paste(strings, collapse = "|")))
 #Format label 1
@@ -75,7 +75,7 @@ select(Pollinator_id, Date, Country, Botanical_garden, Plant, Observer)
 
 #Create label 2 with ID, date, location, plant and observer
 label_2_formatted = label %>% 
-select(Pollinator, ID_by, Pollinator_id, Pollinator_order) %>% 
+select(Pollinator, ID_by, Pollinator_id, Pollinator_order, Sex) %>% 
 filter(!str_detect(Pollinator_id, "p")) %>% 
 mutate(ID_by = case_when(
   is.na(ID_by) & Pollinator_order == "Hymenoptera" ~ "M Hoffmann",
@@ -83,7 +83,7 @@ mutate(ID_by = case_when(
   is.na(ID_by) & Pollinator_order == "Coleoptera" ~ "HF Morgenroth",
   is.na(ID_by) & Pollinator_order == "Lepidoptera" ~ "HF Morgenroth",
   TRUE ~ ID_by)) %>% 
-select(Pollinator_id, Pollinator, ID_by) %>% 
+select(Pollinator_id, Pollinator, ID_by, Sex) %>% 
 mutate(ID_by = paste("det.", ID_by, "2024"))
 
 #
@@ -178,7 +178,20 @@ label_2_final= label_2_formatted_clean %>%
 select(!Pollinator) %>% 
 tidyr::extract(scientificName, into = c("V1", "V2"), "^(\\S+\\s+\\S+)\\s+(.*)") %>% 
 rename(ScientificName = V1) %>% 
-rename(Scientificauthor = V2)
+rename(Scientificauthor = V2) %>% 
+mutate(Sex = if_else(is.na(Sex), "", Sex)) %>% 
+mutate(Sex = if_else(Sex == "Male", "♂", Sex)) %>% 
+mutate(Sex = if_else(Sex == "Female", "♀", Sex)) %>% 
+mutate(Sex = if_else(Sex == "Intersex", "⚥", Sex))
+
+# Assuming label_2_final is your dataframe
+max_length <- max(nchar(label_2_final$Pollinator_id)) # Get max length of Pollinator_id
+nchar(label_2_final$Pollinator_id)
+# Pad the Pollinator_id column with spaces
+label_2_final$Pollinator_id <- str_pad(label_2_final$Pollinator_id, width = max_length, side = "right")
+
+
+
 
 library(xlsx)
 write.xlsx(label_1_formatted, file = "Insect_labels/Label1.xlsx", append = FALSE)
