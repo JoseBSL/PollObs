@@ -1,8 +1,3 @@
-
-
-
-
-
 #Script to organize interaction dataset
 #Add further taxonomic info and climatic data (temperature and humidity)
 
