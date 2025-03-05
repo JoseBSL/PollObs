@@ -1,5 +1,5 @@
 ---
-title: "Relationships of water related leaf traits in the genus Anthurium"
+title: ""
 format:
   pdf:
     include-in-header: 
@@ -48,7 +48,7 @@ Jose B. Lanuza^1^, Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Marc Hof
 
 # Abstract
 
-Flowering plants exhibit an astonishing diversity of reproductive structures, which  shapes how they interact with their pollinators. However, to what extent reproductive traits or other drivers like phenology and species abundances shape plant-pollinator interactions is still an open question. To disentangle the relative effects of species phenology, abundances and traits in plant-pollinator interactions, we compared pollinator visitation rates, diet breath, specialization from plant species that vary in reproductive traits, phenology and abundances. To do this, we observed plant-pollinator interactions for a whole flowering season in three different botanical gardens located in an urban setting. We anticipate that the ecological role of the different plan t and pollinator species are largely driven by their phenological overlap and abundance, and only certain taxonomic groups are strongly influenced by trait matching processes. Our results highlight the relevance of considering multiple mechanisms to understand plant-pollinator interactions.
+Flowering plants exhibit an astonishing diversity of reproductive structures, which  shapes how they interact with their pollinators. However, to what extent reproductive traits or other drivers like phenology and species abundances shape plant-pollinator interactions is still an open question. To disentangle the relative effects of species phenology, abundances and traits in plant-pollinator interactions, we compared pollinator visitation rates, diet breath, specialization from plant species that vary in reproductive traits, phenology and abundances. To do this, we observed plant-pollinator interactions for a whole flowering season in three different botanical gardens located in an urban setting. We anticipate that the ecological role of the different plant and pollinator species are largely driven by their phenological overlap and abundance, and only certain taxonomic groups are strongly influenced by trait matching processes. Our results highlight the relevance of considering multiple mechanisms to understand plant-pollinator interactions.
 
 
 # Main objective
