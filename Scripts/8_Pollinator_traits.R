@@ -13,7 +13,7 @@ library(stringr) #process strings
 
 #1)Read Pollinator traits
 #Load pollinator trait data
-poll_traits = read_csv("Data/Polltraits_PollObs.csv")
+poll_traits = read_csv("Data/Trait_data/Raw/PollTraits.csv")
 #2)Read species names and prepare it with old id's
 #Load unprocessed interaction data to recover old id's
 data = read_csv("Data/PollObs_all.csv")
@@ -68,5 +68,5 @@ poll_trait_data1 = poll_trait_data %>%
 select(!c(Pollinator_id, Box, Number, Square_size_pixels, 
           IT_pixels, Length_pixels, Tongue_pixels))
 
-saveRDS(poll_trait_data1, "Data/Trait_data/Pollinator_traits.rds")
+saveRDS(poll_trait_data1, "Data/Trait_data/Processed/PollTraits.rds")
 
