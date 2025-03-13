@@ -152,10 +152,10 @@ rownames(A_5) <- gsub("_", " ", rownames(A_5))
 rownames(final_d) = dat_cleaning_5$Species_all
 rownames(final_d) = gsub(" ", "_", rownames(final_d))
 #Run PCA
-phyl_pca_forest <- phyl.pca(phylo_output, final_d,method="lambda",mode="cov")
+#phyl_pca_forest <- phyl.pca(phylo_output, final_d,method="lambda",mode="cov")
 #Save output
-saveRDS(phyl_pca_forest, "Data/Working_files/global_pca_pollobs_species_output.rds")
-saveRDS(dat_cleaning_5, "Data/Working_files/global_pca_pollobs_species_data.rds")
+#saveRDS(phyl_pca_forest, "Data/Working_files/global_pca_phenobs_species_output.rds")
+#saveRDS(dat_cleaning_5, "Data/Working_files/global_pca_phenobs_species_data.rds")
 
 
 #Prepare species with a column that indicate when it belongs to PollObs
@@ -170,7 +170,8 @@ mutate(Pollobs = if_else(is.na(Pollobs), "No", Pollobs))
 ####
 #READ DATA
 ####
-phyl_pca_forest <- readRDS("Data/RData/phyl_pca_forest.rds")
+phyl_pca_forest <- readRDS("Data/Working_files/global_pca_phenobs_species_output.rds")
+dat_cleaning_5 = readRDS("Data/Working_files/global_pca_phenobs_species_data.rds")
 
 #CALL the output PC for simplicity
 PC <- phyl_pca_forest
@@ -185,17 +186,7 @@ s = tibble(sp = rownames(PC$S),
            PC1 = PC$S[,1],
            PC2 = PC$S[,2])
 
-library(phytools) #ppca
-library(ape) #for phylogenetic distance
-library(dplyr) #data processing
-library(rtrees) #for phylogenetic distancelibrary(MASS)
-library(reshape2) #data processing
-library(MASS) #I think I used it for the kernel density of the plotting function; no longer used but I leave in case its handy later on
-library(ggplot2) #plotting
-library(broman) #crayon colours
-########################################################################################################################################################
 #4) PLOT PPCA
-########################################################################################################################################################
 # Theme for publication
 theme_ms <- function(base_size=12, base_family="Helvetica") {
   (theme_bw(base_size = base_size, base_family = base_family)+
@@ -224,7 +215,7 @@ theme_ms <- function(base_size=12, base_family="Helvetica") {
 
 
 #Load plots
-global_pollobs_pca <- function(PC, x="PC1", y="PC2") {
+global_phenobs_pca <- function(PC, x="PC1", y="PC2") {
   # PC being a prcomp object
   data <- data.frame(PC$S)
   plot <- ggplot(data, aes_string(x=x, y=y)) 
@@ -287,5 +278,5 @@ global_pollobs_pca <- function(PC, x="PC1", y="PC2") {
 }
 
 # Call the function
-global_pollobs_pca(PC)
+global_phenobs_pca(PC)
 
