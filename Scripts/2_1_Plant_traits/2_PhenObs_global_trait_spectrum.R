@@ -155,8 +155,6 @@ rownames(final_d) = gsub(" ", "_", rownames(final_d))
 #phyl_pca_forest <- phyl.pca(phylo_output, final_d,method="lambda",mode="cov")
 #Save output
 #saveRDS(phyl_pca_forest, "Data/Working_files/global_pca_phenobs_species_output.rds")
-#saveRDS(dat_cleaning_5, "Data/Working_files/global_pca_phenobs_species_data.rds")
-
 
 #Prepare species with a column that indicate when it belongs to PollObs
 all_species = tibble(Species_all = dat_cleaning_5$Species_all)
@@ -166,6 +164,8 @@ pollobs_species = tibble(Species_all = pollobs_data1$Species_all,
 all_species1 = left_join(all_species,pollobs_species)
 all_species1 = all_species1 %>% 
 mutate(Pollobs = if_else(is.na(Pollobs), "No", Pollobs))
+
+saveRDS(all_species1, "Data/Working_files/global_pca_phenobs_species_data.rds")
 
 ####
 #READ DATA

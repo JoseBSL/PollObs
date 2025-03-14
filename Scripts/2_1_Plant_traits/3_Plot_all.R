@@ -56,7 +56,7 @@ global_pollobs_pca <- function(PC, x="PC1", y="PC2") {
   
   dat$density <- get_density(dat$x, dat$y, h = c(2, 2), n = 1000) 
   
-  dat$PhenObs <- as.factor(all_species1$Pollobs)
+  dat$PhenObs <- as.factor(d1$Pollobs)
   
   plot <- plot + geom_point(data=dat, aes(-x, -y,colour=PhenObs), size=2.25,  alpha = 0.85) +
     scale_colour_manual(values=c("#1a78ab", "#cc67ff"))
