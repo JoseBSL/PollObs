@@ -11,7 +11,22 @@ library(stringr) #process strings
 
 
 #1)Read plant traits
-#Vegetative data
-vegetative_traits = read_csv("Data/Trait_data/Raw/PlantVegetativeTraits.csv")
-#Reproductive data
+#read data
+selfing = read_csv("Data/Trait_data/Processed/Selfing.csv")
+
+
 reproductive_traits = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
+
+
+leipzig_phenobs %>% 
+distinct(Species) %>% 
+pull()
+
+colnames(halle_phenobs)
+s = leipzig_phenobs %>% 
+filter(Species == "Scabiosa ochroleuca") %>% 
+filter(`Flowers opening` == "y") %>% 
+dplyr::select(Species, Date, `Flowers opening`, Doy)
+s
+
+
