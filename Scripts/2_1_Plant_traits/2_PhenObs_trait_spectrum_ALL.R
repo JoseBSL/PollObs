@@ -11,6 +11,7 @@
 #2)Select other traits of interest and format accordingly
 #Flowering length
 #Flower lifespan
+#Nectar
 
 #Load libraries
 library(dplyr)
@@ -106,6 +107,20 @@ flowering_dates1 = flowering_dates %>%
 #Bind both datasets so I can compute a PCA with all traits for now
 all_traits = left_join(lanuza_2023_traits1, flowering_dates1)
 
+#Load nectar data 
+nectar = read_csv("Data/Trait_data/Raw/Nectar.csv")
+#Select columns of interest
+#Note the microcaps were 1ul and 32 mm length
+nectar1 = nectar %>% 
+select(Species, Nectar_length_microcap) %>% 
+mutate(Nectar_volume = Nectar_length_microcap * 1 / 32) %>% 
+group_by(Species) %>% 
+summarise(Mean_nectar_volume = mean(Nectar_volume))
+#Add nectar to trait dataset
+all_traits1 = left_join(all_traits, nectar1)
+
+
+
 # Define the columns to transform
 cols_to_transform = c("Autonomous_selfing_level_fruit_set", 
                       "Flowers_per_plant",
@@ -114,10 +129,11 @@ cols_to_transform = c("Autonomous_selfing_level_fruit_set",
                       "Ovule_number", 
                       "Plant_height_mean_m", 
                       "Mean_flowering_length",
-                      "Mean_flower_lifespan")
+                      "Mean_flower_lifespan",
+                      "Mean_nectar_volume")
 
 #Conduct log transformation and scaling using mutate across selected columns
-final_d = all_traits %>%
+final_d = all_traits1 %>%
   mutate(across(all_of(cols_to_transform), ~ log(. + 1))) %>%
   mutate(across(all_of(cols_to_transform), ~ scale(.) %>% as.vector())) %>% # Convert to vector to avoid grouping issues
   dplyr::select(all_of(cols_to_transform))
@@ -245,13 +261,13 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
                               size = 0.8, arrow = arrow(length = unit(0, "cm")), 
                               linetype = 2, alpha = 0.8, color = "black")
   
-  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FL-LS")
+  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N")
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
   
   # Position labels at the end of segments
   label_positions <- -datapc[, c("v1", "v2")]
   
-  plot <- plot + annotate("text", x = label_positions[[1]]*c(1.15,1.2,1.1,1.18,1,1.15,1,1.5), y = label_positions[[2]]*c(1.8,1.35,1,0.9,1,1.5,1.8,-13), 
+  plot <- plot + annotate("text", x = label_positions[[1]]*c(1,1.2,1.1,1.18,1,1.15,1,1.7,1.2), y = label_positions[[2]]*c(0,1.35,1,0.9,1,1.5,1.8,-1.6,0.3), 
                           label = PCAloadings$Variables, color = "black", 
                           size = 6, fontface = 2, vjust = 1.5)  # Adjust vjust if needed
   

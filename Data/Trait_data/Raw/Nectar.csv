@@ -1,0 +1,270 @@
+Botanical_garden,Species,Number_unique_spp,Replicate,Method,Time,Date,Floral_unit,Nectar_length_microcap,Opened_florets,Observer,Reference_nectar
+Leipzig,Cyclamen coum,1,1,unbagged,12:00,24/03/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Cyclamen coum,1,2,unbagged,12:00,24/03/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Cyclamen coum,1,3,unbagged,12:00,24/03/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Cyclamen coum,1,4,unbagged,12:00,24/03/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Cyclamen coum,1,5,unbagged,12:00,24/03/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Tussilago farfara,2,1,bagged_flower,14:00,05/04/2023,floret,0.5,15,JB Lanuza,NA
+Leipzig,Tussilago farfara,2,2,bagged_flower,14:00,05/04/2023,floret,0.3,15,JB Lanuza,NA
+Leipzig,Tussilago farfara,2,3,bagged_flower,14:00,05/04/2023,floret,0.4,12,JB Lanuza,NA
+Leipzig,Tussilago farfara,2,4,bagged_flower,14:00,05/04/2023,floret,0.2,12,JB Lanuza,NA
+Leipzig,Tussilago farfara,2,5,bagged_flower,14:00,05/04/2023,floret,0.1,15,JB Lanuza,NA
+Leipzig,Helleborus foetidus,3,1,bagged_flower,18:00,29/03/2023,flower,480,NA,JB Lanuza,NA
+Halle,Scopolia carniolica,4,1,unbagged,11:00,01/04/2023,flower,7,NA,JB Lanuza,NA
+Halle,Scopolia carniolica,4,2,unbagged,11:00,01/04/2023,flower,16,NA,JB Lanuza,NA
+Halle,Scopolia carniolica,4,3,unbagged,11:00,01/04/2023,flower,3.5,NA,JB Lanuza,NA
+Halle,Scopolia carniolica,4,4,unbagged,11:00,01/04/2023,flower,5.5,NA,JB Lanuza,NA
+Halle,Scopolia carniolica,4,5,unbagged,11:00,01/04/2023,flower,5,NA,JB Lanuza,NA
+Leipzig,Vinca minor,5,1,unbagged,10:30,04/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Vinca minor,5,2,unbagged,10:30,04/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Vinca minor,5,3,unbagged,10:30,04/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Vinca minor,5,4,unbagged,10:30,04/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Vinca minor,5,5,unbagged,10:30,04/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Viola odorata,6,1,bagged_flower,11:00,06/04/2023,flower,12.5,NA,JB Lanuza,NA
+Halle,Puschkinia scilloides,7,1,bagged_flower,13:30,06/04/2023,flower,0.1,NA,JB Lanuza,NA
+Jena,Hepatica nobilis,8,1,unbagged,13:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hepatica nobilis,8,2,unbagged,13:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hepatica nobilis,8,3,unbagged,13:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hepatica nobilis,8,4,unbagged,13:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hepatica nobilis,8,5,unbagged,13:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Primula denticulata,9,1,bagged,14:00,27/04/2023,flower,14.95,NA,JB Lanuza,NA
+Jena,Primula denticulata,9,2,bagged,14:00,27/04/2023,flower,2.20,NA,JB Lanuza,NA
+Jena,Primula denticulata,9,3,bagged,14:00,27/04/2023,flower,5.63,NA,JB Lanuza,NA
+Jena,Primula denticulata,9,4,bagged,14:00,27/04/2023,flower,2.12,NA,JB Lanuza,NA
+Jena,Primula denticulata,9,5,bagged,14:00,27/04/2023,flower,0.85,NA,JB Lanuza,NA
+Leipzig,Pulsatilla vulgaris,10,1,Unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,1,bagged,15:00,09/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,2,bagged,14:30,13/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,3,bagged,14:30,13/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,4,bagged,14:30,13/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,5,bagged,14:30,13/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Iberis sempervirens,11,6,unbagged,14:30,13/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Narcissus pseudonarcissus,12,1,unbagged,14:00,06/04/2023,flower,2,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Narcissus pseudonarcissus,12,2,unbagged,14:00,06/04/2023,flower,9,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Narcissus pseudonarcissus,12,3,unbagged,14:00,06/04/2023,flower,2,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Narcissus pseudonarcissus,12,4,unbagged,14:00,06/04/2023,flower,0.5,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Lathyrus vernus,13,1,bagged,17:00,06/04/2023,flower,3,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Lathyrus vernus,13,2,bagged,17:00,06/04/2023,flower,2,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Lathyrus vernus,13,3,bagged,17:00,06/04/2023,flower,26.5,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Lathyrus vernus,13,4,bagged,17:00,06/04/2023,flower,10.5,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Lathyrus vernus,13,5,bagged,17:00,06/04/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Jena,Anemonoides nemorosa,14,1,unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Anemonoides nemorosa,14,2,unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Anemonoides nemorosa,14,3,unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Anemonoides nemorosa,14,4,unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Jena,Anemonoides nemorosa,14,5,unbagged,17:00,07/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Primula veris,15,1,bagged,10:30,12/04/2023,flower,12,NA,JB Lanuza,NA
+Leipzig,Primula veris,15,2,bagged,17:55,17/04/2023,flower,28,NA,JB Lanuza,NA
+Leipzig,Primula veris,15,3,bagged,17:55,17/04/2023,flower,30,NA,JB Lanuza,NA
+Leipzig,Primula veris,15,4,bagged,17:55,17/04/2023,flower,43.48,NA,JB Lanuza,NA
+Leipzig,Primula veris,15,5,bagged,17:55,17/04/2023,flower,16.43,NA,JB Lanuza,NA
+Leipzig,Caltha palustris,16,1,bagged,11:40,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Caltha palustris,16,2,bagged,11:40,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Caltha palustris,16,3,bagged,11:40,21/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Tulipa sylvestris,17,1,bagged,12:00,13/04/2023,flower,0,NA,HF Morgenroth,NA
+Halle,Tulipa sylvestris,17,2,bagged,12:00,13/04/2023,flower,0,NA,HF Morgenroth,NA
+Halle,Tulipa sylvestris,17,3,unbagged,12:00,13/04/2023,flower,0,NA,HF Morgenroth,NA
+Halle,Tulipa sylvestris,17,4,unbagged,12:00,13/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Tulipa sylvestris,17,5,unbagged,12:00,13/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Trillium sessile,18,1,unbagged,17:00,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Trillium sessile,18,2,unbagged,17:00,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Trillium sessile,18,3,unbagged,17:00,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Trillium sessile,18,4,unbagged,17:00,21/04/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Trillium sessile,18,5,unbagged,17:00,21/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Oxalis acetosella,19,1,unbagged,14:30,22/04/2023,flower,2.4,NA,JB Lanuza,NA
+Halle,Oxalis acetosella,19,2,unbagged,14:30,22/04/2023,flower,4,NA,JB Lanuza,NA
+Halle,Oxalis acetosella,19,3,unbagged,14:30,22/04/2023,flower,1.5,NA,JB Lanuza,NA
+Halle,Oxalis acetosella,19,4,unbagged,14:30,22/04/2023,flower,0.8,NA,JB Lanuza,NA
+Halle,Oxalis acetosella,19,5,unbagged,14:30,22/04/2023,flower,1.95,NA,JB Lanuza,NA
+Halle,Silene viscaria,20,1,bagged,11:15,03/05/2023,flower,320,NA,JB Lanuza,NA
+Halle,Silene viscaria,20,2,bagged,11:15,03/05/2023,flower,323.41,NA,JB Lanuza,NA
+Halle,Silene viscaria,20,3,bagged,11:15,03/05/2023,flower,57.49,NA,JB Lanuza,NA
+Halle,Silene viscaria,20,4,bagged,11:15,03/05/2023,flower,181.36,NA,JB Lanuza,NA
+Halle,Silene viscaria,20,5,bagged,11:15,03/05/2023,flower,151.74,NA,JB Lanuza,NA
+Halle,Lamium album,21,1,bagged,13:00,03/05/2023,flower,56.15,NA,JB Lanuza,NA
+Halle,Lamium album,21,2,bagged,13:00,03/05/2023,flower,8.05,NA,JB Lanuza,NA
+Halle,Lamium album,21,3,bagged,13:00,03/05/2023,flower,16.82,NA,JB Lanuza,NA
+Halle,Lamium album,21,4,bagged,13:00,03/05/2023,flower,36.81,NA,JB Lanuza,NA
+Halle,Lamium album,21,5,bagged,13:00,03/05/2023,flower,58.36,NA,JB Lanuza,NA
+Halle,Fragaria vesca,22,1,bagged,15:00,27/04/2023,flower,0,NA,JB Lanuza,NA
+Halle,Fragaria vesca,22,2,unbagged,16:40,03/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Fragaria vesca,22,3,unbagged,16:40,03/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Fragaria vesca,22,4,unbagged,16:40,03/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Fragaria vesca,22,5,unbagged,16:40,03/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Bergenia purpurascens,23,1,unbagged,14:30,13/04/2023,flower,173,NA,D Böttger & JB Lanuza,NA
+Jena,Bergenia purpurascens,23,2,unbagged,14:30,13/04/2023,flower,182.5,NA,D Böttger & JB Lanuza,NA
+Jena,Bergenia purpurascens,23,3,unbagged,14:30,13/04/2023,flower,165,NA,D Böttger & JB Lanuza,NA
+Halle,Geum rivale,24,1,unbagged,15:30,19/05/2023,fllower,14.8,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Geum rivale,24,2,unbagged,15:30,19/05/2023,fllower,4.81,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Geum rivale,24,3,unbagged,15:30,19/05/2023,fllower,4.9,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Geum rivale,24,4,unbagged,15:30,19/05/2023,fllower,2.34,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Geum rivale,24,5,unbagged,15:30,19/05/2023,fllower,4.23,NA,HF Morgenroth & JB Lanuza,NA
+Leipzig,Dryas octopetala,25,1,bagged,16:00,08/05/2023,flower,1.38,NA,JB Lanuza,NA
+Leipzig,Dryas octopetala,25,2,bagged,16:00,08/05/2023,flower,1,NA,JB Lanuza,NA
+Leipzig,Asarum caudatum,26,1,bagged,17:15,08/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Asarum caudatum,26,2,bagged,17:15,08/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Asarum caudatum,26,3,bagged,17:15,08/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Brunnera macrophylla,27,1,unbagged,10:00,29/05/2023,flower,1,NA,J Naumann,NA
+Halle,Brunnera macrophylla,27,2,unbagged,10:00,29/05/2023,flower,0.5,NA,J Naumann,NA
+Halle,Brunnera macrophylla,27,3,unbagged,10:00,29/05/2023,flower,1,NA,J Naumann,NA
+Halle,Paeonia officinalis,28,1,unbagged,16:20,19/05/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Paeonia officinalis,28,2,unbagged,16:20,19/05/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Paeonia officinalis,28,3,unbagged,16:20,19/05/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Paeonia officinalis,28,4,unbagged,16:20,19/05/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Halle,Paeonia officinalis,28,5,unbagged,16:20,19/05/2023,flower,0,NA,HF Morgenroth & JB Lanuza,NA
+Leipzig,Menyanthes trifoliata,29,1,bagged,17:00,13/05/2023,flower,1.75,NA,JB Lanuza,NA
+Leipzig,Menyanthes trifoliata,29,2,bagged,17:00,13/05/2023,flower,6.2,NA,JB Lanuza,NA
+Leipzig,Menyanthes trifoliata,29,3,bagged,17:00,13/05/2023,flower,5.57,NA,JB Lanuza,NA
+Leipzig,Menyanthes trifoliata,29,4,bagged,17:00,13/05/2023,flower,9.18,NA,JB Lanuza,NA
+Leipzig,Menyanthes trifoliata,29,5,bagged,17:00,13/05/2023,flower,3.53,NA,JB Lanuza,NA
+Leipzig,Aquilegia chrysantha,30,1,bagged,18:00,24/05/2023,flower,640,NA,JB Lanuza,NA
+Leipzig,Aquilegia chrysantha,30,2,bagged,17:00,25/05/2023,flower,848,NA,JB Lanuza & R Umazekabiri,NA
+Leipzig,Allium ursinum,31,1,bagged,14:30,15/05/2023,flower,5.9,NA,JB Lanuza,NA
+Leipzig,Allium ursinum,31,2,bagged,14:30,15/05/2023,flower,5.3,NA,JB Lanuza,NA
+Leipzig,Allium ursinum,31,3,bagged,14:30,15/05/2023,flower,4.67,NA,JB Lanuza,NA
+Leipzig,Allium ursinum,31,4,bagged,17:00,16/05/2023,flower,3.86,NA,JB Lanuza,NA
+Leipzig,Allium ursinum,31,5,bagged,17:00,16/05/2023,flower,2.63,NA,JB Lanuza,NA
+Halle,Anemonoides sylvestris,32,1,unbagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Anemonoides sylvestris,32,2,unbagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Anemonoides sylvestris,32,3,unbagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Paeonia delavayi,33,1,unbagged,11:00,22/05/2023,flower,144,NA,JB Lanuza & J Naumann,NA
+Jena,Paeonia delavayi,33,2,unbagged,11:00,22/05/2023,flower,542,NA,JB Lanuza & J Naumann,NA
+Jena,Paeonia delavayi,33,3,unbagged,11:00,22/05/2023,flower,635,NA,JB Lanuza & J Naumann,NA
+Jena,Chelidonium majus,34,1,unbagged,12:00,17/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Chelidonium majus,34,2,unbagged,12:00,17/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Chelidonium majus,34,3,unbagged,12:00,17/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Chelidonium majus,34,4,unbagged,12:00,17/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Chelidonium majus,34,5,unbagged,12:00,17/05/2023,flower,0,NA,JB Lanuza,NA
+Jena,Asphodelus albus,35,1,unbagged,17:00,17/05/2023,flower,3.91,NA,JB Lanuza,NA
+Jena,Asphodelus albus,35,2,unbagged,17:00,17/05/2023,flower,9.2,NA,JB Lanuza,NA
+Jena,Asphodelus albus,35,3,unbagged,17:00,17/05/2023,flower,6.43,NA,JB Lanuza,NA
+Jena,Asphodelus albus,35,4,unbagged,17:00,17/05/2023,flower,7.52,NA,JB Lanuza,NA
+Jena,Asphodelus albus,35,5,unbagged,17:00,17/05/2023,flower,14.69,NA,JB Lanuza,NA
+Jena,Linum perenne,36,1,bagged,12:00,17/05/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Linum perenne,36,2,bagged,12:00,17/05/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Linum perenne,36,3,bagged,12:00,17/05/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Leipzig,Geranium sanguineum,37,1,bagged,12:30,31/05/2023,flower,1.46,NA,JB Lanuza & J Naumann,NA
+Leipzig,Geranium sanguineum,37,2,bagged,12:30,31/05/2023,flower,2.27,NA,JB Lanuza & J Naumann,NA
+Leipzig,Geranium sanguineum,37,3,bagged,12:30,31/05/2023,flower,0.91,NA,JB Lanuza & J Naumann,NA
+Leipzig,Convallaria majalis,38,1,unbagged,14:00,25/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Convallaria majalis,38,2,unbagged,14:00,25/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Convallaria majalis,38,3,unbagged,14:00,25/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Convallaria majalis,38,4,unbagged,14:00,25/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Convallaria majalis,38,5,unbagged,14:00,25/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Aconitum lycoctonum,39,1,bagged,14:00,26/05/2023,flower,66.88,NA,JB Lanuza,NA
+Halle,Aconitum lycoctonum,39,2,bagged,14:00,26/05/2023,flower,35.02,NA,JB Lanuza,NA
+Halle,Aconitum lycoctonum,39,3,bagged,14:00,26/05/2023,flower,24.44,NA,JB Lanuza,NA
+Halle,Dictamnus albus,40,1,bagged,14:00,02/06/2023,flower,162.71,NA,JB Lanuza,NA
+Halle,Dictamnus albus,40,2,bagged,14:00,02/06/2023,flower,197.35,NA,JB Lanuza,NA
+Halle,Persicaria bistorta,41,1,bagged,12:00,26/05/2023,flower,0.95,NA,JB Lanuza,NA
+Halle,Persicaria bistorta,41,2,bagged,12:00,26/05/2023,flower,0.3,NA,JB Lanuza,NA
+Halle,Persicaria bistorta,41,3,bagged,12:00,26/05/2023,flower,1.26,NA,JB Lanuza,NA
+Halle,Persicaria bistorta,41,4,bagged,12:00,26/05/2023,flower,1.15,NA,JB Lanuza,NA
+Halle,Persicaria bistorta,41,5,bagged,12:00,26/05/2023,flower,0.95,NA,JB Lanuza,NA
+Jena,Vincetoxicum hirundinaria,42,1,bagged,12:30,05/06/2023,flower,1.93,NA,JB Lanuza & J Naumann,NA
+Jena,Vincetoxicum hirundinaria,42,2,bagged,12:30,05/06/2023,flower,4.05,NA,JB Lanuza & J Naumann,NA
+Jena,Vincetoxicum hirundinaria,42,3,bagged,12:30,05/06/2023,flower,3.83,NA,JB Lanuza & J Naumann,NA
+Leipzig,Helianthemum nummularium,43,1,bagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Helianthemum nummularium,43,2,bagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Helianthemum nummularium,43,3,bagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Helianthemum nummularium,43,4,bagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Helianthemum nummularium,43,5,bagged,12:00,30/05/2023,flower,0,NA,JB Lanuza,NA
+Halle,Salvia officinalis,44,1,bagged,16:00,02/06/2023,flower,25.40,NA,JB Lanuza,NA
+Halle,Salvia officinalis,44,2,bagged,16:00,02/06/2023,flower,10.98,NA,JB Lanuza,NA
+Halle,Salvia officinalis,44,3,bagged,16:00,02/06/2023,flower,28.18,NA,JB Lanuza,NA
+Halle,Lotus corniculatus,45,1,bagged,17:00,02/06/2023,flower,3.56,NA,JB Lanuza,NA
+Halle,Lotus corniculatus,45,2,bagged,17:00,02/06/2023,flower,2.29,NA,JB Lanuza,NA
+Halle,Lotus corniculatus,45,3,bagged,17:00,02/06/2023,flower,10.33,NA,JB Lanuza,NA
+Jena,Campanula rotundifolia,46,3,unbagged,10:30,05/06/2023,flower,2.51,NA,JB Lanuza,NA
+Jena,Campanula rotundifolia,46,3,unbagged,10:30,05/06/2023,flower,5.86,NA,JB Lanuza,NA
+Jena,Campanula rotundifolia,46,3,unbagged,10:30,05/06/2023,flower,3.65,NA,JB Lanuza,NA
+Jena,Lotus maritimus,47,1,unbagged,16:00,12/06/2023,flower,102,NA,JB Lanuza,NA
+Jena,Lotus maritimus,47,2,unbagged,16:00,12/06/2023,flower,28,NA,JB Lanuza,NA
+Jena,Lotus maritimus,47,3,unbagged,16:00,12/06/2023,flower,128,NA,JB Lanuza,NA
+Halle,Gratiola officinalis,48,1,bagged,15:00,06/06/2023,flower,4.93,NA,JB Lanuza,NA
+Halle,Gratiola officinalis,48,2,bagged,15:00,06/06/2023,flower,9.36,NA,JB Lanuza,NA
+Halle,Gratiola officinalis,48,3,bagged,15:00,06/06/2023,flower,11.38,NA,JB Lanuza,NA
+Halle,Solanum dulcamara,49,1,bagged,16:00,08/08/2023,flower,0,NA,JB Lanuza,NA
+Halle,Solanum dulcamara,49,2,bagged,16:00,08/08/2023,flower,0,NA,JB Lanuza,NA
+Halle,Solanum dulcamara,49,3,bagged,16:00,08/08/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Hemerocallis dumortieri,50,1,bagged,16:00,14/06/2023,flower,32.81,NA,JB Lanuza,NA
+Leipzig,Hemerocallis dumortieri,50,2,bagged,16:00,14/06/2023,flower,68.77,NA,JB Lanuza,NA
+Leipzig,Hemerocallis dumortieri,50,3,bagged,16:00,14/06/2023,flower,84,NA,JB Lanuza,NA
+Leipzig,Silene vulgaris,51,1,bagged,17:00,09/06/2023,flower,3.92,NA,JB Lanuza,NA
+Leipzig,Silene vulgaris,51,2,bagged,17:00,09/06/2023,flower,16.82,NA,JB Lanuza,NA
+Leipzig,Silene vulgaris,51,3,bagged,10:00,23/06/2023,flower,24.36,NA,JB Lanuza,NA
+Leipzig,Penstemon grandiflorus,52,1,bagged,14:00,21/06/2023,flower,16.33,NA,JB Lanuza,NA
+Leipzig,Penstemon grandiflorus,52,2,bagged,14:00,21/06/2023,flower,37.20,NA,JB Lanuza,NA
+Leipzig,Penstemon grandiflorus,52,3,bagged,14:00,21/06/2023,flower,23.02,NA,JB Lanuza,NA
+Leipzig,Psephellus dealbatus,53,1,unbagged,10:00,23/06/2023,flower,0,,JB Lanuza,NA
+Leipzig,Psephellus dealbatus,53,2,unbagged,10:00,23/06/2023,flower,0,,JB Lanuza,NA
+Leipzig,Psephellus dealbatus,53,3,unbagged,10:00,23/06/2023,flower,0,,JB Lanuza,NA
+Halle,Centranthus ruber,54,1,bagged,12:00,23/06/2023,flower,7.18,NA,JB Lanuza,NA
+Halle,Centranthus ruber,54,2,bagged,12:00,23/06/2023,flower,4,NA,JB Lanuza,NA
+Halle,Centranthus ruber,54,3,bagged,12:00,23/06/2023,flower,1.97,NA,JB Lanuza,NA
+Jena,Silene nutans,55,1,bagged,11:00,,flower,21,NA,JB Lanuza & J Naumann,NA
+Jena,Silene nutans,55,2,bagged,11:00,,flower,21,NA,JB Lanuza & J Naumann,NA
+Halle,Hypericum perforatum,56,1,bagged,11:30,01/07/2023,flower,0,NA,JB Lanuza,NA
+Halle,Hypericum perforatum,56,2,bagged,11:30,01/07/2023,flower,0,NA,JB Lanuza,NA
+Halle,Hypericum perforatum,56,3,bagged,11:30,01/07/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hypericum olympicum,57,1,bagged,14:00,28/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hypericum olympicum,57,2,bagged,14:00,28/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Hypericum olympicum,57,3,bagged,14:00,28/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Clematis recta,58,1,bagged,16:00,19/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Clematis recta,58,2,bagged,16:00,19/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Clematis recta,58,3,bagged,16:00,19/06/2023,flower,0,NA,JB Lanuza,NA
+Jena,Salvia pratensis,59,1,bagged,10:00,12/06/2023,flower,17,NA,J Naumann,NA
+Leipzig,Silene coronaria,60,1,bagged,10:00,06/07/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Silene coronaria,60,2,bagged,10:00,06/07/2023,flower,0.98,NA,JB Lanuza,NA
+Leipzig,Silene coronaria,60,3,bagged,10:00,06/07/2023,flower,0.2,NA,JB Lanuza,NA
+Jena,Genista tinctoria,61,1,bagged,15:00,04/07/2023,flower,0,NA,JB Lanuza,NA
+Jena,Genista tinctoria,61,2,bagged,15:00,04/07/2023,flower,0,NA,JB Lanuza,NA
+Jena,Genista tinctoria,61,3,bagged,15:00,04/07/2023,flower,0,NA,JB Lanuza,NA
+Halle,Fuchsia magellanica,62,1,bagged,19:00,07/07/2023,flower,236.3,NA,JB Lanuza,NA
+Halle,Fuchsia magellanica,62,2,bagged,19:00,07/07/2023,flower,346.37,NA,JB Lanuza,NA
+Halle,Hemerocallis fulva,63,1,bagged,13:00,07/07/2023,flower,103,NA,JB Lanuza,NA
+Halle,Hemerocallis fulva,63,2,bagged,13:00,07/07/2023,flower,498.52,NA,JB Lanuza,NA
+Halle,Dianthus carthusianorum,64,1,bagged,12:00,07/07/2023,flower,1.2,NA,JB Lanuza,NA
+Halle,Dianthus carthusianorum,64,2,bagged,12:00,07/07/2023,flower,0.9,NA,JB Lanuza,NA
+Halle,Dianthus carthusianorum,64,3,bagged,12:00,07/07/2023,flower,6.44,NA,JB Lanuza,NA
+Halle,Dianthus carthusianorum,64,4,bagged,12:00,07/07/2023,flower,1.85,NA,JB Lanuza,NA
+Halle,Dianthus carthusianorum,64,5,bagged,12:00,07/07/2023,flower,7.62,NA,JB Lanuza,NA
+Leipzig,Anthericum ramosum,65,1,bagged,12:00,12/07/2023,flower,1.93,NA,JB Lanuza,NA
+Leipzig,Anthericum ramosum,65,2,bagged,12:00,12/07/2023,flower,4.55,NA,JB Lanuza,NA
+Leipzig,Anthericum ramosum,65,3,bagged,12:00,12/07/2023,flower,2.22,NA,JB Lanuza,NA
+Leipzig,Anthericum ramosum,65,4,bagged,12:00,12/07/2023,flower,2.51,NA,JB Lanuza,NA
+Leipzig,Anthericum ramosum,65,5,bagged,12:00,12/07/2023,flower,2.66,NA,JB Lanuza,NA
+Halle,Saponaria officinalis,66,1,bagged,10:30,08/07/2023,flower,27.96,NA,JB Lanuza,NA
+Halle,Saponaria officinalis,66,2,bagged,10:30,08/07/2023,flower,2.24,NA,JB Lanuza,NA
+Halle,Saponaria officinalis,66,3,bagged,10:30,08/07/2023,flower,16.45,NA,JB Lanuza,NA
+Jena,Coronilla varia,67,1,bagged,13:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Coronilla varia,67,2,bagged,13:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Coronilla varia,67,3,bagged,13:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Halle,Clematis integrifolia,68,1,bagged,11:00,08/07/2023,flower,0,NA,JB Lanuza,NA
+Halle,Clematis integrifolia,68,2,bagged,11:00,08/07/2023,flower,0,NA,JB Lanuza,NA
+Halle,Clematis integrifolia,68,3,bagged,11:00,08/07/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Lavandula angustifolia,69,1,bagged,10:30,24/07/2023,flower,8.6,NA,JB Lanuza,NA
+Leipzig,Lavandula angustifolia,69,2,bagged,10:30,24/07/2023,flower,10.54,NA,JB Lanuza,NA
+Leipzig,Lavandula angustifolia,69,3,bagged,10:30,24/07/2023,flower,8.75,NA,JB Lanuza,NA
+Leipzig,Anemone hupehensis ,70,1,bagged,11:00,24/07/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Anemone hupehensis ,70,2,bagged,11:00,24/07/2023,flower,0,NA,JB Lanuza,NA
+Leipzig,Anemone hupehensis ,70,3,bagged,11:00,24/07/2023,flower,0,NA,JB Lanuza,NA
+Jena,Galega officinalis,71,1,bagged,12:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Galega officinalis,71,2,bagged,12:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Jena,Galega officinalis,71,3,bagged,12:00,18/07/2023,flower,0,NA,JB Lanuza & J Naumann,NA
+Halle,Platycodon grandiflorus,72,1,bagged,16:00,04/08/2023,flower,11.64,NA,JB Lanuza,NA
+Halle,Platycodon grandiflorus,72,2,bagged,16:00,04/08/2023,flower,5.56,NA,JB Lanuza,NA
+Halle,Platycodon grandiflorus,72,3,bagged,16:00,04/08/2023,flower,10.74,NA,JB Lanuza,NA
+Jena,Betonica officinalis,73,1,bagged,12:00,03/08/2023,flower,2.73,NA,JB Lanuza,NA
+Jena,Betonica officinalis,73,2,bagged,12:00,03/08/2023,flower,1.87,NA,JB Lanuza,NA
+Jena,Origanum vulgare,74,1,bagged,12:00,03/08/2023,flower,3.07,NA,JB Lanuza,NA
+Jena,Origanum vulgare,74,2,bagged,12:00,03/08/2023,flower,4.95,NA,JB Lanuza,NA
+Jena,Origanum vulgare,74,3,bagged,12:00,03/08/2023,flower,4.76,NA,JB Lanuza,NA
+Jena,Achillea millefolium,75,1,bagged,NA,NA,flower,0.1,NA,NA,NA
+Jena,Tanacetum vulgare,76,1,bagged,NA,NA,flower,0.1,NA,NA,NA
+Jena,Leucanthemum vulgare,77,1,bagged,NA,NA,flower,0.1,NA,NA,NA
+Leipzig,Scabiosa ochroleuca,78,1,unbagged,15:00,08/09/2023,floret,0,28,HF Morgenroth; Raymond Umazekabiri,NA
+Leipzig,Scabiosa ochroleuca,78,2,unbagged,15:00,08/09/2023,floret,0,28,HF Morgenroth; Raymond Umazekabiri,NA
+Leipzig,Scabiosa ochroleuca,78,3,unbagged,15:00,08/09/2023,floret,0,28,HF Morgenroth; Raymond Umazekabiri,NA
+Leipzig,Scabiosa ochroleuca,78,4,unbagged,14:00,18/09/2023,floret,0,28,HF Morgenroth; Raymond Umazekabiri,NA
+Leipzig,Scabiosa ochroleuca,78,5,unbagged,14:00,18/09/2023,floret,0,28,HF Morgenroth; Raymond Umazekabiri,NA
