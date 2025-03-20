@@ -108,7 +108,7 @@ flowering_dates1 = flowering_dates %>%
 all_traits = left_join(lanuza_2023_traits1, flowering_dates1)
 
 #Load nectar data 
-nectar = read_csv("Data/Trait_data/Raw/Nectar.csv")
+nectar = read_csv("Data/Trait_data/Raw/Nectar_volume.csv")
 #Select columns of interest
 #Note the microcaps were 1ul and 32 mm length
 nectar1 = nectar %>% 
@@ -119,6 +119,16 @@ summarise(Mean_nectar_volume = mean(Nectar_volume))
 #Add nectar to trait dataset
 all_traits1 = left_join(all_traits, nectar1)
 
+#Load seed weight data 
+seed_weight = read_csv("Data/Trait_data/Raw/Seed_weight.csv")
+
+seed_weight1 = seed_weight %>% 
+rename(Species = Accepted_name) %>% 
+group_by(Species) %>% 
+mutate(Seed_mass = Total_mass/Sample_size) %>% 
+select(Species, Seed_mass)
+
+all_traits2 = left_join(all_traits1, seed_weight1)
 
 
 # Define the columns to transform
@@ -130,10 +140,11 @@ cols_to_transform = c("Autonomous_selfing_level_fruit_set",
                       "Plant_height_mean_m", 
                       "Mean_flowering_length",
                       "Mean_flower_lifespan",
-                      "Mean_nectar_volume")
+                      "Mean_nectar_volume",
+                      "Seed_mass")
 
 #Conduct log transformation and scaling using mutate across selected columns
-final_d = all_traits1 %>%
+final_d = all_traits2 %>%
   mutate(across(all_of(cols_to_transform), ~ log(. + 1))) %>%
   mutate(across(all_of(cols_to_transform), ~ scale(.) %>% as.vector())) %>% # Convert to vector to avoid grouping issues
   dplyr::select(all_of(cols_to_transform))
@@ -261,13 +272,15 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
                               size = 0.8, arrow = arrow(length = unit(0, "cm")), 
                               linetype = 2, alpha = 0.8, color = "black")
   
-  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N")
+  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N", "SM")
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
   
   # Position labels at the end of segments
   label_positions <- -datapc[, c("v1", "v2")]
   
-  plot <- plot + annotate("text", x = label_positions[[1]]*c(1,1.2,1.1,1.18,1,1.15,1,1.7,1.2), y = label_positions[[2]]*c(0,1.35,1,0.9,1,1.5,1.8,-1.6,0.3), 
+  plot <- plot + annotate("text", 
+                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1), 
+                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4), 
                           label = PCAloadings$Variables, color = "black", 
                           size = 6, fontface = 2, vjust = 1.5)  # Adjust vjust if needed
   
@@ -284,7 +297,6 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
 }
 # Call the function
 local_phenobs_pca(PC)
-
 
 
 
