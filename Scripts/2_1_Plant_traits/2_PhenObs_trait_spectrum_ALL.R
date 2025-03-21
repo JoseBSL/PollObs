@@ -18,6 +18,11 @@ library(dplyr)
 library(readr)
 library(conflicted)
 library(lubridate)
+library(rgbif)
+library(stringr)
+library(phytools)
+library(rtrees)
+library(ggplot2)
 
 conflict_prefer("select", # the function
                 "dplyr")
@@ -130,6 +135,15 @@ select(Species, Seed_mass)
 
 all_traits2 = left_join(all_traits1, seed_weight1)
 
+#Load seed weight data 
+pollen_size = read_csv("Data/Trait_data/Raw/Pollen_size.csv")
+
+pollen_size1 = pollen_size %>% 
+group_by(Species) %>% 
+select(Species, Pollen_size)
+
+all_traits3 = left_join(all_traits2, pollen_size1)
+
 
 # Define the columns to transform
 cols_to_transform = c("Autonomous_selfing_level_fruit_set", 
@@ -141,17 +155,18 @@ cols_to_transform = c("Autonomous_selfing_level_fruit_set",
                       "Mean_flowering_length",
                       "Mean_flower_lifespan",
                       "Mean_nectar_volume",
-                      "Seed_mass")
+                      "Seed_mass",
+                      "Pollen_size")
 
 #Conduct log transformation and scaling using mutate across selected columns
-final_d = all_traits2 %>%
+final_d = all_traits3 %>%
   mutate(across(all_of(cols_to_transform), ~ log(. + 1))) %>%
   mutate(across(all_of(cols_to_transform), ~ scale(.) %>% as.vector())) %>% # Convert to vector to avoid grouping issues
   dplyr::select(all_of(cols_to_transform))
 
 #4) Get phylo
 #calculate phylo 
-phylo <- as.data.frame(cbind(pollobs_data1$Family_all, pollobs_data1$Genus_all, pollobs_data1$Species_all))
+phylo <- as.data.frame(cbind(all_traits3$Family_all, all_traits3$Genus_all, all_traits3$Species_all))
 colnames(phylo) <-  c("family", "genus", "species")
 #Select unique cases
 #phylo_2 <- phylo[!duplicated(phylo$species),]
@@ -272,15 +287,15 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
                               size = 0.8, arrow = arrow(length = unit(0, "cm")), 
                               linetype = 2, alpha = 0.8, color = "black")
   
-  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N", "SM")
+  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N", "SM", "PS")
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
   
   # Position labels at the end of segments
   label_positions <- -datapc[, c("v1", "v2")]
   
   plot <- plot + annotate("text", 
-                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1), 
-                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4), 
+                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1,1), 
+                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4,1), 
                           label = PCAloadings$Variables, color = "black", 
                           size = 6, fontface = 2, vjust = 1.5)  # Adjust vjust if needed
   
