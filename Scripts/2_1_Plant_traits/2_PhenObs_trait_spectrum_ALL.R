@@ -135,7 +135,7 @@ select(Species, Seed_mass)
 
 all_traits2 = left_join(all_traits1, seed_weight1)
 
-#Load seed weight data 
+#Load pollen size data 
 pollen_size = read_csv("Data/Trait_data/Raw/Pollen_size.csv")
 
 pollen_size1 = pollen_size %>% 
@@ -144,6 +144,30 @@ select(Species, Pollen_size)
 
 all_traits3 = left_join(all_traits2, pollen_size1)
 
+#Load pollen count data 
+pollen_counts = read_csv("Data/Trait_data/Raw/Pollen_counts.csv")
+
+#Obtain total pollen per anther
+pollen_counts1 = pollen_counts %>% 
+group_by(Species) %>% 
+mutate(Pollen_per_anther = Pollen_per_sample/Anthers_per_sample) %>% 
+select(Species, Pollen_per_anther) %>% 
+summarise(Mean_pollen_per_anther = mean(Pollen_per_anther))
+#Calculate total pollen per flower
+colnames(morphometrics)
+stamens = morphometrics %>% 
+group_by(Species) %>% 
+select(Species, Stamen_number) %>% 
+summarise(Mean_stamen_number = mean(Stamen_number, na.rm = TRUE)) 
+#Bind with pollen counts
+pollen_counts2 = left_join(pollen_counts1, stamens)
+#Calculate total pollen per flower
+pollen_counts3 = pollen_counts2 %>% 
+group_by(Species) %>% 
+mutate(Pollen_per_flower = Mean_pollen_per_anther * Mean_stamen_number) %>% 
+select(Species, Pollen_per_flower)
+#Bind with other trait data to conduct PCA
+all_traits4 = left_join(all_traits3, pollen_counts3)
 
 # Define the columns to transform
 cols_to_transform = c("Autonomous_selfing_level_fruit_set", 
@@ -156,10 +180,11 @@ cols_to_transform = c("Autonomous_selfing_level_fruit_set",
                       "Mean_flower_lifespan",
                       "Mean_nectar_volume",
                       "Seed_mass",
-                      "Pollen_size")
+                      "Pollen_size",
+                      "Pollen_per_flower")
 
 #Conduct log transformation and scaling using mutate across selected columns
-final_d = all_traits3 %>%
+final_d = all_traits4 %>%
   mutate(across(all_of(cols_to_transform), ~ log(. + 1))) %>%
   mutate(across(all_of(cols_to_transform), ~ scale(.) %>% as.vector())) %>% # Convert to vector to avoid grouping issues
   dplyr::select(all_of(cols_to_transform))
@@ -287,15 +312,15 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
                               size = 0.8, arrow = arrow(length = unit(0, "cm")), 
                               linetype = 2, alpha = 0.8, color = "black")
   
-  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N", "SM", "PS")
+  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH", "FL", "FLS", "N", "SM", "PS", "PN")
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
   
   # Position labels at the end of segments
   label_positions <- -datapc[, c("v1", "v2")]
   
   plot <- plot + annotate("text", 
-                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1,1), 
-                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4,1), 
+                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1,1,1), 
+                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4,1,1), 
                           label = PCAloadings$Variables, color = "black", 
                           size = 6, fontface = 2, vjust = 1.5)  # Adjust vjust if needed
   
