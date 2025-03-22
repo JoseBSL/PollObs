@@ -270,19 +270,6 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
   
   dat <- data.frame(x = data[, x], y = data[, y])
   
-  #######
-  # DENSITY FUNCTION
-  #######
-  get_density <- function(x, y, ...) {
-    dens <- MASS::kde2d(x, y, ...)
-    ix <- findInterval(x, dens$x)
-    iy <- findInterval(y, dens$y)
-    ii <- cbind(ix, iy)
-    return(dens$z[ii])
-  }
-  
-  dat$density <- get_density(dat$x, dat$y, h = c(2, 2), n = 1000) 
-  
   plot <- plot + geom_point(data = dat, aes(-x, -y), 
                             size = 2.25, alpha = 0.85,
                             colour = "#cc67ff") 
@@ -319,8 +306,8 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
   label_positions <- -datapc[, c("v1", "v2")]
   
   plot <- plot + annotate("text", 
-                          x = label_positions[[1]]*c(1.15,1.2,1.25,1.18,1,1.2,1,1.45,1.2,1,1,1), 
-                          y = label_positions[[2]]*c(5.5,1,1.32,1.45,1.35,0.7,1,1.8,1.8,2.4,1,1), 
+                          x = label_positions[[1]]*c(1.25,1.2,1.25,1.2,1,1.2,1.2,1.45,1.2,1,1,1.2), 
+                          y = label_positions[[2]]*c(0,1.3,0.7,-0.8,1,1.2,1.8,1,2,1.15,1.5,1), 
                           label = PCAloadings$Variables, color = "black", 
                           size = 6, fontface = 2, vjust = 1.5)  # Adjust vjust if needed
   
