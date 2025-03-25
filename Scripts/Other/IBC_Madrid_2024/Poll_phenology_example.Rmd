@@ -12,7 +12,7 @@ format:
         \usepackage{lineno}
 ---
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=7, out.width="67%"}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=7, out.width="67%", dpi=1400}
 
 #Bind pollinator phenology and explore it visually
 #Load libraries
@@ -24,11 +24,11 @@ library(ggplot2)
 
 #Load clean phenologies
 #File 1
-file1 = readRDS("../../Data/Working_files/poll_phenology_first_133_spp.rds")
+file1 = readRDS("../../../Data/Working_files/poll_phenology_first_133_spp.rds")
 #File 2
-file2 = readRDS("../../Data/Working_files/poll_phenology_remaining_spp.rds")
+file2 = readRDS("../../../Data/Working_files/poll_phenology_remaining_spp.rds")
 #Plot a unique example (to help people understand this figure)
-oc2 = readRDS("../../Data/Working_files/poll_occurrences_over_60_records.rds")
+oc2 = readRDS("../../../Data/Working_files/poll_occurrences_over_60_records.rds")
 #Bind together
 all = bind_rows(file1, file2)
 #Select columns of interest
