@@ -329,6 +329,6 @@ local_phenobs_pca(PC)
 
 #Check pair correlations among traits
 # You need both ggplot2 and GGally packages loaded to use ggpairs()
-library(GGally)
-ggpairs(final_d)
+#library(GGally)
+#ggpairs(final_d)
 

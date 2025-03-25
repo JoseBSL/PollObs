@@ -55,7 +55,7 @@ scale_colour_viridis(name = "Flowering",
                     # labels=function(x)as.Date(x, origin="1970-01-01"),
                      breaks = c(min(nmds_output_data$Date), max(nmds_output_data$Date))) +
 theme_bw() +
-ggtitle(paste(garden, "botanical garden\n", taxanomic_level)) 
+ggtitle(paste(garden, "\n", taxanomic_level)) 
 
 plot_nmds
 }
@@ -84,4 +84,7 @@ family_panel /
 genus_panel /
 species_panel 
 
+
+#Prepare one graph for a power point presentation
+species_panel
 
