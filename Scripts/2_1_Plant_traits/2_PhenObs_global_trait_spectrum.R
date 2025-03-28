@@ -262,7 +262,7 @@ global_phenobs_pca <- function(PC, x="PC1", y="PC2") {
   rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH" )
   
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
-  plot <- plot + annotate("text", x = -(PCAloadings$PC1*c(4.6,5.2,5.25,7.9,7.1,6)), y = -(PCAloadings$PC2*c(4.45,4.2,5.4,7.7,6,6.5)+c(0,0,0,0,-0.1,0)),
+  plot <- plot + annotate("text", x = -(PCAloadings$PC1*c(4.6,5.2,5,5,5.5,6)), y = -(PCAloadings$PC2*c(4.45,4.2,5.4,7.7,6,6.5)+c(0,0,0,0,-0.1,-1)),
                           label = PCAloadings$Variables, color="black",size=6, fontface=2)
   
   # CHANGE THEME and reverse the y-axis if selfing should be low at the bottom
