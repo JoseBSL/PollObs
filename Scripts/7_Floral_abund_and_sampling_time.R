@@ -9,10 +9,10 @@ data_floral_ab_sampling_time <- raw_data  %>% filter(!is.na(Interactions),
                                                      !is.na(Floral_abundance),
                                                      Pollinator != "None") %>% 
   mutate(Individual = paste0(Sampling,Random_census_stop)) %>% 
-  dplyr::select(Botanical_garden, Plant_family, Plant_accepted_name, 
+  dplyr::select(Botanical_garden, Plant_family, Plant, 
          Pollinator_accepted_name, Date_time, 
          Floral_abundance, Total_time_species, Individual) %>% 
-  mutate(Plant = Plant_accepted_name, Date = as.Date(Date_time)) %>% 
+  mutate(Plant = Plant, Date = as.Date(Date_time)) %>% 
   mutate(Week = lubridate::week(Date)) %>% 
   dplyr::select(-Date_time, -Date) %>% filter(!is.na(Pollinator_accepted_name)) %>% ungroup() %>% 
   dplyr::select(Botanical_garden,Plant_family, Plant, Week, 

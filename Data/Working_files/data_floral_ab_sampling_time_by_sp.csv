@@ -7,8 +7,8 @@ Halle,Achillea millefolium,29,15000,15
 Halle,Achillea millefolium,31,20000,15
 Halle,Aconitum lycoctonum,21,45,15
 Halle,Aconitum lycoctonum,24,700,3
-Halle,Aconitum lycoctonum,25,500,3
 Halle,Aconitum lycoctonum,26,40,15
+Halle,Aconitum vulparia,25,500,3
 Halle,Aegonychon purpurocaeruleum,18,500,3
 Halle,Aegonychon purpurocaeruleum,19,2000,3
 Halle,Allium cernuum,25,2500,3
@@ -119,7 +119,6 @@ Halle,Genista radiata,23,100000,3
 Halle,Geum rivale,17,33,15
 Halle,Geum rivale,19,120,15
 Halle,Geum rivale,20,100,15
-Halle,Geum ternatum,16,650,6
 Halle,Globularia trichosantha,22,100,3
 Halle,Gratiola officinalis,23,400,15
 Halle,Gratiola officinalis,24,100,15
@@ -133,7 +132,6 @@ Halle,Hemerocallis fulva,27,30,15
 Halle,Heuchera grossulariifolia,22,12000,3
 Halle,Hippocrepis emerus,17,10000,3
 Halle,Hippocrepis emerus,20,3000,3
-Halle,Hippomarathrum vulgare,34,12000,3
 Halle,Hypericum olympicum,24,200,18
 Halle,Hypericum olympicum,25,300,15
 Halle,Hypericum olympicum,26,250,15
@@ -174,6 +172,7 @@ Halle,Lavandula angustifolia,26,30000,15
 Halle,Lavandula angustifolia,27,20000,15
 Halle,Lavandula angustifolia,28,2000,15
 Halle,Lavandula angustifolia,29,100,15
+Halle,Leopoldia comosa,20,2000,3
 Halle,Leucanthemum vulgare,24,400,15
 Halle,Liatris pycnostachya,28,100,3
 Halle,Limnanthes douglasii,22,1500,3
@@ -206,7 +205,6 @@ Halle,Moricandia arvensis,34,80,3
 Halle,Muscari armeniacum,14,300,3
 Halle,Muscari armeniacum,15,200,6
 Halle,Muscari botryoides,13,200,30
-Halle,Muscari comosum,20,2000,3
 Halle,Narcissus pseudonarcissus,14,33,15
 Halle,Nepeta clarkei,18,12960,3
 Halle,Nepeta clarkei,19,10000,3
@@ -245,10 +243,10 @@ Halle,Primula vulgaris,14,100,5
 Halle,Primula vulgaris,15,1000,6
 Halle,Prunella grandiflora,24,400,3
 Halle,Prunus tenella,16,400,3
-Halle,Pulmonaria mollis,13,400,60
-Halle,Pulmonaria mollis,14,400,2
-Halle,Pulmonaria mollis,15,300,6
-Halle,Pulmonaria mollis,17,86,3
+Halle,Pulmonaria mollissima,13,400,60
+Halle,Pulmonaria mollissima,14,400,2
+Halle,Pulmonaria mollissima,15,300,6
+Halle,Pulmonaria mollissima,17,86,3
 Halle,Puschkinia scilloides,13,500,15
 Halle,Puschkinia scilloides,14,300,15
 Halle,Ranunculus bulbosus,18,500,3
@@ -278,7 +276,12 @@ Halle,Satureja montana,34,4500,3
 Halle,Scopolia carniolica,15,80,15
 Halle,Scutellaria baicalensis,31,200,3
 Halle,Seseli gummiferum,29,1,3
+Halle,Seseli hippomarathrum,34,12000,3
 Halle,Silene chungtienensis,21,50,3
+Halle,Silene viscaria,16,40,15
+Halle,Silene viscaria,17,200,15
+Halle,Silene viscaria,18,380,15
+Halle,Silene viscaria,19,500,15
 Halle,Sisymbrium officinale,21,10000,3
 Halle,Solanum dulcamara,23,200,15
 Halle,Solanum dulcamara,24,20,15
@@ -289,8 +292,8 @@ Halle,Stachys byzantina,25,250,3
 Halle,Succisella inflexa,33,100,3
 Halle,Symphytum officinale,22,400,3
 Halle,Syringa tomentella,21,300,3
-Halle,Tagetes,31,400,3
 Halle,Tagetes erecta,34,200,3
+Halle,Tagetes sp,31,400,3
 Halle,Tanacetum vulgare,28,4230,15
 Halle,Tanacetum vulgare,29,4200,15
 Halle,Tanacetum vulgare,31,300,15
@@ -314,10 +317,7 @@ Halle,Vincetoxicum hirundinaria,33,252,15
 Halle,Vincetoxicum hirundinaria,34,250,15
 Halle,Viola odorata,13,250,45
 Halle,Viola odorata,14,100,15
-Halle,Viscaria vulgaris,16,40,15
-Halle,Viscaria vulgaris,17,200,15
-Halle,Viscaria vulgaris,18,380,15
-Halle,Viscaria vulgaris,19,500,15
+Halle,Waldsteinia ternata,16,650,6
 Halle,Wisteria sinensis,20,7000,3
 Halle,Zinnia elegans,33,200,3
 Halle,Zinnia elegans,34,150,3
@@ -341,6 +341,11 @@ Jena,Allium cernuum,25,1600,3
 Jena,Allium tuberosum,33,1058,3
 Jena,Allium ursinum,19,1150,15
 Jena,Allium ursinum,20,300,15
+Jena,Anemone hupehensis,28,90,15
+Jena,Anemone hupehensis,29,157,15
+Jena,Anemone hupehensis,31,250,18
+Jena,Anemone hupehensis,32,120,15
+Jena,Anemone hupehensis,33,6,15
 Jena,Anthyllis vulneraria,23,1400,3
 Jena,Anthyllis vulneraria,24,1000,3
 Jena,Anthyllis vulneraria,25,1300,3
@@ -369,8 +374,6 @@ Jena,Brunnera macrophylla,19,420,15
 Jena,Brunnera macrophylla,21,150,15
 Jena,Brunnera macrophylla,22,23,15
 Jena,Buddleja davidii,32,120,3
-Jena,Campanula,26,120,3
-Jena,Campanula,29,22,3
 Jena,Campanula alliariifolia,27,300,3
 Jena,Campanula alliariifolia,29,200,3
 Jena,Campanula glomerata,23,280,6
@@ -382,6 +385,8 @@ Jena,Campanula rapunculoides,25,34,3
 Jena,Campanula rapunculoides,26,224,3
 Jena,Campanula rotundifolia,23,73,30
 Jena,Campanula rotundifolia,24,5,15
+Jena,Campanula sp,26,120,3
+Jena,Campanula sp,29,22,3
 Jena,Cardamine pratensis,17,1200,15
 Jena,Cardamine pratensis,18,800,3
 Jena,Cardamine pratensis,19,15,3
@@ -395,6 +400,8 @@ Jena,Chamaecytisus hirsutus,27,220,3
 Jena,Chelidonium majus,19,70,15
 Jena,Chelidonium majus,20,68,15
 Jena,Chelidonium majus,21,75,15
+Jena,Cicerbita macrophylla,33,300,3
+Jena,Cicerbita plumieri,32,750,3
 Jena,Cichorium intybus,31,40,3
 Jena,Clematis recta,25,1350,15
 Jena,Coronilla orientalis,24,41,3
@@ -408,7 +415,6 @@ Jena,Corydalis cava,15,1500,3
 Jena,Cytisophyllum sessilifolium,20,5000,3
 Jena,Cytisophyllum sessilifolium,21,6000,6
 Jena,Cytisophyllum sessilifolium,22,500,3
-Jena,Dasiphora fruticosa,33,110,3
 Jena,Daucus carota,32,1800,3
 Jena,Desmodium canadense,29,130,3
 Jena,Dianthus petraeus,23,125,3
@@ -418,11 +424,6 @@ Jena,Digitalis obscura,25,10,3
 Jena,Dracocephalum rupestre,28,70,3
 Jena,Erigeron annuus,27,600,3
 Jena,Erigeron annuus,31,200,3
-Jena,Eriocapitella hupehensis,28,90,15
-Jena,Eriocapitella hupehensis,29,157,15
-Jena,Eriocapitella hupehensis,31,250,18
-Jena,Eriocapitella hupehensis,32,120,15
-Jena,Eriocapitella hupehensis,33,6,15
 Jena,Euphorbia nicaeensis,25,1840,6
 Jena,Eutrochium maculatum,31,50,3
 Jena,Fagopyrum esculentum,33,2250,3
@@ -438,7 +439,6 @@ Jena,Genista germanica,18,2500,3
 Jena,Genista germanica,19,2500,3
 Jena,Genista tinctoria,26,1500,3
 Jena,Genista tinctoria,27,960,15
-Jena,Geranium,23,200,3
 Jena,Geranium molle,19,75,3
 Jena,Geranium sanguineum,20,35,15
 Jena,Geranium sanguineum,21,44,15
@@ -446,6 +446,7 @@ Jena,Geranium sanguineum,22,62,15
 Jena,Geranium sanguineum,23,74,15
 Jena,Geranium sanguineum,24,39,15
 Jena,Geranium sanguineum,25,16,15
+Jena,Geranium sp,23,200,3
 Jena,Geum rivale,18,50,15
 Jena,Geum rivale,19,100,15
 Jena,Geum rivale,20,120,15
@@ -456,7 +457,7 @@ Jena,Hepatica nobilis,15,200,15
 Jena,Hepatica nobilis,18,6,15
 Jena,Heracleum sphondylium,31,110,3
 Jena,Heuchera villosa,33,1500,3
-Jena,Hieracium,31,30,3
+Jena,Hieracium sp,31,30,3
 Jena,Hypericum fragile,23,42,3
 Jena,Hypericum hookerianum,27,50,3
 Jena,Hypericum hookerianum,28,23,3
@@ -465,6 +466,7 @@ Jena,Hypericum olympicum,25,32,15
 Jena,Hypericum perforatum,26,90,3
 Jena,Hypericum perforatum,27,58,15
 Jena,Hypericum perforatum,28,60,15
+Jena,Hypochaeris maculata,33,1500,3
 Jena,Iberis sempervirens,15,300,3
 Jena,Iberis sempervirens,17,7000,30
 Jena,Iberis sempervirens,18,4500,15
@@ -477,8 +479,6 @@ Jena,Iris germanica,22,110,3
 Jena,Iris pseudacorus,15,40,3
 Jena,Jacobaea erucifolia,29,315,3
 Jena,Knautia arvensis,32,1800,3
-Jena,Lactuca macrophylla,33,300,3
-Jena,Lactuca plumieri,32,750,3
 Jena,Lamium album,20,100,15
 Jena,Lamium album,21,150,15
 Jena,Lamium album,22,540,15
@@ -537,10 +537,10 @@ Jena,Paeonia delavayi,21,35,15
 Jena,Paeonia mascula,17,37,15
 Jena,Paeonia officinalis,18,4,15
 Jena,Paeonia officinalis,19,23,15
-Jena,Papaver,24,30,3
 Jena,Papaver nudicaule,22,17,3
 Jena,Papaver nudicaule,23,27,3
 Jena,Papaver somniferum,24,26,3
+Jena,Papaver sp,24,30,3
 Jena,Pentanema helenioides,26,27,3
 Jena,Phacelia tanacetifolia,24,1224,3
 Jena,Phedimus aizoon,25,1000,3
@@ -549,16 +549,17 @@ Jena,Philadelphus pekinensis,21,750,3
 Jena,Philadelphus pekinensis,22,3500,3
 Jena,Phlox paniculata,31,60,3
 Jena,Pilosella officinarum,23,70,3
+Jena,Potentilla fruticosa,33,110,3
 Jena,Primula denticulata,14,300,15
 Jena,Primula veris,17,175,15
 Jena,Primula veris,18,125,15
 Jena,Primula vulgaris,14,20,15
 Jena,Primula vulgaris,15,15,15
 Jena,Pulsatilla vulgaris,14,12,15
-Jena,Ranunculus,18,15,3
-Jena,Ranunculus,19,100,3
-Jena,Ranunculus,20,15,3
 Jena,Ranunculus ficaria,14,50,3
+Jena,Ranunculus sp,18,15,3
+Jena,Ranunculus sp,19,100,3
+Jena,Ranunculus sp,20,15,3
 Jena,Rhododendron saluenense,18,560,3
 Jena,Rosa spinosissima,21,213,3
 Jena,Rudbeckia fulgida,28,48,3
@@ -574,6 +575,9 @@ Jena,Scutellaria cordifolia,25,1134,3
 Jena,Seseli montanum,33,15000,3
 Jena,Silene nutans,22,100,15
 Jena,Silene nutans,23,72,15
+Jena,Silene viscaria,20,600,15
+Jena,Silene viscaria,21,1000,15
+Jena,Silene viscaria,22,12,15
 Jena,Solidago flexicaulis,31,160,3
 Jena,Solidago flexicaulis,32,1000,3
 Jena,Spartium junceum,23,750,3
@@ -584,7 +588,6 @@ Jena,Symphytum officinale,25,500,3
 Jena,Teucrium canadense,28,95,3
 Jena,Teucrium chamaedrys,28,100,3
 Jena,Tilia henryana,32,600,6
-Jena,Trifolium,24,3840,3
 Jena,Trifolium pratense,21,12500,3
 Jena,Trifolium pratense,22,500,3
 Jena,Trifolium pratense,26,3000,6
@@ -593,8 +596,8 @@ Jena,Trifolium pratense,28,1155,3
 Jena,Trifolium pratense,29,1496,3
 Jena,Trifolium pratense,33,540,3
 Jena,Trifolium rubens,24,1600,3
+Jena,Trifolium sp,24,3840,3
 Jena,Tripleurospermum maritimum,32,50,3
-Jena,Trommsdorffia maculata,33,1500,3
 Jena,Verbascum phoeniceum,18,750,3
 Jena,Vicia sepium,18,15,3
 Jena,Vicia sepium,20,65,3
@@ -602,9 +605,6 @@ Jena,Vinca minor,14,150,15
 Jena,Vincetoxicum hirundinaria,23,1020,15
 Jena,Vincetoxicum hirundinaria,25,125,15
 Jena,Vincetoxicum hirundinaria,28,30,15
-Jena,Viscaria vulgaris,20,600,15
-Jena,Viscaria vulgaris,21,1000,15
-Jena,Viscaria vulgaris,22,12,15
 Leipzig,Achillea filipendulina,26,70,3
 Leipzig,Achillea filipendulina,27,8,3
 Leipzig,Aethionema grandiflorum,20,10000,3
@@ -619,8 +619,13 @@ Leipzig,Anchusa officinalis,18,55,3
 Leipzig,Anchusa officinalis,19,130,3
 Leipzig,Anchusa officinalis,20,240,3
 Leipzig,Anchusa officinalis,21,80,3
-Leipzig,Anemone nemorosa,18,60,15
-Leipzig,Anemone sylvestris,19,225,15
+Leipzig,Anemone hupehensis,28,28,15
+Leipzig,Anemone hupehensis,31,110,15
+Leipzig,Anemone hupehensis,32,110,15
+Leipzig,Anemone hupehensis,33,500,15
+Leipzig,Anemone hupehensis,34,250,15
+Leipzig,Anemonoides nemorosa,18,60,15
+Leipzig,Anemonoides sylvestris,19,225,15
 Leipzig,Anthericum ramosum,26,125,15
 Leipzig,Anthericum ramosum,27,480,15
 Leipzig,Anthericum ramosum,28,465,15
@@ -635,6 +640,8 @@ Leipzig,Aquilegia vulgaris,26,18,15
 Leipzig,Aster mongolicus,34,195,3
 Leipzig,Aurinia saxatilis,18,120,3
 Leipzig,Bellis perennis,16,60,3
+Leipzig,Berberis aquifolium,15,800,3
+Leipzig,Berberis aquifolium,17,800,3
 Leipzig,Bergenia purpurascens,16,160,15
 Leipzig,Caltha palustris,15,7,30
 Leipzig,Caltha palustris,16,17,15
@@ -643,7 +650,7 @@ Leipzig,Caltha palustris,18,25,15
 Leipzig,Caltha palustris,20,30,15
 Leipzig,Caltha palustris,21,20,15
 Leipzig,Campanula alliariifolia,26,150,3
-Leipzig,Carduus,26,60,3
+Leipzig,Carduus sp,26,60,3
 Leipzig,Carlina vulgaris,32,250,3
 Leipzig,Centaurea nigra,32,220,3
 Leipzig,Centaurea sadleriana,31,60,3
@@ -667,13 +674,10 @@ Leipzig,Clinopodium album,28,9100,3
 Leipzig,Convallaria majalis,20,185,15
 Leipzig,Convallaria majalis,21,120,15
 Leipzig,Convolvulus tricolor,28,220,6
-Leipzig,Coristospermum lucidum,33,6500,3
 Leipzig,Corydalis cava,16,600,3
 Leipzig,Cuphea viscosissima,31,2200,3
 Leipzig,Cuphea viscosissima,33,9500,3
 Leipzig,Cuphea viscosissima,34,2600,3
-Leipzig,Dasiphora davurica,21,280,3
-Leipzig,Dasiphora davurica,24,75,3
 Leipzig,Dasiphora fruticosa,25,75,3
 Leipzig,Dictamnus albus,23,140,15
 Leipzig,Dictamnus albus,24,75,15
@@ -683,13 +687,8 @@ Leipzig,Echinacea angustifolia,33,75,3
 Leipzig,Echinops pungens,31,96,3
 Leipzig,Echium vulgare,25,100,3
 Leipzig,Eranthis hyemalis,23,800,15
-Leipzig,Erica carnea,15,400,3
-Leipzig,Erica carnea,17,800,3
-Leipzig,Eriocapitella hupehensis,28,28,15
-Leipzig,Eriocapitella hupehensis,31,110,15
-Leipzig,Eriocapitella hupehensis,32,110,15
-Leipzig,Eriocapitella hupehensis,33,500,15
-Leipzig,Eriocapitella hupehensis,34,250,15
+Leipzig,Erica herbacea,15,400,3
+Leipzig,Erica herbacea,17,800,3
 Leipzig,Eriocapitella tomentosa,27,16,3
 Leipzig,Erodium manescavi,33,120,3
 Leipzig,Erysimum pulchellum,27,58,3
@@ -729,6 +728,7 @@ Leipzig,Hypericum olympicum,26,65,15
 Leipzig,Hypericum olympicum,27,56,15
 Leipzig,Hypericum olympicum,28,32,15
 Leipzig,Hypericum olympicum,29,10,15
+Leipzig,Hypochaeris maculata,22,30,3
 Leipzig,Iberis sempervirens,16,240,3
 Leipzig,Iberis sempervirens,18,200,15
 Leipzig,Iberis sempervirens,19,8000,18
@@ -761,6 +761,7 @@ Leipzig,Lavandula angustifolia,29,3300,15
 Leipzig,Leucanthemum vulgare,14,4,3
 Leipzig,Leucanthemum vulgare,21,50,6
 Leipzig,Leucanthemum vulgare,22,20,3
+Leipzig,Ligusticum lucidum,33,6500,3
 Leipzig,Limnanthes douglasii,20,315,3
 Leipzig,Limnanthes douglasii,21,4000,3
 Leipzig,Limnanthes douglasii,22,4200,3
@@ -771,8 +772,6 @@ Leipzig,Lomelosia olgae,34,65,3
 Leipzig,Lotus herbaceus,26,560,3
 Leipzig,Lunaria rediviva,20,220,3
 Leipzig,Lythrum salicaria,33,95,3
-Leipzig,Mahonia aquifolium,15,800,3
-Leipzig,Mahonia aquifolium,17,800,3
 Leipzig,Medicago falcata,31,1200,3
 Leipzig,Menyanthes trifoliata,19,200,15
 Leipzig,Monarda fistulosa,29,960,3
@@ -788,21 +787,23 @@ Leipzig,Paeonia daurica,18,15,3
 Leipzig,Paeonia officinalis,19,22,15
 Leipzig,Paeonia officinalis,20,12,15
 Leipzig,Papaver orientale,22,12,3
-Leipzig,Penstemon bradburyi,24,270,15
-Leipzig,Penstemon bradburyi,25,280,15
-Leipzig,Penstemon bradburyi,26,120,15
-Leipzig,Penstemon bradburyi,27,38,15
+Leipzig,Penstemon grandiflorus,24,270,15
+Leipzig,Penstemon grandiflorus,25,280,15
+Leipzig,Penstemon grandiflorus,26,120,15
+Leipzig,Penstemon grandiflorus,27,38,15
 Leipzig,Phedimus aizoon,23,686,3
 Leipzig,Phlomis russeliana,23,750,3
 Leipzig,Platycodon grandiflorus,31,180,15
 Leipzig,Platycodon grandiflorus,32,48,15
 Leipzig,Polygonatum biflorum,19,350,3
 Leipzig,Polygonatum biflorum,20,1320,6
-Leipzig,Potentilla,18,30,3
+Leipzig,Potentilla glabra,21,280,3
+Leipzig,Potentilla glabra,24,75,3
 Leipzig,Potentilla kurdica,23,150,3
 Leipzig,Potentilla kurdica,24,80,3
 Leipzig,Potentilla kurdica,25,308,6
 Leipzig,Potentilla recta,23,140,3
+Leipzig,Potentilla sp,18,30,3
 Leipzig,Primula denticulata,16,280,15
 Leipzig,Primula denticulata,17,270,15
 Leipzig,Primula denticulata,18,90,15
@@ -854,6 +855,8 @@ Leipzig,Silene coronaria,27,143,18
 Leipzig,Silene latifolia,22,18,3
 Leipzig,Silene nutans,22,80,3
 Leipzig,Silene schafta,31,1500,3
+Leipzig,Silene viscaria,21,3200,15
+Leipzig,Silene viscaria,22,2500,15
 Leipzig,Silene vulgaris,25,80,15
 Leipzig,Silene vulgaris,26,12,15
 Leipzig,Silene vulgaris,27,8,15
@@ -884,9 +887,8 @@ Leipzig,Teucrium marum,28,1500,3
 Leipzig,Thunbergia alata,34,48,3
 Leipzig,Thymus praecox,32,260,3
 Leipzig,Thymus pulegioides,22,250,3
-Leipzig,Trifolium,24,6360,3
-Leipzig,Trifolium,25,250,3
-Leipzig,Trommsdorffia maculata,22,30,3
+Leipzig,Trifolium sp,24,6360,3
+Leipzig,Trifolium sp,25,250,3
 Leipzig,Tropaeolum majus,34,850,3
 Leipzig,Tussilago farfara,12,150,10
 Leipzig,Tussilago farfara,14,80,15
@@ -918,8 +920,6 @@ Leipzig,Vincetoxicum hirundinaria,25,130,15
 Leipzig,Viola striata,19,2700,3
 Leipzig,Viola striata,20,800,3
 Leipzig,Viola striata,23,880,3
-Leipzig,Viscaria vulgaris,21,3200,15
-Leipzig,Viscaria vulgaris,22,2500,15
 Leipzig,Vitex negundo,31,17000,3
 Leipzig,Vitex negundo,32,17000,3
 Leipzig,Vitex negundo,33,10000,3
