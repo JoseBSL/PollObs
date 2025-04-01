@@ -16,8 +16,8 @@ Halle,Apiaceae,Eryngium maritimum,Random_census1,32,140,3
 Halle,Apiaceae,Eryngium planum,Random_census3,27,250,3
 Halle,Apiaceae,Ferula assa-foetida,Random_census3,32,7840,3
 Halle,Apiaceae,Foeniculum vulgare,Random_census9,33,26000,3
-Halle,Apiaceae,Hippomarathrum vulgare,Random_census2,34,12000,3
 Halle,Apiaceae,Seseli gummiferum,Random_census4,29,1,3
+Halle,Apiaceae,Seseli hippomarathrum,Random_census2,34,12000,3
 Halle,Apocynaceae,Asclepias syriaca,Random_census6,26,300,3
 Halle,Apocynaceae,Vincetoxicum hirundinaria,FocalNA,28,75,15
 Halle,Apocynaceae,Vincetoxicum hirundinaria,FocalNA,29,20,15
@@ -26,13 +26,13 @@ Halle,Apocynaceae,Vincetoxicum hirundinaria,FocalNA,32,32,15
 Halle,Apocynaceae,Vincetoxicum hirundinaria,FocalNA,33,252,15
 Halle,Apocynaceae,Vincetoxicum hirundinaria,FocalNA,34,250,15
 Halle,Asparagaceae,Asparagus oligoclonos,Random_census4,24,1000,3
+Halle,Asparagaceae,Leopoldia comosa,Random_census10,20,2000,3
 Halle,Asparagaceae,Muscari armeniacum,Random_census1,14,100,1
 Halle,Asparagaceae,Muscari armeniacum,Random_census1,15,100,3
 Halle,Asparagaceae,Muscari armeniacum,Random_census3,15,100,3
 Halle,Asparagaceae,Muscari armeniacum,Random_census4,14,100,1
 Halle,Asparagaceae,Muscari armeniacum,Random_census7,14,100,1
 Halle,Asparagaceae,Muscari botryoides,Random_census1,13,200,30
-Halle,Asparagaceae,Muscari comosum,Random_census10,20,2000,3
 Halle,Asparagaceae,Ornithogalum nutans,Random_census5,15,360,3
 Halle,Asparagaceae,Ornithogalum nutans,Random_census5,16,230,3
 Halle,Asparagaceae,Ornithogalum nutans,Random_census6,16,900,3
@@ -55,8 +55,8 @@ Halle,Asteraceae,Inula helenium,Random_census1,28,22,3
 Halle,Asteraceae,Leucanthemum vulgare,FocalNA,24,400,15
 Halle,Asteraceae,Liatris pycnostachya,Random_census2,28,100,3
 Halle,Asteraceae,Rudbeckia laciniata,Random_census3,29,120,3
-Halle,Asteraceae,Tagetes,Random_census7,31,400,3
 Halle,Asteraceae,Tagetes erecta,Random_census5,34,200,3
+Halle,Asteraceae,Tagetes sp,Random_census7,31,400,3
 Halle,Asteraceae,Tanacetum vulgare,FocalNA,28,4230,15
 Halle,Asteraceae,Tanacetum vulgare,FocalNA,29,4200,15
 Halle,Asteraceae,Tanacetum vulgare,FocalNA,31,300,15
@@ -78,12 +78,12 @@ Halle,Boraginaceae,Cerinthe minor,Random_census1,22,800,3
 Halle,Boraginaceae,Cerinthe minor,Random_census3,23,300,3
 Halle,Boraginaceae,Pentaglottis sempervirens,Random_census10,21,1500,3
 Halle,Boraginaceae,Pentaglottis sempervirens,Random_census5,19,500,3
-Halle,Boraginaceae,Pulmonaria mollis,Random_census1,15,300,6
-Halle,Boraginaceae,Pulmonaria mollis,Random_census1,17,86,3
-Halle,Boraginaceae,Pulmonaria mollis,Random_census19,14,200,1
-Halle,Boraginaceae,Pulmonaria mollis,Random_census3,13,200,30
-Halle,Boraginaceae,Pulmonaria mollis,Random_census4,13,200,30
-Halle,Boraginaceae,Pulmonaria mollis,Random_census9,14,200,1
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census1,15,300,6
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census1,17,86,3
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census19,14,200,1
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census3,13,200,30
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census4,13,200,30
+Halle,Boraginaceae,Pulmonaria mollissima,Random_census9,14,200,1
 Halle,Boraginaceae,Symphytum officinale,Random_census2,22,400,3
 Halle,Brassicaceae,Alyssum saxatile,Random_census4,18,33600,3
 Halle,Brassicaceae,Arabis alpina,Random_census8,15,2000,3
@@ -138,10 +138,10 @@ Halle,Caryophyllaceae,Saponaria officinalis,FocalNA,28,120,15
 Halle,Caryophyllaceae,Saponaria officinalis,FocalNA,31,30,15
 Halle,Caryophyllaceae,Saponaria officinalis,FocalNA,33,180,15
 Halle,Caryophyllaceae,Silene chungtienensis,Random_census5,21,50,3
-Halle,Caryophyllaceae,Viscaria vulgaris,FocalNA,16,40,15
-Halle,Caryophyllaceae,Viscaria vulgaris,FocalNA,17,200,15
-Halle,Caryophyllaceae,Viscaria vulgaris,FocalNA,18,380,15
-Halle,Caryophyllaceae,Viscaria vulgaris,FocalNA,19,500,15
+Halle,Caryophyllaceae,Silene viscaria,FocalNA,16,40,15
+Halle,Caryophyllaceae,Silene viscaria,FocalNA,17,200,15
+Halle,Caryophyllaceae,Silene viscaria,FocalNA,18,380,15
+Halle,Caryophyllaceae,Silene viscaria,FocalNA,19,500,15
 Halle,Cistaceae,Cistus salviifolius,Random_census8,24,350,3
 Halle,Cistaceae,Helianthemum apenninum,Random_census1,23,200,3
 Halle,Cistaceae,Helianthemum nummularium,FocalNA,24,250,15
@@ -293,7 +293,7 @@ Halle,Primulaceae,Primula vulgaris,Random_census9,15,500,3
 Halle,Ranunculaceae,Aconitum lycoctonum,FocalNA,21,45,15
 Halle,Ranunculaceae,Aconitum lycoctonum,FocalNA,26,40,15
 Halle,Ranunculaceae,Aconitum lycoctonum,Random_census2,24,700,3
-Halle,Ranunculaceae,Aconitum lycoctonum,Random_census3,25,500,3
+Halle,Ranunculaceae,Aconitum vulparia,Random_census3,25,500,3
 Halle,Ranunculaceae,Clematis integrifolia,FocalNA,27,120,15
 Halle,Ranunculaceae,Clematis integrifolia,FocalNA,28,78,15
 Halle,Ranunculaceae,Clematis integrifolia,FocalNA,29,160,15
@@ -329,14 +329,14 @@ Halle,Rosaceae,Fragaria vesca,FocalNA,20,22,30
 Halle,Rosaceae,Geum rivale,FocalNA,17,33,15
 Halle,Rosaceae,Geum rivale,FocalNA,19,120,15
 Halle,Rosaceae,Geum rivale,FocalNA,20,100,15
-Halle,Rosaceae,Geum ternatum,Random_census2,16,400,3
-Halle,Rosaceae,Geum ternatum,Random_census7,16,250,3
 Halle,Rosaceae,Potentilla delphinensis,Random_census10,22,50,3
 Halle,Rosaceae,Potentilla montana,Random_census8,17,150,3
 Halle,Rosaceae,Potentilla sterilis,Random_census11,14,30,1
 Halle,Rosaceae,Potentilla sterilis,Random_census18,14,30,1
 Halle,Rosaceae,Prunus tenella,Random_census1,16,400,3
 Halle,Rosaceae,Rosa foetida,Random_census9,21,500,3
+Halle,Rosaceae,Waldsteinia ternata,Random_census2,16,400,3
+Halle,Rosaceae,Waldsteinia ternata,Random_census7,16,250,3
 Halle,Rutaceae,Dictamnus albus,FocalNA,22,240,15
 Halle,Rutaceae,Dictamnus albus,FocalNA,23,250,15
 Halle,Saxifragaceae,Heuchera grossulariifolia,Random_census9,22,12000,3
@@ -380,16 +380,17 @@ Jena,Asteraceae,Bellis perennis,Random_census1,19,1000,3
 Jena,Asteraceae,Centaurea scabiosa,Random_census6,26,36,3
 Jena,Asteraceae,Centaurea stoebe,Random_census6,27,98,3
 Jena,Asteraceae,Centaurea subtilis,Random_census4,29,25,3
+Jena,Asteraceae,Cicerbita macrophylla,Random_census6,33,300,3
+Jena,Asteraceae,Cicerbita plumieri,Random_census11,32,750,3
 Jena,Asteraceae,Cichorium intybus,Random_census4,31,40,3
 Jena,Asteraceae,Erigeron annuus,Random_census7,27,600,3
 Jena,Asteraceae,Erigeron annuus,Random_census9,31,200,3
 Jena,Asteraceae,Eutrochium maculatum,Random_census8,31,50,3
 Jena,Asteraceae,Helichrysum arenarium,Random_census5,29,860,3
-Jena,Asteraceae,Hieracium,Random_census1,31,30,3
+Jena,Asteraceae,Hieracium sp,Random_census1,31,30,3
+Jena,Asteraceae,Hypochaeris maculata,Random_census10,33,1500,3
 Jena,Asteraceae,Inula salicina,Random_census10,26,39,3
 Jena,Asteraceae,Jacobaea erucifolia,Random_census2,29,315,3
-Jena,Asteraceae,Lactuca macrophylla,Random_census6,33,300,3
-Jena,Asteraceae,Lactuca plumieri,Random_census11,32,750,3
 Jena,Asteraceae,Leucanthemum vulgare,FocalNA,24,20,15
 Jena,Asteraceae,Leucanthemum vulgare,FocalNA,25,350,15
 Jena,Asteraceae,Leucanthemum vulgare,FocalNA,26,30,3
@@ -399,7 +400,6 @@ Jena,Asteraceae,Rudbeckia fulgida,Random_census5,28,48,3
 Jena,Asteraceae,Solidago flexicaulis,Random_census7,31,160,3
 Jena,Asteraceae,Solidago flexicaulis,Random_census8,32,1000,3
 Jena,Asteraceae,Tripleurospermum maritimum,Random_census2,32,50,3
-Jena,Asteraceae,Trommsdorffia maculata,Random_census10,33,1500,3
 Jena,Boraginaceae,Alkanna orientalis,Random_census1,20,300,3
 Jena,Boraginaceae,Alkanna orientalis,Random_census6,22,138,3
 Jena,Boraginaceae,Alkanna orientalis,Random_census6,23,120,3
@@ -428,8 +428,6 @@ Jena,Brassicaceae,Iberis sempervirens,FocalNA,20,2800,15
 Jena,Brassicaceae,Iberis sempervirens,FocalNA,21,2250,15
 Jena,Brassicaceae,Iberis sempervirens,Random_census4,17,3000,15
 Jena,Brassicaceae,Iberis sempervirens,Random_census7,15,300,3
-Jena,Campanulaceae,Campanula,Random_census3,26,120,3
-Jena,Campanulaceae,Campanula,Random_census3,29,22,3
 Jena,Campanulaceae,Campanula alliariifolia,Random_census2,27,300,3
 Jena,Campanulaceae,Campanula alliariifolia,Random_census9,29,200,3
 Jena,Campanulaceae,Campanula glomerata,Random_census9,23,280,6
@@ -441,6 +439,8 @@ Jena,Campanulaceae,Campanula rapunculoides,Random_census4,26,224,3
 Jena,Campanulaceae,Campanula rapunculoides,Random_census5,25,34,3
 Jena,Campanulaceae,Campanula rotundifolia,FocalNA,23,73,30
 Jena,Campanulaceae,Campanula rotundifolia,FocalNA,24,5,15
+Jena,Campanulaceae,Campanula sp,Random_census3,26,120,3
+Jena,Campanulaceae,Campanula sp,Random_census3,29,22,3
 Jena,Caprifoliaceae,Knautia arvensis,Random_census5,32,1800,3
 Jena,Caprifoliaceae,Lomelosia albocincta,Random_census7,29,20,3
 Jena,Caprifoliaceae,Lonicera floribunda,Random_census4,21,3000,3
@@ -451,9 +451,9 @@ Jena,Caryophyllaceae,Cerastium arvense,Random_census8,20,225,3
 Jena,Caryophyllaceae,Dianthus petraeus,Random_census10,23,125,3
 Jena,Caryophyllaceae,Silene nutans,FocalNA,22,100,15
 Jena,Caryophyllaceae,Silene nutans,FocalNA,23,72,15
-Jena,Caryophyllaceae,Viscaria vulgaris,FocalNA,20,600,15
-Jena,Caryophyllaceae,Viscaria vulgaris,FocalNA,21,1000,15
-Jena,Caryophyllaceae,Viscaria vulgaris,FocalNA,22,12,15
+Jena,Caryophyllaceae,Silene viscaria,FocalNA,20,600,15
+Jena,Caryophyllaceae,Silene viscaria,FocalNA,21,1000,15
+Jena,Caryophyllaceae,Silene viscaria,FocalNA,22,12,15
 Jena,Crassulaceae,Phedimus aizoon,Random_census3,25,1000,3
 Jena,Ericaceae,Rhododendron saluenense,Random_census7,18,560,3
 Jena,Euphorbiaceae,Euphorbia nicaeensis,Random_census11,25,1440,3
@@ -506,7 +506,6 @@ Jena,Fabaceae,Medicago sativa,Random_census3,32,600,3
 Jena,Fabaceae,Medicago sativa,Random_census4,27,800,3
 Jena,Fabaceae,Spartium junceum,Random_census1,26,200,3
 Jena,Fabaceae,Spartium junceum,Random_census4,23,750,3
-Jena,Fabaceae,Trifolium,Random_census8,24,3840,3
 Jena,Fabaceae,Trifolium pratense,Random_census1,28,1155,3
 Jena,Fabaceae,Trifolium pratense,Random_census2,33,540,3
 Jena,Fabaceae,Trifolium pratense,Random_census5,27,1950,3
@@ -516,9 +515,9 @@ Jena,Fabaceae,Trifolium pratense,Random_census8,26,1500,3
 Jena,Fabaceae,Trifolium pratense,Random_census9,21,12500,3
 Jena,Fabaceae,Trifolium pratense,Random_census9,22,500,3
 Jena,Fabaceae,Trifolium rubens,Random_census8,24,1600,3
+Jena,Fabaceae,Trifolium sp,Random_census8,24,3840,3
 Jena,Fabaceae,Vicia sepium,Random_census5,18,15,3
 Jena,Fabaceae,Vicia sepium,Random_census8,20,65,3
-Jena,Geraniaceae,Geranium,Random_census2,23,200,3
 Jena,Geraniaceae,Geranium molle,Random_census2,19,75,3
 Jena,Geraniaceae,Geranium sanguineum,FocalNA,20,35,15
 Jena,Geraniaceae,Geranium sanguineum,FocalNA,21,44,15
@@ -526,6 +525,7 @@ Jena,Geraniaceae,Geranium sanguineum,FocalNA,22,62,15
 Jena,Geraniaceae,Geranium sanguineum,FocalNA,23,74,15
 Jena,Geraniaceae,Geranium sanguineum,FocalNA,24,39,15
 Jena,Geraniaceae,Geranium sanguineum,FocalNA,25,16,15
+Jena,Geraniaceae,Geranium sp,Random_census2,23,200,3
 Jena,Hydrangeaceae,Philadelphus pekinensis,Random_census10,20,135,3
 Jena,Hydrangeaceae,Philadelphus pekinensis,Random_census2,22,3500,3
 Jena,Hydrangeaceae,Philadelphus pekinensis,Random_census8,21,750,3
@@ -601,10 +601,10 @@ Jena,Papaveraceae,Corydalis cava,Random_census3,14,300,3
 Jena,Papaveraceae,Corydalis cava,Random_census3,15,1500,3
 Jena,Papaveraceae,Corydalis cava,Random_census4,14,20,3
 Jena,Papaveraceae,Corydalis cava,Random_census5,14,150,3
-Jena,Papaveraceae,Papaver,Random_census5,24,30,3
 Jena,Papaveraceae,Papaver nudicaule,Random_census3,23,27,3
 Jena,Papaveraceae,Papaver nudicaule,Random_census5,22,17,3
 Jena,Papaveraceae,Papaver somniferum,Random_census4,24,26,3
+Jena,Papaveraceae,Papaver sp,Random_census5,24,30,3
 Jena,Plantaginaceae,Digitalis grandiflora,Random_census4,25,540,3
 Jena,Plantaginaceae,Digitalis obscura,Random_census2,25,10,3
 Jena,Plantaginaceae,Globularia cordifolia,Random_census5,20,60,3
@@ -620,26 +620,26 @@ Jena,Primulaceae,Primula veris,FocalNA,17,175,15
 Jena,Primulaceae,Primula veris,FocalNA,18,125,15
 Jena,Primulaceae,Primula vulgaris,FocalNA,14,20,15
 Jena,Primulaceae,Primula vulgaris,FocalNA,15,15,15
+Jena,Ranunculaceae,Anemone hupehensis,FocalNA,28,90,15
+Jena,Ranunculaceae,Anemone hupehensis,FocalNA,29,157,15
+Jena,Ranunculaceae,Anemone hupehensis,FocalNA,31,130,15
+Jena,Ranunculaceae,Anemone hupehensis,FocalNA,32,120,15
+Jena,Ranunculaceae,Anemone hupehensis,FocalNA,33,6,15
+Jena,Ranunculaceae,Anemone hupehensis,Random_census2,31,120,3
 Jena,Ranunculaceae,Aquilegia vulgaris,FocalNA,23,30,15
 Jena,Ranunculaceae,Clematis recta,FocalNA,25,1350,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,FocalNA,28,90,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,FocalNA,29,157,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,FocalNA,31,130,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,FocalNA,32,120,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,FocalNA,33,6,15
-Jena,Ranunculaceae,Eriocapitella hupehensis,Random_census2,31,120,3
 Jena,Ranunculaceae,Hepatica nobilis,FocalNA,14,100,20
 Jena,Ranunculaceae,Hepatica nobilis,FocalNA,15,200,15
 Jena,Ranunculaceae,Hepatica nobilis,FocalNA,18,6,15
 Jena,Ranunculaceae,Pulsatilla vulgaris,FocalNA,14,12,15
-Jena,Ranunculaceae,Ranunculus,Random_census6,18,15,3
-Jena,Ranunculaceae,Ranunculus,Random_census8,20,15,3
-Jena,Ranunculaceae,Ranunculus,Random_census9,19,100,3
 Jena,Ranunculaceae,Ranunculus ficaria,Random_census2,14,50,3
-Jena,Rosaceae,Dasiphora fruticosa,Random_census7,33,110,3
+Jena,Ranunculaceae,Ranunculus sp,Random_census6,18,15,3
+Jena,Ranunculaceae,Ranunculus sp,Random_census8,20,15,3
+Jena,Ranunculaceae,Ranunculus sp,Random_census9,19,100,3
 Jena,Rosaceae,Geum rivale,FocalNA,18,50,15
 Jena,Rosaceae,Geum rivale,FocalNA,19,100,15
 Jena,Rosaceae,Geum rivale,FocalNA,20,120,15
+Jena,Rosaceae,Potentilla fruticosa,Random_census7,33,110,3
 Jena,Rosaceae,Rosa spinosissima,Random_census3,21,213,3
 Jena,Rosaceae,Spiraea chamaedryfolia,Random_census6,20,3500,3
 Jena,Rutaceae,Dictamnus albus,FocalNA,24,144,15
@@ -656,9 +656,9 @@ Leipzig,Amaryllidaceae,Allium senescens,Random_census9,31,180,3
 Leipzig,Amaryllidaceae,Allium ursinum,FocalNA,19,2250,15
 Leipzig,Amaryllidaceae,Allium ursinum,FocalNA,20,385,15
 Leipzig,Amaryllidaceae,Allium ursinum,Random_census2,20,500,3
-Leipzig,Apiaceae,Coristospermum lucidum,Random_census1,33,6500,3
 Leipzig,Apiaceae,Ferulago aucheri,Random_census7,26,12000,3
 Leipzig,Apiaceae,Ferulago aucheri,Random_census9,25,2600,3
+Leipzig,Apiaceae,Ligusticum lucidum,Random_census1,33,6500,3
 Leipzig,Apiaceae,Seseli montanum,Random_census9,33,130,3
 Leipzig,Apocynaceae,Vinca minor,FocalNA,14,120,15
 Leipzig,Apocynaceae,Vinca minor,FocalNA,15,130,15
@@ -699,7 +699,7 @@ Leipzig,Asteraceae,Achillea filipendulina,Random_census7,27,8,3
 Leipzig,Asteraceae,Anaphalis margaritacea,Random_census4,32,860,3
 Leipzig,Asteraceae,Aster mongolicus,Random_census9,34,195,3
 Leipzig,Asteraceae,Bellis perennis,Random_census2,16,60,3
-Leipzig,Asteraceae,Carduus,Random_census2,26,60,3
+Leipzig,Asteraceae,Carduus sp,Random_census2,26,60,3
 Leipzig,Asteraceae,Carlina vulgaris,Random_census1,32,250,3
 Leipzig,Asteraceae,Centaurea nigra,Random_census3,32,220,3
 Leipzig,Asteraceae,Centaurea sadleriana,Random_census6,31,60,3
@@ -714,6 +714,7 @@ Leipzig,Asteraceae,Echinacea angustifolia,Random_census7,29,55,3
 Leipzig,Asteraceae,Echinops pungens,Random_census7,31,96,3
 Leipzig,Asteraceae,Helichrysum italicum,Random_census7,28,2000,3
 Leipzig,Asteraceae,Hieracium murorum,Random_census7,21,50,3
+Leipzig,Asteraceae,Hypochaeris maculata,Random_census4,22,30,3
 Leipzig,Asteraceae,Inula oculus-christi,Random_census1,27,38,3
 Leipzig,Asteraceae,Klasea radiata,Random_census4,31,2200,3
 Leipzig,Asteraceae,Leucanthemum vulgare,Random_census2,14,4,3
@@ -736,7 +737,6 @@ Leipzig,Asteraceae,Tanacetum vulgare,FocalNA,31,480,15
 Leipzig,Asteraceae,Taraxacum officinale,Random_census1,16,50,3
 Leipzig,Asteraceae,Taraxacum officinale,Random_census4,17,6,3
 Leipzig,Asteraceae,Taraxacum sonchoides,Random_census1,26,98,3
-Leipzig,Asteraceae,Trommsdorffia maculata,Random_census4,22,30,3
 Leipzig,Asteraceae,Tussilago farfara,FocalNA,12,150,10
 Leipzig,Asteraceae,Tussilago farfara,FocalNA,14,80,15
 Leipzig,Asteraceae,Tussilago farfara,FocalNA,15,70,15
@@ -744,8 +744,8 @@ Leipzig,Asteraceae,Tussilago farfara,FocalNA,16,40,15
 Leipzig,Asteraceae,Tussilago farfara,FocalNA,17,5,15
 Leipzig,Asteraceae,Vernonia fasciculata,Random_census4,34,230,3
 Leipzig,Balsaminaceae,Impatiens balsamina,Random_census8,34,76,3
-Leipzig,Berberidaceae,Mahonia aquifolium,Random_census6,15,800,3
-Leipzig,Berberidaceae,Mahonia aquifolium,Random_census7,17,800,3
+Leipzig,Berberidaceae,Berberis aquifolium,Random_census6,15,800,3
+Leipzig,Berberidaceae,Berberis aquifolium,Random_census7,17,800,3
 Leipzig,Boraginaceae,Anchusa officinalis,Random_census1,19,130,3
 Leipzig,Boraginaceae,Anchusa officinalis,Random_census4,21,80,3
 Leipzig,Boraginaceae,Anchusa officinalis,Random_census5,20,240,3
@@ -806,11 +806,11 @@ Leipzig,Caryophyllaceae,Silene coronaria,Random_census8,27,53,3
 Leipzig,Caryophyllaceae,Silene latifolia,Random_census2,22,18,3
 Leipzig,Caryophyllaceae,Silene nutans,Random_census8,22,80,3
 Leipzig,Caryophyllaceae,Silene schafta,Random_census1,31,1500,3
+Leipzig,Caryophyllaceae,Silene viscaria,FocalNA,21,3200,15
+Leipzig,Caryophyllaceae,Silene viscaria,FocalNA,22,2500,15
 Leipzig,Caryophyllaceae,Silene vulgaris,FocalNA,25,80,15
 Leipzig,Caryophyllaceae,Silene vulgaris,FocalNA,26,12,15
 Leipzig,Caryophyllaceae,Silene vulgaris,FocalNA,27,8,15
-Leipzig,Caryophyllaceae,Viscaria vulgaris,FocalNA,21,3200,15
-Leipzig,Caryophyllaceae,Viscaria vulgaris,FocalNA,22,2500,15
 Leipzig,Cistaceae,Helianthemum nummularium,FocalNA,20,80,15
 Leipzig,Cistaceae,Helianthemum nummularium,FocalNA,21,60,15
 Leipzig,Cistaceae,Helianthemum nummularium,FocalNA,22,50,15
@@ -818,8 +818,8 @@ Leipzig,Cistaceae,Helianthemum nummularium,FocalNA,24,8,15
 Leipzig,Convolvulaceae,Convolvulus tricolor,Random_census10,28,60,3
 Leipzig,Convolvulaceae,Convolvulus tricolor,Random_census6,28,160,3
 Leipzig,Crassulaceae,Phedimus aizoon,Random_census7,23,686,3
-Leipzig,Ericaceae,Erica carnea,Random_census3,15,400,3
-Leipzig,Ericaceae,Erica carnea,Random_census3,17,800,3
+Leipzig,Ericaceae,Erica herbacea,Random_census3,15,400,3
+Leipzig,Ericaceae,Erica herbacea,Random_census3,17,800,3
 Leipzig,Ericaceae,Rhododendron brachycarpum,Random_census7,19,620,3
 Leipzig,Ericaceae,Rhododendron degronianum,Random_census6,16,160,3
 Leipzig,Ericaceae,Rhododendron thomsonii,Random_census1,18,150,3
@@ -837,8 +837,8 @@ Leipzig,Fabaceae,Lathyrus vernus,FocalNA,18,150,15
 Leipzig,Fabaceae,Lathyrus vernus,FocalNA,19,75,15
 Leipzig,Fabaceae,Lotus herbaceus,Random_census10,26,560,3
 Leipzig,Fabaceae,Medicago falcata,Random_census10,31,1200,3
-Leipzig,Fabaceae,Trifolium,Random_census3,24,6360,3
-Leipzig,Fabaceae,Trifolium,Random_census3,25,250,3
+Leipzig,Fabaceae,Trifolium sp,Random_census3,24,6360,3
+Leipzig,Fabaceae,Trifolium sp,Random_census3,25,250,3
 Leipzig,Fabaceae,Vicia oroboides,Random_census9,20,175,3
 Leipzig,Fabaceae,Vicia tenuifolia,Random_census4,23,6000,3
 Leipzig,Fabaceae,Vicia tenuifolia,Random_census8,24,8400,3
@@ -913,10 +913,10 @@ Leipzig,Paeoniaceae,Paeonia officinalis,FocalNA,20,12,15
 Leipzig,Papaveraceae,Corydalis cava,Random_census5,16,600,3
 Leipzig,Papaveraceae,Papaver orientale,Random_census7,22,12,3
 Leipzig,Plantaginaceae,Chaenorhinum origanifolium,Random_census9,24,780,3
-Leipzig,Plantaginaceae,Penstemon bradburyi,FocalNA,24,270,15
-Leipzig,Plantaginaceae,Penstemon bradburyi,FocalNA,25,280,15
-Leipzig,Plantaginaceae,Penstemon bradburyi,FocalNA,26,120,15
-Leipzig,Plantaginaceae,Penstemon bradburyi,FocalNA,27,38,15
+Leipzig,Plantaginaceae,Penstemon grandiflorus,FocalNA,24,270,15
+Leipzig,Plantaginaceae,Penstemon grandiflorus,FocalNA,25,280,15
+Leipzig,Plantaginaceae,Penstemon grandiflorus,FocalNA,26,120,15
+Leipzig,Plantaginaceae,Penstemon grandiflorus,FocalNA,27,38,15
 Leipzig,Plantaginaceae,Veronica austriaca,Random_census1,24,860,3
 Leipzig,Plantaginaceae,Veronica chamaedrys,Random_census9,18,150,3
 Leipzig,Plantaginaceae,Veronica longifolia,Random_census6,29,156,3
@@ -929,8 +929,13 @@ Leipzig,Primulaceae,Primula denticulata,FocalNA,19,20,15
 Leipzig,Primulaceae,Primula veris,FocalNA,16,700,15
 Leipzig,Primulaceae,Primula veris,FocalNA,17,160,15
 Leipzig,Primulaceae,Primula veris,FocalNA,18,150,15
-Leipzig,Ranunculaceae,Anemone nemorosa,FocalNA,18,60,15
-Leipzig,Ranunculaceae,Anemone sylvestris,FocalNA,19,225,15
+Leipzig,Ranunculaceae,Anemone hupehensis,FocalNA,28,28,15
+Leipzig,Ranunculaceae,Anemone hupehensis,FocalNA,31,110,15
+Leipzig,Ranunculaceae,Anemone hupehensis,FocalNA,32,110,15
+Leipzig,Ranunculaceae,Anemone hupehensis,FocalNA,33,500,15
+Leipzig,Ranunculaceae,Anemone hupehensis,FocalNA,34,250,15
+Leipzig,Ranunculaceae,Anemonoides nemorosa,FocalNA,18,60,15
+Leipzig,Ranunculaceae,Anemonoides sylvestris,FocalNA,19,225,15
 Leipzig,Ranunculaceae,Aquilegia vulgaris,FocalNA,19,50,15
 Leipzig,Ranunculaceae,Aquilegia vulgaris,FocalNA,20,94,15
 Leipzig,Ranunculaceae,Aquilegia vulgaris,FocalNA,21,120,15
@@ -945,11 +950,6 @@ Leipzig,Ranunculaceae,Caltha palustris,FocalNA,18,25,15
 Leipzig,Ranunculaceae,Caltha palustris,FocalNA,20,30,15
 Leipzig,Ranunculaceae,Caltha palustris,FocalNA,21,20,15
 Leipzig,Ranunculaceae,Eranthis hyemalis,FocalNA,23,800,15
-Leipzig,Ranunculaceae,Eriocapitella hupehensis,FocalNA,28,28,15
-Leipzig,Ranunculaceae,Eriocapitella hupehensis,FocalNA,31,110,15
-Leipzig,Ranunculaceae,Eriocapitella hupehensis,FocalNA,32,110,15
-Leipzig,Ranunculaceae,Eriocapitella hupehensis,FocalNA,33,500,15
-Leipzig,Ranunculaceae,Eriocapitella hupehensis,FocalNA,34,250,15
 Leipzig,Ranunculaceae,Eriocapitella tomentosa,Random_census10,27,16,3
 Leipzig,Ranunculaceae,Helleborus foetidus,FocalNA,12,300,15
 Leipzig,Ranunculaceae,Helleborus foetidus,FocalNA,14,250,15
@@ -962,16 +962,16 @@ Leipzig,Ranunculaceae,Pulsatilla vulgaris,FocalNA,17,40,15
 Leipzig,Ranunculaceae,Pulsatilla vulgaris,FocalNA,18,4,15
 Leipzig,Ranunculaceae,Pulsatilla vulgaris,FocalNA,19,52,15
 Leipzig,Ranunculaceae,Ranunculus ficaria,Random_census4,16,70,3
-Leipzig,Rosaceae,Dasiphora davurica,Random_census4,24,75,3
-Leipzig,Rosaceae,Dasiphora davurica,Random_census9,21,280,3
 Leipzig,Rosaceae,Dasiphora fruticosa,Random_census2,25,75,3
 Leipzig,Rosaceae,Fragaria vesca,FocalNA,19,14,15
 Leipzig,Rosaceae,Fragaria vesca,FocalNA,23,18,15
-Leipzig,Rosaceae,Potentilla,Random_census10,18,30,3
+Leipzig,Rosaceae,Potentilla glabra,Random_census4,24,75,3
+Leipzig,Rosaceae,Potentilla glabra,Random_census9,21,280,3
 Leipzig,Rosaceae,Potentilla kurdica,Random_census1,23,150,3
 Leipzig,Rosaceae,Potentilla kurdica,Random_census2,24,80,3
 Leipzig,Rosaceae,Potentilla kurdica,Random_census3,25,308,6
 Leipzig,Rosaceae,Potentilla recta,Random_census6,23,140,3
+Leipzig,Rosaceae,Potentilla sp,Random_census10,18,30,3
 Leipzig,Rutaceae,Dictamnus albus,FocalNA,23,140,15
 Leipzig,Rutaceae,Dictamnus albus,FocalNA,24,75,15
 Leipzig,Rutaceae,Dictamnus albus,FocalNA,25,11,15
