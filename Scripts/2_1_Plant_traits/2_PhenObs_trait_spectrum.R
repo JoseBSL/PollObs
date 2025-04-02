@@ -199,7 +199,8 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
                               size = 0.8, arrow = arrow(length = unit(0, "cm")), 
                               linetype = 2, alpha = 0.8, color = "black")
   
-  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH")
+  rownames(PC$L) <- c("", "", "", "", "", "")
+ # rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH")
   PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
   
   # Position labels at the end of segments

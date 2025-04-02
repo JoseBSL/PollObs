@@ -47,11 +47,19 @@ poll_traits1 = poll_traits %>%
 #IT
 poll_traits1 %>% 
 ggplot(aes(IT_mm)) +
-geom_histogram()
+geom_histogram(colour="black", fill="plum3") +
+theme_bw()+
+coord_cartesian(expand = FALSE) + 
+xlab("IT distance (mm)") +
+ylab("Counts")
 #Body length
 poll_traits1 %>% 
   ggplot(aes(Length_mm)) +
-  geom_histogram()
+  geom_histogram(colour="black", fill="steelblue3") +
+  theme_bw()+
+  coord_cartesian(expand = FALSE) + 
+  xlab("Body length (mm)") +
+  ylab("Counts")
 #They look relatively similar as expected
 #Check their correlation
 poll_traits1 %>% 
