@@ -348,8 +348,8 @@ local_phenobs_pca(PC)
 
 #Check pair correlations among traits
 # You need both ggplot2 and GGally packages loaded to use ggpairs()
-library(GGally)
-ggpairs(final_d)
+#library(GGally)
+#ggpairs(final_d)
 
 
 
@@ -375,20 +375,22 @@ mutate(Mean_interaction_frequency = log(Mean_interaction_frequency +1))
 library(ggplot2)
 library(ggpubr)  # For correlation coefficients
 
-# Define a function for correlation plots
 plot_correlation <- function(x, y, xlab, ylab) {
-  ggplot(data = s1, aes(x = !!sym(x), y = s[[y]])) +
-    geom_point(alpha = 0.7, color = "blue") +  # Scatter points
-    geom_smooth(method = "lm", color = "red", se = TRUE) +  # Regression line
-    stat_cor(method = "pearson", label.x = min(s1[[x]], na.rm = TRUE),
-             label.y = max(s[[y]], na.rm = TRUE), size = 5) +  # Correlation coefficient
-    labs(x = xlab, y = ylab, title = paste(xlab, "vs", ylab)) +
-    theme_minimal()
+  ggplot(data = s1, aes(x = !!sym(x), y = !!sym(y))) +
+    geom_point(alpha = 0.7, color = "cyan4") +  # Scatter points
+    geom_smooth(method = "lm", color = "black", se = TRUE) +  # Regression line
+    stat_cor(method = "pearson", 
+             label.x = min(s1[[x]], na.rm = TRUE),
+             label.y = max(s1[[y]], na.rm = TRUE), 
+             size = 5) +  # Correlation coefficient
+    labs(x = xlab, y = ylab) +  # Add axis labels
+    theme_bw() +
+    ylim(-3.5, 5)
 }
 
 # Create individual plots
-p1 <- plot_correlation("Mean_interaction_frequency", "PC1", "Mean Interaction Frequency", "PC1")
-p2 <- plot_correlation("Mean_interaction_frequency", "PC2", "Mean Interaction Frequency", "PC2")
+p1 <- plot_correlation("Mean_interaction_frequency", "PC1", "Mean Interaction Frequency (log)", "PC1")
+p2 <- plot_correlation("Mean_interaction_frequency", "PC2", "Mean Interaction Frequency (log)", "PC2")
 p3 <- plot_correlation("Mean_degree", "PC1", "Mean Degree", "PC1")
 p4 <- plot_correlation("Mean_degree", "PC2", "Mean Degree", "PC2")
 
