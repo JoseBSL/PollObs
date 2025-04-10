@@ -129,8 +129,19 @@ villa_value = 2.22
 #Also a tachinidae fly
 prosena_value = 2.28
 gymnosoma_value = 1.55
-
-
+#Minnetia is similar in size to Botanophila
+#Let's assume a similar proboscis length
+minettia_value = 1
+#Miopa is another conopidae like Sicus
+sicus_value = 2.678669
+#Pseudocoenosia is a Muscidae
+#Consider value of Graphomya
+graphomya_value = 2.1460554
+#Thecophora longirostris
+#is another Conopidae provide also value of Sicus
+sicus_value = 2.678669
+#Tachina is anther tachinadae and very similar to Nowickia
+nowickia_value = 2.9675223
 
 #The remaining syrphidae are quite small
 #Create a vector and consider episyrphus_value as their tongue length
@@ -182,7 +193,24 @@ mutate(Mean_proboscis_length =
   mutate(Mean_proboscis_length = 
            if_else(Pollinator_genus == "Hebia", prosena_value, Mean_proboscis_length)) %>% 
   mutate(Mean_proboscis_length = 
-           if_else(Pollinator_genus == "Gymnosoma", gymnosoma_value, Mean_proboscis_length)) 
+           if_else(Pollinator_genus == "Gymnosoma", gymnosoma_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Minettia", minettia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Myopa", sicus_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Pseudocoenosia", graphomya_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Merziella", sicus_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+         if_else(Pollinator_genus == "Tachina", nowickia_value, Mean_proboscis_length)) 
+
+
+
+
+
+
+
 
 
 
