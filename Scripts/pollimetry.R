@@ -62,6 +62,11 @@ mean_proboscis_length_filtered = mean_proboscis_length %>%
 #First create dataset with relevant taxonomic information
 proboscis_data = left_join(mean_proboscis_length_filtered, matched_gbif_pollinators)
 
+#Select taxonomic rank of species and genus
+proboscis_data = proboscis_data %>% 
+filter(Pollinator_rank == "SPECIES" | Pollinator_rank == "GENUS")
+
+
 #Calliphoridae has only 1 value
 #Consider that value to all Calliphoridae
 calliphoridae_value = proboscis_data %>% 
@@ -153,6 +158,43 @@ remaing_syrphidae = c("Dasysyrphus albostriatus",
                       "Entomophaga nigrohalterata",
                       "Microphthalma europaea")
 
+#From a local dataset of Mallorca (unpublished)
+#We can obtain some average values for some wasps and beetles at genus level
+#Polistes 1.7
+polistes_value = 1.7
+#Philanthus 2.84
+philanthus_value = 2.84
+#Scolia 3.63
+scolia_value = 3.63
+#Oedemera 0.4
+oedemera_value = 0.4
+#Cerceris, vespula and Ancistrocerus give same value as polistes (relatively similar)
+#Other similar crabronidae as cerceris provide same value as polistes
+#Tiphia, Dolicho, Sphex are large wasps provide same value as Scolia
+#Metalic wasps, small proboscis ~1mm
+hedychrum_value = 1
+#Calculate average value of hylaeus
+hylaeus_value = proboscis_data1 %>% 
+  filter(Pollinator_genus == "Hylaeus") %>% 
+  summarise(Mean_proboscis_length = 
+              mean(Mean_proboscis_length, na.rm = TRUE)) %>% 
+  pull()
+
+#https://www.commanster.eu/Commanster/Insects/Butterflies/SpButterflies/Anthocharis.cardamines.html
+#Anthocaris cardamines proboscis length 11.5
+anthocharis_value = 11.5
+
+#Average tongue length for Melittidae
+#2,640909091
+melittidae_value = 2.6
+
+#Calculate average value of Lasioglossum
+lasioglossum_value = proboscis_data1 %>% 
+  filter(Pollinator_genus == "Lasioglossum") %>% 
+  summarise(Mean_proboscis_length = 
+              mean(Mean_proboscis_length, na.rm = TRUE)) %>% 
+  pull()
+
 proboscis_data1 = proboscis_data %>% 
   mutate(Mean_proboscis_length = 
            if_else(Pollinator_family == "Calliphoridae", calliphoridae_value, Mean_proboscis_length)) %>%
@@ -203,7 +245,93 @@ mutate(Mean_proboscis_length =
   mutate(Mean_proboscis_length = 
            if_else(Pollinator_genus == "Merziella", sicus_value, Mean_proboscis_length)) %>% 
 mutate(Mean_proboscis_length = 
-         if_else(Pollinator_genus == "Tachina", nowickia_value, Mean_proboscis_length)) 
+         if_else(Pollinator_genus == "Tachina", nowickia_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Polistes", polistes_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Philanthus", philanthus_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Scolia", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Oedemera", oedemera_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+         if_else(Pollinator_genus == "Hylaeus" & is.na(Mean_proboscis_length), 
+                 hylaeus_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Cerceris", polistes_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Ancistrocerus", polistes_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Vespula", polistes_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Gymnomerus", polistes_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Sapygina", polistes_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Tiphia", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Sphex", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Philanthus", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Dolichovespula", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Crossocerus", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Dinetus", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Ectemnius", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Nysson", scolia_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Hedychrum", hedychrum_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+         if_else(Pollinator_genus == "Holopyga", hedychrum_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Pseudovadonia", oedemera_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Anthocharis", anthocharis_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+         if_else(Pollinator == "Macropis fulvipes", melittidae_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+           if_else(Pollinator == "Melitta haemorrhoidalis", melittidae_value, Mean_proboscis_length)) %>% 
+mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus == "Anthrenus", oedemera_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_order== "Coleoptera" & is.na(Mean_proboscis_length), 
+                   oedemera_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_order == "Hemiptera", oedemera_value, Mean_proboscis_length)) %>% 
+  mutate(Mean_proboscis_length = 
+           if_else(Pollinator_genus== "Lasioglossum" & is.na(Mean_proboscis_length), 
+                   lasioglossum_value, Mean_proboscis_length))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
