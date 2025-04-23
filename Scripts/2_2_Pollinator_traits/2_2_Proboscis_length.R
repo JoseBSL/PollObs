@@ -308,14 +308,20 @@ mutate(Mean_proboscis_length =
 
 
 
+#Now select pollinator and proboscis length and merge it back with trait data
+main_proboscis_col = proboscis_data1 %>% 
+select(Pollinator, Mean_proboscis_length)
 
+#Bind with trait data
+polltraits1 = left_join(polltraits, main_proboscis_col)
 
+polltraits_clean = polltraits1 %>% 
+rename(IT = IT_mm) %>% 
+rename(Body_length = Length_mm) %>% 
+rename(Proboscis_length = Mean_proboscis_length) %>% 
+select(!Tongue_mm)
 
-
-
-
-
-
+saveRDS(polltraits_clean, "Data/Trait_data/Processed/PollTraits_with_proboscis.rds")
 
 
 
