@@ -174,7 +174,7 @@ oedemera_value = 0.4
 #Metalic wasps, small proboscis ~1mm
 hedychrum_value = 1
 #Calculate average value of hylaeus
-hylaeus_value = proboscis_data1 %>% 
+hylaeus_value = proboscis_data %>% 
   filter(Pollinator_genus == "Hylaeus") %>% 
   summarise(Mean_proboscis_length = 
               mean(Mean_proboscis_length, na.rm = TRUE)) %>% 
@@ -189,7 +189,7 @@ anthocharis_value = 11.5
 melittidae_value = 2.6
 
 #Calculate average value of Lasioglossum
-lasioglossum_value = proboscis_data1 %>% 
+lasioglossum_value = proboscis_data%>% 
   filter(Pollinator_genus == "Lasioglossum") %>% 
   summarise(Mean_proboscis_length = 
               mean(Mean_proboscis_length, na.rm = TRUE)) %>% 
@@ -307,13 +307,12 @@ mutate(Mean_proboscis_length =
                    lasioglossum_value, Mean_proboscis_length))
 
 
-
 #Now select pollinator and proboscis length and merge it back with trait data
 main_proboscis_col = proboscis_data1 %>% 
 select(Pollinator, Mean_proboscis_length)
 
 #Bind with trait data
-polltraits1 = left_join(polltraits, main_proboscis_col)
+polltraits1 = left_join(main_proboscis_col, polltraits)
 
 polltraits_clean = polltraits1 %>% 
 rename(IT = IT_mm) %>% 
