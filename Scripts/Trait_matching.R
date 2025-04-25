@@ -38,143 +38,34 @@ lanuza_2023_traits = morphometrics %>%
     Floral_tube_mean_length = mean(Floral_tube_length, na.rm = TRUE))
 
 #Load pollinator trait data
-polltraits = readRDS("Data/Trait_data/Processed/PollTraits_with_proboscis.rds")
-#Check cols
-colnames(polltraits)
-#Obtain average value per species
-polltraits_mean = polltraits %>% 
-  group_by(Pollinator_accepted_name) %>% 
-  summarise(IT_mean = mean(IT, na.rm = TRUE),
-          Body_length_mean = mean(Body_length, na.rm = TRUE),
-          Proboscis_length_mean = mean(Proboscis_length, na.rm = TRUE)) %>% 
-filter(!Pollinator_accepted_name == "Gasteruption") %>% 
-mutate(Pollinator_genus = word(Pollinator_accepted_name, 1))
-#Some species with missing values can be recovered
-na_only_data = polltraits_mean %>%
-  filter(if_any(c(Pollinator_accepted_name, IT_mean, Body_length_mean, Proboscis_length_mean), is.na))
-#Add those at genus level to avoid missing species
-#Hylaeus
-Hylaeus = polltraits_mean %>% 
-filter(Pollinator_genus == "Hylaeus") %>% 
-summarise(IT_mean = mean(IT_mean, na.rm =T),
-          Body_length_mean = mean(Body_length_mean, na.rm =T))
-Hylaeus_IT = Hylaeus %>% pull(IT_mean)
-Hylaeus_body_length = Hylaeus %>% pull(Body_length_mean)
+polltraits_mean = readRDS("Data/Trait_data/Processed/PollTraits_all.rds")
 
-#Now add values back to dataset
-polltraits_mean = polltraits_mean %>% 
-mutate(IT_mean = 
-         if_else(Pollinator_genus == "Hylaeus" & is.na(IT_mean), 
-                 Hylaeus_IT, IT_mean)) %>% 
-mutate(Body_length_mean = 
-          if_else(Pollinator_genus == "Hylaeus" & is.na(Body_length_mean), 
-                  Hylaeus_body_length, Body_length_mean))
+p1 = polltraits_mean %>% 
+  ggplot(aes(IT_mean)) +
+  geom_histogram(colour="black", fill="plum3") +
+  theme_bw()+
+  coord_cartesian(expand = FALSE) + 
+  xlab("IT distance (mm)") +
+  ylab("Counts")
 
-#Lasioglossum
-Lasioglossum = polltraits_mean %>% 
-  filter(Pollinator_genus == "Lasioglossum") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Lasioglossum_IT = Lasioglossum %>% pull(IT_mean)
-Lasioglossum_body_length = Lasioglossum %>% pull(Body_length_mean)
-#Now add values back to dataset
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Lasioglossum" & is.na(IT_mean), 
-                   Hylaeus_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Lasioglossum" & is.na(Body_length_mean), 
-                   Hylaeus_body_length, Body_length_mean))
-#Pollenia
-Pollenia = polltraits_mean %>% 
-  filter(Pollinator_genus == "Pollenia") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Pollenia_IT = Pollenia %>% pull(IT_mean)
-Pollenia_body_length = Pollenia %>% pull(Body_length_mean)
-#Now add values back to dataset
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Pollenia" & is.na(IT_mean), 
-                   Pollenia_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Pollenia" & is.na(Body_length_mean), 
-                   Pollenia_body_length, Body_length_mean))
 
-#Lapposyrphus lapponicus add Eupeodes values as it is the closest relative
-Eupeodes = polltraits_mean %>% 
-  filter(Pollinator_genus == "Eupeodes") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Eupeodes_IT = Eupeodes %>% pull(IT_mean)
-Eupeodes_body_length = Eupeodes %>% pull(Body_length_mean)
-#Now add values back to dataset
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Lapposyrphus" & is.na(IT_mean), 
-                   Eupeodes_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Lapposyrphus" & is.na(Body_length_mean), 
-                   Eupeodes_body_length, Body_length_mean))
-#Same with Paragus constrictus
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Paragus" & is.na(IT_mean), 
-                   Eupeodes_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Paragus" & is.na(Body_length_mean), 
-                   Eupeodes_body_length, Body_length_mean))
+p2 = polltraits_mean %>% 
+  ggplot(aes(Body_length_mean)) +
+  geom_histogram(colour="black", fill="steelblue3") +
+  theme_bw()+
+  coord_cartesian(expand = FALSE) + 
+  xlab("Body length (mm)") +
+  ylab("Counts")
 
-#Meliscaeva auricollis  add Episyrphus values as it is the closest relative
-Episyrphus = polltraits_mean %>% 
-  filter(Pollinator_genus == "Episyrphus") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Episyrphus_IT = Episyrphus %>% pull(IT_mean)
-Episyrphus_body_length = Episyrphus %>% pull(Body_length_mean)
+p3 = polltraits_mean %>% 
+  ggplot(aes(Body_length_mean)) +
+  geom_histogram(colour="black", fill="tomato3") +
+  theme_bw()+
+  coord_cartesian(expand = FALSE) + 
+  xlab("Proboscis length (mm)") +
+  ylab("Counts")
 
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Meliscaeva" & is.na(IT_mean), 
-                   Episyrphus_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Meliscaeva" & is.na(Body_length_mean), 
-                   Episyrphus_body_length, Body_length_mean))
 
-#Dolichovespula saxonica  add vespula value
-Vespula = polltraits_mean %>% 
-  filter(Pollinator_genus == "Vespula") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Vespula_IT = Vespula %>% pull(IT_mean)
-Vespula_body_length = Vespula %>% pull(Body_length_mean)
-
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Dolichovespula" & is.na(IT_mean), 
-                   Vespula_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Dolichovespula" & is.na(Body_length_mean), 
-                   Vespula_body_length, Body_length_mean))
-
-#Minettia longipennis add Botanophila depressa value, similar size
-Botanophila = polltraits_mean %>% 
-  filter(Pollinator_genus == "Botanophila") %>% 
-  summarise(IT_mean = mean(IT_mean, na.rm =T),
-            Body_length_mean = mean(Body_length_mean, na.rm =T))
-Botanophila_IT = Botanophila %>% pull(IT_mean)
-Botanophila_body_length = Botanophila %>% pull(Body_length_mean)
-
-polltraits_mean = polltraits_mean %>% 
-  mutate(IT_mean = 
-           if_else(Pollinator_genus == "Minettia" & is.na(IT_mean), 
-                   Botanophila_IT, IT_mean)) %>% 
-  mutate(Body_length_mean = 
-           if_else(Pollinator_genus == "Minettia" & is.na(Body_length_mean), 
-                   Botanophila_body_length, Body_length_mean))
-##Some species with missing values can be recovered
-polltraits_mean %>%
-  filter(if_any(c(Pollinator_accepted_name, IT_mean, Body_length_mean, Proboscis_length_mean), is.na))
 #All ready!
 polltraits = polltraits_mean %>% 
   rename(Pollinators = Pollinator_accepted_name) %>% 
@@ -195,9 +86,8 @@ species_combinations1 = left_join(species_combinations, polltraits,
 d = left_join(species_combinations1, planttraits,
                                   by = "Plants")
 
-#Ratio suggested by chatgpt, I like the idea
-d$Trait_ratio = pmin(d$Proboscis_length, d$Floral_tube_length) /
-  pmax(d$Proboscis_length, d$Floral_tube_length)
+#Ratio 
+d$Trait_ratio = d$Proboscis_length / d$Floral_tube_length
 #Calculate an absolute value of distance
 d$Trait_difference = abs(d$Proboscis_length - d$Floral_tube_length)
 
