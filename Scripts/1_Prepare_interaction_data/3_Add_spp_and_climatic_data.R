@@ -74,4 +74,25 @@ mutate(Pollinator_accepted_name = case_when(
   TRUE ~ Pollinator_accepted_name))
 
 
+#saveRDS(interaction_data, "Data/Working_files/interaction_data.rds")
+
+#Do some minor fixes
+interaction_data = readRDS("Data/Working_files/interaction_data.rds")
+
+interaction_data = interaction_data %>% 
+  mutate(Time_start = case_when(
+    Plant == "Acantholimon ulicinum" & Date == "2023-07-04" ~ hms::as_hms(paste("10:15:00")),
+    TRUE ~ Time_start  # Keep the original Time_start for other rows
+  )) %>% 
+  mutate(Time_finish = case_when(
+    Plant == "Acantholimon ulicinum" & Date == "2023-07-04" ~ hms::as_hms(paste("10:18:00")),
+    TRUE ~ Time_finish  # Keep the original Time_start for other rows
+  )) %>% 
+  mutate(Date_time = case_when(
+    Plant == "Acantholimon ulicinum" & Date == "2023-07-04" ~ as.POSIXct(paste(Date, "10:15:00"), format="%Y-%m-%d %H:%M:%S",  tz="UTC"),
+    TRUE ~ Date_time  # Keep the original Time_start for other rows
+  ))
+
+
 saveRDS(interaction_data, "Data/Working_files/interaction_data.rds")
+
