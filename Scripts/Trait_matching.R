@@ -89,7 +89,7 @@ d = left_join(species_combinations1, planttraits,
 #Ratio 
 d$Trait_ratio = d$Proboscis_length / d$Floral_tube_length
 #Calculate an absolute value of distance
-d$Trait_difference = abs(d$Proboscis_length - d$Floral_tube_length)
+d$Trait_difference = d$Proboscis_length - d$Floral_tube_length
 
 #Visualize distributions
 library(ggplot2)
