@@ -73,9 +73,20 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 (i) Floral abundance was annotated for each focal species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each plant species. This approach provides a more realistic estimate of pollinator abundance compared to the standard implementation of estimating abundances from interactions. 
 
-(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models with our records of flower number to build the phenology on the same sampling dates as the other species. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data for socio-historical reasons (REF), and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract records around the three cities for the different pollinator species (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
+(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models with our records of flower number to build the phenology on the same sampling dates as the other species. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract records around the three cities for the different pollinator species (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
-(iii) Trait data
+(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @Lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we expanded by adding phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as measuremnt of the reproductive investment.
+
+
+
+those were complemented with other relevant reproductive traits. This allows to explore for this set of species reproductive trait covariation patterns and expand on previous work 
+
+following the main traits driving the reproductive spectrum of flowering plants [@Lanuza2023]. Thus, as o
+
+
+
+
+compiled in order to evaluate the reproductive trait covariation patterns of plants as done in XXX but in this case with species level measurements that avoid 
 
 Plants
 
