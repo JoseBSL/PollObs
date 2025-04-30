@@ -99,6 +99,3 @@ ggplot(combined_results, aes(x = Botanical_garden, y = Mantel_corr, fill = Test)
 
 
 
-
-
-

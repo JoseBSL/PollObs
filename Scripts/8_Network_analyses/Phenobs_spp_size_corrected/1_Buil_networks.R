@@ -18,11 +18,11 @@ raw_data = readRDS("Data/Working_files/interaction_data.rds")
 morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
 colnames(morphometrics)
 phenobs_spp = morphometrics %>% 
-select(Species) %>% 
-mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
-mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
-distinct() %>% 
-pull(Species) 
+  select(Species) %>% 
+  mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
+  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
+  distinct() %>% 
+  pull(Species) 
 
 #Prepare interaction data
 interaction_data = raw_data %>%
@@ -35,19 +35,19 @@ interaction_data = raw_data %>%
 
 
 interaction_data = interaction_data %>% 
-filter(Plant %in% phenobs_spp) 
+  filter(Plant %in% phenobs_spp) 
 
 #1)Total interactions
 
 #Convert to network
 to_network = function(data) {
   data %>%
-    group_by(Plants, Pollinators) %>%
+    group_by(Plant, Pollinators) %>%
     summarise(Total_interactions = sum(Interactions),
               .groups = "drop") %>%
     pivot_wider(names_from = Pollinators, 
                 values_from = Total_interactions, values_fill = 0) %>%
-    column_to_rownames("Plants") %>%
+    column_to_rownames("Plant") %>%
     as.matrix()
 }
 
@@ -77,5 +77,5 @@ networks_by_garden_int_frequency = interaction_frequency %>%
 net_by_garden = left_join(networks_by_garden_interactions,
                           networks_by_garden_int_frequency)
 
-saveRDS(net_by_garden, "Data/Working_files/networks_by_garden_only_phenobs.rds")
+saveRDS(net_by_garden, "Data/Working_files/networks_by_garden_only_phenobs_corrected.rds")
 
