@@ -22,13 +22,21 @@ interaction_data = raw_data %>%
 #Load morphometrics to get phenobs species vector
 morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
 colnames(morphometrics)
-phenobs_spp = morphometrics %>% 
-  select(Species) %>% 
+morphometrics = morphometrics %>% 
   mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
-  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
+  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) 
+
+phenobs_spp = morphometrics %>% 
   distinct() %>% 
   pull(Species) 
+#Generate dataset to correct flower unit by flower size
+flower_size = morphometrics %>% 
+  select(Species, Flower_width) %>% 
+  group_by(Species) %>% 
+  summarise(Flower_size = mean(Flower_width, na.rm = T)) %>% 
+  rename(Plant = Species)
 
+#Filter by phenObs species
 interaction_data = interaction_data %>% 
   filter(Plant %in% phenobs_spp) 
 
@@ -46,19 +54,31 @@ pollinator_abundance %>%
 #Floral abundance
 #Two setp process: select distinct values with Date_time
 #and sum abundances
-floral_abundance = interaction_data %>% 
-  select(Botanical_garden, Plants, Floral_abundance, Date_time) %>% 
+#Create floral display dataset to correct by size
+floral_display = left_join(interaction_data, flower_size)
+
+s = floral_display %>% 
+  select(Plant, Flower_size) %>% 
+  distinct(Plant, Flower_size)
+
+floral_display = floral_display %>% 
+  select(Botanical_garden, Plant, Floral_abundance, Flower_size) %>% 
   distinct() %>% 
-  group_by(Botanical_garden, Plants) %>% 
-  summarise(Total_floral_abundance = sum(Floral_abundance)) %>% 
-  mutate(Relative_abundance = Total_floral_abundance/ max(Total_floral_abundance))
+  mutate(Floral_display = Floral_abundance / Flower_size) %>%   
+  group_by(Botanical_garden, Plant) %>% 
+  summarise(Total_floral_display = sum(Floral_display, na.rm = TRUE), .groups = "drop") %>% 
+  group_by(Botanical_garden) %>% 
+  mutate(Relative_floral_display = Total_floral_display / max(Total_floral_display, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  rename(Plants = Plant)
+
 #Check distribution
-floral_abundance %>% 
-  ggplot(aes(Relative_abundance)) +
+floral_display %>% 
+  ggplot(aes(Relative_floral_display)) +
   geom_histogram()
 
 #Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs.rds")
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_corrected.rds")
 
 #Calculate a probability matrix based on relative abundances
 build_prob_matrix = function(garden_name) {
@@ -75,14 +95,14 @@ build_prob_matrix = function(garden_name) {
   pollinator_abundance1 = pollinator_abundance %>% 
     filter(Botanical_garden == garden_name) 
   
-  floral_abundance1 = floral_abundance %>% 
+  floral_display1 = floral_display %>% 
     filter(Botanical_garden == garden_name)
   
   poll_abund_ordered = left_join(poll_order, pollinator_abundance1)
-  plant_abund_ordered = left_join(plant_order, floral_abundance1)
+  plant_abund_ordered = left_join(plant_order, floral_display1)
   #get the ordered vectors
   poll_vector = poll_abund_ordered$Relative_abundance
-  plant_vector = plant_abund_ordered$Relative_abundance
+  plant_vector = plant_abund_ordered$Relative_floral_display
   
   prob_matrix = outer(plant_vector, poll_vector, FUN = "*")
   
@@ -99,6 +119,5 @@ prob_matrices_by_garden = net_by_garden %>%
 
 #Save network matrices
 saveRDS(prob_matrices_by_garden, 
-        "Data/Working_files/abundance_networks_only_phenobs.rds")
-
+        "Data/Working_files/abundance_networks_only_phenobs_corrected_by_size.rds")
 
