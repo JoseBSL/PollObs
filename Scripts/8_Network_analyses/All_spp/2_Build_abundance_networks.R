@@ -1,4 +1,4 @@
-#Probability probability abundance networks for each garden
+#Probability abundance networks for each garden
 #And compute correlation with int and int frequency networks
 
 #Load libraries
