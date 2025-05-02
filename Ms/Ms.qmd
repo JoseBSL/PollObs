@@ -55,42 +55,32 @@ Explore how traits, phenology and abundances shape species interactions in three
 
 Pending tasks:
 
-- Clean trait and phenology data for plants
+Question 1:
 
-- Get Pollinator phenology and traits
+Do pollinator diversity differ from phenobs species in comparison with species from the whole garden?
 
-- Easy things to check: alpha, beta and gamma diversity of pollinators across the three gardens.
 
 # Methods
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. This study monitored a total of 83 focal plant species (42 in Halle, 43 in Jena and 47 in Leipzig), and a total of 12 were shared across the three gardens. These different focal plants were sampled at random order each sampling day at each garden. In addition, to create a comprehensive inventory of pollinators and their interactions within the garden, 10 random sites were selected, and plant-pollinator interactions were monitored for three minutes at each random location. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden. 
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. This study monitored a total of 83 focal plant species (42 in Halle, 43 in Jena and 47 in Leipzig), and a total of 12 were shared across the three gardens. These different focal plants were sampled at random order each sampling day at each garden. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected, and plant-pollinator interactions were monitored for three minutes at each random location on each garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden. 
 
 ## Data description
 
-To evaluate the different mechanisms that drive plant-pollinator interactions, detailed information on abundance, phenology and species traits is essential to better capture interaction probability. In this study we recorded abundance, phenology and traits for both plant and pollinators as follows: 
+To evaluate the different mechanisms that drive plant-pollinator interactions, detailed information on abundance, phenology and species traits for both plants and pollinators was recorded as follows: 
 
-(i) Floral abundance was annotated for each focal species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each plant species. This approach provides a more realistic estimate of pollinator abundance compared to the standard implementation of estimating abundances from interactions. 
+(i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant. This approach provides a more realistic estimate of pollinator abundance compared to the standard implementation of estimating abundances from interactions [REF].
 
 (ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models with our records of flower number to build the phenology on the same sampling dates as the other species. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract records around the three cities for the different pollinator species (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
-(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @Lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we expanded by adding phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as measuremnt of the reproductive investment.
-
-
-
-those were complemented with other relevant reproductive traits. This allows to explore for this set of species reproductive trait covariation patterns and expand on previous work 
-
-following the main traits driving the reproductive spectrum of flowering plants [@Lanuza2023]. Thus, as o
+(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @Lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [REF]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
 
 
 
-compiled in order to evaluate the reproductive trait covariation patterns of plants as done in XXX but in this case with species level measurements that avoid 
 
-Plants
 
-Pollinators
 
 
 
@@ -368,3 +358,11 @@ jena_plot + halle_plot + leipzig_plot & theme(axis.title = element_text(size=16,
 
 
 ```
+
+
+<div id="refs"></div>
+
+
+# Supporting information
+
+
