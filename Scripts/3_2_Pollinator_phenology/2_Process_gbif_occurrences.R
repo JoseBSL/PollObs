@@ -97,27 +97,70 @@ rectangle = c(
   sf::st_as_sf(crs = 4326) %>%
   sf::st_transform(crs = 4326)
 
+
+library(sf)
+
+oc_2023_sf <- st_as_sf(oc_2023, coords = c("decimalLongitude", "decimalLatitude"), crs = st_crs(rectangle))
+oc_2023_sf <- st_transform(oc_2023_sf, st_crs(rectangle))
+oc_2023_filtered <- oc_2023_sf[st_intersects(oc_2023_sf, rectangle, sparse = FALSE), ]
+oc_2023_filtered_df <- oc_2023_filtered %>%
+  mutate(
+    Longitude = st_coordinates(.)[, 1],
+    Latitude  = st_coordinates(.)[, 2]
+  ) %>%
+  st_drop_geometry()
+
+nrow(oc_2023_filtered)
+
 world <- map_data("world")
 ggplot() +
-geom_map(
-  data = world,
-  map = world,
-  aes(long, lat, map_id = region),
-  color = "white",
-  fill = "lightgray",
-  size = 0.01) +
-ylim(0, 70) +
-geom_point(data = centroid, aes(lon_centroid_deg, lat_centroid_deg), color= "red") +
-geom_point(data = oc_2023,
-             aes(decimalLongitude, decimalLatitude),
-             alpha = 0.7,
-             size = 0.05) +
-geom_sf(data = rectangle, colour = "red", fill = NA) +
-coord_sf(xlim = c(-15, 44),
-         ylim = c(33, 73),
-         expand = FALSE) 
+  geom_map(
+    data = world,
+    map = world,
+    aes(long, lat, map_id = region),
+    color = "white",
+    fill = "gray90",
+    size = 0.1
+  ) +
+  ylim(0, 70) +
+  geom_point(
+    data = oc_2023_filtered_df,
+    aes(Longitude, Latitude),
+    color = "#0072B2",   # soft blue for points
+    alpha = 0.6,
+    size = 0.1) +
+  geom_point(
+    data = centroid,
+    aes(Longitude, Latitude),
+    color = "black",
+    size = 3) +
+  geom_point(
+    data = coords,
+    aes(Longitude, Latitude),
+    color = "black",
+    size = 3) +
+  geom_sf(
+    data = rectangle,
+    colour = "red",
+    fill = NA,
+    linewidth = 1.2) +
+  coord_sf(
+    xlim = c(-15, 44),
+    ylim = c(33, 73),
+    expand = FALSE) +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(fill = "aliceblue"),  # light blue ocean
+    panel.grid = element_line(color = "white"),  # faint grid
+    axis.text = element_text(size = 10),
+    axis.title = element_blank())
 
-  
+
+#Save data to upload figure as supplementary material
+saveRDS(centroid, "Data/Working_files/figs1_centroid.rds")
+saveRDS(oc_2023, "Data/Working_files/oc_2023.rds")
+saveRDS(rectangle, "Data/Working_files/rectangle.rds")
+
 #Now extract point within the rectangle
 library(sf)
 oc_2023 = oc_2023 %>% 
