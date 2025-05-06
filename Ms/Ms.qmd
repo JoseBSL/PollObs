@@ -64,15 +64,15 @@ Do pollinator diversity differ from phenobs species in comparison with species f
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. This study monitored a total of 83 focal plant species (42 in Halle, 43 in Jena and 47 in Leipzig), and a total of 12 were shared across the three gardens. These different focal plants were sampled at random order each sampling day at each garden. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected, and plant-pollinator interactions were monitored for three minutes at each random location on each garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden. 
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. This study monitored a total of 83 focal plant species (42 in Halle, 43 in Jena and 47 in Leipzig), and a total of 12 were shared across the three gardens. These different focal plants were sampled at random order each sampling day at each garden. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected, and plant-pollinator interactions were monitored for three minutes at each random location on each garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
 
 ## Data description
 
 To evaluate the different mechanisms that drive plant-pollinator interactions, detailed information on abundance, phenology and species traits for both plants and pollinators was recorded as follows: 
 
-(i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant. This approach provides a more realistic estimate of pollinator abundance compared to the standard implementation of estimating abundances from interactions [REF].
+(i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014].
 
-(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models with our records of flower number to build the phenology on the same sampling dates as the other species. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract records around the three cities for the different pollinator species (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
+(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
 (iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @Lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [REF]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
@@ -88,281 +88,67 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 
 
-
-
-# The data has an important temporal component
-
-In Figure 1 we can see in a color coded NMDS the strong temporal component of the composition across gardens and different taxonomic levels.
-
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8, fig.cap = "\\textbf{Figure 1}. Non-metric multidimensional scaling (NMDS) of the pollinator community composition by sampling day in the three gardens at family, genus and species level."}
-
-#Script to check how the pollinator community changes throughout the season
-#Ordination analyses-->NMDS
-#Load data
-data = readRDS("../Data/Working_files/interaction_data.rds")
-#Select columns of interest
-d = data %>% 
-select(Botanical_garden, Pollinator_rank, Pollinator_accepted_name,
-       Pollinator_family, Pollinator_genus, Date_time) %>% 
-mutate(Date = as.Date(Date_time)) %>% 
-mutate(Date = format(as.POSIXct(Date, format="%Y%m%d"),format="%d%b%y")) %>% 
-select(!Date_time) %>% 
-rename(Family = Pollinator_family) %>% 
-rename(Genus = Pollinator_genus) %>% 
-rename(Species = Pollinator_accepted_name)
-
-#Create function to run for each garden and taxonomic level
-nmds_plot = function(data, garden, taxanomic_level){
-#1)Pollinator family level
-d1 = d %>% 
-filter(Botanical_garden == garden) %>% 
-select(!!sym(taxanomic_level), Date) %>% 
-filter(!is.na(!!sym(taxanomic_level))) %>% 
-group_by(Date, !!sym(taxanomic_level)) %>% 
-count(name = "Number")
-#Convert to wide and then to matrix
-matrix = d1 %>% 
-pivot_wider(names_from = !!sym(taxanomic_level), 
-            values_from = Number, 
-            values_fill = 0) %>%
-remove_rownames %>% 
-column_to_rownames(var="Date") %>%
-as.matrix()
-#Ordination analysis
-nmds_output = metaMDS(matrix, 
-                     k=2, trace=FALSE) # The number of reduced dimensions
-#Visualize with ggplot
-nmds_output_data = nmds_output$points %>%
-as_tibble(rownames = "Date") %>%
-mutate(Date = as.Date(format(as.POSIXct(Date, format="%d%b%y"), format="%Y-%m-%d"))) 
-#Plot it
-plot_nmds = ggplot(nmds_output_data, aes(MDS1,MDS2)) +
-geom_point(stroke=1, aes(color=Date),size=2) + 
-scale_colour_viridis(name = "Flowering",
-                     labels=c("Start", "End"),
-                    # labels=function(x)as.Date(x, origin="1970-01-01"),
-                     breaks = c(min(nmds_output_data$Date), max(nmds_output_data$Date))) +
-theme_bw() +
-ggtitle(label = garden,
-              subtitle = taxanomic_level)
-
-plot_nmds
-}
-
-#Leipzig
-l1 = nmds_plot(d, "Leipzig", "Family")
-l2 = nmds_plot(d, "Leipzig", "Genus") + ggtitle(NULL)
-l3 = nmds_plot(d, "Leipzig", "Species") + ggtitle(NULL)
-#Halle
-h1 = nmds_plot(d, "Halle", "Family")
-h2 = nmds_plot(d, "Halle", "Genus") + ggtitle(NULL)
-h3 = nmds_plot(d, "Halle", "Species") + ggtitle(NULL)
-#Jena
-j1 = nmds_plot(d, "Jena", "Family")
-j2 = nmds_plot(d, "Jena", "Genus") + ggtitle(NULL)
-j3 = nmds_plot(d, "Jena", "Species") + ggtitle(NULL)
-
-#Family level
-family_panel = j1 + h1 + l1   & theme(legend.position = "none", plot.title = element_text(size=16, face= "bold", hjust = 0.5))
-#Genus level
-genus_panel = j2 + h2 + l2   + plot_layout(guides = "collect") & theme(plot.title = element_text(size=16, face= "bold", hjust = 0.5))
-#Species level
-species_panel = j3 + h3 + l3   & theme(legend.position = "none", plot.title = element_text(size=16, face= "bold", hjust = 0.5))
-
-family_panel /
-genus_panel /
-species_panel 
-
-
-```
-
-\newpage
-
-# Plant phenologies
-
-The phenology of plants and pollinators was monitored weekly on each of the three gardens. Unlike plants, pollinator phenology relies on 'stochastic' interaction obervations that may not represent their complete flying period. Thus, we built a comprehensive flying period of all pollinators by retrieving GBIF records for all observed floral visitors during the sampling year. In addition, this download was limited by area, where we considered a rectangular shape that extends more on the longitude range than the latitude one, as we expect more homogeneous environmental conditions in the former (**Figure X**). 
-
-
-
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure 2}."}
-
-
-#Plot plant phenology together in this script
-
-#Load libraries
-library(dplyr)
-library(ggplot2)
-
-#Read botanical garden data
-jena_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_jena.rds")
-halle_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_halle.rds")
-leipzig_phen = readRDS("../Data/Phenology_data/clean_plant_phenobs_leipzig.rds")
-
-#Jena----
-v = unique(jena_phen$Species)
-d1 = jena_phen %>% 
-filter(Species %in% v) %>% 
-mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
-#Find first numeric value of flowering intensity to order species
-lev_species = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-pull(Species)
-#This should be the order to be printed (from 1st flowering to last)
-d1$Species = factor(d1$Species, levels = lev_species)
-#Generate as many colors as species
-colfunc = colorRampPalette(c("cyan4", "brown3"))
-cols = colfunc(nlevels(d1$Species))
-
-
-#Edit this
-label_data = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-mutate(Flowering_intensity = 0) %>% 
-select(Species, Doy, Flowering_intensity) %>% 
-mutate(Doy = Doy-30)
-
-
-#Plot
-jena_plot = d1 %>% 
-ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
-geom_text(data = label_data, aes(label = Species), fontface="italic",
-            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
-stat_smooth(method = "gam",
-method.args=list(family=poisson),
-geom = "area",
-alpha=0.75,
-span = 0.1) +
-theme_minimal()+
-theme(legend.position = "none", 
-      strip.background = element_blank(),
-      strip.text.x = element_blank(),
-      panel.spacing = unit(-1.5,'lines')) +
-coord_cartesian(expand = FALSE) +
-scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
-facet_wrap(~Species, ncol=1) +
-ylab("Flowering intensity") +
-xlab("Day of the year") +
-scale_fill_manual(values = cols)  +
-ggtitle("Jena")
-
-#Halle----
-v = unique(halle_phen$Species)
-d1 = halle_phen %>% 
-filter(Species %in% v) %>% 
-mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
-#Find first numeric value of flowering intensity to order species
-lev_species = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-pull(Species)
-#This should be the order to be printed (from 1st flowering to last)
-d1$Species = factor(d1$Species, levels = lev_species)
-#Generate as many colors as species
-colfunc = colorRampPalette(c("cyan4", "brown3"))
-cols = colfunc(nlevels(d1$Species))
-#Edit this
-label_data = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-mutate(Flowering_intensity = 0) %>% 
-select(Species, Doy, Flowering_intensity) %>% 
-mutate(Doy = Doy-30)
-
-#Plot
-halle_plot = d1 %>% 
-ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
-geom_text(data = label_data, aes(label = Species), fontface="italic",
-            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
-stat_smooth(method = "gam",
-method.args=list(family=poisson),
-geom = "area",
-alpha=0.75,
-span = 0.1) +
-theme_minimal()+
-theme(legend.position = "none", 
-      strip.background = element_blank(),
-      strip.text.x = element_blank(),
-      panel.spacing = unit(-1.5,'lines')) +
-coord_cartesian(expand = FALSE) +
-scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
-facet_wrap(~Species, ncol=1) +
-ylab(NULL) +
-xlab("Day of the year") +
-scale_fill_manual(values = cols)  +
-ggtitle("Halle")
-
-##Leipzig----
-v = unique(leipzig_phen$Species)
-d1 = leipzig_phen %>% 
-filter(Species %in% v) %>% 
-mutate(Flowering_intensity = if_else(Flowers_opening=="no", 0, Flowering_intensity)) 
-#Find first numeric value of flowering intensity to order species
-lev_species = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-pull(Species)
-#This should be the order to be printed (from 1st flowering to last)
-d1$Species = factor(d1$Species, levels = lev_species)
-#Generate as many colors as species
-colfunc = colorRampPalette(c("cyan4", "brown3"))
-cols = colfunc(nlevels(d1$Species))
-#Edit this
-label_data = d1 %>% 
-group_by(Species) %>% 
-filter(Flowers_opening == "y") %>% 
-slice_min(Doy) %>% 
-arrange(Doy) %>% 
-mutate(Flowering_intensity = 0) %>% 
-select(Species, Doy, Flowering_intensity) %>% 
-mutate(Doy = Doy-30)
-
-#Plot
-leipzig_plot = d1 %>% 
-ggplot(aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
-geom_text(data = label_data, aes(label = Species), fontface="italic",
-            vjust = -0.3, hjust = -0.1, size = 3, color = "black") +
-stat_smooth(method = "gam",
-method.args=list(family=poisson),
-geom = "area",
-alpha=0.75,
-span = 0.1) +
-theme_minimal()+
-theme(legend.position = "none", 
-      strip.background = element_blank(),
-      strip.text.x = element_blank(),
-      panel.spacing = unit(-1.5,'lines')) +
-coord_cartesian(expand = FALSE) +
-scale_y_continuous(expand = c(0,0), breaks = c(NULL), labels = c(NULL)) +
-facet_wrap(~Species, ncol=1) +
-ylab(NULL) +
-xlab("Day of the year") +
-scale_fill_manual(values = cols)  +
-ggtitle("Leipzig")
-
-#Order Jena-Halle-Leipzig
-library(patchwork)
-jena_plot + halle_plot + leipzig_plot & theme(axis.title = element_text(size=16, face= "bold"), plot.title = element_text(size=20, face= "bold", hjust = 0.5))
-
-
-
-```
-
+# References
 
 <div id="refs"></div>
 
 
 # Supporting information
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure S1}."}
+
+#Load data
+centroid = readRDS("../Data/Working_files/figs1_centroid.rds")
+oc_2023 = readRDS("../Data/Working_files/oc_2023.rds")
+rectangle = readRDS("../Data/Working_files/rectangle.rds")
+
+
+
+library(sf)
+# Convert points to sf
+world <- map_data("world")
+ggplot() +
+  geom_map(
+    data = world,
+    map = world,
+    aes(long, lat, map_id = region),
+    color = "white",
+    fill = "gray90",
+    size = 0.1
+  ) +
+  ylim(0, 70) +
+  geom_point(
+    data = oc_2023_filtered,
+    aes(decimalLongitude, decimalLatitude),
+    color = "#0072B2",   # soft blue for points
+    alpha = 0.6,
+    size = 1.2
+  ) +
+  geom_point(
+    data = centroid,
+    aes(Longitude, Latitude),
+    color = "black",
+    size = 3
+  ) +
+  geom_sf(
+    data = rectangle,
+    colour = "red",
+    fill = NA,
+    linewidth = 1.2
+  ) +
+  coord_sf(
+    xlim = c(-15, 44),
+    ylim = c(33, 73),
+    expand = FALSE
+  ) +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(fill = "aliceblue"),  # light blue ocean
+    panel.grid = element_line(color = "white"),  # faint grid
+    axis.text = element_text(size = 10),
+    axis.title = element_blank()
+  )
+
+```
 
 
