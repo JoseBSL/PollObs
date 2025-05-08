@@ -86,17 +86,37 @@ lon_centroid_deg = rad2deg(lon_centroid)
 #Store it in a tibble
 centroid = tibble(Latitude = lat_centroid_deg, Longitude = lon_centroid_deg)
 #Create a rectangle with +/- 2 lat and +/- 6 lon
-rectangle = c(
-    "xmin" = lon_centroid_deg-6.8,
-    "xmax" = lon_centroid_deg+6.8,
-    "ymin" = lat_centroid_deg-2.5,
-    "ymax" = lat_centroid_deg+2.5
-  ) %>%
-  sf::st_bbox() %>%
-  sf::st_as_sfc() %>%
-  sf::st_as_sf(crs = 4326) %>%
-  sf::st_transform(crs = 4326)
+#rectangle = c(
+#    "xmin" = lon_centroid_deg-6.8,
+#    "xmax" = lon_centroid_deg+6.8,
+#    "ymin" = lat_centroid_deg-2.5,
+#    "ymax" = lat_centroid_deg+2.5
+#  ) %>%
+#  sf::st_bbox() %>%
+#  sf::st_as_sfc() %>%
+#  sf::st_as_sf(crs = 4326) %>%
+#  sf::st_transform(crs = 4326)
+#
 
+# Centroid of your 3 cities
+# Example centroid (say midpoint of your 3 cities in UTM)
+centroid <- st_sfc(st_point(c(650000, 5700000)), crs = 32633)  # UTM Zone 33N
+
+# Define half-widths in meters (500 km in Y and 1000 km in X)
+half_width_x <- 500000  # 500 km each side = total 1000 km
+half_height_y <- 250000 # 250 km each side = total 500 km
+
+# Create rectangle corners relative to centroid
+rectangle_coords <- rbind(
+  c(st_coordinates(centroid)[1] - half_width_x, st_coordinates(centroid)[2] - half_height_y),
+  c(st_coordinates(centroid)[1] + half_width_x, st_coordinates(centroid)[2] - half_height_y),
+  c(st_coordinates(centroid)[1] + half_width_x, st_coordinates(centroid)[2] + half_height_y),
+  c(st_coordinates(centroid)[1] - half_width_x, st_coordinates(centroid)[2] + half_height_y),
+  c(st_coordinates(centroid)[1] - half_width_x, st_coordinates(centroid)[2] - half_height_y)  # close polygon
+)
+
+# Convert to polygon
+rectangle <- st_sfc(st_polygon(list(rectangle_coords)), crs = 32633)
 
 library(sf)
 
@@ -188,5 +208,5 @@ filter(Latitude < lat_centroid_deg+2.5) %>%
 filter(Longitude > lon_centroid_deg-6.8) %>% 
 filter(Longitude < lon_centroid_deg+6.8) 
 #Save
-saveRDS(oc_2023_2, "Data/Working_files/oc_extraction.rds")
+#saveRDS(oc_2023_2, "Data/Working_files/oc_extraction.rds")
 

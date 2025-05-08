@@ -14,6 +14,7 @@ format:
         \floatplacement{figure}{H}
         
 bibliography: References.bib
+csl: apa.csl
 latex-tinytex: false
 link-citations: TRUE
 linkcolor: RoyalBlue
@@ -33,16 +34,26 @@ library(tibble) #cols to rows
 ```
 
 
-Jose B. Lanuza^1^, Alfonso Allen-Perkins^6^,  Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Will Glenny, Marc Hoffmann^1^, Panagiotis Theodorou^1,2^, Robert Paxton^1,2^, Isabell Hensen^1,2^,  Robert Rauschkolb^1,3^, Christine Römermann^1,3^, Oliver Schweiger ^1,5^, Martin Freiberg^1,4^, Tiffany Knight^1^
+\vspace{-2cm}
+
+Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Will Glenny^1^, Marc Hoffmann^1^, Panagiotis Theodorou^1,4^, Robert Paxton^1,4^, Isabell Hensen^1,4^,  Robert Rauschkolb^1,5^, Christine Römermann^1,5^, Oliver Schweiger ^1,7^, Martin Freiberg^1,6^, Tiffany Knight^1^
 
 *Affiliations*
 
 1. German Centre for Integrative Biodiversity Research (iDiv) Halle-JenaLeipzig, Puschstr. 4, 04103 Leipzig, Germany 
-2. Institute for Biology, Martin-Luther-UniversityHalle-Wittenberg, Hoher Weg 8, 06120 Halle (Saale), Germany 
-3. Institute of Ecology and Evolution with Herbarium Haussknecht and Botanical Garden, Friedrich Schiller University Jena, Jena, Germany 
-4. Systematic Botany and Functional Biodiversity/Botanical Garden, Institute of Biology, Leipzig University, Johannisallee 21-23, 04103, Leipzig, Germany 
-5. UFZ-Helmholtz Centre for Environmental Research, Department of Community Ecology, 06120 Halle, Germany
-6. Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, 28040 Madrid, Spain.
+
+2. Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain
+
+3. Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, 28040 Madrid, Spain.
+
+
+4. Institute for Biology, Martin-Luther-UniversityHalle-Wittenberg, Hoher Weg 8, 06120 Halle (Saale), Germany 
+
+5. Institute of Ecology and Evolution with Herbarium Haussknecht and Botanical Garden, Friedrich Schiller University Jena, Jena, Germany 
+
+6. Systematic Botany and Functional Biodiversity/Botanical Garden, Institute of Biology, Leipzig University, Johannisallee 21-23, 04103, Leipzig, Germany 
+
+7. UFZ-Helmholtz Centre for Environmental Research, Department of Community Ecology, 06120 Halle, Germany
 
 # Abstract
 
@@ -72,11 +83,22 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 (i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014].
 
-(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies (Figure S1). We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded XX kms in longitude and XX kms in latitude. We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
+(ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies. We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded approximately 1000 kms in longitude and 500 kms in latitude (Figure S1). We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
-(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @Lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [REF]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
+(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
 
+*I think this article may need some sort of conceptual figure
+
+
+## Analysis
+
+
+
+# Results
+
+
+Number of species of plant and pollinators on each and percentage of plant-pollinator interactions and pollinator species captured by the PhenObs species.  
 
 
 
@@ -95,60 +117,62 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 # Supporting information
 
+Figure S1: Some sort of combination of the code below and the graph of location from the poster
+
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure S1}."}
 
-#Load data
-centroid = readRDS("../Data/Working_files/figs1_centroid.rds")
-oc_2023 = readRDS("../Data/Working_files/oc_2023.rds")
-rectangle = readRDS("../Data/Working_files/rectangle.rds")
-
-
-
-library(sf)
-# Convert points to sf
-world <- map_data("world")
-ggplot() +
-  geom_map(
-    data = world,
-    map = world,
-    aes(long, lat, map_id = region),
-    color = "white",
-    fill = "gray90",
-    size = 0.1
-  ) +
-  ylim(0, 70) +
-  geom_point(
-    data = oc_2023_filtered,
-    aes(decimalLongitude, decimalLatitude),
-    color = "#0072B2",   # soft blue for points
-    alpha = 0.6,
-    size = 1.2
-  ) +
-  geom_point(
-    data = centroid,
-    aes(Longitude, Latitude),
-    color = "black",
-    size = 3
-  ) +
-  geom_sf(
-    data = rectangle,
-    colour = "red",
-    fill = NA,
-    linewidth = 1.2
-  ) +
-  coord_sf(
-    xlim = c(-15, 44),
-    ylim = c(33, 73),
-    expand = FALSE
-  ) +
-  theme_minimal() +
-  theme(
-    panel.background = element_rect(fill = "aliceblue"),  # light blue ocean
-    panel.grid = element_line(color = "white"),  # faint grid
-    axis.text = element_text(size = 10),
-    axis.title = element_blank()
-  )
-
+##Load data
+#centroid = readRDS("../Data/Working_files/figs1_centroid.rds")
+#oc_2023 = readRDS("../Data/Working_files/oc_2023.rds")
+#rectangle = readRDS("../Data/Working_files/rectangle.rds")
+#
+#
+#
+#library(sf)
+## Convert points to sf
+#world <- map_data("world")
+#ggplot() +
+#  geom_map(
+#    data = world,
+#    map = world,
+#    aes(long, lat, map_id = region),
+#    color = "white",
+#    fill = "gray90",
+#    size = 0.1
+#  ) +
+#  ylim(0, 70) +
+#  geom_point(
+#    data = oc_2023,
+#    aes(decimalLongitude, decimalLatitude),
+#    color = "#0072B2",   # soft blue for points
+#    alpha = 0.6,
+#    size = 1.2
+#  ) +
+#  geom_point(
+#    data = centroid,
+#    aes(Longitude, Latitude),
+#    color = "black",
+#    size = 3
+#  ) +
+#  geom_sf(
+#    data = rectangle,
+#    colour = "red",
+#    fill = NA,
+#    linewidth = 1.2
+#  ) +
+#  coord_sf(
+#    xlim = c(-15, 44),
+#    ylim = c(33, 73),
+#    expand = FALSE
+#  ) +
+#  theme_minimal() +
+#  theme(
+#    panel.background = element_rect(fill = "aliceblue"),  # light blue #ocean
+#    panel.grid = element_line(color = "white"),  # faint grid
+#    axis.text = element_text(size = 10),
+#    axis.title = element_blank()
+#  )
+#
 ```
 
 
