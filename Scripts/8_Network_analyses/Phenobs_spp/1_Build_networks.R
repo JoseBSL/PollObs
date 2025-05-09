@@ -1,4 +1,5 @@
 #Create interaction matrices by garden
+#Note that in this script we only consider phenobs species
 #1)Total interactions
 #AND
 #2)Interaction frequency
@@ -24,6 +25,9 @@ mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgari
 distinct() %>% 
 pull(Species) 
 
+
+poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
+
 #Prepare interaction data
 interaction_data = raw_data %>%
   filter(!is.na(Interactions),
@@ -31,7 +35,11 @@ interaction_data = raw_data %>%
          Pollinator != "None") %>%
   rename(Plants = Plant_accepted_name,
          Pollinators = Pollinator_accepted_name) %>%
-  filter(!is.na(Pollinators))
+  filter(!is.na(Pollinators)) %>% 
+ # filter(!Pollinators == "Apis mellifera") %>% 
+  filter(Pollinator_order %in% poll_order) %>% 
+  filter(!Plants == "Iberis sempervirens") 
+  
 
 
 interaction_data = interaction_data %>% 
@@ -63,7 +71,8 @@ networks_by_garden_interactions = interaction_data %>%
 #Overwrite interactions with interaction frequency 
 #to minimise edits in code
 interaction_frequency = interaction_data %>% 
-  mutate(Interactions = Interactions/Total_time_species) 
+  group_by(Botanical_garden, Plants, Pollinators) %>%
+  summarise(Interaction_total = sum(Interactions))
 
 total_time_species = interaction_data %>%
   select(Botanical_garden, Plants, Date, Total_time_species) %>% 
@@ -72,9 +81,11 @@ total_time_species = interaction_data %>%
   summarise(Total_time_species = sum(Total_time_species, na.rm = TRUE), .groups = "drop")
 
 # Join total time back into interaction data
-interaction_data_freq = interaction_data %>%
+interaction_data_freq = interaction_frequency %>%
   left_join(total_time_species, by = c("Botanical_garden", "Plants"), suffix = c("", "_summed")) %>%
-  mutate(Freq = Interactions / Total_time_species)
+  mutate(Freq = Interaction_total / Total_time_species)
+
+
 # Now convert to interaction frequency network
 to_freq_network = function(data) {
   data %>%
