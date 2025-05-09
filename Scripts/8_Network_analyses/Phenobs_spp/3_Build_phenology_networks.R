@@ -1,5 +1,8 @@
-#Probability phenology networks for each garden
-#And compute correlation with int and int frequency networks
+#Script to build phenology matrices
+#Two type of matrices
+#1)Presence/absence in time
+#2)Average probability of encounter based on their density distributions
+
 
 #Load libraries
 library(dplyr)
