@@ -83,24 +83,32 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 (i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014].
 
+Copy paste from Herrera 2020, adapt to our work: 
+
+Some species had tiny flowers densely packed into compact inflorescences (e.g., Apiaceae, Asteraceae, Dipsacaceae; N = 53 species, Table 1), which rendered impractical assessing the number of elemental florets visited by pollinators. In these cases, the number of inflorescences available per patch and visited per census was counted rather than individual flowers, and visitation probabilities (see Data analysis) thus actually refer to inflorescences. For simplicity, I will refer to visitation to both single flowers and inflorescences as “flower visitation.” In some analyses, however, the two types of visitation units will be considered as levels of the discrete variable “visitation unit,” one of the predictors of pollinator visitation considered here (“single flowers” vs. “flower packets”
+
+
 (ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies. We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded approximately 1000 kms in longitude and 500 kms in latitude (Figure S1). We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
 (iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
+*Phylogeny... Plant phylogeny is easy, bee phylogeny too... 
 
 *I think this article may need some sort of conceptual figure
 
+*compute phenology matrices: presence absence and probability ones based by calculating the probability of observing both if they are independent events divided by total number of sampling days
 
 ## Analysis
 
+Compare matrices presence/absence|visitation rate ~ abundance/phenology/traits
 
+Check abundances (FLORAL ABUNDANCES)
 
 # Results
 
+Compare differences between phenobs and random stops across gardens (identity, number of species and interactions by sampling date or sampled species). Number of species of plant and pollinators on each and percentage of plant-pollinator interactions and pollinator species captured by the PhenObs species.  
 
-Number of species of plant and pollinators on each and percentage of plant-pollinator interactions and pollinator species captured by the PhenObs species.  
-
-
+*Rarefy by garden: phenobs, random stops and all. 
 
 
 

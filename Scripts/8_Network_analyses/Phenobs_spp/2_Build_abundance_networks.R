@@ -10,6 +10,9 @@ library(vegan) #for mantes and procrustes
 
 #Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
+
+poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
+
 #Prepare interaction data
 interaction_data = raw_data %>%
   filter(!is.na(Interactions),
@@ -17,7 +20,10 @@ interaction_data = raw_data %>%
          Pollinator != "None") %>%
   rename(Plants = Plant_accepted_name,
          Pollinators = Pollinator_accepted_name) %>%
-  filter(!is.na(Pollinators))
+  filter(!is.na(Pollinators)) %>% 
+ # filter(!Pollinators == "Apis mellifera") %>% 
+  filter(Pollinator_order %in% poll_order)%>% 
+  filter(!Plants == "Iberis sempervirens") 
 
 #Load morphometrics to get phenobs species vector
 morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
@@ -35,11 +41,12 @@ interaction_data = interaction_data %>%
 #Pollinator abundance
 pollinator_abundance = interaction_data %>% 
   group_by(Botanical_garden, Pollinators) %>% 
-  summarise(Individuals = length(Pollinators)) %>% 
+  summarise(Individuals = n()) %>% 
   mutate(Relative_abundance = Individuals/ max(Individuals))
 #Check distribution
 pollinator_abundance %>% 
   ggplot(aes(Relative_abundance)) +
+  facet_wrap(~ Botanical_garden) +
   geom_histogram()
 
 
@@ -55,6 +62,7 @@ floral_abundance = interaction_data %>%
 #Check distribution
 floral_abundance %>% 
   ggplot(aes(Relative_abundance)) +
+  facet_wrap(~ Botanical_garden) +
   geom_histogram()
 
 #Load plant-poll networks by garden
@@ -97,9 +105,49 @@ build_prob_matrix = function(garden_name) {
 prob_matrices_by_garden = net_by_garden %>%
   mutate(Prob_matrix = map(Botanical_garden, build_prob_matrix))
 
-
 #Save network matrices
 saveRDS(prob_matrices_by_garden, 
         "Data/Working_files/abundance_networks_only_phenobs.rds")
 
+#Safety check
+#Note that abundances of Iberis sempervivens
+#were too high on Halle, at the moment I am excluding it but I am sure
+#those were overestimated for several reasons
+#flowers were tiny and I counted the whole patch
+#Maybe I need to consider inflorescence level and divide the size by 2 or 3
+pollinator_abundance_total <- interaction_data %>%
+  group_by(Botanical_garden, Date) %>%
+  summarise(Individuals = n()) %>%
+  group_by(Botanical_garden) %>%
+  mutate(Relative_abundance = Individuals / max(Individuals))
+
+floral_abundance_total <- interaction_data %>%
+  group_by(Botanical_garden, Date) %>%
+  summarise(Floral_abundance = sum(Floral_abundance, na.rm = TRUE)) %>%
+  group_by(Botanical_garden) %>%
+  mutate(Relative_floral_abundance = Floral_abundance / max(Floral_abundance))
+
+combined_abundance <- left_join(
+  pollinator_abundance_total,
+  floral_abundance_total,
+  by = c("Botanical_garden", "Date")
+)
+
+ggplot(combined_abundance, aes(x = Date)) +
+  geom_line(aes(y = Relative_abundance, color = "Pollinators"), size = 1) +
+  geom_point(aes(y = Relative_abundance, color = "Pollinators"), size = 2) +
+  geom_line(aes(y = Relative_floral_abundance, color = "Flowers"), size = 1, linetype = "dashed") +
+  geom_point(aes(y = Relative_floral_abundance, color = "Flowers"), size = 2, shape = 21, fill = "white") +
+  facet_wrap(~ Botanical_garden, scales = "free_x") +
+  scale_color_manual(values = c("Pollinators" = "#0072B2", "Flowers" = "tomato3")) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.title = element_blank()
+  ) +
+  labs(
+    y = "Relative Abundance",
+    x = "Date",
+    title = "Relative Abundance Over Time"
+  )
 
