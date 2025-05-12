@@ -25,14 +25,20 @@ leipzig_phen = leipzig_phen %>%
   mutate(Garden = "Leipzig")
 #Bind all gardens and create the plant ohenology dataset
 plant_phen = bind_rows(jena_phen, halle_phen, leipzig_phen)
+
+#Check if there are some flowering plants in other year distinct to 2023
+s = plant_phen %>% 
+filter(is.na(Date))
+#All of those can be back converted from DOY
+plant_phen_na = plant_phen %>% 
+  filter(is.na(Date)) %>% 
+  mutate(Date = as.Date(Doy - 1, origin = paste0(2023, "-01-01")))
+
+plant_phen_non_na = plant_phen %>% 
+  filter(!is.na(Date))
+
+#Bind everything together
+plant_phen_fixed = bind_rows(plant_phen_na, plant_phen_non_na)
+plant_phen_fixed = plant_phen_fixed %>% 
+  mutate(Flowers_opening = if_else(Flowers_opening == "y", "Yes", "No"))
   
-#This may require to build a continuous flowering number for each species
-#So we may need to model all of them
-
-#We can skip that by assigning to each sampling date
-#the number of flowers of that week
-
-#think about it
-
-
-
