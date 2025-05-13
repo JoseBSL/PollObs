@@ -145,3 +145,15 @@ full_grid_final = full_grid3 %>%
 #Multiply cols for now
 full_grid_final = full_grid_final %>% 
   mutate(Scaled_product = Scaled_abundance_plants * Scaled_abundance_polls)
+#In order to condense in a final matrix
+#we need to group by Plants and pollinators
+full_grid_condensed = full_grid_final %>% 
+  group_by(Plants, Pollinators) %>% 
+  summarise(Average_scaled_product = mean(Scaled_product))
+
+
+#Those are all combinations
+#For tomorrow convert to a matrix 
+#And do it for each garden
+full_grid_condensed
+
