@@ -110,7 +110,7 @@ filter(!is.na(PollObs))
 #Define the function
 create_prediction <- function(species) {
   #Filter data for the specified species
-  #Generate dataset and store critical values (for modelling and cutoff probability)
+  #Generate dataset and store critical values (for modelling and cutoff Proportion)
   sp_data = oc2 %>% filter(Species == species)
   k_value = sp_data %>% distinct(k_value) %>% pull()
   m_value = sp_data %>% distinct(m_value) %>% pull()
@@ -129,22 +129,22 @@ create_prediction <- function(species) {
   #Normalize the predicted values to convert to probabilities
   max_abundance = max(unique_dates$Abundances)
   unique_dates = unique_dates %>%
-  mutate(Probability = Abundances / max_abundance)
+  mutate(Proportion = Abundances / max_abundance)
   #Add the species name to the data frame
   unique_dates$Species = species
   #Add column of flying period
   #default cutoff 0.15
-  unique_dates$Flying_period = if_else(unique_dates$Probability <= prob_value, "No", "Yes")
+  unique_dates$Flying_period = if_else(unique_dates$Proportion <= prob_value, "No", "Yes")
   #Store again critical values in case we re-run them again
   unique_dates$k_value = k_value
   unique_dates$m_value = m_value
   unique_dates$prob_value = prob_value
   #Plot the predicted probabilities
-  plot = ggplot(unique_dates, aes(x = Doy, y = Probability)) +
+  plot = ggplot(unique_dates, aes(x = Doy, y = Proportion)) +
   geom_line(color = "blue") +
   labs(title = paste("Predicted Probabilities for", species, "Over Day of Year (Doy)"),
          x = "Day of Year (Doy)",
-         y = "Predicted Probability") +
+         y = "Predicted Proportion") +
   theme_minimal() +
   geom_point(data = sp_data, aes(x = Doy, y = n_individuals/(max(n_individuals)))) +
   geom_vline(data = sp_data1, aes(xintercept = Doy), linetype = "dashed") 

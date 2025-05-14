@@ -2,6 +2,9 @@
 # Script: Prepare phenology matrix for plant-pollinator interactions
 # ======================================================
 
+#To do
+#Check 2022 NA's
+
 #### ---- Load libraries ----
 library(dplyr)
 library(purrr)
@@ -44,16 +47,31 @@ plant_phen_non_na = plant_phen %>%
 plant_phen_fixed = bind_rows(plant_phen_na, plant_phen_non_na) %>%
   mutate(
     Flowers_opening = if_else(Flowers_opening == "y", "Yes", "No"),
-    Sampling_week   = week(Date),
+    Sampling_week = week(Date),
     Flowering_intensity = if_else(Flowers_opening == "No", 0, Flowering_intensity),
     Year = year(Date)) %>%
-  filter(Year != 2022)
+    filter(Year != 2022)
+
+#Important step!!!
+#At the moment the column of flowering intensity is a proportion (value/max value)
+#Convert to probability
+#Multiply back by max value and then divide by total
+plant_phen_fixed = plant_phen_fixed %>% 
+  group_by(Species, Garden) %>% 
+  mutate(Flowering_intensity1 = (Flowering_intensity * max(Flowering_intensity))/sum(Flowering_intensity)) %>% 
+  mutate(Probability = Flowering_intensity1/sum(Flowering_intensity1))
+#Safety check
+plant_phen_fixed %>% 
+  filter(Species == "Silene viscaria" & Garden == "Jena") %>% 
+  summarise(Sum_Probability = sum(Probability))
+#Sums 1, seems right!
 
 #Summarise per week
 plant_phen_fixed_week = plant_phen_fixed %>% 
-  select(Species, Sampling_week, Garden,  Flowering_intensity) %>% 
+  select(Species, Sampling_week, Garden,  Flowering_intensity, Probability) %>% 
   group_by(Species, Garden, Sampling_week) %>% 
-  summarise(Flowering_intensity_week = mean(Flowering_intensity) / 100)
+  summarise(Mean_proportion = mean(Flowering_intensity) / 100,
+            Mean_probability = mean(Probability))
 
 #Not all weeks are present for all species
 #We can assume that those are 0's
@@ -78,8 +96,8 @@ full_combinations <- crossing(
 plant_phen_week_complete = full_combinations %>%
   left_join(plant_phen_fixed_week, 
             by = c("Species", "Garden", "Sampling_week")) %>%
-  mutate(Flowering_intensity_week = replace_na(Flowering_intensity_week, 0)) %>% 
-  rename(Scaled_abundance = Flowering_intensity_week)
+  mutate(Mean_proportion = replace_na(Mean_proportion, 0)) %>% 
+  mutate(Mean_probability = replace_na(Mean_probability, 0))
 #Looks good to me!
 
 # ======================================================
@@ -88,19 +106,29 @@ poll_phen_week_complete = poll_phen %>%
   mutate(
     Date          = as.Date(Doy - 1, origin = "2023-01-01"),
     Sampling_week = week(Date)) %>% 
-  select(Species, Sampling_week, Probability) %>% 
-  rename(Scaled_abundance = Probability)  %>% 
+  select(Species, Sampling_week, Probability, Abundances) %>% 
+  rename(Proportion = Probability)  %>%
+  group_by(Species) %>% 
+  mutate(Probability = Abundances/sum(Abundances)) %>% 
   group_by(Species, Sampling_week) %>% 
-  summarise(Scaled_abundance = mean(Scaled_abundance))
+  summarise(Mean_proportion = mean(Proportion),
+            Mean_probability = mean(Probability))
 #I think all weeks are already for each poll
 #Check it just in case
-  poll_phen_fixed %>% 
+poll_phen_week_complete %>% 
   group_by(Species) %>% 
   summarise(n_weeks = n_distinct(Sampling_week)) %>% 
   distinct(n_weeks) %>% 
   pull()
 #Yep, all good!
-
+#Now check if probabilities worked well
+#Do an example for a single spp
+poll_phen %>% 
+    filter(Species == "Aglais io") %>% 
+    mutate(Abundances1 = Abundances/sum(Abundances)) %>% 
+    summarise(Mean_probability = sum(Abundances1))
+  
+  
 # ======================================================
 #### ---- (Prepare sampling weeks) ----
 sampling_dates = raw_data %>% 
@@ -116,7 +144,7 @@ sampling_dates = sampling_dates %>%
   filter(Botanical_garden == "Leipzig") %>% 
   select(Sampling_week) %>% 
   pull()
-    
+
 #Create 1st an example with 1 week and bot garden
 plant_phen = plant_phen_week_complete %>% 
   filter(Garden == "Leipzig") %>% 
@@ -136,20 +164,22 @@ full_grid = expand_grid(Plants = plants, Pollinators= polls, Sampling_week = sam
 full_grid1 = left_join(full_grid, plant_phen, by = c("Plants", "Sampling_week")) 
 #Rename to avoid duplicate cols in the next step
 full_grid2 = full_grid1 %>% 
-  rename(Scaled_abundance_plants = Scaled_abundance)
+  rename(Mean_proportion_plants = Mean_proportion,
+         Mean_probability_plants = Mean_probability)
 #Now join polls
 full_grid3 = left_join(full_grid2, poll_phen, by = c("Pollinators", "Sampling_week")) 
 #Rename accordingly
 full_grid_final = full_grid3 %>% 
-  rename(Scaled_abundance_polls = Scaled_abundance)
-#Multiply cols for now
+  rename(Mean_proportion_polls = Mean_proportion,
+         Mean_probability_pollinators = Mean_probability)
+#Compute probability
 full_grid_final = full_grid_final %>% 
-  mutate(Scaled_product = Scaled_abundance_plants * Scaled_abundance_polls)
+  mutate(Independent_probability = Mean_probability_plants * Mean_probability_pollinators)
 #In order to condense in a final matrix
 #we need to group by Plants and pollinators
 full_grid_condensed = full_grid_final %>% 
   group_by(Plants, Pollinators) %>% 
-  summarise(Average_scaled_product = mean(Scaled_product))
+  summarise(Mean_indp_probability = mean(Independent_probability))
 
 
 #Those are all combinations
