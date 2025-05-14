@@ -60,6 +60,32 @@ Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Ray
 Flowering plants exhibit an astonishing diversity of reproductive structures, which  shapes how they interact with their pollinators. However, to what extent reproductive traits or other drivers like phenology and species abundances shape plant-pollinator interactions is still an open question. To disentangle the relative effects of species phenology, abundances and traits in plant-pollinator interactions, we compared pollinator visitation rates, diet breath, specialization from plant species that vary in reproductive traits, phenology and abundances. To do this, we observed plant-pollinator interactions for a whole flowering season in three different botanical gardens located in an urban setting. We anticipate that the ecological role of the different plant and pollinator species are largely driven by their phenological overlap and abundance, and only certain taxonomic groups are strongly influenced by trait matching processes. Our results highlight the relevance of considering multiple mechanisms to understand plant-pollinator interactions.
 
 
+Introduction
+
+1st paragrap 
+
+General introductory paragraph
+
+Ecological networks... 
+Introduce drivers
+End with limitations and state of the art, temporal and spatial components, sampling biases and data limitations from rarity.
+
+2nd paragraph 
+
+Highlight the importance of abundance:
+
+There is consensus that including abundances in our view of ecological processes shaping network patterns yields consistently better results [REFS, eg., annual reviews]. However, most ecological studies... 
+
+Highlight the importance of phenology:
+Highlight the importance of traits/phylogeny:
+
+
+
+
+Last paragraph, introduce what we test!
+
+
+
 # Main objective
 
 Explore how traits, phenology and abundances shape species interactions in three botanical gardens from Germany. 
@@ -68,7 +94,14 @@ Pending tasks:
 
 Question 1:
 
-Do pollinator diversity differ from phenobs species in comparison with species from the whole garden?
+- Explore relative contribution of ecological drivers (abundances, phenology, traits, phylogeny (plants and bees)).
+
+      - Pollinators: conduct rarefaction on our data and compare phenobs vs random stops vs all garden  
+
+- Associated with this, how increasing sampling impact our view of those processes.
+
+- Temporal grain, how does it affect network patterns. Relative contribution of temporality to network stucture or patterns (e.g., day 1, only adds 1 spp versus day 10 that adds 30). 
+
 
 
 # Methods
