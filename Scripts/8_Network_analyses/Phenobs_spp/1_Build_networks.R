@@ -36,6 +36,8 @@ interaction_data = raw_data %>%
   rename(Plants = Plant_accepted_name,
          Pollinators = Pollinator_accepted_name) %>%
   filter(!is.na(Pollinators)) %>% 
+  filter(Pollinator_rank == "SPECIES") %>% 
+  filter(Sampling == "Focal") %>% 
  # filter(!Pollinators == "Apis mellifera") %>% 
   filter(Pollinator_order %in% poll_order) %>% 
   filter(!Plants == "Iberis sempervirens") 

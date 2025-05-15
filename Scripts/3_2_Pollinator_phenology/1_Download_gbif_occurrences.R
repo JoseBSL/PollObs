@@ -2,6 +2,10 @@
 #Download records from countries nearby
 #Germany, Poland, Austia, Czechia
 #Belgium, Netherlands, Slovaquia, France and Hungary
+
+#Skip this part and use directly the downloaded data from the DOI
+#https://doi.org/10.15468/dl.5s5kuf
+
 #Load libraries
 library(dplyr) 
 library(rgbif) 
