@@ -2,8 +2,12 @@
 # Script: Prepare phenology matrix for plant-pollinator interactions
 # ======================================================
 
-#To do
-#Check 2022 NA's
+#It uses the phenological records of PLANTS (from EACH garden)
+#and the occurrence records of gardens and GBIF for POLLINATORS (common across all)
+#The records are converted to probabilities
+#by dividing each observation by the total observations
+#and then pooled together at the week level (avereage probability per week)
+#we assume independence and the multiply plant prob * poll prob
 
 #### ---- Load libraries ----
 library(dplyr)
@@ -24,6 +28,10 @@ poll_phen = readRDS("Data/Working_files/pollinator_phenology.rds")
 
 # Interaction data for extracting sampling weeks
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
+
+#Load plant-poll networks by garden
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs.rds")
+
 # ======================================================
 #### ---- Prepare plant phenology ----
 
@@ -35,7 +43,18 @@ leipzig_phen = leipzig_phen %>% mutate(Garden = "Leipzig")
 # Combine all gardens into one dataset
 plant_phen = bind_rows(jena_phen, halle_phen, leipzig_phen)
 
+#Fix plants names
+plant_phen = plant_phen %>% 
+  mutate(Species = if_else(Species == "Anemonoides nemorosa", "Anemone nemorosa", Species)) %>% 
+  mutate(Species = if_else(Species == "Anemonoides sylvestris", "Anemone sylvestris", Species)) %>% 
+  mutate(Species = if_else(Species == "Anemone hupehensis", "Eriocapitella hupehensis", Species)) %>% 
+  mutate(Species = if_else(Species == "Penstemon grandiflorus", "Penstemon bradburyi", Species)) %>% 
+  mutate(Species = if_else(Species == "Silene viscaria", "Viscaria vulgaris", Species))
+
 # Identify missing Dates (converted later)
+#Records of 2022 that contain flowers are only for few species
+#It's ok to have them, for instance, viola is an early flowering spp 
+#and started before new years
 plant_phen_na = plant_phen %>%
   filter(is.na(Date)) %>%
   mutate(Date = as.Date(Doy - 1, origin = "2023-01-01"))
@@ -68,10 +87,9 @@ plant_phen_fixed %>%
 
 #Summarise per week
 plant_phen_fixed_week = plant_phen_fixed %>% 
-  select(Species, Sampling_week, Garden,  Flowering_intensity, Probability) %>% 
+  select(Species, Sampling_week, Garden, Probability) %>% 
   group_by(Species, Garden, Sampling_week) %>% 
-  summarise(Mean_proportion = mean(Flowering_intensity) / 100,
-            Mean_probability = mean(Probability))
+  summarise(Mean_probability = mean(Probability))
 
 #Not all weeks are present for all species
 #We can assume that those are 0's
@@ -96,7 +114,6 @@ full_combinations <- crossing(
 plant_phen_week_complete = full_combinations %>%
   left_join(plant_phen_fixed_week, 
             by = c("Species", "Garden", "Sampling_week")) %>%
-  mutate(Mean_proportion = replace_na(Mean_proportion, 0)) %>% 
   mutate(Mean_probability = replace_na(Mean_probability, 0))
 #Looks good to me!
 
@@ -111,8 +128,7 @@ poll_phen_week_complete = poll_phen %>%
   group_by(Species) %>% 
   mutate(Probability = Abundances/sum(Abundances)) %>% 
   group_by(Species, Sampling_week) %>% 
-  summarise(Mean_proportion = mean(Proportion),
-            Mean_probability = mean(Probability))
+  summarise(Mean_probability = mean(Probability))
 #I think all weeks are already for each poll
 #Check it just in case
 poll_phen_week_complete %>% 
@@ -126,7 +142,7 @@ poll_phen_week_complete %>%
 poll_phen %>% 
     filter(Species == "Aglais io") %>% 
     mutate(Abundances1 = Abundances/sum(Abundances)) %>% 
-    summarise(Mean_probability = sum(Abundances1))
+    summarise(Mean_probability = sum(Abundances1)) #check if it sums 1
   
   
 # ======================================================
@@ -137,17 +153,27 @@ sampling_dates = raw_data %>%
   mutate(Sampling_week = week(Date)) %>% 
   select(Botanical_garden, Sampling_week)
 
-#Extract sampling weeks for 1 garden
-#Build example
-#Extract sampling dates from 1 garden
+# ======================================================
+# Now prepare phenological matrices for each garden!
+# This involves extracting the sampling dates of each garden
+# Create a grid of all spp combinations per week
+# And add the data with 2-step left join for plants and polls
+# Then in a separate function we will convert the long format to a matrix
+
+# Get list of unique gardens
+gardens = unique(plant_phen_week_complete$Garden)
+
+# Function to run the process for one garden
+compute_probability_matrix = function(garden_name) {
+
 sampling_dates = sampling_dates %>% 
-  filter(Botanical_garden == "Leipzig") %>% 
+  filter(Botanical_garden == garden_name) %>% 
   select(Sampling_week) %>% 
   pull()
 
 #Create 1st an example with 1 week and bot garden
 plant_phen = plant_phen_week_complete %>% 
-  filter(Garden == "Leipzig") %>% 
+  filter(Garden == garden_name) %>% 
   filter(Sampling_week %in% sampling_dates) %>% 
   rename(Plants = Species) %>% 
   select(!Garden)
@@ -164,26 +190,100 @@ full_grid = expand_grid(Plants = plants, Pollinators= polls, Sampling_week = sam
 full_grid1 = left_join(full_grid, plant_phen, by = c("Plants", "Sampling_week")) 
 #Rename to avoid duplicate cols in the next step
 full_grid2 = full_grid1 %>% 
-  rename(Mean_proportion_plants = Mean_proportion,
-         Mean_probability_plants = Mean_probability)
+  rename(Mean_probability_plants = Mean_probability)
 #Now join polls
 full_grid3 = left_join(full_grid2, poll_phen, by = c("Pollinators", "Sampling_week")) 
 #Rename accordingly
 full_grid_final = full_grid3 %>% 
-  rename(Mean_proportion_polls = Mean_proportion,
-         Mean_probability_pollinators = Mean_probability)
+  rename(Mean_probability_pollinators = Mean_probability)
 #Compute probability
 full_grid_final = full_grid_final %>% 
-  mutate(Independent_probability = Mean_probability_plants * Mean_probability_pollinators)
+  mutate(Total_probability = Mean_probability_plants * Mean_probability_pollinators)
 #In order to condense in a final matrix
 #we need to group by Plants and pollinators
 full_grid_condensed = full_grid_final %>% 
   group_by(Plants, Pollinators) %>% 
-  summarise(Mean_indp_probability = mean(Independent_probability))
+  summarise(Mean_probability = mean(Total_probability))
 
 
 #Those are all combinations
 #For tomorrow convert to a matrix 
 #And do it for each garden
-full_grid_condensed
+return(full_grid_condensed)
+}
 
+
+# Create nested tibble with one row per garden
+all_gardens_probabilities_nested <- tibble(
+  Garden = gardens,
+  Probabilities = map(gardens, compute_probability_matrix))
+
+# View it
+all_gardens_probabilities_nested
+# Safety check
+all_gardens_probabilities_nested %>% 
+  filter(Garden == "Halle") %>% 
+  select(Probabilities) %>% 
+  pull()
+
+
+# ======================================================
+# Load INTERACTION plant-poll networks by garden
+# This is loaded here only to match order of the phenology matrix
+# At the moment is long format and we want to convert it to a matrix
+net_by_garden 
+
+# Build phenology matrix
+# build_prob_matrix = function(garden_name) {
+  
+  # Extract right poll and plant order
+  network = net_by_garden %>% 
+    filter(Botanical_garden == "Jena") %>% 
+    select(Interaction_network) %>% 
+    pull(Interaction_network) %>% 
+    .[[1]]
+  # Create vectors with the desire order
+  poll_order = colnames(network)
+  plant_order = rownames(network)
+  
+  # Select long format from garden x
+  garden_prob = all_gardens_probabilities_nested %>% 
+    filter(Garden == "Jena") %>% 
+    select(Probabilities) %>% 
+    pull()  %>%
+    .[[1]] 
+
+  #Safety check conducted for each garden, it works
+  #a = unique(garden_prob$Plants)
+  #b = unique(plant_order)
+  #setdiff(b,a)
+  
+  garden_prob = garden_prob %>% 
+    filter(Plants %in% plant_order) %>% 
+    filter(Pollinators %in% poll_order)
+  
+  # Create phenology matrix
+  garden_prob_matrix = garden_prob %>%
+    pivot_wider(
+      names_from = Pollinators,
+      values_from = Mean_probability
+    ) %>%
+    column_to_rownames("Plants") %>%
+    as.matrix()
+  
+  
+  setdiff(poll_order, colnames(garden_prob_matrix))
+#[1] "Microphthalma europaea" "Lasioglossum pygmaeum" LEIPZIG
+  # Now reorder phenology matrix
+  
+# [1] "Entomophaga nigrohalterata" "Litophasia hyalipennis"     "Sphecodes puncticeps"      
+ #[4] "Sarcophaga subvicina"       "Trichopsomyia flavitarsis"  "Sarcophaga incisilobata"   
+ #[7] "Bombus cryptarum"           "Merziella longirostris"     "Nomada fucata"             
+ #[10] "Andrena strohmella"         "Crossocerus podagricus"   HALLE
+  
+#  [1] "Andrena gelriae"            "Eurychaeta palpalis"        "Leucophora personata"      
+  #[4] "Dasysyrphus albostriatus"   "Cylindromyia brevicornis"   "Entomophaga nigrohalterata" JENA
+  
+
+
+  
