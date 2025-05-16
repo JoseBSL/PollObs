@@ -104,11 +104,11 @@ build_prob_matrix = function(garden_name) {
 }
 
 #Run it for each garden
-prob_matrices_by_garden = net_by_garden %>%
+adund_prob_matrices_by_garden = net_by_garden %>%
   mutate(Prob_matrix = map(Botanical_garden, build_prob_matrix))
 
 #Save network matrices
-saveRDS(prob_matrices_by_garden, 
+saveRDS(adund_prob_matrices_by_garden, 
         "Data/Working_files/abundance_networks_only_phenobs.rds")
 
 #Safety check

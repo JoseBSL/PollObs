@@ -1,12 +1,19 @@
 #Now try to generate models with all occurrences for these species
+
+#Load libraries
+library(mgcv)
+library(tidygam)
+library(dplyr)
+library(ggplot2)
+
 #Read unprocessed occurrences
 occurrences = readRDS("Data/Working_files/oc_extraction_non_filtered.rds") 
-
+#Load interaction data
+int_data = readRDS("Data/Working_files/interaction_data.rds")
 #Load species that did not have enough records
 spp_order_raw = readRDS("Data/Working_files/poll_spp_order_raw.rds")
 spp_order_raw = spp_order_raw  %>%  pull(Species)
-
-#The last species that was included was Dolichovespula saxonica
+#The last species that was included was Dolichovespula saxonica (133)
 #Include from +1 onwards 134 to 204
 spp_missing_phen = spp_order_raw[(match("Dolichovespula saxonica",spp_order_raw) + 1) :length(spp_order_raw)]
 
@@ -18,6 +25,26 @@ rename(Species = species)
 #Select columns of interest
 oc = occurrences1 %>% 
 select(Species, Doy) 
+
+#Aggregate individuals per date
+#and convert Date to DOY
+int_data_polls = int_data %>% 
+  filter(Pollinator_rank =="SPECIES") %>%
+  filter(!Pollinator == "None") %>% 
+  select(Pollinator_accepted_name, Date) %>% 
+  group_by(Pollinator_accepted_name, Date) %>% 
+  summarise(n_individuals = length(Pollinator_accepted_name)) %>% 
+  mutate(Doy = lubridate::yday(Date)) %>% 
+  select(!Date) %>% 
+  rename(Species = Pollinator_accepted_name) %>% 
+  mutate(PollObs = "Yes")
+#To add when species are flying
+doy_yes = int_data_polls %>% 
+  select(Species, Doy, PollObs) %>% 
+  distinct() 
+
+#Bind rows
+oc = bind_rows(oc, int_data_polls)
 
 #Count individuals, number of records by date and species
 oc1 = oc %>% 
@@ -39,32 +66,31 @@ arrange(match(Species, spp_order))
 
 #Aggregate by week
 #Let's see if models work better with aggregated data
-oc2 = oc1 %>% 
-group_by(Species) %>% 
-summarise(n_ind_week = sum(n_individuals))
+#oc2 = oc1 %>% 
+#group_by(Species) %>% 
+#summarise(n_ind_week = sum(n_individuals))
 
 #Add our own observations to increase precision (specially for weird species)
-#Load interaction data
-int_data = readRDS("Data/Working_files/interaction_data.rds")
+
 #Aggregate individuals per date
 #and convert Date to DOY
-int_data_polls = int_data %>% 
-filter(Pollinator_rank =="SPECIES") %>%
-filter(!Pollinator == "None") %>% 
-select(Pollinator_accepted_name, Date) %>% 
-group_by(Pollinator_accepted_name, Date) %>% 
-summarise(n_individuals = length(Pollinator_accepted_name)) %>% 
-mutate(Doy = lubridate::yday(Date)) %>% 
-select(!Date) %>% 
-rename(Species = Pollinator_accepted_name) %>% 
-mutate(PollObs = "Yes")
-#To add when species are flying
-doy_yes = int_data_polls %>% 
-select(Species, Doy, PollObs) %>% 
-distinct() 
-
-#Bind rows
-oc1 = bind_rows(oc1, int_data_polls)
+#int_data_polls = int_data %>% 
+#filter(Pollinator_rank =="SPECIES") %>%
+#filter(!Pollinator == "None") %>% 
+#select(Pollinator_accepted_name, Date) %>% 
+#group_by(Pollinator_accepted_name, Date) %>% 
+#summarise(n_individuals = length(Pollinator_accepted_name)) %>% 
+#mutate(Doy = lubridate::yday(Date)) %>% 
+#select(!Date) %>% 
+#rename(Species = Pollinator_accepted_name) %>% 
+#mutate(PollObs = "Yes")
+##To add when species are flying
+#doy_yes = int_data_polls %>% 
+#select(Species, Doy, PollObs) %>% 
+#distinct() 
+#
+##Bind rows
+#oc1 = bind_rows(oc1, int_data_polls)
 
 #Aggregate individuals per species and date
 oc1 = oc1 %>%  
@@ -95,7 +121,7 @@ mutate(m_value = 2) %>%
 mutate(prob_value = 0.15)
 
 #Save oc2, to re-run in the next script
-#When we have check eacg graph for all the species
+#When we have check each graph for all the species
 saveRDS(oc2, "Data/Working_files/poll_occurrences_under_60_records.rds")
 
 
