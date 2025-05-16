@@ -15,6 +15,7 @@ library(purrr)
 library(tidyr)
 library(ggplot2)
 library(lubridate)
+library(tibble)
 # ======================================================
 #### ---- Load data ----
 
@@ -213,8 +214,8 @@ return(full_grid_condensed)
 }
 
 
-# Create nested tibble with one row per garden
-all_gardens_probabilities_nested <- tibble(
+# Create nested tibble (LONG FORMAT) with one row per garden
+all_gardens_probabilities_nested = tibble(
   Garden = gardens,
   Probabilities = map(gardens, compute_probability_matrix))
 
@@ -228,17 +229,15 @@ all_gardens_probabilities_nested %>%
 
 
 # ======================================================
-# Load INTERACTION plant-poll networks by garden
-# This is loaded here only to match order of the phenology matrix
-# At the moment is long format and we want to convert it to a matrix
+# CONVERT LONG FORMAT TO MATRIX
 net_by_garden 
 
 # Build phenology matrix
-# build_prob_matrix = function(garden_name) {
+build_prob_matrix = function(garden_name) {
   
   # Extract right poll and plant order
   network = net_by_garden %>% 
-    filter(Botanical_garden == "Jena") %>% 
+    filter(Botanical_garden == garden_name) %>% 
     select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
@@ -248,11 +247,11 @@ net_by_garden
   
   # Select long format from garden x
   garden_prob = all_gardens_probabilities_nested %>% 
-    filter(Garden == "Jena") %>% 
+    filter(Garden == garden_name) %>% 
     select(Probabilities) %>% 
     pull()  %>%
     .[[1]] 
-
+  
   #Safety check conducted for each garden, it works
   #a = unique(garden_prob$Plants)
   #b = unique(plant_order)
@@ -271,19 +270,19 @@ net_by_garden
     column_to_rownames("Plants") %>%
     as.matrix()
   
+
+  garden_prob_matrix = garden_prob_matrix[plant_order, poll_order]
   
-  setdiff(poll_order, colnames(garden_prob_matrix))
-#[1] "Microphthalma europaea" "Lasioglossum pygmaeum" LEIPZIG
-  # Now reorder phenology matrix
+  return(garden_prob_matrix)
   
-# [1] "Entomophaga nigrohalterata" "Litophasia hyalipennis"     "Sphecodes puncticeps"      
- #[4] "Sarcophaga subvicina"       "Trichopsomyia flavitarsis"  "Sarcophaga incisilobata"   
- #[7] "Bombus cryptarum"           "Merziella longirostris"     "Nomada fucata"             
- #[10] "Andrena strohmella"         "Crossocerus podagricus"   HALLE
-  
-#  [1] "Andrena gelriae"            "Eurychaeta palpalis"        "Leucophora personata"      
-  #[4] "Dasysyrphus albostriatus"   "Cylindromyia brevicornis"   "Entomophaga nigrohalterata" JENA
-  
+}
+
+#Build phenology matrices
+pheno_prob_matrices_by_garden = tibble(
+  Botanical_garden = gardens,
+  Prob_matrix = map(gardens, build_prob_matrix))
 
 
-  
+#Save network matrices
+saveRDS(pheno_prob_matrices_by_garden, 
+        "Data/Working_files/phenology_networks_only_phenobs.rds")
