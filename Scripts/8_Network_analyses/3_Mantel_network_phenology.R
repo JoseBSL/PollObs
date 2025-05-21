@@ -36,7 +36,7 @@ mantel_interaction_abundance = function(garden_name) {
   mantel_result$signif
   
   return(tibble(Botanical_garden = garden_name, 
-                Test = "Visits-Abundance",
+                Test = "Visits-Phenology",
                 Mantel_corr = mantel_result$statistic,
                 Mantel_Pval = mantel_result$signif))
   
@@ -66,7 +66,7 @@ mantel_interactionFreq_abundance = function(garden_name) {
   mantel_result$signif
   
   return(tibble(Botanical_garden = garden_name, 
-                Test = "VisitRate-Abundance",
+                Test = "VisitRate-Phenology",
                 Mantel_corr = mantel_result$statistic,
                 Mantel_Pval = mantel_result$signif))
   
@@ -92,7 +92,9 @@ ggplot(combined_results, aes(x = Botanical_garden, y = Mantel_corr, fill = Test)
   theme_minimal() +
   labs(x = "Botanical Garden", y = "Mantel Correlation",
        title = "Visits-Pheno vs VisitationRate-Pheno.") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0,1)
+
 
 
 
