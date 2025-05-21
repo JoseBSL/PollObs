@@ -12,6 +12,12 @@ library(ggplot2)
 #Load data
 oc2 = readRDS("Data/Working_files/poll_occurrences_under_60_records.rds")
 poll_phenology_info = readr::read_csv("Data/Working_files/filled_poll_phenology.csv")
+
+#Filter out Chrysogaster virescens (not in the data)
+oc2 = oc2 %>% 
+  filter(!Species == "Chrysogaster virescens")
+poll_phenology_info = poll_phenology_info %>% 
+  filter(!Species == "Chrysogaster virescens")
 #select cols of interest
 poll_phenology_info = poll_phenology_info %>% 
 select(Species, Phenology)
@@ -67,9 +73,6 @@ filter(!is.na(PollObs))
 #These are an artefact that we added in order to force the curves being zero on the extremes
 #We do it for these species because they have low records
 #So absent values appear within their pheneology
-
-match("Pollenia vagabunda", spp_order)
-
 species_to_filter = spp_order
 
 # Define the filtering function
