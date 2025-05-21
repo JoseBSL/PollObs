@@ -92,7 +92,7 @@ ggplot(combined_results, aes(x = Botanical_garden, y = Mantel_corr, fill = Test)
   theme_minimal() +
   labs(x = "Botanical Garden", y = "Mantel Correlation",
        title = "Visits-Pheno vs VisitationRate-Pheno.") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 
 
