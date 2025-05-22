@@ -5,8 +5,16 @@ match("Meliscaeva auricollis", spp_order)
 
 
 # Check fit of some models
-species =  "Eucera nigrescens"
+species =  "Sarcophaga subvicina"
 sp_data = oc2 %>% filter(Species == species)
+
+
+sp_data = sp_data %>% 
+  filter(!(Species == "Sarcophaga subvicina" & Doy > 175 & Doy < 200)) %>% 
+  filter(!(Species == "Sarcophaga subvicina" & Doy > 235 & Doy < 255))
+
+
+
 
 
 sp_model = gam(n_individuals ~ s(Doy, k = 20, m=1),

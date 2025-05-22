@@ -4,7 +4,7 @@ library(dplyr)
 library(reshape2)
 
 # Load data
-pheno_prob_matrices_by_garden <- readRDS("Data/Working_files/phenology_networks_only_phenobs.rds")
+pheno_prob_matrices_by_garden <- readRDS("Data/Working_files/phenology_networks_only_phenobs_pheno.rds")
 
 # Function to compute forbidden links percentage
 phenological_forbidden_links <- function(garden_name) {

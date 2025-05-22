@@ -9,9 +9,9 @@ library(ggplot2)
 library(vegan) #for mantes and procrustes
 
 #Read network data
-prob_matrices_by_garden = readRDS("Data/Working_files/phenology_networks_only_phenobs.rds")
+prob_matrices_by_garden = readRDS("Data/Working_files/phenology_networks_only_phenobs_pheno.rds")
 #Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs.rds")
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
 
 mantel_interaction_abundance = function(garden_name) {
   
@@ -86,6 +86,9 @@ results_intFreq_abund
 
 #Bind rows
 combined_results = bind_rows(results_int_abund, results_intFreq_abund)
+
+combined_results = combined_results %>% 
+  mutate(Mantel_corr = abs(Mantel_corr))
 
 ggplot(combined_results, aes(x = Botanical_garden, y = Mantel_corr, fill = Test)) +
   geom_bar(stat = "identity", position = "dodge") + 
