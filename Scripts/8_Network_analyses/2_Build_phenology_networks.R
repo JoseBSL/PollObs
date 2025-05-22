@@ -31,7 +31,10 @@ poll_phen = readRDS("Data/Working_files/pollinator_phenology.rds")
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
 
 #Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs.rds")
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
+
+spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
+
 
 # ======================================================
 #### ---- Prepare plant phenology ----
@@ -130,6 +133,11 @@ poll_phen_week_complete = poll_phen %>%
   mutate(Probability = Abundances/sum(Abundances)) %>% 
   group_by(Species, Sampling_week) %>% 
   summarise(Mean_probability = mean(Probability))
+
+#Exclude polls with insuficent information
+poll_phen_week_complete = poll_phen_week_complete %>% 
+  filter(!Species %in% spp_to_exclude)
+
 #I think all weeks are already for each poll
 #Check it just in case
 poll_phen_week_complete %>% 
@@ -285,6 +293,6 @@ pheno_prob_matrices_by_garden = tibble(
 
 #Save network matrices
 saveRDS(pheno_prob_matrices_by_garden, 
-        "Data/Working_files/phenology_networks_only_phenobs.rds")
+        "Data/Working_files/phenology_networks_only_phenobs_pheno.rds")
 
 

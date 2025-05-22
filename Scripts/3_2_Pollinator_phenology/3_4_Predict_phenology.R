@@ -45,13 +45,21 @@ mutate(k_value = case_when(
     Species == "Miltogramma germari" ~ 13,
     Species == "Andrena chrysopus" ~ 20,
     Species == "Botanophila striolata" ~ 20,
+    Species == "Sphecodes ferruginatus" ~ 20,
+    Species == "Miltogramma germari" ~ 20,
+   Species == "Lasioglossum nitidiusculum" ~ 20,
+   
+   
+   
    TRUE ~ k_value))
 
 oc2 = oc2 %>% 
 mutate(m_value = case_when(
-   Species == "Lasioglossum nitidiusculum" ~ 1,
    Species == "Andrena chrysopus" ~ 1,
    Species == "Botanophila striolata" ~ 1,
+   Species == "Sphecodes ferruginatus" ~ 1,
+   Species == "Miltogramma germari" ~ 1,
+
    TRUE ~ m_value))
 
 oc2 = oc2 %>% 
@@ -96,7 +104,52 @@ oc2_filtered = oc2_to_filter %>%
   ungroup()
 #Combine the filtered data with the unmodified data for the other species
 oc2 = bind_rows(oc2, oc2_filtered)  
-  
+
+
+#Fix some species
+oc2 = oc2 %>% 
+  filter(!(Species == "Andrena minutuloides" & Doy >240 & Doy < 260))
+
+oc2 = oc2 %>% 
+  filter(!(Species =="Sphecodes ferruginatus" & Doy >216 & Doy < 240))
+
+oc2 = oc2 %>% 
+  filter(!(Species =="Coelioxys rufescens" & Doy >140 & Doy < 155))
+
+oc2 = oc2 %>% 
+  filter(!(Species =="Lasioglossum nitidiusculum" & Doy >95 & Doy < 112))
+
+oc2 = oc2 %>% 
+  filter(!(Species == "Andrena chrysopus" & Doy >165 & Doy < 180))
+
+oc2 = oc2 %>% 
+  filter(!(Species == "Botanophila striolata" & Doy >50 & Doy < 117))
+
+oc2 = oc2 %>% 
+  filter(!(Species == "Cylindromyia brevicornis" & Doy > 235 & Doy < 245)) %>% 
+  filter(!(Species == "Cylindromyia brevicornis" & Doy > 215 & Doy < 222))
+
+oc2 = oc2 %>% 
+  filter(!(Species == "Sarcophaga subvicina" & Doy > 175 & Doy < 200)) %>% 
+  filter(!(Species == "Sarcophaga subvicina" & Doy > 235 & Doy < 255))
+
+new_rows_ln = tibble(Doy = 170:180) %>%
+  mutate(
+    Species = "Lasioglossum nitidiusculum",
+    Phenology = "bimodal",
+    n_individuals = 0,
+    PollObs = NA,
+    k_value = 20,
+    m_value = 1,
+    prob_value = 0.15
+  )
+
+oc2 = bind_rows(oc2, new_rows_ln)
+
+oc2 = oc2 %>% 
+  mutate(m_value = if_else(Species == "Lasioglossum nitidiusculum", 2, m_value))
+
+
 #Create general function 
 #This function runs a GAM and plots 
 #the probabilities relative to the maximum abundance
@@ -156,6 +209,9 @@ create_prediction <- function(species) {
 predictions_list <- list()
 
 spp_order = spp_order[134:length(spp_order)]
+
+spp_to_exclude = spp_order[c(71:74,76:78,80:88)]
+saveRDS(spp_to_exclude, "Data/Working_files/spp_to_exclude_pheno.rds")
 
 for (i in 1:length(spp_order)) {
   species <- spp_order[i]
