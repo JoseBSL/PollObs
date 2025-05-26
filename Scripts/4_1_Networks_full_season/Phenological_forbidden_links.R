@@ -30,7 +30,7 @@ phenological_forbidden_links <- function(garden_name) {
     nrow()
   
   # Compute percentage of forbidden links
-  forbidden_percentage <- zero_rows / rows * 100
+  forbidden_percentage = zero_rows / rows * 100
   
   return(forbidden_percentage)
 }

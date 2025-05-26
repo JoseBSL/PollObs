@@ -9,6 +9,8 @@ library(purrr)
 library(tidyr)
 library(ggplot2)
 library(vegan) #for mantel and procrustes
+library(readr)
+library(stringr)
 
 # ======================================================
 # Load data
@@ -26,7 +28,7 @@ phenobs_spp = morphometrics %>%
   pull(Species) 
 
 # Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_season_only_phenobs.rds")
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_week_only_phenobs.rds")
 
 
 # ======================================================
@@ -39,18 +41,11 @@ dates = raw_data %>%
   group_by(Botanical_garden) %>% 
   distinct()
 
-# Convert to tibble
-groupped_dates = dates %>%
-  group_by(Botanical_garden) %>% 
-  arrange(Date, .by_group = TRUE) %>% 
-  mutate(Season_group = ntile(Date, 3)) %>%
-  mutate(Season = case_when(
-    Season_group == 1 ~ "Early",
-    Season_group == 2 ~ "Mid",
-    Season_group == 3 ~ "Late"
-  )) %>%
-  select(!Season_group) %>% 
-  ungroup()
+weeks_2023 = tibble(Doy = 1:365) %>%
+  mutate(Date = as.Date(Doy - 0, origin = "2023-01-01"),
+         Sampling_week = isoweek(Date))
+
+dates = left_join(dates, weeks_2023)
 
 # Prepare interaction data
 interaction_data = raw_data %>%
@@ -68,14 +63,15 @@ interaction_data = raw_data %>%
 
 interaction_data = interaction_data %>% 
   filter(Plant %in% phenobs_spp) 
-# Add season category to the data (early-mid and late season)
-interaction_data = left_join(interaction_data, groupped_dates)
+# Add week number
+interaction_data = left_join(interaction_data, dates)
 
 # Pollinator abundance
 pollinator_abundance = interaction_data %>% 
-  group_by(Botanical_garden, Season, Pollinators) %>% 
+  group_by(Botanical_garden, Sampling_week, Pollinators) %>% 
   summarise(Individuals = n()) %>% 
-  mutate(Relative_abundance = Individuals/ max(Individuals))
+  mutate(Relative_abundance = Individuals/ sum(Individuals))
+
 # Check distribution
 pollinator_abundance %>% 
   ggplot(aes(Relative_abundance)) +
@@ -87,11 +83,11 @@ pollinator_abundance %>%
 # Two setp process: select distinct values with Date_time
 # and sum abundances
 floral_abundance = interaction_data %>% 
-  select(Botanical_garden, Season, Plants, Floral_abundance, Date_time) %>% 
+  select(Botanical_garden, Sampling_week, Plants, Floral_abundance, Date_time) %>% 
   distinct() %>% 
-  group_by(Botanical_garden, Season, Plants) %>% 
+  group_by(Botanical_garden, Sampling_week, Plants) %>% 
   summarise(Total_floral_abundance = sum(Floral_abundance)) %>% 
-  mutate(Relative_abundance = Total_floral_abundance/ max(Total_floral_abundance))
+  mutate(Relative_abundance = Total_floral_abundance/ sum(Total_floral_abundance))
 # Check distribution
 floral_abundance %>% 
   ggplot(aes(Relative_abundance)) +
@@ -100,10 +96,10 @@ floral_abundance %>%
 
 # ======================================================
 # Calculate a probability matrix based on relative abundances
-build_prob_matrix = function(garden_name, season_name) {
+build_prob_matrix = function(garden_name, week) {
   
   network = net_by_garden %>% 
-    filter(Botanical_garden == garden_name, Season == season_name) %>% 
+    filter(Botanical_garden == garden_name, Sampling_week == week) %>% 
     select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
@@ -112,10 +108,10 @@ build_prob_matrix = function(garden_name, season_name) {
   plant_order = tibble(Plants = rownames(network))
   
   pollinator_abundance1 = pollinator_abundance %>% 
-    filter(Botanical_garden == garden_name, Season == season_name) 
+    filter(Botanical_garden == garden_name, Sampling_week == week) 
   
   floral_abundance1 = floral_abundance %>% 
-    filter(Botanical_garden == garden_name, Season == season_name)
+    filter(Botanical_garden == garden_name, Sampling_week == week)
   
   poll_abund_ordered = left_join(poll_order, pollinator_abundance1)
   plant_abund_ordered = left_join(plant_order, floral_abundance1)
@@ -133,15 +129,15 @@ build_prob_matrix = function(garden_name, season_name) {
 }
 
 
-# Now run it for each garden-season combination
-adund_prob_matrices_by_garden_season = net_by_garden %>%
+# Now run it for each garden-week combination
+adund_prob_matrices_by_garden_week = net_by_garden %>%
   mutate(Prob_matrix = pmap(
-    list(Botanical_garden, Season),
+    list(Botanical_garden, Sampling_week),
     build_prob_matrix
   ))
 
 # ======================================================
 #Save network matrices
-saveRDS(adund_prob_matrices_by_garden_season, 
-        "Data/Working_files/abundance_networks_only_phenobs_by_season.rds")
+saveRDS(adund_prob_matrices_by_garden_week, 
+        "Data/Working_files/abundance_networks_only_phenobs_by_week.rds")
 

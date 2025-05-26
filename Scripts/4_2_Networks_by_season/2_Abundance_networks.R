@@ -8,12 +8,15 @@ library(dplyr)
 library(purrr)
 library(tidyr)
 library(ggplot2)
-library(vegan) #for mantes and procrustes
+library(vegan) #for mantel and procrustes
+library(readr)
+library(stringr)
 
 # ======================================================
 # Load data
 # Interaction data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
+
 # Morphometrics to get phenobs species vector
 morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
 colnames(morphometrics)
@@ -24,12 +27,32 @@ phenobs_spp = morphometrics %>%
   distinct() %>% 
   pull(Species) 
 
-#Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs.rds")
+# Load plant-poll networks by garden
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_season_only_phenobs.rds")
+
 
 # ======================================================
-# Create vector of main orders
+# Create vector with main polls
 poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
+
+# Create tibble with unique dates 
+dates = raw_data %>% 
+  select(Botanical_garden, Date) %>% 
+  group_by(Botanical_garden) %>% 
+  distinct()
+
+# Convert to tibble
+groupped_dates = dates %>%
+  group_by(Botanical_garden) %>% 
+  arrange(Date, .by_group = TRUE) %>% 
+  mutate(Season_group = ntile(Date, 3)) %>%
+  mutate(Season = case_when(
+    Season_group == 1 ~ "Early",
+    Season_group == 2 ~ "Mid",
+    Season_group == 3 ~ "Late"
+  )) %>%
+  select(!Season_group) %>% 
+  ungroup()
 
 # Prepare interaction data
 interaction_data = raw_data %>%
@@ -41,18 +64,21 @@ interaction_data = raw_data %>%
   filter(!is.na(Pollinators)) %>% 
   filter(Pollinator_rank == "SPECIES") %>% 
   filter(Sampling == "Focal") %>% 
- # filter(!Pollinators == "Apis mellifera") %>% 
+  # filter(!Pollinators == "Apis mellifera") %>% 
   filter(Pollinator_order %in% poll_order)%>% 
   filter(!Plants == "Iberis sempervirens") 
 
 interaction_data = interaction_data %>% 
   filter(Plant %in% phenobs_spp) 
+# Add season category to the data (early-mid and late season)
+interaction_data = left_join(interaction_data, groupped_dates)
 
 # Pollinator abundance
 pollinator_abundance = interaction_data %>% 
-  group_by(Botanical_garden, Pollinators) %>% 
+  group_by(Botanical_garden, Season, Pollinators) %>% 
   summarise(Individuals = n()) %>% 
-  mutate(Relative_abundance = Individuals/ max(Individuals))
+  mutate(Relative_abundance = Individuals/ sum(Individuals))
+
 # Check distribution
 pollinator_abundance %>% 
   ggplot(aes(Relative_abundance)) +
@@ -64,11 +90,11 @@ pollinator_abundance %>%
 # Two setp process: select distinct values with Date_time
 # and sum abundances
 floral_abundance = interaction_data %>% 
-  select(Botanical_garden, Plants, Floral_abundance, Date_time) %>% 
+  select(Botanical_garden, Season, Plants, Floral_abundance, Date_time) %>% 
   distinct() %>% 
-  group_by(Botanical_garden, Plants) %>% 
+  group_by(Botanical_garden, Season, Plants) %>% 
   summarise(Total_floral_abundance = sum(Floral_abundance)) %>% 
-  mutate(Relative_abundance = Total_floral_abundance/ max(Total_floral_abundance))
+  mutate(Relative_abundance = Total_floral_abundance/ sum(Total_floral_abundance))
 # Check distribution
 floral_abundance %>% 
   ggplot(aes(Relative_abundance)) +
@@ -76,11 +102,11 @@ floral_abundance %>%
   geom_histogram()
 
 # ======================================================
-#Calculate a probability matrix based on relative abundances
-build_prob_matrix = function(garden_name) {
+# Calculate a probability matrix based on relative abundances
+build_prob_matrix = function(garden_name, season_name) {
   
   network = net_by_garden %>% 
-    filter(Botanical_garden == garden_name) %>% 
+    filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
@@ -89,10 +115,10 @@ build_prob_matrix = function(garden_name) {
   plant_order = tibble(Plants = rownames(network))
   
   pollinator_abundance1 = pollinator_abundance %>% 
-    filter(Botanical_garden == garden_name) 
+    filter(Botanical_garden == garden_name, Season == season_name) 
   
   floral_abundance1 = floral_abundance %>% 
-    filter(Botanical_garden == garden_name)
+    filter(Botanical_garden == garden_name, Season == season_name)
   
   poll_abund_ordered = left_join(poll_order, pollinator_abundance1)
   plant_abund_ordered = left_join(plant_order, floral_abundance1)
@@ -109,54 +135,16 @@ build_prob_matrix = function(garden_name) {
   return(prob_matrix)
 }
 
-#Run it for each garden
-adund_prob_matrices_by_garden = net_by_garden %>%
-  mutate(Prob_matrix = map(Botanical_garden, build_prob_matrix))
+
+# Now run it for each garden-season combination
+adund_prob_matrices_by_garden_season = net_by_garden %>%
+  mutate(Prob_matrix = pmap(
+    list(Botanical_garden, Season),
+    build_prob_matrix
+  ))
 
 # ======================================================
 #Save network matrices
-saveRDS(adund_prob_matrices_by_garden, 
-        "Data/Working_files/abundance_networks_only_phenobs.rds")
-
-#Safety check
-#Note that abundances of Iberis sempervivens
-#were too high on Halle, at the moment I am excluding it but I am sure
-#those were overestimated for several reasons
-#flowers were tiny and I counted the whole patch
-#Maybe I need to consider inflorescence level and divide the size by 2 or 3
-pollinator_abundance_total <- interaction_data %>%
-  group_by(Botanical_garden, Date) %>%
-  summarise(Individuals = n()) %>%
-  group_by(Botanical_garden) %>%
-  mutate(Relative_abundance = Individuals / max(Individuals))
-
-floral_abundance_total <- interaction_data %>%
-  group_by(Botanical_garden, Date) %>%
-  summarise(Floral_abundance = sum(Floral_abundance, na.rm = TRUE)) %>%
-  group_by(Botanical_garden) %>%
-  mutate(Relative_floral_abundance = Floral_abundance / max(Floral_abundance))
-
-combined_abundance <- left_join(
-  pollinator_abundance_total,
-  floral_abundance_total,
-  by = c("Botanical_garden", "Date")
-)
-
-ggplot(combined_abundance, aes(x = Date)) +
-  geom_line(aes(y = Relative_abundance, color = "Pollinators"), size = 1) +
-  geom_point(aes(y = Relative_abundance, color = "Pollinators"), size = 2) +
-  geom_line(aes(y = Relative_floral_abundance, color = "Flowers"), size = 1, linetype = "dashed") +
-  geom_point(aes(y = Relative_floral_abundance, color = "Flowers"), size = 2, shape = 21, fill = "white") +
-  facet_wrap(~ Botanical_garden, scales = "free_x") +
-  scale_color_manual(values = c("Pollinators" = "#0072B2", "Flowers" = "tomato3")) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    legend.title = element_blank()
-  ) +
-  labs(
-    y = "Relative Abundance",
-    x = "Date",
-    title = "Relative Abundance Over Time"
-  )
+saveRDS(adund_prob_matrices_by_garden_season, 
+        "Data/Working_files/abundance_networks_only_phenobs_by_season.rds")
 
