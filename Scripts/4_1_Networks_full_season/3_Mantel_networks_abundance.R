@@ -21,29 +21,29 @@ mantel_interaction_abundance = function(garden_name) {
   
   interaction_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name) %>% 
-    select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
   
   abundance_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name) %>% 
-    select(Prob_matrix) %>% 
     pull(Prob_matrix) %>% 
     .[[1]]
   
-  #Convert matrices to distance matrices (Euclidean distance here)
+  # Convert matrices to distance matrices (Euclidean)
   dist1 = dist(interaction_network)
   dist2 = dist(abundance_network)
-  #Perform the Mantel test
+  
+  # Perform Mantel test
   mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
-  mantel_result$statistic
-  mantel_result$signif
+  
+  # Store results
+  stat = mantel_result$statistic
+  pval = mantel_result$signif
   
   return(tibble(Botanical_garden = garden_name, 
                 Test = "Visits-Abundance",
-                Mantel_corr = mantel_result$statistic,
-                Mantel_Pval = mantel_result$signif))
-  
+                Mantel_corr = stat,
+                Mantel_Pval = pval))
 }
 
 # ======================================================
@@ -88,7 +88,7 @@ results_int_abund = map_dfr(gardens, mantel_interaction_abundance)
 # Check results
 results_int_abund
 # Run function int freq-abundance on each garden
-results_intFreq_abund = map_dfr(gardens, mantel_interactionFreq_abundance)
+results_intFreq_abund = map_dfr(gardens, networkmantel_interactionFreq_abundance)
 # Check results
 results_intFreq_abund
 
