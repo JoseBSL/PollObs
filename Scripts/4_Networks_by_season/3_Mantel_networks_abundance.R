@@ -1,6 +1,6 @@
-################################################################
-#Compute Mantel test between int and int freq and prob phenology matrix
-################################################################
+# ======================================================
+#Compute Mantel test between int and int freq and prob abundance matrix
+# ======================================================
 
 library(dplyr)
 library(purrr)
@@ -8,20 +8,23 @@ library(tidyr)
 library(ggplot2)
 library(vegan) #for mantes and procrustes
 
+# ======================================================
 #Read network data
-prob_matrices_by_garden = readRDS("Data/Working_files/phenology_networks_only_phenobs_pheno_by_season.rds")
-#Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_and_season_only_phenobs_pheno.rds")
+prob_matrices_by_garden = readRDS("Data/Working_files/abundance_networks_only_phenobs_by_season.rds")
 
+
+# ======================================================
+# Build function
+# MANTEL TEST visitation network ~ abundance network
 mantel_interaction_abundance = function(garden_name, season_name) {
   
-  interaction_network = net_by_garden %>% 
+  interaction_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
   
-  phenology_network = prob_matrices_by_garden %>% 
+  abundance_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Prob_matrix) %>% 
     pull(Prob_matrix) %>% 
@@ -29,38 +32,7 @@ mantel_interaction_abundance = function(garden_name, season_name) {
   
   #Convert matrices to distance matrices (Euclidean distance here)
   dist1 = dist(interaction_network)
-  dist2 = dist(phenology_network)
-  #Perform the Mantel test
-  mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
-  mantel_result$statistic
-  mantel_result$signif
-  
-  return(tibble(Botanical_garden = garden_name, 
-                Season = season_name, 
-                Test = "Visits-Phenology",
-                Mantel_corr = mantel_result$statistic,
-                Mantel_Pval = mantel_result$signif))
-  
-}
-
-
-mantel_interactionFreq_abundance = function(garden_name, season_name) {
-  
-  interaction_network = net_by_garden %>% 
-    filter(Botanical_garden == garden_name, Season == season_name) %>% 
-    select(Int_frequency_network) %>% 
-    pull(Int_frequency_network) %>% 
-    .[[1]]
-  
-  phenology_network = prob_matrices_by_garden %>% 
-    filter(Botanical_garden == garden_name, Season == season_name) %>% 
-    select(Prob_matrix) %>% 
-    pull(Prob_matrix) %>% 
-    .[[1]]
-  
-  #Convert matrices to distance matrices (Euclidean distance here)
-  dist1 = dist(interaction_network)
-  dist2 = dist(phenology_network)
+  dist2 = dist(abundance_network)
   #Perform the Mantel test
   mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
   mantel_result$statistic
@@ -68,7 +40,40 @@ mantel_interactionFreq_abundance = function(garden_name, season_name) {
   
   return(tibble(Botanical_garden = garden_name, 
                 Season = season_name,
-                Test = "VisitRate-Phenology",
+                Test = "Visits-Abundance",
+                Mantel_corr = mantel_result$statistic,
+                Mantel_Pval = mantel_result$signif))
+  
+}
+
+# ======================================================
+# Build function
+# MANTEL TEST visitation RATE network ~ abundance network
+mantel_interactionFreq_abundance = function(garden_name, season_name) {
+  
+  interaction_network = prob_matrices_by_garden %>% 
+    filter(Botanical_garden == garden_name, Season == season_name) %>% 
+    select(Int_frequency_network) %>% 
+    pull(Int_frequency_network) %>% 
+    .[[1]]
+  
+  abundance_network = prob_matrices_by_garden %>% 
+    filter(Botanical_garden == garden_name, Season == season_name) %>% 
+    select(Prob_matrix) %>% 
+    pull(Prob_matrix) %>% 
+    .[[1]]
+  
+  #Convert matrices to distance matrices (Euclidean distance here)
+  dist1 = dist(interaction_network)
+  dist2 = dist(abundance_network)
+  #Perform the Mantel test
+  mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
+  mantel_result$statistic
+  mantel_result$signif
+  
+  return(tibble(Botanical_garden = garden_name, 
+                Season = season_name,
+                Test = "VisitRate-Abundance",
                 Mantel_corr = mantel_result$statistic,
                 Mantel_Pval = mantel_result$signif))
   
@@ -103,6 +108,7 @@ combined_results$Mantel_corr = abs(combined_results$Mantel_corr)
 combined_results = combined_results %>%
   mutate(Season = factor(Season, levels = c("Early", "Mid", "Late")))
 
+# ======================================================
 # Plot
 ggplot(combined_results, aes(x = Season, 
                              y = Mantel_corr, 
@@ -118,6 +124,7 @@ ggplot(combined_results, aes(x = Season,
        fill = "Test Type") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylim(0, 1)
+
 
 
 

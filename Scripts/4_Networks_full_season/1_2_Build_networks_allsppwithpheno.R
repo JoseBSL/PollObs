@@ -1,5 +1,8 @@
-#Create interaction matrices by garden
-#Note that in this script we only consider phenobs species
+# ======================================================
+#Script: Prepare plant-poll networks (visits and visitation rate)
+#NOTE! HERE WE EXCLUDE SOME POLLS WITHOUT PHENOLOGICAL RECORDS
+# ======================================================
+
 #1)Total interactions
 #AND
 #2)Interaction frequency
@@ -11,7 +14,7 @@ library(dplyr)
 library(purrr)
 library(stringr)
 library(tibble)
-
+# ======================================================
 #Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
 spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
@@ -25,8 +28,8 @@ phenobs_spp = morphometrics %>%
   mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
   distinct() %>% 
   pull(Species) 
-
-
+# ======================================================
+#Create vector with main orders
 poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
 
 #Prepare interaction data
@@ -47,10 +50,11 @@ interaction_data = raw_data %>%
 interaction_data = interaction_data %>% 
   filter(!Pollinators %in% spp_to_exclude)
 
-
+#Filter by phenobs spp
 interaction_data = interaction_data %>% 
   filter(Plant %in% phenobs_spp) 
 
+# ======================================================
 #1)Total interactions
 
 #Convert to network
@@ -73,6 +77,7 @@ networks_by_garden_interactions = interaction_data %>%
   select(!data) %>% 
   ungroup()
 
+# ======================================================
 #2)Interaction frequency
 #Overwrite interactions with interaction frequency 
 #to minimise edits in code
@@ -116,6 +121,8 @@ networks_by_garden_int_frequency = interaction_data_freq %>%
 net_by_garden = left_join(networks_by_garden_interactions,
                           networks_by_garden_int_frequency)
 
+# ======================================================
+#Save data
 saveRDS(net_by_garden, "Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
 
 

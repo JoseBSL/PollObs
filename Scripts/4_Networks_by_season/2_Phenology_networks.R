@@ -17,8 +17,7 @@ library(ggplot2)
 library(lubridate)
 library(tibble)
 # ======================================================
-#### ---- Load data ----
-
+# Load data
 # Plant phenology data
 jena_phen    = readRDS("Data/Phenology_data/clean_plant_phenobs_jena.rds")
 halle_phen   = readRDS("Data/Phenology_data/clean_plant_phenobs_halle.rds")
@@ -32,12 +31,12 @@ raw_data = readRDS("Data/Working_files/interaction_data.rds")
 
 #Load plant-poll networks by garden
 net_by_garden = readRDS("Data/Working_files/networks_by_garden_and_season_only_phenobs_pheno.rds")
-
+# Vector to exclude polls without phenology
 spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
 
 
 # ======================================================
-#### ---- Prepare plant phenology ----
+# Prepare plant phenology
 
 # Add missing 'Garden' labels
 jena_phen  = jena_phen %>% mutate(Garden = "Jena")
@@ -122,7 +121,7 @@ plant_phen_week_complete = full_combinations %>%
 #Looks good to me!
 
 # ======================================================
-#### ---- Prepare pollinator phenology ----
+# Prepare pollinator phenology
 poll_phen_week_complete = poll_phen %>%
   mutate(
     Date          = as.Date(Doy - 1, origin = "2023-01-01"),
@@ -155,7 +154,7 @@ poll_phen %>%
 
 
 # ======================================================
-#### ---- (Prepare sampling weeks) ----
+# Prepare sampling weeks
 sampling_dates = raw_data %>% 
   select(Botanical_garden, Date) %>% 
   distinct() %>% 
@@ -296,8 +295,7 @@ garden_season_combos = net_by_garden %>%
 pheno_prob_matrices_by_garden = garden_season_combos %>% 
   mutate(Prob_matrix = map2(Botanical_garden, Season, build_prob_matrix))
 
-
-
+# ======================================================
 #Save network matrices
 saveRDS(pheno_prob_matrices_by_garden, 
         "Data/Working_files/phenology_networks_only_phenobs_pheno_by_season.rds")

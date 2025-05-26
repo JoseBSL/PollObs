@@ -1,16 +1,35 @@
+# ======================================================
 #Probability probability abundance networks for each garden
 #And compute correlation with int and int frequency networks
+# ======================================================
 
 #Load libraries
 library(dplyr)
 library(purrr)
 library(tidyr)
 library(ggplot2)
-library(vegan) #for mantes and procrustes
+library(vegan) #for mantel and procrustes
 
-#Load data
+# ======================================================
+# Load data
+# Interaction data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
 
+# Morphometrics to get phenobs species vector
+morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
+colnames(morphometrics)
+phenobs_spp = morphometrics %>% 
+  select(Species) %>% 
+  mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
+  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
+  distinct() %>% 
+  pull(Species) 
+
+# Load plant-poll networks by garden
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_season_only_phenobs.rds")
+
+
+# ======================================================
 # Create vector with main polls
 poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
 
@@ -33,7 +52,7 @@ groupped_dates = dates %>%
   select(!Season_group) %>% 
   ungroup()
 
-#Prepare interaction data
+# Prepare interaction data
 interaction_data = raw_data %>%
   filter(!is.na(Interactions),
          !is.na(Floral_abundance),
@@ -47,52 +66,40 @@ interaction_data = raw_data %>%
   filter(Pollinator_order %in% poll_order)%>% 
   filter(!Plants == "Iberis sempervirens") 
 
-#Load morphometrics to get phenobs species vector
-morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
-colnames(morphometrics)
-phenobs_spp = morphometrics %>% 
-  select(Species) %>% 
-  mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
-  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
-  distinct() %>% 
-  pull(Species) 
-
 interaction_data = interaction_data %>% 
   filter(Plant %in% phenobs_spp) 
-#Add season category to the data (early-mid and late season)
+# Add season category to the data (early-mid and late season)
 interaction_data = left_join(interaction_data, groupped_dates)
 
-#Pollinator abundance
+# Pollinator abundance
 pollinator_abundance = interaction_data %>% 
   group_by(Botanical_garden, Season, Pollinators) %>% 
   summarise(Individuals = n()) %>% 
   mutate(Relative_abundance = Individuals/ max(Individuals))
-#Check distribution
+# Check distribution
 pollinator_abundance %>% 
   ggplot(aes(Relative_abundance)) +
   facet_wrap(~ Botanical_garden) +
   geom_histogram()
 
 
-#Floral abundance
-#Two setp process: select distinct values with Date_time
-#and sum abundances
+# Floral abundance
+# Two setp process: select distinct values with Date_time
+# and sum abundances
 floral_abundance = interaction_data %>% 
   select(Botanical_garden, Season, Plants, Floral_abundance, Date_time) %>% 
   distinct() %>% 
   group_by(Botanical_garden, Season, Plants) %>% 
   summarise(Total_floral_abundance = sum(Floral_abundance)) %>% 
   mutate(Relative_abundance = Total_floral_abundance/ max(Total_floral_abundance))
-#Check distribution
+# Check distribution
 floral_abundance %>% 
   ggplot(aes(Relative_abundance)) +
   facet_wrap(~ Botanical_garden) +
   geom_histogram()
 
-#Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_season_only_phenobs.rds")
-
-#Calculate a probability matrix based on relative abundances
+# ======================================================
+# Calculate a probability matrix based on relative abundances
 build_prob_matrix = function(garden_name, season_name) {
   
   network = net_by_garden %>% 
@@ -133,6 +140,7 @@ adund_prob_matrices_by_garden_season = net_by_garden %>%
     build_prob_matrix
   ))
 
+# ======================================================
 #Save network matrices
 saveRDS(adund_prob_matrices_by_garden_season, 
         "Data/Working_files/abundance_networks_only_phenobs_by_season.rds")
