@@ -1,17 +1,25 @@
-################################################################
+# ======================================================
 #Compute Mantel test between int and int freq and prob phenology matrix
-################################################################
+# ======================================================
 
+# ======================================================
+# Load libraries
 library(dplyr)
 library(purrr)
 library(tidyr)
 library(ggplot2)
 library(vegan) #for mantes and procrustes
 
-#Read network data
+# ======================================================
+# Load data
+#Pheology matrices
 prob_matrices_by_garden = readRDS("Data/Working_files/phenology_networks_only_phenobs_pheno.rds")
-#Load plant-poll networks by garden
+#Visitation and visitation rate networks
 net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
+
+# ======================================================
+# Build function
+# MANTEL visitation network ~ phenology 
 
 mantel_interaction_abundance = function(garden_name) {
   
@@ -42,6 +50,9 @@ mantel_interaction_abundance = function(garden_name) {
   
 }
 
+# ======================================================
+# Build function
+# MANTEL visitation RATE network ~ phenology 
 
 mantel_interactionFreq_abundance = function(garden_name) {
   
@@ -72,24 +83,28 @@ mantel_interactionFreq_abundance = function(garden_name) {
   
 }
 
-#Run both functions now
-#First create vector of gardens
+# ======================================================
+# Run both functions now
+# First create vector of gardens
 gardens = unique(prob_matrices_by_garden$Botanical_garden)
-#Run function int-abund on each garden
+# Run function int-abund on each garden
 results_int_abund = map_dfr(gardens, mantel_interaction_abundance)
-#Check results
+# Check results
 results_int_abund
-#Run function int freq-abundance on each garden
+# Run function int freq-abundance on each garden
 results_intFreq_abund = map_dfr(gardens, mantel_interactionFreq_abundance)
-#Check results
+# Check results
 results_intFreq_abund
 
-#Bind rows
+# Bind rows
 combined_results = bind_rows(results_int_abund, results_intFreq_abund)
 
 combined_results = combined_results %>% 
   mutate(Mantel_corr = abs(Mantel_corr))
 
+
+# ======================================================
+# Plot results
 ggplot(combined_results, aes(x = Botanical_garden, y = Mantel_corr, fill = Test)) +
   geom_bar(stat = "identity", position = "dodge") + 
   theme_minimal() +

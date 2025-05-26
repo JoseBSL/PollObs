@@ -1,25 +1,32 @@
-################################################################
-#Compute Mantel test between int and int freq and prob abundance matrix
-################################################################
+# ======================================================
+#Compute Mantel test between int and int freq and prob phenology matrix
+# ======================================================
 
+# Load libraries
 library(dplyr)
 library(purrr)
 library(tidyr)
 library(ggplot2)
 library(vegan) #for mantes and procrustes
 
-#Read network data
-prob_matrices_by_garden = readRDS("Data/Working_files/abundance_networks_only_phenobs_by_season.rds")
+# ======================================================
+# Load data
+prob_matrices_by_garden = readRDS("Data/Working_files/phenology_networks_only_phenobs_pheno_by_season.rds")
+#Load plant-poll networks by garden
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_and_season_only_phenobs_pheno.rds")
+
+# ======================================================
+# Build function
 
 mantel_interaction_abundance = function(garden_name, season_name) {
   
-  interaction_network = prob_matrices_by_garden %>% 
+  interaction_network = net_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Interaction_network) %>% 
     pull(Interaction_network) %>% 
     .[[1]]
   
-  abundance_network = prob_matrices_by_garden %>% 
+  phenology_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Prob_matrix) %>% 
     pull(Prob_matrix) %>% 
@@ -27,15 +34,15 @@ mantel_interaction_abundance = function(garden_name, season_name) {
   
   #Convert matrices to distance matrices (Euclidean distance here)
   dist1 = dist(interaction_network)
-  dist2 = dist(abundance_network)
+  dist2 = dist(phenology_network)
   #Perform the Mantel test
   mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
   mantel_result$statistic
   mantel_result$signif
   
   return(tibble(Botanical_garden = garden_name, 
-                Season = season_name,
-                Test = "Visits-Abundance",
+                Season = season_name, 
+                Test = "Visits-Phenology",
                 Mantel_corr = mantel_result$statistic,
                 Mantel_Pval = mantel_result$signif))
   
@@ -44,13 +51,13 @@ mantel_interaction_abundance = function(garden_name, season_name) {
 
 mantel_interactionFreq_abundance = function(garden_name, season_name) {
   
-  interaction_network = prob_matrices_by_garden %>% 
+  interaction_network = net_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Int_frequency_network) %>% 
     pull(Int_frequency_network) %>% 
     .[[1]]
   
-  abundance_network = prob_matrices_by_garden %>% 
+  phenology_network = prob_matrices_by_garden %>% 
     filter(Botanical_garden == garden_name, Season == season_name) %>% 
     select(Prob_matrix) %>% 
     pull(Prob_matrix) %>% 
@@ -58,7 +65,7 @@ mantel_interactionFreq_abundance = function(garden_name, season_name) {
   
   #Convert matrices to distance matrices (Euclidean distance here)
   dist1 = dist(interaction_network)
-  dist2 = dist(abundance_network)
+  dist2 = dist(phenology_network)
   #Perform the Mantel test
   mantel_result = mantel(dist1, dist2, method = "pearson", permutations = 999)
   mantel_result$statistic
@@ -66,7 +73,7 @@ mantel_interactionFreq_abundance = function(garden_name, season_name) {
   
   return(tibble(Botanical_garden = garden_name, 
                 Season = season_name,
-                Test = "VisitRate-Abundance",
+                Test = "VisitRate-Phenology",
                 Mantel_corr = mantel_result$statistic,
                 Mantel_Pval = mantel_result$signif))
   
@@ -101,6 +108,8 @@ combined_results$Mantel_corr = abs(combined_results$Mantel_corr)
 combined_results = combined_results %>%
   mutate(Season = factor(Season, levels = c("Early", "Mid", "Late")))
 
+
+# ======================================================
 # Plot
 ggplot(combined_results, aes(x = Season, 
                              y = Mantel_corr, 
@@ -116,7 +125,6 @@ ggplot(combined_results, aes(x = Season,
        fill = "Test Type") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylim(0, 1)
-
 
 
 

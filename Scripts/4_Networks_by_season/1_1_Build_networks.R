@@ -1,31 +1,20 @@
-#Create interaction matrices by garden
-#Note that in this script we only consider phenobs species
-#1)Total interactions
-#AND
-#2)Interaction frequency
+# ======================================================
+#Script: Prepare plant-poll networks (visits and visitation rate)
+# ======================================================
 
-#Load libraries
-library(readr)
-library(tidyr)
+# Load libraries
 library(dplyr)
 library(purrr)
-library(stringr)
-library(tibble)
+library(tidyr)
 
-#Load data
+# ======================================================
+# Load data
+# Interaction data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
-spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
+# Vector of phenobs spp
+phenobs_spp = readRDS("Data/Working_files/phenobs_spp.rds") #To filter int data
 
-#Load morphometrics to get phenobs species vector
-morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
-colnames(morphometrics)
-phenobs_spp = morphometrics %>% 
-  select(Species) %>% 
-  mutate(Species = str_replace(Species, "Persicaria bistorta", "Polygonum bistorta")) %>% 
-  mutate(Species = str_replace(Species, "Aquilegia chrysantha", "Aquilegia vulgaris")) %>% 
-  distinct() %>% 
-  pull(Species) 
-
+# ======================================================
 # Create tibble with unique dates 
 dates = raw_data %>% 
   select(Botanical_garden, Date) %>% 
@@ -45,10 +34,10 @@ groupped_dates = dates %>%
   select(!Season_group) %>% 
   ungroup()
 
-#Create vector with orders
+# Prepare interaction data
+# Filter by main poll orders
 poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
 
-#Prepare interaction data
 interaction_data = raw_data %>%
   filter(!is.na(Interactions),
          !is.na(Floral_abundance),
@@ -60,22 +49,14 @@ interaction_data = raw_data %>%
   filter(Sampling == "Focal") %>% 
   # filter(!Pollinators == "Apis mellifera") %>% 
   filter(Pollinator_order %in% poll_order) %>% 
-  filter(!Plants == "Iberis sempervirens") 
-
-#Exclude polls with insufficent phenol. records
-interaction_data = interaction_data %>% 
-  filter(!Pollinators %in% spp_to_exclude)
-
-interaction_data = interaction_data %>% 
+  filter(!Plants == "Iberis sempervirens") %>% 
   filter(Plant %in% phenobs_spp) 
 
 #Add season category to the data (early-mid and late season)
 interaction_data = left_join(interaction_data, groupped_dates)
 
-
-#1)Total interactions
-
-#Convert to network
+# ======================================================
+# 1) Convert to network (visitation networks)
 to_network = function(data) {
   data %>%
     group_by(Plants, Pollinators) %>%
@@ -88,34 +69,34 @@ to_network = function(data) {
 }
 
 #Prepare networks per garden
-networks_by_garden_interactions = interaction_data %>%
+networks_by_garden_and_season = interaction_data %>%
   group_by(Botanical_garden, Season) %>%
   nest() %>%
   mutate(Interaction_network = map(data, to_network)) %>%
   select(!data) %>% 
   ungroup()
 
-#2)Interaction frequency
-#Overwrite interactions with interaction frequency 
-#to minimise edits in code
+
+# ======================================================
+# 2) Interaction frequency per garden and season
 interaction_frequency = interaction_data %>% 
   group_by(Botanical_garden, Season, Plants, Pollinators) %>%
-  summarise(Interaction_total = sum(Interactions))
+  summarise(Interaction_total = sum(Interactions), .groups = "drop")
 
+# Total observation time per species per garden and season
 total_time_species = interaction_data %>%
   select(Botanical_garden, Season, Plants, Date, Total_time_species) %>% 
   group_by(Botanical_garden, Season, Plants) %>%
   distinct() %>% 
   summarise(Total_time_species = sum(Total_time_species, na.rm = TRUE), .groups = "drop")
 
-# Join total time back into interaction data
-interaction_data_freq = interaction_frequency %>%
-  left_join(total_time_species, by = c("Botanical_garden", "Season", "Plants"), suffix = c("", "_summed")) %>%
+# Join total time into interaction frequency data
+interaction_data_freq <- interaction_frequency %>%
+  left_join(total_time_species, by = c("Botanical_garden", "Season", "Plants")) %>%
   mutate(Freq = Interaction_total / Total_time_species)
 
-
-# Now convert to interaction frequency network
-to_freq_network = function(data) {
+# Frequency network function (same as before)
+to_freq_network <- function(data) {
   data %>%
     group_by(Plants, Pollinators) %>%
     summarise(Total_frequency = sum(Freq), .groups = "drop") %>%
@@ -125,23 +106,26 @@ to_freq_network = function(data) {
     as.matrix()
 }
 
-# Prepare networks per garden (frequencies)
-networks_by_garden_int_frequency = interaction_data_freq %>%
+# Prepare frequency networks per garden and season
+networks_by_garden_season_freq <- interaction_data_freq %>%
   group_by(Botanical_garden, Season) %>%
   nest() %>%
   mutate(Int_frequency_network = map(data, to_freq_network)) %>%
-  select(!data) %>%
+  select(-data) %>%
   ungroup()
 
+# Join interaction totals and frequencies into one tibble
+net_by_garden_season <- left_join(
+  networks_by_garden_and_season,  # from your earlier step
+  networks_by_garden_season_freq,
+  by = c("Botanical_garden", "Season")
+)
 
-#Now bind both and get a tibble with total int and int freq
-net_by_garden = left_join(networks_by_garden_interactions,
-                          networks_by_garden_int_frequency)
+# ======================================================
+# Save result
+saveRDS(net_by_garden_season, "Data/Working_files/networks_by_garden_season_only_phenobs.rds")
 
-saveRDS(net_by_garden, "Data/Working_files/networks_by_garden_and_season_only_phenobs_pheno.rds")
-
-
-
-cor(c(dist(net_by_garden$Interaction_network[[1]])),
-    c(dist(net_by_garden$Int_frequency_network[[1]])))
+# Example distance correlation check for one network pair
+cor(c(dist(net_by_garden_season$Interaction_network[[3]])),
+    c(dist(net_by_garden_season$Int_frequency_network[[3]])))
 
