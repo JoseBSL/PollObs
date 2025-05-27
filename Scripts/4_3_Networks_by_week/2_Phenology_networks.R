@@ -295,6 +295,10 @@ garden_season_combos = net_by_garden %>%
 pheno_prob_matrices_by_garden = garden_season_combos %>% 
   mutate(Prob_matrix = map2(Botanical_garden, Sampling_week, build_prob_matrix))
 
+
+
+pheno_prob_matrices_by_garden = left_join(net_by_garden, pheno_prob_matrices_by_garden)
+
 # ======================================================
 #Save network matrices
 saveRDS(pheno_prob_matrices_by_garden, 
