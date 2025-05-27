@@ -136,6 +136,8 @@ adund_prob_matrices_by_garden_week = net_by_garden %>%
     build_prob_matrix
   ))
 
+colnames(adund_prob_matrices_by_garden_week)
+
 # ======================================================
 #Save network matrices
 saveRDS(adund_prob_matrices_by_garden_week, 
