@@ -13,6 +13,7 @@ library(dplyr)
 library(iNEXT)
 library(ggplot2)
 library(patchwork)
+library(purrr)
 
 # ======================================================
 # Load data
