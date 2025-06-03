@@ -8,7 +8,6 @@
 # Load libraries
 library(dplyr)
 # ======================================================
-
 # Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
 colnames(raw_data)
@@ -42,27 +41,35 @@ data = data %>%
   arrange(Botanical_garden)
 
 
-# ======================================================
-# Example for 1 garden
-
 curves = function(data) {
   
-sampled_plant = sample(unique(data$Plants))
-
-output = data %>% 
-  filter(Plants %in% sampled_plant) %>%
-  arrange(match(Plants, sampled_plant)) %>%
-  group_by(Pollinators) %>%
-  mutate(distinct = row_number() == 1) %>%
-  ungroup() %>%
-  group_by(Plants) %>%
-  mutate(Unique_spp = sum(distinct)) %>%
-  ungroup() %>%
-  select(Plants, Unique_spp, Botanical_garden, Sampling) %>%
-  distinct() %>%
-  mutate(Unique_spp_cumulative = cumsum(Unique_spp)) %>%
-  mutate(Plant_sampled = row_number())
-
+  sampled_plant = sample(unique(data$Plants))
+  
+  output = data %>% 
+    filter(Plants %in% sampled_plant) %>%
+    arrange(match(Plants, sampled_plant)) %>%
+    group_by(Pollinators) %>%
+    mutate(distinct = row_number() == 1) %>%
+    ungroup() %>%
+    group_by(Plants) %>%
+    mutate(Unique_spp = sum(distinct)) %>%
+    ungroup() %>%
+    select(Plants, Unique_spp, Botanical_garden, Sampling) %>%
+    distinct() %>%
+    mutate(Unique_spp_cumulative = cumsum(Unique_spp)) %>%
+    mutate(Plant_sampled = row_number())
+  
+  output_time = data %>%
+    filter(Plants %in% sampled_plant) %>%
+    arrange(match(Plants, sampled_plant)) %>%
+    select(Plants, Total_sampling_time, Botanical_garden, Sampling) %>%
+    distinct() %>%  # to ensure one row per plant
+    mutate(
+      Cumulative_time = cumsum(Total_sampling_time),
+      Plant_sampled = row_number())
+  
+  output_curve = left_join(output_time, output, by = c("Plants", "Plant_sampled",
+                                                       "Botanical_garden","Sampling"))
 }
 
 results_by_garden_sampling = data %>%
@@ -71,17 +78,21 @@ results_by_garden_sampling = data %>%
 
 iterations_combined = bind_rows(results_by_garden_sampling)
 
-
 # Summarise mean curve per Plant_sampled per garden and sampling type
 summary_by_garden_sampling = results_by_garden_sampling %>%
   map(~ .x %>%
         group_by(Plant_sampled, Botanical_garden, Sampling) %>%
         summarise(
           Mean_cumulative_spp = mean(Unique_spp_cumulative),
+          Mean_cumulative_time = mean(Cumulative_time),
           .groups = "drop"))
 
 # Combine summaries
 summary_for_plot = bind_rows(summary_by_garden_sampling)
+
+# Save data
+saveRDS(iterations_combined, "Data/Working_files/rarefied_curves.rds")
+saveRDS(summary_for_plot, "Data/Working_files/mean_rarefied_curve.rds")
 
 # Final plot
 p1 = ggplot() +
@@ -104,64 +115,8 @@ p1 = ggplot() +
   theme_minimal(base_size = 14) +
   labs(color = "Botanical Garden", linetype = "Sampling Type")
 
-# ======================================================
 
-
-
-curves1 = function(data) {
-  
-sampled_plant = sample(unique(data$Plants))
-
-output_time = data %>%
-  filter(Plants %in% sampled_plant) %>%
-  arrange(match(Plants, sampled_plant)) %>%
-  select(Plants, Total_sampling_time, Botanical_garden, Sampling) %>%
-  distinct() %>%  # to ensure one row per plant
-  mutate(
-    Cumulative_time = cumsum(Total_sampling_time),
-    Plant_sampled = row_number()
-  )
-
-
-output_spp = data %>% 
-  filter(Plants %in% sampled_plant) %>%
-  arrange(match(Plants, sampled_plant)) %>%
-  group_by(Pollinators) %>%
-  mutate(distinct = row_number() == 1) %>%
-  ungroup() %>%
-  group_by(Plants) %>%
-  mutate(Unique_spp = sum(distinct)) %>%
-  ungroup() %>%
-  select(Plants, Unique_spp, Botanical_garden, Sampling) %>%
-  distinct() %>%
-  mutate(Unique_spp_cumulative = cumsum(Unique_spp)) %>%
-  mutate(Plant_sampled = row_number())
-
-  output_curve = left_join(output_time, output_spp, by = c("Plants", "Plant_sampled",
-                                                           "Botanical_garden","Sampling"))
-
-}
-
-results_by_garden_sampling = data %>%
-  group_split(Botanical_garden, Sampling) %>%
-  map(~ map_dfr(1:100, function(i) curves1(.x), .id = "iteration"))
-
-iterations_combined = bind_rows(results_by_garden_sampling)
-
-
-
-# Summarise mean curve per Plant_sampled per garden and sampling type
-summary_by_garden_sampling = results_by_garden_sampling %>%
-  map(~ .x %>%
-        group_by(Plant_sampled, Botanical_garden, Sampling) %>%
-        summarise(
-          Mean_cumulative_spp = mean(Unique_spp_cumulative),
-          Mean_cumulative_time = mean(Cumulative_time),
-          .groups = "drop"))
-
-# Combine summaries
-summary_for_plot = bind_rows(summary_by_garden_sampling)
-
+p1
 # Final plot
 p2 = ggplot() +
   # Iteration lines
