@@ -91,8 +91,8 @@ summary_by_garden_sampling = results_by_garden_sampling %>%
 summary_for_plot = bind_rows(summary_by_garden_sampling)
 
 # Save data
-saveRDS(iterations_combined, "Data/Working_files/rarefied_curves.rds")
-saveRDS(summary_for_plot, "Data/Working_files/mean_rarefied_curve.rds")
+#saveRDS(iterations_combined, "Data/Working_files/rarefied_curves.rds")
+#saveRDS(summary_for_plot, "Data/Working_files/mean_rarefied_curve.rds")
 
 # Final plot
 p1 = ggplot() +
