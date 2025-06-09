@@ -115,6 +115,10 @@ garden_phylo_list = nested_plant_lists %>%
 # Check that it works
 #plot(garden_phylo_list$pruned_tree[[1]])
 
+coef_variation = function(x, na.rm = TRUE) {
+  sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm)
+}
+
 # ======================================================
 # Function to compute mean and median phylo distance
 stats_tree = function(tree){
@@ -126,7 +130,7 @@ stats_tree = function(tree){
   # Return mean and median
   tibble(
     Mean_phylo_dist = mean(dist_values),
-    Gini_phylo_dist = Gini(dist_values)
+    Coef_variation = coef_variation(dist_values)
   )
   
 }
@@ -152,9 +156,9 @@ nested_plant_lists_by_sampling = interaction_data %>%
 
 # Filter by garden both trees and interaction data
 tree_garden_x = nested_plant_lists_by_sampling %>% 
-  filter(Botanical_garden == garden_name)
+  filter(Botanical_garden == "Halle")
 int_data_x = interaction_data %>% 
-  filter(Botanical_garden == garden_name) %>% 
+  filter(Botanical_garden == "Halle") %>% 
   select(Plants, Pollinators)
 
 # Select 4 species from each sampling method
@@ -210,14 +214,14 @@ pruned_random_tree_poll = prune_tree(poll_phylo, random_richness_poll_vector)
 focal_stats_poll = stats_tree(pruned_focal_tree_poll)
 focal_stats_poll = focal_stats_poll %>% 
   rename(Mean_phylo_dist_poll = Mean_phylo_dist) %>% 
-  rename(Gini_phylo_dist_poll = Gini_phylo_dist) %>% 
+  rename(Coef_variation_poll = Coef_variation) %>% 
   mutate(Sampling = "Focal") %>% 
   mutate(Botanical_garden = garden_name)
 
 random_stats_poll = stats_tree(pruned_random_tree_poll)
 random_stats_poll = random_stats_poll %>% 
   rename(Mean_phylo_dist_poll = Mean_phylo_dist) %>% 
-  rename(Gini_phylo_dist_poll = Gini_phylo_dist) %>% 
+  rename(Coef_variation_poll = Coef_variation) %>% 
   mutate(Sampling = "Random") %>% 
   mutate(Botanical_garden = garden_name)
 
@@ -258,11 +262,11 @@ d = d %>%
   select(Botanical_garden,
          Sampling, 
          Mean_phylo_dist, 
-         Gini_phylo_dist, 
+         Coef_variation,
          Poll_richness,
          Poll_richness_per_min,
          Mean_phylo_dist_poll,
-         Gini_phylo_dist_poll)
+         Coef_variation_poll)
 return(d)
 }
 
@@ -280,7 +284,7 @@ results_100 = map_dfr(garden_names, function(garden) {
 
 results_100 %>% 
  filter(Botanical_garden == "Leipzig") %>% 
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
+  ggplot(aes(x = Coef_variation, y = Coef_variation_poll, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
   scale_y_log10()  +
@@ -288,7 +292,7 @@ results_100 %>%
 
 results_100 %>% 
    filter(Botanical_garden == "Leipzig") %>% 
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
   scale_y_log10() +
@@ -326,7 +330,7 @@ results_100 %>%
 
 results_100 %>%
   group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Mean_phylo_dist, Poll_richness_per_min, method = "spearman"))
+  summarise(correlation = cor(Coef_variation, Poll_richness_per_min, method = "spearman"))
 
 
 results_100 %>%
@@ -348,25 +352,17 @@ results_100 %>%
        x = "Mean Phylogenetic Distance",
        y = "Pollinator Richness")
 
-results_100 %>%
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Phylogenetic Distance vs Pollinator Richness",
-       x = "Mean Phylogenetic Distance",
-       y = "Pollinator Richness")
-
 
 colnames(results_100)
+
 results_100 %>%
-  ggplot(aes(x = Gini_phylo_dist, y = Mean_phylo_dist_poll, colour = Sampling)) +
+  ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
+  #facet_wrap(~ Botanical_garden) +
   theme_minimal() +
-  labs(title = "Phylogenetic Distance vs Pollinator Richness",
-       x = "Mean Phylogenetic Distance",
-       y = "Pollinator Richness")
+  labs(x = "CV phylogenetic distance",
+       y = "Pollinator Richness/min")
+
+
 
