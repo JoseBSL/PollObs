@@ -76,6 +76,26 @@ nested_plant_lists = interaction_data %>%
   mutate(plant_vector = map(plant_vector, ~ gsub(" ", "_", .x)))
 
 # ======================================================
+# Compute pollinator phylo
+poll_taxonomic_info = interaction_data %>% 
+  select(c(Pollinators, Pollinator_genus, Pollinator_family, Pollinator_order)) %>% 
+  distinct() %>% 
+  rename(species = Pollinators,
+         genus = Pollinator_genus,
+         family = Pollinator_family,
+         order = Pollinator_order) %>% 
+  select(order, family, genus, species)
+
+# Set hierarchy
+poll_hierarchy = ~order/family/genus/species
+# Convert all columns to factor
+poll_taxonomic_info = poll_taxonomic_info %>%
+  mutate(across(everything(), as.factor))
+
+poll_phylo = as.phylo(poll_hierarchy, data = poll_taxonomic_info, collapse=FALSE)
+
+
+# ======================================================
 # Function to prune tree for a given vector of species
 prune_tree = function(tree, species_vector) {
   # Keep only the species that exist both in the tree and the vector
@@ -148,8 +168,8 @@ random_census_x = tree_garden_x %>%
   .[[1]]
 
 # Create random pull of species from focal and random of each garden
-focal_vector = sample(focal_x, 10)
-random_vector = sample(random_census_x, 10)
+focal_vector = sample(focal_x, 20)
+random_vector = sample(random_census_x, 20)
 
 # Prune tree with these random vectors
 # Note prune_tree function was created before
@@ -163,12 +183,46 @@ random_stats = stats_tree(pruned_random_tree)
 # Get pollinator richnnes for these subset of species
 focal_richness = int_data_x %>%  
   mutate(Plants = str_replace(Plants, " ", "_")) %>% 
-  filter(Plants %in% focal_vector) %>% 
+  filter(Plants %in% focal_vector) 
+# Create this vector to get poll phylo distance
+focal_richness_poll_vector = focal_richness %>% 
+  distinct(Pollinators) %>% 
+  pull()
+# Count distinct polls
+focal_richness = focal_richness %>% 
   summarise(n_poll = n_distinct(Pollinators))
+# Get pollinator richnnes for these subset of species
 random_richness = int_data_x %>%  
   mutate(Plants = str_replace(Plants, " ", "_")) %>% 
-  filter(Plants %in% random_vector) %>% 
+  filter(Plants %in% random_vector)
+# Create this vector to get poll phylo distance
+random_richness_poll_vector = random_richness %>% 
+  distinct(Pollinators) %>% 
+  pull()
+# Count distinct polls
+random_richness = random_richness %>% 
   summarise(n_poll = n_distinct(Pollinators))
+
+# Compute phylo distance of polls
+pruned_focal_tree_poll = prune_tree(poll_phylo, focal_richness_poll_vector)
+pruned_random_tree_poll = prune_tree(poll_phylo, random_richness_poll_vector)
+# Compute metrics of pruned trees
+focal_stats_poll = stats_tree(pruned_focal_tree_poll)
+focal_stats_poll = focal_stats_poll %>% 
+  rename(Mean_phylo_dist_poll = Mean_phylo_dist) %>% 
+  rename(Gini_phylo_dist_poll = Gini_phylo_dist) %>% 
+  mutate(Sampling = "Focal") %>% 
+  mutate(Botanical_garden = garden_name)
+
+random_stats_poll = stats_tree(pruned_random_tree_poll)
+random_stats_poll = random_stats_poll %>% 
+  rename(Mean_phylo_dist_poll = Mean_phylo_dist) %>% 
+  rename(Gini_phylo_dist_poll = Gini_phylo_dist) %>% 
+  mutate(Sampling = "Random") %>% 
+  mutate(Botanical_garden = garden_name)
+
+d_poll = bind_rows(focal_stats_poll, random_stats_poll)
+
 # Get pollinator richnnes corrected by time
 focal_richness_by_time = richness_and_sampling_time %>% 
   filter(Botanical_garden == garden_name, Sampling == "Focal") %>% 
@@ -196,6 +250,8 @@ random_stats = random_stats %>%
 # Bind both datasets
 d = bind_rows(focal_stats, random_stats)
 
+d = left_join(d, d_poll)
+
 # Reorder cols 
 d = d %>% 
   mutate(Botanical_garden = garden_name) %>% 
@@ -204,7 +260,9 @@ d = d %>%
          Mean_phylo_dist, 
          Gini_phylo_dist, 
          Poll_richness,
-         Poll_richness_per_min)
+         Poll_richness_per_min,
+         Mean_phylo_dist_poll,
+         Gini_phylo_dist_poll)
 return(d)
 }
 
@@ -221,16 +279,36 @@ results_100 = map_dfr(garden_names, function(garden) {
 
 
 results_100 %>% 
-#  filter(Botanical_garden == "Halle") %>% 
+ filter(Botanical_garden == "Leipzig") %>% 
   ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
-  theme_minimal()
+  theme_minimal() +
+  scale_y_log10()  +
+  geom_smooth()
+
+results_100 %>% 
+   filter(Botanical_garden == "Leipzig") %>% 
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  scale_y_log10() +
+  geom_smooth()
+
+
 
 results_100 %>% 
   #  filter(Botanical_garden == "Halle") %>% 
   ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal()
+
+results_100 %>% 
+  #  filter(Botanical_garden == "Halle") %>% 
+  ggplot(aes(x = Poll_richness_per_min, y = Mean_phylo_dist_poll, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  scale_x_log10() 
+
 
 
 results_100 %>%
@@ -240,3 +318,55 @@ results_100 %>%
   facet_wrap(~ Botanical_garden) +
   theme_minimal() +
   labs(title = "Distribution of Mean Phylogenetic Distance by Sampling Type")
+
+
+results_100 %>%
+  group_by(Botanical_garden, Sampling) %>%
+  summarise(correlation = cor(Mean_phylo_dist, Poll_richness, method = "spearman"))
+
+results_100 %>%
+  group_by(Botanical_garden, Sampling) %>%
+  summarise(correlation = cor(Mean_phylo_dist, Poll_richness_per_min, method = "spearman"))
+
+
+results_100 %>%
+  group_by(Botanical_garden, Sampling) %>%
+  summarise(correlation = cor(Poll_richness_per_min, Mean_phylo_dist_poll, method = "spearman"))
+
+results_100 %>%
+  group_by(Botanical_garden, Sampling) %>%
+  summarise(correlation = cor(Poll_richness, Mean_phylo_dist_poll, method = "spearman"))
+
+
+results_100 %>%
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Phylogenetic Distance vs Pollinator Richness",
+       x = "Mean Phylogenetic Distance",
+       y = "Pollinator Richness")
+
+results_100 %>%
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Phylogenetic Distance vs Pollinator Richness",
+       x = "Mean Phylogenetic Distance",
+       y = "Pollinator Richness")
+
+
+colnames(results_100)
+results_100 %>%
+  ggplot(aes(x = Gini_phylo_dist, y = Mean_phylo_dist_poll, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Phylogenetic Distance vs Pollinator Richness",
+       x = "Mean Phylogenetic Distance",
+       y = "Pollinator Richness")
+
