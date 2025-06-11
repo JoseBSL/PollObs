@@ -110,7 +110,21 @@ Question 1:
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. This study monitored a total of 83 focal plant species (42 in Halle, 43 in Jena and 47 in Leipzig), and a total of 12 were shared across the three gardens. These different focal plants were sampled at random order each sampling day at each garden. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected, and plant-pollinator interactions were monitored for three minutes at each random location on each garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. Only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. On each sampling day, the different focal plants were sampled in a random order. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random location. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning="FALSE"}
+
+#Load variables
+phenobs_spp = readRDS("../Data/Working_files/phenobs_spp.rds")
+phenobs_spp = length(phenobs_spp)
+
+```
+
+## Sampling effort and taxonomic coverage
+
+This study monitored a total of `r phenobs_spp` focal plant species that accounted for x different genera and x different families. In total, we sampled pollinators on 42 plants species in Halle (xmin/species), 43 in Jena (xmin/species) and 47 in Leipzig (xmin/species), and only 12 species were shared across the three gardens.
+
+Pollinator focus Hymenoptera and Diptera as the comprise the highest percentage of interactions
 
 ## Data description
 
@@ -119,9 +133,7 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 (i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014].
 
 
-Copy paste from Herrera 2020, adapt to our work: 
 
-Only taxa whose individuals contacted anthers or stigmas, or had visible pollen grains on body surfaces, are considered as pollinators in this study.
 
 Some species had tiny flowers densely packed into compact inflorescences (e.g., Apiaceae, Asteraceae, Dipsacaceae; N = 53 species, Table 1), which rendered impractical assessing the number of elemental florets visited by pollinators. In these cases, the number of inflorescences available per patch and visited per census was counted rather than individual flowers, and visitation probabilities (see Data analysis) thus actually refer to inflorescences. For simplicity, I will refer to visitation to both single flowers and inflorescences as “flower visitation.” In some analyses, however, the two types of visitation units will be considered as levels of the discrete variable “visitation unit,” one of the predictors of pollinator visitation considered here (“single flowers” vs. “flower packets”
 
@@ -136,13 +148,20 @@ Some species had tiny flowers densely packed into compact inflorescences (e.g., 
 
 *compute phenology matrices: presence absence and probability ones based by calculating the probability of observing both if they are independent events divided by total number of sampling days
 
-## Analysis
+## Analysess
+
+Accumulation curves
+
+
 
 Compare matrices presence/absence|visitation rate ~ abundance/phenology/traits
 
 Check abundances (FLORAL ABUNDANCES)
 
 # Results
+
+
+
 
 Compare differences between phenobs and random stops across gardens (identity, number of species and interactions by sampling date or sampled species). Number of species of plant and pollinators on each and percentage of plant-pollinator interactions and pollinator species captured by the PhenObs species.  
 
