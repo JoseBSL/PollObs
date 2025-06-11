@@ -9,6 +9,7 @@ library(ggplot2)
 library(tibble)
 library(minpack.lm)
 library(patchwork)
+library(ggnewscale)
 
 # ======================================================
 # Load data
@@ -137,6 +138,14 @@ extrapolated_data_fixed <- extrapolated_data_fixed %>%
   mutate(alpha_group = ifelse(Cumulative_time <= max_observed_time, "observed", "extrapolated"))
 
 # ======================================================
+
+summary_for_plot_points = extrapolated_data_fixed %>% 
+  filter(alpha_group == "observed") %>% 
+  group_by(Botanical_garden, Sampling) %>% 
+  summarise(Mean_cumulative_time = max(Cumulative_time),
+            Mean_cumulative_spp = max(predicted))
+
+
 # Final plot
 ggplot() +
   # Iteration lines
@@ -159,9 +168,7 @@ ggplot() +
   scale_linetype_manual(
     values = c("Focal" = "solid", "Random_census" = 22),
     labels = c("Focal" = "Phenobs plants", "Random_census" = "Random plants")) +
-  
-  # Summary points (ensure you define summary_for_plot_points before this)
-  geom_point(data = summary_for_plot_points, 
+    geom_point(data = summary_for_plot_points, 
              aes(x = Mean_cumulative_time, y = Mean_cumulative_spp, 
                  color = Botanical_garden, linetype = Sampling),
              size = 2.74) +

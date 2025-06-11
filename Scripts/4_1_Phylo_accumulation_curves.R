@@ -15,6 +15,8 @@ library(ape)
 library(purrr)
 library(ggplot2)
 library(DescTools) 
+library(stringr)
+library(tidyr)
 # ======================================================
 # Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
@@ -156,9 +158,9 @@ nested_plant_lists_by_sampling = interaction_data %>%
 
 # Filter by garden both trees and interaction data
 tree_garden_x = nested_plant_lists_by_sampling %>% 
-  filter(Botanical_garden == "Halle")
+  filter(Botanical_garden == garden_name)
 int_data_x = interaction_data %>% 
-  filter(Botanical_garden == "Halle") %>% 
+  filter(Botanical_garden == garden_name) %>% 
   select(Plants, Pollinators)
 
 # Select 4 species from each sampling method
@@ -172,8 +174,8 @@ random_census_x = tree_garden_x %>%
   .[[1]]
 
 # Create random pull of species from focal and random of each garden
-focal_vector = sample(focal_x, 20)
-random_vector = sample(random_census_x, 20)
+focal_vector = sample(focal_x, 3, replace = FALSE)
+random_vector = sample(random_census_x, 3, replace = FALSE)
 
 # Prune tree with these random vectors
 # Note prune_tree function was created before
@@ -232,24 +234,29 @@ focal_richness_by_time = richness_and_sampling_time %>%
   filter(Botanical_garden == garden_name, Sampling == "Focal") %>% 
   filter(Plants %in% focal_vector) %>% 
   ungroup() %>% 
-  summarise(Poll_richness_per_min = mean(Poll_richness_per_min))
+  summarise(Poll_richness_per_min = mean(Poll_richness_per_min, na.rm = T),
+            Mean_time =  mean(Time, na.rm = T))
 
 random_richness_by_time = richness_and_sampling_time %>% 
   filter(Botanical_garden == garden_name, Sampling == "Random_census") %>% 
-  filter(Plants %in% focal_vector) %>% 
+  filter(Plants %in% random_vector) %>% 
   ungroup() %>% 
-  summarise(Poll_richness_per_min = mean(Poll_richness_per_min)) 
+  summarise(Poll_richness_per_min = mean(Poll_richness_per_min, na.rm = T),
+            Mean_time = mean(Time, na.rm = T)) 
 
 # Create final tibble 
 focal_stats = focal_stats %>% 
   mutate(Sampling = "Focal") %>% 
   mutate(Poll_richness = focal_richness$n_poll) %>% 
-  mutate(Poll_richness_per_min = focal_richness_by_time$Poll_richness_per_min)
+  mutate(Poll_richness_per_min = focal_richness_by_time$Poll_richness_per_min) %>% 
+  mutate(Time = focal_richness_by_time$Mean_time)
+
 
 random_stats = random_stats %>% 
   mutate(Sampling = "Random") %>% 
   mutate(Poll_richness = random_richness$n_poll) %>% 
-  mutate(Poll_richness_per_min = focal_richness_by_time$Poll_richness_per_min)
+  mutate(Poll_richness_per_min = random_richness_by_time$Poll_richness_per_min) %>% 
+  mutate(Time = random_richness_by_time$Mean_time)
 
 # Bind both datasets
 d = bind_rows(focal_stats, random_stats)
@@ -266,7 +273,8 @@ d = d %>%
          Poll_richness,
          Poll_richness_per_min,
          Mean_phylo_dist_poll,
-         Coef_variation_poll)
+         Coef_variation_poll,
+         Time)
 return(d)
 }
 
@@ -276,42 +284,69 @@ garden_names = c("Jena", "Halle", "Leipzig")
 
 # Run the randomizer for each garden and iteration
 results_100 = map_dfr(garden_names, function(garden) {
-  map_dfr(1:100, function(i) {
+  map_dfr(1:200, function(i) {
     phylo_dist_randomizer(garden) %>%
       mutate(iteration = i)})
   })
 
 
-results_100 %>% 
- filter(Botanical_garden == "Leipzig") %>% 
-  ggplot(aes(x = Coef_variation, y = Coef_variation_poll, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  scale_y_log10()  +
-  geom_smooth()
 
 results_100 %>% 
-   filter(Botanical_garden == "Leipzig") %>% 
   ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
-  scale_y_log10() +
-  geom_smooth()
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  scale_y_log10()
+
+results_100 %>% 
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth(method = "lm")+
+  scale_x_log10() +
+  scale_y_log10()
 
 
 
 results_100 %>% 
-  #  filter(Botanical_garden == "Halle") %>% 
+  ggplot(aes(x = Coef_variation, y = Poll_richness, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth(method = "lm")+
+  scale_x_log10() +
+  scale_y_log10()
+
+results_100 %>% 
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth(method = "lm")+
+  scale_x_log10() +
+  scale_y_log10()
+
+results_100 %>% 
   ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
-  theme_minimal()
+  theme_minimal()+
+  scale_x_log10() +
+  scale_y_log10()
 
 results_100 %>% 
   #  filter(Botanical_garden == "Halle") %>% 
   ggplot(aes(x = Poll_richness_per_min, y = Mean_phylo_dist_poll, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
-  scale_x_log10() 
+  scale_x_log10() +
+  scale_y_log10()
+
+results_100 %>% 
+  #  filter(Botanical_garden == "Halle") %>% 
+  ggplot(aes(x = Poll_richness, y = Mean_phylo_dist_poll, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  scale_x_log10() +
+  scale_y_log10()
 
 
 
@@ -326,7 +361,7 @@ results_100 %>%
 
 results_100 %>%
   group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Mean_phylo_dist, Poll_richness, method = "spearman"))
+  summarise(correlation = cor(Mean_phylo_dist, Poll_richness_per_min, method = "spearman"))
 
 results_100 %>%
   group_by(Botanical_garden, Sampling) %>%
@@ -352,6 +387,26 @@ results_100 %>%
        x = "Mean Phylogenetic Distance",
        y = "Pollinator Richness")
 
+results_100 %>%
+  ggplot(aes(x = Coef_variation, y = Poll_richness, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Phylogenetic Distance vs Pollinator Richness",
+       x = "Mean Phylogenetic Distance",
+       y = "Pollinator Richness")
+
+results_100 %>%
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Phylogenetic Distance vs Pollinator Richness",
+       x = "Mean Phylogenetic Distance",
+       y = "Pollinator Richness")
+
 
 colnames(results_100)
 
@@ -359,10 +414,59 @@ results_100 %>%
   ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   geom_smooth(method = "lm", se = FALSE) +
-  #facet_wrap(~ Botanical_garden) +
+  facet_wrap(~ Botanical_garden) +
   theme_minimal() +
   labs(x = "CV phylogenetic distance",
        y = "Pollinator Richness/min")
 
+
+colnames(results_100)
+results_100 %>% 
+  ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth() 
+results_100 %>% 
+  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth() 
+
+
+results_100 %>% 
+  ggplot(aes(x = Poll_richness_per_min, y = Mean_phylo_dist_poll, colour = Sampling)) +
+  facet_wrap(~ Botanical_garden) +
+  
+  geom_point(alpha = 0.6, size = 2) +
+  theme_minimal() +
+  geom_smooth() 
+
+
+
+
+results_100 %>%
+  ggplot(aes(x = Sampling, y = Poll_richness, fill = Sampling)) +
+  geom_violin(alpha = 0.6) +
+  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() +
+  labs(title = "Distribution of Mean Phylogenetic Distance by Sampling Type")
+
+
+
+
+results_100 %>%
+  ggplot(aes(x = Sampling, y = Poll_richness_per_min, fill = Sampling)) +
+  geom_violin(alpha = 0.6) +
+  geom_point(width = 0.1, alpha = 0.3, size = 1) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal()
+
+results_100 %>%
+  ggplot(aes(x = Sampling, y = Poll_richness, fill = Sampling)) +
+  geom_violin(alpha = 0.6) +
+  geom_point(width = 0.1, alpha = 0.3, size = 1) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() 
 
 
