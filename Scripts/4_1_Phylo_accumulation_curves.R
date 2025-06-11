@@ -5,6 +5,10 @@
 # Resample subset (x number of species) of phenobs and random species 
 # and calculate mean phylogenetic distance across species
 # then repeat this x times
+
+# The goal is to understand if the phylogenetic pool of species 
+# is influencing the observed patterns across species
+
 # ======================================================
 
 # Load libraries
@@ -290,6 +294,10 @@ results_100 = map_dfr(garden_names, function(garden) {
   })
 
 
+# Explore visually the different patterns
+
+#results_100 = results_100 %>% 
+#  filter(Sampling == "Focal")
 
 results_100 %>% 
   ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
@@ -303,17 +311,14 @@ results_100 %>%
   ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
-  geom_smooth(method = "lm")+
-  scale_x_log10() +
-  scale_y_log10()
-
-
+  geom_smooth(method = "lm") +
+  scale_x_log10() 
 
 results_100 %>% 
   ggplot(aes(x = Coef_variation, y = Poll_richness, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
-  geom_smooth(method = "lm")+
+  geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10()
 
@@ -321,140 +326,11 @@ results_100 %>%
   ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
   geom_point(alpha = 0.6, size = 2) +
   theme_minimal() +
-  geom_smooth(method = "lm")+
+  geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10()
 
-results_100 %>% 
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal()+
-  scale_x_log10() +
-  scale_y_log10()
-
-results_100 %>% 
-  #  filter(Botanical_garden == "Halle") %>% 
-  ggplot(aes(x = Poll_richness_per_min, y = Mean_phylo_dist_poll, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  scale_x_log10() +
-  scale_y_log10()
-
-results_100 %>% 
-  #  filter(Botanical_garden == "Halle") %>% 
-  ggplot(aes(x = Poll_richness, y = Mean_phylo_dist_poll, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  scale_x_log10() +
-  scale_y_log10()
-
-
-
-results_100 %>%
-  ggplot(aes(x = Sampling, y = Mean_phylo_dist, fill = Sampling)) +
-  geom_violin(alpha = 0.6) +
-  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Distribution of Mean Phylogenetic Distance by Sampling Type")
-
-
-results_100 %>%
-  group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Mean_phylo_dist, Poll_richness_per_min, method = "spearman"))
-
-results_100 %>%
-  group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Coef_variation, Poll_richness_per_min, method = "spearman"))
-
-
-results_100 %>%
-  group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Poll_richness_per_min, Mean_phylo_dist_poll, method = "spearman"))
-
-results_100 %>%
-  group_by(Botanical_garden, Sampling) %>%
-  summarise(correlation = cor(Poll_richness, Mean_phylo_dist_poll, method = "spearman"))
-
-
-results_100 %>%
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Phylogenetic Distance vs Pollinator Richness",
-       x = "Mean Phylogenetic Distance",
-       y = "Pollinator Richness")
-
-results_100 %>%
-  ggplot(aes(x = Coef_variation, y = Poll_richness, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Phylogenetic Distance vs Pollinator Richness",
-       x = "Mean Phylogenetic Distance",
-       y = "Pollinator Richness")
-
-results_100 %>%
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Phylogenetic Distance vs Pollinator Richness",
-       x = "Mean Phylogenetic Distance",
-       y = "Pollinator Richness")
-
-
-colnames(results_100)
-
-results_100 %>%
-  ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(x = "CV phylogenetic distance",
-       y = "Pollinator Richness/min")
-
-
-colnames(results_100)
-results_100 %>% 
-  ggplot(aes(x = Coef_variation, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  geom_smooth() 
-results_100 %>% 
-  ggplot(aes(x = Mean_phylo_dist, y = Poll_richness_per_min, colour = Sampling)) +
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  geom_smooth() 
-
-
-results_100 %>% 
-  ggplot(aes(x = Poll_richness_per_min, y = Mean_phylo_dist_poll, colour = Sampling)) +
-  facet_wrap(~ Botanical_garden) +
-  
-  geom_point(alpha = 0.6, size = 2) +
-  theme_minimal() +
-  geom_smooth() 
-
-
-
-
-results_100 %>%
-  ggplot(aes(x = Sampling, y = Poll_richness, fill = Sampling)) +
-  geom_violin(alpha = 0.6) +
-  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +
-  facet_wrap(~ Botanical_garden) +
-  theme_minimal() +
-  labs(title = "Distribution of Mean Phylogenetic Distance by Sampling Type")
-
-
-
-
+#Compare across focal and random
 results_100 %>%
   ggplot(aes(x = Sampling, y = Poll_richness_per_min, fill = Sampling)) +
   geom_violin(alpha = 0.6) +
@@ -469,4 +345,11 @@ results_100 %>%
   facet_wrap(~ Botanical_garden) +
   theme_minimal() 
 
+
+results_100 %>%
+  ggplot(aes(x = Sampling, y = Mean_phylo_dist_poll, fill = Sampling)) +
+  geom_violin(alpha = 0.6) +
+  geom_point(width = 0.1, alpha = 0.3, size = 1) +
+  facet_wrap(~ Botanical_garden) +
+  theme_minimal() 
 
