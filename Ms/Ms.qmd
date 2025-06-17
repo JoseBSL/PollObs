@@ -60,7 +60,7 @@ Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Ray
 Flowering plants exhibit an astonishing diversity of reproductive structures, which  shapes how they interact with their pollinators. However, to what extent reproductive traits or other drivers like phenology and species abundances shape plant-pollinator interactions is still an open question. To disentangle the relative effects of species phenology, abundances and traits in plant-pollinator interactions, we compared pollinator visitation rates, diet breath, specialization from plant species that vary in reproductive traits, phenology and abundances. To do this, we observed plant-pollinator interactions for a whole flowering season in three different botanical gardens located in an urban setting. We anticipate that the ecological role of the different plant and pollinator species are largely driven by their phenological overlap and abundance, and only certain taxonomic groups are strongly influenced by trait matching processes. Our results highlight the relevance of considering multiple mechanisms to understand plant-pollinator interactions.
 
 
-Introduction
+# Introduction
 
 1st paragrap 
 
@@ -69,6 +69,9 @@ General introductory paragraph
 Ecological networks... 
 Introduce drivers
 End with limitations and state of the art, temporal and spatial components, sampling biases and data limitations from rarity.
+
+Explain that ecological networks are temporal constructs and that the relative importance of the different may differ across different levels of temporal aggregation and analytical methods.
+
 
 2nd paragraph 
 
@@ -86,19 +89,16 @@ Last paragraph, introduce what we test!
 
 By conducting this experiment in botanical gardens, we have as objective reducing the "noise" associated with the context-dependent nature of ecological interactions [REF].
 
+What use and what temporal resolution of networks are best for improving our predictive understanding of the structure and dynamics of ecological communities? by Caradonna and Waser 2020
 
 
-# Main objective
-
-Explore how traits, phenology and abundances shape species interactions in three botanical gardens from Germany. 
+Explore how traits, phenology and abundances shape species interactions in three botanical gardens from Germany at different levels of temporal complexity 
 
 Pending tasks:
 
 Question 1:
 
 - Explore relative contribution of ecological drivers (abundances, phenology, traits, phylogeny (plants and bees)).
-
-      - Pollinators: conduct rarefaction on our data and compare phenobs vs random stops vs all garden  
 
 - Associated with this, how increasing sampling impact our view of those processes.
 
@@ -110,62 +110,158 @@ Question 1:
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant. Only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. On each sampling day, the different focal plants were sampled in a random order. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random location. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant.  On each sampling day, the different focal plants were sampled in a random order and only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random site, resulting in a total of 30 minutes per sampling day and garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning="FALSE"}
 
-#Load variables
+# Load libraries
+library(dplyr)
+
+# Load data
+raw_data = readRDS("../Data/Working_files/interaction_data.rds")
 phenobs_spp = readRDS("../Data/Working_files/phenobs_spp.rds")
-phenobs_spp = length(phenobs_spp)
+
+# Number of phenobs species
+phenobs_total = length(phenobs_spp)
+
+# Prepare data
+int_data = raw_data %>%
+  filter(Plant_rank == "SPECIES") %>%
+  select(Plant, 
+         Plant_accepted_name, 
+         Pollinator_accepted_name, 
+         Botanical_garden, 
+         Sampling,
+         Plant_order,
+         Plant_family,
+         Plant_genus) %>%
+  rename(Plants = Plant_accepted_name,
+         Pollinators = Pollinator_accepted_name) %>%
+  distinct()
+
+# Check unique number of PhenObs species by garden
+phenobs_by_garden = int_data %>% 
+filter(Plant %in% phenobs_spp) %>% 
+select(Botanical_garden, Plant) %>% 
+group_by(Botanical_garden) %>% 
+summarise(Phenobs_spp = n_distinct(Plant))
+
+# PhenObs species by garden
+phenobs_h = phenobs_by_garden$Phenobs_spp[1]
+phenobs_j = phenobs_by_garden$Phenobs_spp[2]
+phenobs_l = phenobs_by_garden$Phenobs_spp[3]
+
+# Check unique number of Non-PhenObs species by garden
+phenobs_by_garden1 = int_data %>% 
+filter(Sampling == "Random_census") %>% 
+select(Botanical_garden, Plant) %>% 
+group_by(Botanical_garden) %>% 
+summarise(Non_phenobs_spp = n_distinct(Plant))
+
+# PhenObs species by garden
+non_phenobs_h = phenobs_by_garden1$Non_phenobs_spp[1]
+non_phenobs_j = phenobs_by_garden1$Non_phenobs_spp[2]
+non_phenobs_l = phenobs_by_garden1$Non_phenobs_spp[3]
+
+# Check total number of plant orders within PhenObs
+phenobs_orders = int_data %>% 
+  filter(Plant %in% phenobs_spp) %>% 
+  distinct(Plant_order) %>% 
+  nrow()
+
+# Check total number of plant families within PhenObs
+phenobs_families = int_data %>% 
+  filter(Plant %in% phenobs_spp) %>% 
+  distinct(Plant_family) %>% 
+  nrow()
+
+# Check total number of plant genera within PhenObs
+phenobs_genera = int_data %>% 
+  filter(Plant %in% phenobs_spp) %>% 
+  distinct(Plant_genus) %>% 
+  nrow()
+
+# Calculate total time per garden for PhenObs plants
+time_per_garden = raw_data %>% 
+  filter(Sampling == "Focal") %>% 
+  select(Botanical_garden, Date, Total_time_species, Plant) %>% 
+  distinct() %>% 
+  group_by(Botanical_garden) %>% 
+  summarise(Total_time = sum(Total_time_species) / 60)
+
+halle_hours = round(time_per_garden$Total_time[1], 1)
+jena_hours = round(time_per_garden$Total_time[2], 1)
+leipzig_hours = round(time_per_garden$Total_time[3],1)
+
+
+# Calculate total time per garden for NON-PhenObs plants
+time_per_garden1 = raw_data %>% 
+  filter(Sampling == "Random_census") %>% 
+  select(Botanical_garden, Date, Total_time_species, Plant) %>% 
+  distinct() %>% 
+  group_by(Botanical_garden) %>% 
+  summarise(Total_time = sum(Total_time_species) / 60)
+
+halle_hours_random = round(time_per_garden1$Total_time[1], 1)
+jena_hours_random = round(time_per_garden1$Total_time[2], 1)
+leipzig_hours_random = round(time_per_garden1$Total_time[3],1)
+
+
+# Percentage of species with capitulum
+capitulum_percent = int_data = raw_data %>%
+  filter(Plant_rank == "SPECIES") %>%
+  #filter(Sampling == "Focal") %>% 
+  #filter(Plant %in% phenobs_spp) %>% 
+  select(Plant, 
+         Capitulum) %>% 
+  distinct() %>% 
+  group_by(Capitulum) %>% 
+  summarise(n_plants = length(Plant) / nrow(.) * 100)
+
+non_capitulum_percent = capitulum_percent %>% 
+  filter(Capitulum == "No") %>% 
+  pull(n_plants) %>% 
+  round(1)
+
+capitulum_percent = capitulum_percent %>% 
+  filter(Capitulum == "Yes") %>% 
+  pull(n_plants) %>% 
+  round(1)
+
 
 ```
 
-## Sampling effort and taxonomic coverage
+## Sampling effort and plant taxonomic coverage
 
-This study monitored a total of `r phenobs_spp` focal plant species that accounted for x different genera and x different families. In total, we sampled pollinators on 42 plants species in Halle (xmin/species), 43 in Jena (xmin/species) and 47 in Leipzig (xmin/species), and only 12 species were shared across the three gardens.
-
-Pollinator focus Hymenoptera and Diptera as the comprise the highest percentage of interactions
+This study monitored a total of `r phenobs_total` focal plant species that belonged to PhenObs initiative, which accounted for `r phenobs_genera` different genera, `r phenobs_families` families and `r phenobs_orders` different orders. In total, we sampled pollinators on `r phenobs_h` plants species in Halle (`r halle_hours` hours), `r phenobs_j` in Jena (`r jena_hours` hours) and `r phenobs_l` in Leipzig (`r leipzig_hours` hours), and only 12 species were shared across the three gardens. In addition, with the random stops across the garden we sampled a total of XXXX species that comprised XXXX genera, XXXXX families and XXXXX orders. This study accounted for a total of `r non_phenobs_h` plant species in Halle (`r halle_hours_random` hours), `r non_phenobs_j` in Jena (`r jena_hours_random` hours), and `r non_phenobs_l` in Leipzig (`r leipzig_hours_random` hours). Explain accumulation curves here!!!
 
 ## Data description
 
 To evaluate the different mechanisms that drive plant-pollinator interactions, detailed information on abundance, phenology and species traits for both plants and pollinators was recorded as follows: 
 
-(i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014].
-
-
-
-
-Some species had tiny flowers densely packed into compact inflorescences (e.g., Apiaceae, Asteraceae, Dipsacaceae; N = 53 species, Table 1), which rendered impractical assessing the number of elemental florets visited by pollinators. In these cases, the number of inflorescences available per patch and visited per census was counted rather than individual flowers, and visitation probabilities (see Data analysis) thus actually refer to inflorescences. For simplicity, I will refer to visitation to both single flowers and inflorescences as “flower visitation.” In some analyses, however, the two types of visitation units will be considered as levels of the discrete variable “visitation unit,” one of the predictors of pollinator visitation considered here (“single flowers” vs. “flower packets”
+(i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014]. Note that flowering species with tiny densely packed flowers were considered at inflorescence level (`r capitulum_percent`% of the total flowering species considered in this study). 
 
 
 (ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies. We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded approximately 1000 kms in longitude and 500 kms in latitude (Figure S1). We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
 (iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
-*Phylogeny... Plant phylogeny is easy, bee phylogeny too... 
+## Plant and pollinator phylogeny
 
-*I think this article may need some sort of conceptual figure
+
+*Phylogeny... Plant phylogeny is easy, bee phylogeny too... 
 
 *compute phenology matrices: presence absence and probability ones based by calculating the probability of observing both if they are independent events divided by total number of sampling days
 
+
+CONCEPTUAL GRAPH. **Figure 1**
+
 ## Analysess
 
-Accumulation curves
+To unravel the role of time in our understanding of the cological drivers of plant-pollinator networks, this study analyses the relative importance of abundance, phenology and traits at the whole season level, by dividing in early-mid-and late season and by analysing at the sampling day level. 
 
-
-
-Compare matrices presence/absence|visitation rate ~ abundance/phenology/traits
-
-Check abundances (FLORAL ABUNDANCES)
 
 # Results
-
-
-
-
-Compare differences between phenobs and random stops across gardens (identity, number of species and interactions by sampling date or sampled species). Number of species of plant and pollinators on each and percentage of plant-pollinator interactions and pollinator species captured by the PhenObs species.  
-
-*Rarefy by garden: phenobs, random stops and all. 
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
