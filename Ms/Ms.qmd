@@ -64,13 +64,8 @@ Flowering plants exhibit an astonishing diversity of reproductive structures, wh
 
 1st paragrap 
 
-General introductory paragraph
+Flowering plants, pollinators, and their interactions form complex networks that are fundamental to the architecture of biodiversity. Each of these interactions can be shaped by distinct ecological drivers, including species' local abundances, traits, and activity periods. However, our ability to predict and understand ecological patterns from these networks is strongly influenced by the spatiotemporal dynamics of the community and sampling effort. For instance, a species may be classified as a specialist due to under-sampling, rarity, or limited availability of floral resources. Thus, there is a need to disentangle sampling artifacts due to limited data availability from the real ecology of the species. 
 
-Ecological networks... 
-Introduce drivers
-End with limitations and state of the art, temporal and spatial components, sampling biases and data limitations from rarity.
-
-Explain that ecological networks are temporal constructs and that the relative importance of the different may differ across different levels of temporal aggregation and analytical methods.
 
 
 2nd paragraph 
