@@ -39,9 +39,9 @@ poll_ab_full_season_by_sp <- readr::read_csv("Data/Working_files/total_poll_abun
 gardens <- net_by_garden_full_season$Botanical_garden
 
 # Leipzing---------------------------------------------
-garden_number <- 1
+garden_number <- 3
 garden_name <- gardens[garden_number]
-
+garden_name
 # Interaction network
 garden_full_season_net <- net_by_garden_full_season$Interaction_network[garden_number]
 poll_garden_full_season_net_names <- colnames(garden_full_season_net[[1]])
@@ -69,6 +69,14 @@ poll_ab_garden_full_season <- poll_ab_full_season_by_sp  %>%
   filter(Botanical_garden == garden_name)
 
 poll_ab_garden_full_season_names <-  gsub(" ", "_",poll_ab_garden_full_season$Pollinator)
+
+floral_ab_garden_full_season$Plant = stringr::str_replace(floral_ab_garden_full_season$Plant, "Anemone nemorosa", "Anemonoides nemorosa")
+floral_ab_garden_full_season$Plant = str_replace(floral_ab_garden_full_season$Plant, "Anemone sylvestris", "Anemonoides sylvestris")
+floral_ab_garden_full_season$Plant = str_replace(floral_ab_garden_full_season$Plant, "Eriocapitella hupehensis", "Anemone hupehensis")
+floral_ab_garden_full_season$Plant = str_replace(floral_ab_garden_full_season$Plant, "Penstemon bradburyi", "Penstemon grandiflorus")
+floral_ab_garden_full_season$Plant = str_replace(floral_ab_garden_full_season$Plant, "Viscaria vulgaris", "Silene viscaria")
+
+
 
 # Sanity check
 plant_garden_full_season_net_names[!plant_garden_full_season_net_names %in%  
