@@ -136,9 +136,11 @@ for (garden_number in 1:length(gardens)) {
   gof_web1_norm <- gof_tapnet(fit_web1)
   
   # save info
+  name_tapnet_obj <- paste0("Data/Working_files/",garden_name,"_obj_TAPNET_full_season_NO_traits.rds")
   name_fit <- paste0("Data/Working_files/",garden_name,"_fit_TAPNET_full_season_NO_traits.rds")
   name_gof <- paste0("Data/Working_files/",garden_name,"_gof_TAPNET_full_season_NO_traits.rds")
   
+  saveRDS(tapnet_web1, name_tapnet_obj)
   saveRDS(fit_web1, name_fit)
   saveRDS(gof_web1_norm, name_gof)
   
