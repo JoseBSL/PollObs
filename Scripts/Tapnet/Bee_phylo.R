@@ -7,9 +7,7 @@
 library(ape)
 library(phytools)
 # Read tree
-tree = read.tree("Data/Working_files/BEE_mat7_IQTufbs_tplo_1001bin.nwk")
-# Extract just the first one (ML)
-ml_tree <- tree[[1]]
+ml_tree = readRDS("Data/Working_files/Supertree_bees.rds")
 
 # Prepare bee species from data
 # Load data
@@ -102,3 +100,6 @@ ggtree(new_tree, size=0.1, open.angle=5, alpha=0.5) +
   coord_cartesian(clip = "off")
 
 saveRDS(new_tree, "Data/Working_files/bee_phylo.rds")
+
+
+pruned_tree$tip.label
