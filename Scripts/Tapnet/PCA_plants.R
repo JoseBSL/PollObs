@@ -337,5 +337,5 @@ trait_axes = trait_axes %>%
   mutate(Species = if_else(Species == "Aquilegia chrysantha", "Aquilegia vulgaris", Species)) %>% 
   mutate(Species = if_else(Species == "Anemonoides nemorosa", "Anemone nemorosa", Species))
 #Save data
-saveRDS(trait_axes, "Data/Working_files/trait_axes_phenobs.rds")
+saveRDS(trait_axes, "Data/Working_files/plants_trait_axes_phenobs.rds")
 
