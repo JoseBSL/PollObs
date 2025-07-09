@@ -338,4 +338,4 @@ trait_axes = trait_axes %>%
   mutate(Species = if_else(Species == "Anemonoides nemorosa", "Anemone nemorosa", Species))
 #Save data
 saveRDS(trait_axes, "Data/Working_files/plants_trait_axes_phenobs.rds")
-
+saveRDS(all_traits4, "Data/Working_files/plants_REAL_trait_phenobs.rds")
