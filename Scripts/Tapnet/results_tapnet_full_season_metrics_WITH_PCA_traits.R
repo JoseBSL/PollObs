@@ -152,11 +152,21 @@ Leipzig_fitted_lat_high <- as.vector(scale(
 
 # Check for correlation between the latent trait and the (independent) abundance 
 # of the species
-cor(Halle_fitted_lat_low, Halle_tapnet_web$networks[[1]]$abuns$low)
-cor(Halle_fitted_lat_high, Halle_tapnet_web$networks[[1]]$abuns$high)
+cor.test(Halle_fitted_lat_low, Halle_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
+cor.test(Halle_fitted_lat_high, Halle_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
-cor(Jena_fitted_lat_low, Jena_tapnet_web$networks[[1]]$abuns$low)
-cor(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high)
+cor.test(Jena_fitted_lat_low, Jena_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
+cor(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
-cor(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$abuns$low)
-cor(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$abuns$high)
+cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
+cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
+
+# Check for correlation between the latent trait and the PCA traits
+cor.test(Halle_fitted_lat_low, Halle_tapnet_web$networks[[1]]$traits$low, method = "spearman")
+cor.test(Halle_fitted_lat_high, Halle_tapnet_web$networks[[1]]$traits$high, method = "spearman")
+
+cor.test(Jena_fitted_lat_low, Jena_tapnet_web$networks[[1]]$traits$low, method = "spearman")
+cor.test(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$traits$high, method = "spearman")
+
+cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$traits$low, method = "spearman")
+cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$traits$high, method = "spearman")
