@@ -11,9 +11,9 @@ polltraits_mean = readRDS("Data/Trait_data/Processed/PollTraits_all.rds")
 
 # Organise trait data
 traits = polltraits_mean %>%
-  filter(Pollinator_accepted_name %in% bee_species) %>% 
+  dplyr::filter(Pollinator_accepted_name %in% bee_species) %>% 
   arrange(match(Pollinator_accepted_name, bee_species)) %>%  # This ensures correct order
-  select(IT_mean, Body_length_mean, Proboscis_length_mean) %>% 
+  dplyr::select(IT_mean, Body_length_mean, Proboscis_length_mean) %>% 
   arrange()
 
 # Run Phylogenetically corrected PCA
@@ -29,4 +29,4 @@ trait_axes_polls1 = trait_axes_polls %>%
   select(Species, everything())
 
 # Save data
-saveRDS(trait_axes_polls1, "Data/Working_files/trait_axes_phenobs.rds")
+saveRDS(trait_axes_polls1, "Data/Working_files/poll_trait_axes_phenobs.rds")
