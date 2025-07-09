@@ -125,7 +125,7 @@ for (garden_number in 1:length(gardens)) {
   # Fix names
   trait_axes_plants$Plant[trait_axes_plants$Plant == "Penstemon bradburyi"] <- "Penstemon grandiflorus"
   trait_axes_plants$Plant[trait_axes_plants$Plant == "Anemone sylvestris"] <- "Anemonoides sylvestris"
-  trait_axes_plants$Plant[trait_axes_plants$Plant == "Aquilegia vulgaris"] <- "Aquilegia chrysantha"
+  trait_axes_plants$Plant[trait_axes_plants$Plant == "Aquilegia chrysantha"] <- "Aquilegia vulgaris"
   trait_axes_plants$Plant[trait_axes_plants$Plant == "Anemone nemorosa"] <- "Anemonoides nemorosa"
   
   trait_axes_polls$Pollinator[trait_axes_polls$Pollinator == "Andrena gelriae"] <- "Andrena cf. gelriae"
@@ -161,11 +161,11 @@ for (garden_number in 1:length(gardens)) {
                                       poll_trait_axes_full_season$Pollinator]
   
   tapnet_floral_trait_axes_full_season <- floral_trait_axes_full_season %>%
-    dplyr::select(PC1)
+    dplyr::select(Corolla_diameter_mean)
   row.names(tapnet_floral_trait_axes_full_season) <- floral_trait_axes_full_season$Plant
   
   tapnet_poll_trait_axes_full_season <- poll_trait_axes_full_season %>%
-    dplyr::select(PC1)
+    dplyr::select(IT_mean)
   row.names(tapnet_poll_trait_axes_full_season) <- poll_trait_axes_full_season$Pollinator
   
   # Create tapnet object--------------------------------------------------------
