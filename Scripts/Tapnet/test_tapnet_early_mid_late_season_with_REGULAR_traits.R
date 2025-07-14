@@ -191,7 +191,7 @@ for (garden_number in 1:length(gardens)) {
                                traits_low = tapnet_floral_trait_axes_partial_season %>% as.matrix(),
                                traits_high = tapnet_poll_trait_axes_partial_season %>% as.matrix(), 
                                abun_low = plant_abun_garden_partial_season_vector,
-                               abun_high = poll_abun_garden_partial_season_vector, npems_lat = 4)
+                               abun_high = poll_abun_garden_partial_season_vector, npems_lat = 60)
     
     
     # str(tapnet_web1) # show tapnet structure
