@@ -35,7 +35,7 @@ poll_ab_full_season_by_sp <- readr::read_csv("Data/Working_files/total_poll_abun
 trait_axes_polls <- readRDS("Data/Trait_data/Processed/PollTraits_all.rds") %>% 
   dplyr::select(Pollinator_accepted_name, IT_mean) %>% rename(Pollinator = Pollinator_accepted_name)
 trait_axes_plants <- readRDS("Data/Working_files/plants_REAL_trait_phenobs.rds") %>% 
-  dplyr::select(Species,Corolla_diameter_mean) %>% rename(Plant = Species)
+  dplyr::select(Species,Floral_tube_width) %>% rename(Plant = Species)
 
 ######################################################
 # TAPNET
@@ -161,7 +161,7 @@ for (garden_number in 1:length(gardens)) {
                                       poll_trait_axes_full_season$Pollinator]
   
   tapnet_floral_trait_axes_full_season <- floral_trait_axes_full_season %>%
-    dplyr::select(Corolla_diameter_mean)
+    dplyr::select(Floral_tube_width)
   row.names(tapnet_floral_trait_axes_full_season) <- floral_trait_axes_full_season$Plant
   
   tapnet_poll_trait_axes_full_season <- poll_trait_axes_full_season %>%
@@ -175,7 +175,7 @@ for (garden_number in 1:length(gardens)) {
                              traits_low = tapnet_floral_trait_axes_full_season %>% as.matrix(),
                              traits_high = tapnet_poll_trait_axes_full_season %>% as.matrix(), 
                              abun_low = plant_abun_garden_full_season_vector,
-                             abun_high = poll_abun_garden_full_season_vector, npems_lat = 4)
+                             abun_high = poll_abun_garden_full_season_vector, npems_lat = 60)
   
   
   # str(tapnet_web1) # show tapnet structure
