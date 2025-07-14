@@ -54,21 +54,21 @@ ggplot() +
   # Error bars for simulations
   geom_errorbar(
     data = df_long_fixed %>%
-      filter(Tipo %in% c("q2.5", "q97.5")) %>%
+      dplyr::filter(Tipo %in% c("q2.5", "q97.5")) %>%
       pivot_wider(names_from = Tipo, values_from = Valor),
     aes(x = Site, ymin = q2.5, ymax = q97.5, color = Site),
     width = 0.2, position = position_dodge(width = 0.5)
   ) +
   # Simulated mean
   geom_point(
-    data = df_long_fixed %>% filter(Tipo == "Mean"),
+    data = df_long_fixed %>% dplyr::filter(Tipo == "Mean"),
     aes(x = Site, y = Valor, color = Site),
     shape = 1, size = 3,
     position = position_dodge(width = 0.5)
   ) +
   # Observed value
   geom_point(
-    data = df_long_fixed %>% filter(Tipo == "Observed"),
+    data = df_long_fixed %>% dplyr::filter(Tipo == "Observed"),
     aes(x = Site, y = Valor, color = Site),
     shape = 16, size = 3,
     position = position_dodge(width = 0.5)
@@ -156,7 +156,7 @@ cor.test(Halle_fitted_lat_low, Halle_tapnet_web$networks[[1]]$abuns$low, method 
 cor.test(Halle_fitted_lat_high, Halle_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
 cor.test(Jena_fitted_lat_low, Jena_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
-cor(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
+cor.test(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
 cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
 cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
