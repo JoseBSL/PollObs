@@ -20,7 +20,7 @@ Jena_tapnet_gof$bc_sim_web
 Leipzig_tapnet_gof$bc_sim_web
 
 # Correlation between fitted and observed number of interactions, 
-# expressed as Spearman correlation ~0.3
+# expressed as Spearman correlation ~0.45
 Halle_tapnet_gof$cor_web
 Jena_tapnet_gof$cor_web
 Leipzig_tapnet_gof$cor_web
@@ -170,3 +170,4 @@ cor.test(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$traits$high, method
 
 cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$traits$low, method = "spearman")
 cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$traits$high, method = "spearman")
+
