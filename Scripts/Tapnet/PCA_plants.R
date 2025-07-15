@@ -169,6 +169,17 @@ pollen_counts3 = pollen_counts2 %>%
 #Bind with other trait data to conduct PCA
 all_traits4 = left_join(all_traits3, pollen_counts3)
 
+#Additional traits for TAPNET
+morphometrics = read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
+#Note the microcaps were 1ul and 32 mm length
+morphometrics1 = morphometrics %>% 
+  dplyr::select(Species, Flower_width, Flower_length, Floral_tube_length, Floral_tube_width) %>% 
+  group_by(Species) %>% 
+  summarise(across(everything(), ~ mean(.x, na.rm = TRUE)))
+
+#Add nectar to trait dataset
+all_traits5 = left_join(all_traits4, morphometrics1)
+
 # Define the columns to transform
 cols_to_transform = c("Autonomous_selfing_level_fruit_set", 
                       "Flowers_per_plant",
@@ -338,4 +349,4 @@ trait_axes = trait_axes %>%
   mutate(Species = if_else(Species == "Anemonoides nemorosa", "Anemone nemorosa", Species))
 #Save data
 saveRDS(trait_axes, "Data/Working_files/plants_trait_axes_phenobs.rds")
-saveRDS(all_traits4, "Data/Working_files/plants_REAL_trait_phenobs.rds")
+saveRDS(all_traits5, "Data/Working_files/plants_REAL_trait_phenobs.rds")
