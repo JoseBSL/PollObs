@@ -78,7 +78,7 @@ ggplot() +
   geom_blank(data = df_long_fixed, aes(x = Site, y = y_max))+
   facet_wrap(~ Index, scales = "free_y") +
   ylab("Value") + xlab("Site") +
-  ggtitle("Comparison of network metrics across sites for Early season") +
+  ggtitle("Comparison of network metrics across sites during a single week in the early season") +
   theme_minimal() +
   theme(strip.text = element_text(face = "bold"))
 # none of the four indices includes the observed even in the 95% confidence interval (i.e. not good).
@@ -156,7 +156,7 @@ cor.test(Halle_fitted_lat_low, Halle_tapnet_web$networks[[1]]$abuns$low, method 
 cor.test(Halle_fitted_lat_high, Halle_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
 cor.test(Jena_fitted_lat_low, Jena_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
-cor(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
+cor.test(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
 
 cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$abuns$low, method = "spearman")
 cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$abuns$high, method = "spearman")
