@@ -170,3 +170,4 @@ cor.test(Jena_fitted_lat_high, Jena_tapnet_web$networks[[1]]$traits$high, method
 
 cor.test(Leipzig_fitted_lat_low, Leipzig_tapnet_web$networks[[1]]$traits$low, method = "spearman")
 cor.test(Leipzig_fitted_lat_high, Leipzig_tapnet_web$networks[[1]]$traits$high, method = "spearman")
+
