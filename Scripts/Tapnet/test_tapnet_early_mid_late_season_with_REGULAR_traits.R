@@ -35,7 +35,7 @@ poll_ab_partial_season_by_sp <- readr::read_csv("Data/Working_files/total_poll_a
 trait_axes_polls <- readRDS("Data/Trait_data/Processed/PollTraits_all.rds") %>% 
   dplyr::select(Pollinator_accepted_name, IT_mean) %>% rename(Pollinator = Pollinator_accepted_name)
 trait_axes_plants <- readRDS("Data/Working_files/plants_REAL_trait_phenobs.rds") %>% 
-  dplyr::select(Species,Corolla_diameter_mean) %>% rename(Plant = Species)
+  dplyr::select(Species,Floral_tube_width) %>% rename(Plant = Species)
 
 ######################################################
 # TAPNET
@@ -177,7 +177,7 @@ for (garden_number in 1:length(gardens)) {
                                         poll_trait_axes_partial_season$Pollinator]
     
     tapnet_floral_trait_axes_partial_season <- floral_trait_axes_partial_season %>%
-      dplyr::select(Corolla_diameter_mean)
+      dplyr::select(Floral_tube_width)
     row.names(tapnet_floral_trait_axes_partial_season) <- floral_trait_axes_partial_season$Plant
     
     tapnet_poll_trait_axes_partial_season <- poll_trait_axes_partial_season %>%
