@@ -1,0 +1,94 @@
+Botanical_garden,Variable,Value
+Leipzig,delta,0.4836702439006397
+Leipzig,tmatch_width_pem,0.01844150196088359
+Leipzig,tmatch_width_obs,8.952314401311867
+Leipzig,rho_PEM_abundance_plant,-0.04144144144144144
+Leipzig,rho_pvalue_PEM_abundance_plant,0.8099476896798695
+Leipzig,rho_PEM_abundance_poll,-0.05612353709104628
+Leipzig,rho_pvalue_PEM_abundance_poll,0.7274441650761079
+Leipzig,rho_PEM_traits_plant,0.22488254264870963
+Leipzig,rho_pvalue_PEM_traits_plant,0.1872892672601647
+Leipzig,rho_PEM_traits_poll,-0.1491289198606272
+Leipzig,rho_pvalue_PEM_traits_poll,0.3508030081510364
+Leipzig,Observed connectance,0.09417344173441734
+Leipzig,Mean connectance,0.5155162601626017
+Leipzig,Median connectance,0.5149051490514905
+Leipzig,q2.5 connectance,0.49796747967479676
+Leipzig,q97.5 connectance,0.5331978319783198
+Leipzig,Observed NODF,34.16160372194855
+Leipzig,Mean NODF,82.7368700549026
+Leipzig,Median NODF,82.72091815835964
+Leipzig,q2.5 NODF,80.43640486325643
+Leipzig,q97.5 NODF,84.93867489001451
+Leipzig,Observed weighted NODF,21.003256704980842
+Leipzig,Mean weighted NODF,63.118646306122706
+Leipzig,Median weighted NODF,63.09244682011408
+Leipzig,q2.5 weighted NODF,60.657435654608136
+Leipzig,q97.5 weighted NODF,65.57924254970533
+Leipzig,Observed H2,0.6576972703119183
+Leipzig,Mean H2,0.17977309872259653
+Leipzig,Median H2,0.17963967667336295
+Leipzig,q2.5 H2,0.17418795175124469
+Leipzig,q97.5 H2,0.1861173920088212
+Halle,delta,0.5310345233302769
+Halle,tmatch_width_pem,0.061443720009423504
+Halle,tmatch_width_obs,1.9489208250696584
+Halle,rho_PEM_abundance_plant,0.03407181054239878
+Halle,rho_pvalue_PEM_abundance_plant,0.8481222635291369
+Halle,rho_PEM_abundance_poll,-0.20394657171073205
+Halle,rho_pvalue_PEM_abundance_poll,0.1280859193071451
+Halle,rho_PEM_traits_plant,0.13387331290843568
+Halle,rho_pvalue_PEM_traits_plant,0.4503580654227476
+Halle,rho_PEM_traits_poll,-0.32207674358309574
+Halle,rho_pvalue_PEM_traits_poll,0.014907378435043365
+Halle,Observed connectance,0.09029927760577916
+Halle,Mean connectance,0.6398931888544892
+Halle,Median connectance,0.6398348813209495
+Halle,q2.5 connectance,0.6264189886480909
+Halle,q97.5 connectance,0.653766769865841
+Halle,Observed NODF,21.82936532380204
+Halle,Mean NODF,88.637720111265807
+Halle,Median NODF,88.65783640081995
+Halle,q2.5 NODF,87.2088809492504
+Halle,q97.5 NODF,90.0134568089703
+Halle,Observed weighted NODF,13.177892266904783
+Halle,Mean weighted NODF,72.77970267238474
+Halle,Median weighted NODF,72.79212686195092
+Halle,q2.5 weighted NODF,71.17295576088274
+Halle,q97.5 weighted NODF,74.3826040826873
+Halle,Observed H2,0.7882511158829358
+Halle,Mean H2,0.14584032919416134
+Halle,Median H2,0.14580433733097226
+Halle,q2.5 H2,0.1434348814014038
+Halle,q97.5 H2,0.14830912037305444
+Jena,delta,0.22180843745022621
+Jena,tmatch_width_pem,0.02970084779734367
+Jena,tmatch_width_obs,16.93989392163573
+Jena,rho_PEM_abundance_plant,0.11310017862527792
+Jena,rho_pvalue_PEM_abundance_plant,0.5050963220613103
+Jena,rho_PEM_abundance_poll,-0.19595999081087023
+Jena,rho_pvalue_PEM_abundance_poll,0.21948469218544525
+Jena,rho_PEM_traits_plant,0.02086544175896113
+Jena,rho_pvalue_PEM_traits_plant,0.9024424420527501
+Jena,rho_PEM_traits_poll,-0.2783972125435541
+Jena,rho_pvalue_PEM_traits_poll,0.07821340547021732
+Jena,Observed connectance,0.08899143045484509
+Jena,Mean connectance,0.4845939322597859
+Jena,Median connectance,0.48450889914304546
+Jena,q2.5 connectance,0.46605141727092947
+Jena,q97.5 connectance,0.5056155240606459
+Jena,Observed NODF,23.37643401909889
+Jena,Mean NODF,83.21398271309462
+Jena,Median NODF,83.21777082672989
+Jena,q2.5 NODF,80.71938042100753
+Jena,q97.5 NODF,85.61177350444109
+Jena,Observed weighted NODF,12.985430152321134
+Jena,Mean weighted NODF,63.90946934142149
+Jena,Median weighted NODF,63.950881835196626
+Jena,q2.5 weighted NODF,61.33174651163794
+Jena,q97.5 weighted NODF,66.4220185372021
+Jena,Observed H2,0.546478959709054
+Jena,Mean H2,0.18982086826231415
+Jena,Median H2,0.18989056536901977
+Jena,q2.5 H2,0.18434181969672978
+Jena,q97.5 H2,0.1952567273097608
