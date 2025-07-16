@@ -187,44 +187,37 @@ for (garden_number in 1:length(gardens)) {
       dplyr::select(IT_mean)
     row.names(tapnet_poll_trait_axes_WEEK) <- poll_trait_axes_WEEK$Pollinator
     
-    # Create tapnet object--------------------------------------------------------
+    result <- try({
+      # Create tapnet object--------------------------------------------------------
+      
+      tapnet_web1 <- make_tapnet(tree_low = plant_phylo, tree_high = poll_phylo,
+                                 networks = garden_WEEK_net[[1]],
+                                 traits_low = tapnet_floral_trait_axes_WEEK %>% as.matrix(),
+                                 traits_high = tapnet_poll_trait_axes_WEEK %>% as.matrix(), 
+                                 abun_low = plant_abun_garden_partial_season_vector,
+                                 abun_high = poll_abun_garden_partial_season_vector, npems_lat = 60)
+      
+      fit_web1 <- fit_tapnet(tapnet = tapnet_web1, method="SANN",
+                             #maxit = 10000,
+                             fit.delta = T)
+      
+      # goodness of fit
+      gof_web1_norm <- gof_tapnet(fit_web1)
+      
+      # save info
+      name_tapnet_obj <- paste0("Data/Working_files/",garden_name,"_obj_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
+      name_fit <- paste0("Data/Working_files/",garden_name,"_fit_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
+      name_gof <- paste0("Data/Working_files/",garden_name,"_gof_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
+      
+      saveRDS(tapnet_web1, name_tapnet_obj)
+      saveRDS(fit_web1, name_fit)
+      saveRDS(gof_web1_norm, name_gof)
+    }, silent = TRUE)
     
-    tapnet_web1 <- make_tapnet(tree_low = plant_phylo, tree_high = poll_phylo,
-                               networks = garden_WEEK_net[[1]],
-                               traits_low = tapnet_floral_trait_axes_WEEK %>% as.matrix(),
-                               traits_high = tapnet_poll_trait_axes_WEEK %>% as.matrix(), 
-                               abun_low = plant_abun_garden_partial_season_vector,
-                               abun_high = poll_abun_garden_partial_season_vector, npems_lat = 60)
-    
-    
-    # str(tapnet_web1) # show tapnet structure
-    # 
-    # colnames(tapnet_web1$networks[[1]]$pems$low) # names of fitted PEMs                                                                                                                                                                                            are required for prediction from web1 to web 2). Let’s check:
-    # colnames(tapnet_web1$networks[[1]]$pems$high)
-    # 
-    # # check for correlation between the phylogenetic eigenvectors and the observed traits:
-    # cor(cbind(tapnet_web1$networks[[1]]$pems$low, tapnet_web1$networks[[1]]$traits$low))
-    # cor(cbind(tapnet_web1$networks[[1]]$pems$high, tapnet_web1$networks[[1]]$traits$high))
-    
-    # We here assume that all trait matches are best described using a normal distribution. Alternatively, we could
-    # use the shifted log-normal.
-    
-    fit_web1 <- fit_tapnet(tapnet = tapnet_web1, method="SANN",
-                           #maxit = 10000,
-                           fit.delta = T)
-    
-    # goodness of fit
-    gof_web1_norm <- gof_tapnet(fit_web1)
-    
-    # save info
-    name_tapnet_obj <- paste0("Data/Working_files/",garden_name,"_obj_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
-    name_fit <- paste0("Data/Working_files/",garden_name,"_fit_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
-    name_gof <- paste0("Data/Working_files/",garden_name,"_gof_TAPNET_WEEK_",week_name,"_WITH_REGULAR_traits.rds")
-    
-    saveRDS(tapnet_web1, name_tapnet_obj)
-    saveRDS(fit_web1, name_fit)
-    saveRDS(gof_web1_norm, name_gof)
-    
+    if (inherits(result, "try-error")) {
+      message("Error on iteration ", garden_name, week_name, ". Skipping.")
+    }
+
   }
   
 }
