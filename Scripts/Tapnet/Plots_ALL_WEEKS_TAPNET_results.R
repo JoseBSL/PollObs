@@ -127,3 +127,105 @@ ggplot(delta_data,
        y = "Delta value") +
   theme_minimal() +
   theme(legend.position = "bottom")
+
+
+# Results for tmatch_width_pem-----------------------------------------------
+tmatch_width_pem_data <- tapnet_all_levels %>%
+  filter(Variable == "tmatch_width_pem") %>%
+  mutate(Week_plot = case_when(
+    Type == "Full" ~ -2,
+    Type == "Partial" & Season == "Early" ~ 1,
+    Type == "Partial" & Season == "Mid" ~ 4,
+    Type == "Partial" & Season == "Late" ~ 7,
+    TRUE ~ as.numeric(Week)
+  ))
+
+# 2. Plot
+ggplot(tmatch_width_pem_data,
+       aes(x = Week_plot, y = Value, color = Season, shape = Type)) +
+  geom_point(size = 3) +
+  scale_y_log10() +
+  facet_wrap(~ Botanical_garden) +
+  scale_shape_manual(values = c("Weekly" = 16, "Partial" = 17, "Full" = 15)) +
+  labs(title = "tmatch_width_pem across weeks and seasons",
+       x = "Week (pseudo-x for summaries)",
+       y = "tmatch_width_pem") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+# Results for tmatch_width_obs------------------------------------------
+tmatch_width_obs_data <- tapnet_all_levels %>%
+  filter(Variable == "tmatch_width_obs") %>%
+  mutate(Week_plot = case_when(
+    Type == "Full" ~ -2,
+    Type == "Partial" & Season == "Early" ~ 1,
+    Type == "Partial" & Season == "Mid" ~ 4,
+    Type == "Partial" & Season == "Late" ~ 7,
+    TRUE ~ as.numeric(Week)
+  ))
+
+# 2. Plot
+ggplot(tmatch_width_obs_data,
+       aes(x = Week_plot, y = Value, color = Season, shape = Type)) +
+  geom_point(size = 3) +
+  scale_y_log10() +
+  facet_wrap(~ Botanical_garden) +
+  scale_shape_manual(values = c("Weekly" = 16, "Partial" = 17, "Full" = 15)) +
+  labs(title = "tmatch_width_obs across weeks and seasons",
+       x = "Week (pseudo-x for summaries)",
+       y = "tmatch_width_obs") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+# Results for tmatch_bc_sim_web------------------------------------------
+# Similarity between fitted and observed network expressed as Bray-Curtis 
+bc_sim_web_data <- tapnet_all_levels %>%
+  filter(Variable == "bc_sim_web") %>%
+  mutate(Week_plot = case_when(
+    Type == "Full" ~ -2,
+    Type == "Partial" & Season == "Early" ~ 1,
+    Type == "Partial" & Season == "Mid" ~ 4,
+    Type == "Partial" & Season == "Late" ~ 7,
+    TRUE ~ as.numeric(Week)
+  ))
+
+# 2. Plot
+ggplot(bc_sim_web_data,
+       aes(x = Week_plot, y = Value, color = Season, shape = Type)) +
+  geom_point(size = 3) +
+  facet_wrap(~ Botanical_garden) +
+  scale_shape_manual(values = c("Weekly" = 16, "Partial" = 17, "Full" = 15)) +
+  labs(title = "bc_sim_web across weeks and seasons",
+       x = "Week (pseudo-x for summaries)",
+       y = "bc_sim_web") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+# Results for cor_web------------------------------------------
+# Correlation between fitted and observed number of interactions, 
+# expressed as Spearman correlation
+
+cor_web_data <- tapnet_all_levels %>%
+  filter(Variable == "cor_web") %>%
+  mutate(Week_plot = case_when(
+    Type == "Full" ~ -2,
+    Type == "Partial" & Season == "Early" ~ 1,
+    Type == "Partial" & Season == "Mid" ~ 4,
+    Type == "Partial" & Season == "Late" ~ 7,
+    TRUE ~ as.numeric(Week)
+  ))
+
+# 2. Plot
+ggplot(cor_web_data,
+       aes(x = Week_plot, y = Value, color = Season, shape = Type)) +
+  geom_point(size = 3) +
+  facet_wrap(~ Botanical_garden) +
+  scale_shape_manual(values = c("Weekly" = 16, "Partial" = 17, "Full" = 15)) +
+  labs(title = "cor_web across weeks and seasons",
+       x = "Week (pseudo-x for summaries)",
+       y = "cor_web") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
