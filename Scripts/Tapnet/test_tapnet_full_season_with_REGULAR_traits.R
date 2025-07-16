@@ -190,7 +190,9 @@ for (garden_number in 1:length(gardens)) {
   # We here assume that all trait matches are best described using a normal distribution. Alternatively, we could
   # use the shifted log-normal.
   
-  fit_web1 <- fit_tapnet(tapnet = tapnet_web1, method="SANN")
+  fit_web1 <- fit_tapnet(tapnet = tapnet_web1, method="SANN",
+                         #maxit = 10000,
+                         fit.delta = T)
   
   # goodness of fit
   gof_web1_norm <- gof_tapnet(fit_web1)
