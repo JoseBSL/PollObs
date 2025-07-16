@@ -1,0 +1,280 @@
+Botanical_garden,Season,Variable,Value
+Leipzig,Early,delta,0.9928460597623182
+Leipzig,Early,tmatch_width_pem,0.06935458265904458
+Leipzig,Early,tmatch_width_obs,0.8705075153862277
+Leipzig,Early,rho_PEM_abundance_plant,-0.4153846153846154
+Leipzig,Early,rho_pvalue_PEM_abundance_plant,0.14120685734223112
+Leipzig,Early,rho_PEM_abundance_poll,-0.03426307653804228
+Leipzig,Early,rho_pvalue_PEM_abundance_poll,0.8961335679088336
+Leipzig,Early,rho_PEM_traits_plant,0.563878019849754
+Leipzig,Early,rho_pvalue_PEM_traits_plant,0.03571108066389551
+Leipzig,Early,rho_PEM_traits_poll,-0.007352941176470589
+Leipzig,Early,rho_pvalue_PEM_traits_poll,0.9811460156817866
+Leipzig,Early,Observed connectance,0.18487394957983194
+Leipzig,Early,Mean connectance,0.36365496320614493
+Leipzig,Early,Median connectance,0.3619047619047619
+Leipzig,Early,q2.5 connectance,0.31249292986425337
+Leipzig,Early,q97.5 connectance,0.4265032679738562
+Leipzig,Early,Observed NODF,29.797566603734005
+Leipzig,Early,Mean NODF,63.34834940901518
+Leipzig,Early,Median NODF,63.40404197839662
+Leipzig,Early,q2.5 NODF,53.44080653793899
+Leipzig,Early,q97.5 NODF,73.20859372188026
+Leipzig,Early,Observed weighted NODF,22.568701489406337
+Leipzig,Early,Mean weighted NODF,36.43624919817486
+Leipzig,Early,Median weighted NODF,36.2185972373197
+Leipzig,Early,q2.5 weighted NODF,28.46264407537772
+Leipzig,Early,q97.5 weighted NODF,45.132936847805325
+Leipzig,Early,Observed H2,0.44794745179059353
+Leipzig,Early,Mean H2,0.3040099871558765
+Leipzig,Early,Median H2,0.303437247380962
+Leipzig,Early,q2.5 H2,0.2463968815698742
+Leipzig,Early,q97.5 H2,0.3652675999034695
+Leipzig,Mid,delta,0.012179688896813964
+Leipzig,Mid,tmatch_width_pem,0.047774499920201
+Leipzig,Mid,tmatch_width_obs,47.67533572357167
+Leipzig,Mid,rho_PEM_abundance_plant,-0.22987012987012986
+Leipzig,Mid,rho_pvalue_PEM_abundance_plant,0.31465658907042615
+Leipzig,Mid,rho_PEM_abundance_poll,-0.05692289745835229
+Leipzig,Mid,rho_pvalue_PEM_abundance_poll,0.7569835982556429
+Leipzig,Mid,rho_PEM_traits_plant,0.17792207792207793
+Leipzig,Mid,rho_pvalue_PEM_traits_plant,0.4386121287952516
+Leipzig,Mid,rho_PEM_traits_poll,0.06414956011730205
+Leipzig,Mid,rho_pvalue_PEM_traits_poll,0.7264561698874387
+Leipzig,Mid,Observed connectance,0.11607142857142858
+Leipzig,Mid,Mean connectance,0.3725203935578193
+Leipzig,Mid,Median connectance,0.37202380952380953
+Leipzig,Mid,q2.5 connectance,0.34672619047619047
+Leipzig,Mid,q97.5 connectance,0.4015625
+Leipzig,Mid,Observed NODF,31.615517784073024
+Leipzig,Mid,Mean NODF,74.67325550158193
+Leipzig,Mid,Median NODF,74.76423268446955
+Leipzig,Mid,q2.5 NODF,69.04424863773305
+Leipzig,Mid,q97.5 NODF,79.34395851013588
+Leipzig,Mid,Observed weighted NODF,22.963937227393316
+Leipzig,Mid,Mean weighted NODF,52.78966020894633
+Leipzig,Mid,Median weighted NODF,52.78626513158359
+Leipzig,Mid,q2.5 weighted NODF,47.5478333036365
+Leipzig,Mid,q97.5 weighted NODF,57.793608497562296
+Leipzig,Mid,Observed H2,0.3646082047489574
+Leipzig,Mid,Mean H2,0.13265947695080865
+Leipzig,Mid,Median H2,0.1326385855057347
+Leipzig,Mid,q2.5 H2,0.11978228139718956
+Leipzig,Mid,q97.5 H2,0.14627687124705646
+Leipzig,Late,delta,0.6998845695441026
+Leipzig,Late,tmatch_width_pem,0.03535343859605369
+Leipzig,Late,tmatch_width_obs,30.02859135122092
+Leipzig,Late,rho_PEM_abundance_plant,-0.4
+Leipzig,Late,rho_pvalue_PEM_abundance_plant,0.22501408866723577
+Leipzig,Late,rho_PEM_abundance_poll,0.701758705822504
+Leipzig,Late,rho_pvalue_PEM_abundance_poll,0.010967339826231052
+Leipzig,Late,rho_PEM_traits_plant,-0.15454545454545454
+Leipzig,Late,rho_pvalue_PEM_traits_plant,0.6535389379592635
+Leipzig,Late,rho_PEM_traits_poll,0.29370629370629375
+Leipzig,Late,rho_pvalue_PEM_traits_poll,0.35433253421137584
+Leipzig,Late,Observed connectance,0.23484848484848486
+Leipzig,Late,Mean connectance,0.7801242424242424
+Leipzig,Late,Median connectance,0.7803030303030303
+Leipzig,Late,q2.5 connectance,0.7348484848484849
+Leipzig,Late,q97.5 connectance,0.8485227272727273
+Leipzig,Late,Observed NODF,52.61707988980716
+Leipzig,Late,Mean NODF,82.28439444462171
+Leipzig,Late,Median NODF,82.69103371376099
+Leipzig,Late,q2.5 NODF,73.51858684245047
+Leipzig,Late,q97.5 NODF,88.31198347107437
+Leipzig,Late,Observed weighted NODF,23.278236914600555
+Leipzig,Late,Mean weighted NODF,73.14568720056323
+Leipzig,Late,Median weighted NODF,73.48027202366046
+Leipzig,Late,q2.5 weighted NODF,64.11491762369863
+Leipzig,Late,q97.5 weighted NODF,80.6806524513136
+Leipzig,Late,Observed H2,0.7973281740445585
+Leipzig,Late,Mean H2,0.13296773727638045
+Leipzig,Late,Median H2,0.13292203971480526
+Leipzig,Late,q2.5 H2,0.12509137008397808
+Leipzig,Late,q97.5 H2,0.14053256792424346
+Halle,Early,delta,0.9923434256073109
+Halle,Early,tmatch_width_pem,0.029663118569200637
+Halle,Early,tmatch_width_obs,3.6544150538933846
+Halle,Early,rho_PEM_abundance_plant,-0.32727272727272727
+Halle,Early,rho_pvalue_PEM_abundance_plant,0.32701595100267095
+Halle,Early,rho_PEM_abundance_poll,-0.21572774865200245
+Halle,Early,rho_pvalue_PEM_abundance_poll,0.4790396742568177
+Halle,Early,rho_PEM_traits_plant,0.35616809668223404
+Halle,Early,rho_pvalue_PEM_traits_plant,0.28233741846434146
+Halle,Early,rho_PEM_traits_poll,0.554945054945055
+Halle,Early,rho_pvalue_PEM_traits_poll,0.05253247107993847
+Halle,Early,Observed connectance,0.23776223776223776
+Halle,Early,Mean connectance,0.44770277542322995
+Halle,Early,Median connectance,0.4461538461538462
+Halle,Early,q2.5 connectance,0.38461538461538464
+Halle,Early,q97.5 connectance,0.5273387723387722
+Halle,Early,Observed NODF,51.07769423558898
+Halle,Early,Mean NODF,78.20618451105994
+Halle,Early,Median NODF,78.52238998580461
+Halle,Early,q2.5 NODF,67.97348044909022
+Halle,Early,q97.5 NODF,86.61859768095908
+Halle,Early,Observed weighted NODF,27.38095238095238
+Halle,Early,Mean weighted NODF,57.572614360996475
+Halle,Early,Median weighted NODF,57.69311004961106
+Halle,Early,q2.5 weighted NODF,47.790339488384134
+Halle,Early,q97.5 weighted NODF,67.26185429521895
+Halle,Early,Observed H2,0.7978557858862045
+Halle,Early,Mean H2,0.42453216577949604
+Halle,Early,Median H2,0.42384737689231555
+Halle,Early,q2.5 H2,0.37936537364969636
+Halle,Early,q97.5 H2,0.47078395632573816
+Halle,Mid,delta,0.6066622212149776
+Halle,Mid,tmatch_width_pem,0.05939770064799885
+Halle,Mid,tmatch_width_obs,18.66757319848453
+Halle,Mid,rho_PEM_abundance_plant,0.05644176027835562
+Halle,Mid,rho_pvalue_PEM_abundance_plant,0.829642552163132
+Halle,Mid,rho_PEM_abundance_poll,-0.1811456999500006
+Halle,Mid,rho_pvalue_PEM_abundance_poll,0.34701159384692193
+Halle,Mid,rho_PEM_traits_plant,-0.17290009381013222
+Halle,Mid,rho_pvalue_PEM_traits_plant,0.5069391423364287
+Halle,Mid,rho_PEM_traits_poll,0.422167487684729
+Halle,Mid,rho_pvalue_PEM_traits_poll,0.023401107359590438
+Halle,Mid,Observed connectance,0.13793103448275862
+Halle,Mid,Mean connectance,0.63379107505071
+Halle,Mid,Median connectance,0.6328600405679513
+Halle,Mid,q2.5 connectance,0.6064908722109533
+Halle,Mid,q97.5 connectance,0.6613083164300203
+Halle,Mid,Observed NODF,25.133104902477594
+Halle,Mid,Mean NODF,83.2400611506622
+Halle,Mid,Median NODF,83.3539473631819
+Halle,Mid,q2.5 NODF,79.95310782893127
+Halle,Mid,q97.5 NODF,86.3348040871852
+Halle,Mid,Observed weighted NODF,17.85099279564224
+Halle,Mid,Mean weighted NODF,60.64766630402707
+Halle,Mid,Median weighted NODF,60.645855368919754
+Halle,Mid,q2.5 weighted NODF,57.48515459127599
+Halle,Mid,q97.5 weighted NODF,63.89534409087909
+Halle,Mid,Observed H2,0.5688712348230852
+Halle,Mid,Mean H2,0.15538050944822165
+Halle,Mid,Median H2,0.15534688954643833
+Halle,Mid,q2.5 H2,0.1474909547599754
+Halle,Mid,q97.5 H2,0.16370046148795564
+Halle,Late,delta,0.6560398655880958
+Halle,Late,tmatch_width_pem,0.06175214420521552
+Halle,Late,tmatch_width_obs,1.8822414353205414
+Halle,Late,rho_PEM_abundance_plant,-0.05882352941176471
+Halle,Late,rho_pvalue_PEM_abundance_plant,0.8241020337245606
+Halle,Late,rho_PEM_abundance_poll,-0.14550345162467193
+Halle,Late,rho_pvalue_PEM_abundance_poll,0.34598604009860134
+Halle,Late,rho_PEM_traits_plant,-0.232843137254902
+Halle,Late,rho_pvalue_PEM_traits_plant,0.3670082928112308
+Halle,Late,rho_PEM_traits_poll,-0.20902043692741368
+Halle,Late,rho_pvalue_PEM_traits_poll,0.17281289073367648
+Halle,Late,Observed connectance,0.13101604278074866
+Halle,Late,Mean connectance,0.706444685828877
+Halle,Late,Median connectance,0.7058823529411765
+Halle,Late,q2.5 connectance,0.6858288770053476
+Halle,Late,q97.5 connectance,0.7400923295454546
+Halle,Late,Observed NODF,22.55860975130846
+Halle,Late,Mean NODF,86.81224322390652
+Halle,Late,Median NODF,86.86191029743989
+Halle,Late,q2.5 NODF,84.19686168936863
+Halle,Late,q97.5 NODF,88.8426094365565
+Halle,Late,Observed weighted NODF,13.531844772602627
+Halle,Late,Mean weighted NODF,73.21423017891782
+Halle,Late,Median weighted NODF,73.33656894441694
+Halle,Late,q2.5 weighted NODF,70.04642444687431
+Halle,Late,q97.5 weighted NODF,76.08053841522305
+Halle,Late,Observed H2,0.8268921602244207
+Halle,Late,Mean H2,0.2028002211661892
+Halle,Late,Median H2,0.20283207359623046
+Halle,Late,q2.5 H2,0.19951810713989532
+Halle,Late,q97.5 H2,0.20591238764026604
+Jena,Early,delta,0.032247636614549456
+Jena,Early,tmatch_width_pem,0.008549420402204721
+Jena,Early,tmatch_width_obs,26.743876417614473
+Jena,Early,rho_PEM_abundance_plant,-0.3592494732105316
+Jena,Early,rho_pvalue_PEM_abundance_plant,0.18848118889773027
+Jena,Early,rho_PEM_abundance_poll,-0.3025390007331775
+Jena,Early,rho_pvalue_PEM_abundance_poll,0.33916814895060465
+Jena,Early,rho_PEM_traits_plant,0.24128695961901372
+Jena,Early,rho_pvalue_PEM_traits_plant,0.38630725834336943
+Jena,Early,rho_PEM_traits_poll,-0.27972027972027974
+Jena,Early,rho_pvalue_PEM_traits_poll,0.37870923364203934
+Jena,Early,Observed connectance,0.18333333333333332
+Jena,Early,Mean connectance,0.48740536130536133
+Jena,Early,Median connectance,0.4880952380952381
+Jena,Early,q2.5 connectance,0.43333333333333335
+Jena,Early,q97.5 connectance,0.541736111111111
+Jena,Early,Observed NODF,44.15204678362573
+Jena,Early,Mean NODF,77.66904516533732
+Jena,Early,Median NODF,77.81547724530182
+Jena,Early,q2.5 NODF,69.45991135245521
+Jena,Early,q97.5 NODF,85.34103881430399
+Jena,Early,Observed weighted NODF,15.39961013645224
+Jena,Early,Mean weighted NODF,53.14829368316175
+Jena,Early,Median weighted NODF,53.25635215986094
+Jena,Early,q2.5 weighted NODF,44.14266727424622
+Jena,Early,q97.5 weighted NODF,61.31711824740196
+Jena,Early,Observed H2,0.7162885145539142
+Jena,Early,Mean H2,0.1511023083042913
+Jena,Early,Median H2,0.15133286721780062
+Jena,Early,q2.5 H2,0.12488318210340116
+Jena,Early,q97.5 H2,0.18221306673710025
+Jena,Mid,delta,0.9926559395962845
+Jena,Mid,tmatch_width_pem,16.422309565917022
+Jena,Mid,tmatch_width_obs,68.44082921388419
+Jena,Mid,rho_PEM_abundance_plant,-0.1293419989447854
+Jena,Mid,rho_pvalue_PEM_abundance_plant,0.566188474607281
+Jena,Mid,rho_PEM_abundance_poll,-0.16318300624971194
+Jena,Mid,rho_pvalue_PEM_abundance_poll,0.42573473049947674
+Jena,Mid,rho_PEM_traits_plant,0.20615646120020378
+Jena,Mid,rho_pvalue_PEM_traits_plant,0.3573335181990177
+Jena,Mid,rho_PEM_traits_poll,-0.1617094017094017
+Jena,Mid,rho_pvalue_PEM_traits_poll,0.42825888425135034
+Jena,Mid,Observed connectance,0.10314685314685315
+Jena,Mid,Mean connectance,0.47945114832535884
+Jena,Mid,Median connectance,0.4772727272727273
+Jena,Mid,q2.5 connectance,0.4493006993006993
+Jena,Mid,q97.5 connectance,0.5173328754578754
+Jena,Mid,Observed NODF,14.247601918465229
+Jena,Mid,Mean NODF,79.28869432882271
+Jena,Mid,Median NODF,79.35138422308141
+Jena,Mid,q2.5 NODF,74.9002336949425
+Jena,Mid,q97.5 NODF,83.50303296509776
+Jena,Mid,Observed weighted NODF,6.414868105515588
+Jena,Mid,Mean weighted NODF,56.29527143349101
+Jena,Mid,Median weighted NODF,56.32993791242569
+Jena,Mid,q2.5 weighted NODF,51.78041739779056
+Jena,Mid,q97.5 weighted NODF,61.200899626411996
+Jena,Mid,Observed H2,0.8646884722661382
+Jena,Mid,Mean H2,0.06181678329257282
+Jena,Mid,Median H2,0.06192544457586231
+Jena,Mid,q2.5 H2,0.05220027086239825
+Jena,Mid,q97.5 H2,0.07167246317680927
+Jena,Late,delta,0.6922875165912008
+Jena,Late,tmatch_width_pem,0.053659743863674565
+Jena,Late,tmatch_width_obs,53.01025031145083
+Jena,Late,rho_PEM_abundance_plant,-0.4454545454545455
+Jena,Late,rho_pvalue_PEM_abundance_plant,0.17278650658462552
+Jena,Late,rho_PEM_abundance_poll,0.07139147919948928
+Jena,Late,rho_pvalue_PEM_abundance_poll,0.7077416572895455
+Jena,Late,rho_PEM_traits_plant,0.5375868161422821
+Jena,Late,rho_pvalue_PEM_traits_plant,0.08808753067868129
+Jena,Late,rho_PEM_traits_poll,-0.06963292547274749
+Jena,Late,rho_pvalue_PEM_traits_poll,0.7138129656893406
+Jena,Late,Observed connectance,0.17272727272727273
+Jena,Late,Mean connectance,0.8162151515151516
+Jena,Late,Median connectance,0.8181818181818182
+Jena,Late,q2.5 connectance,0.7909090909090909
+Jena,Late,q97.5 connectance,0.8394696969696969
+Jena,Late,Observed NODF,28.424198250728864
+Jena,Late,Mean NODF,79.35357219534217
+Jena,Late,Median NODF,79.68103392311232
+Jena,Late,q2.5 NODF,74.30775175609091
+Jena,Late,q97.5 NODF,83.09002351852871
+Jena,Late,Observed weighted NODF,18.651603498542272
+Jena,Late,Mean weighted NODF,66.42293223310529
+Jena,Late,Median weighted NODF,66.55039667860744
+Jena,Late,q2.5 weighted NODF,60.75992749511004
+Jena,Late,q97.5 weighted NODF,71.73486745802843
+Jena,Late,Observed H2,0.4728930480848698
+Jena,Late,Mean H2,0.057748293514532034
+Jena,Late,Median H2,0.057738842943262286
+Jena,Late,q2.5 H2,0.055128856393930885
+Jena,Late,q97.5 H2,0.060390367252905676
