@@ -2,6 +2,8 @@ Botanical_garden,Season,Variable,Value
 Leipzig,Early,delta,0.9928460597623182
 Leipzig,Early,tmatch_width_pem,0.06935458265904458
 Leipzig,Early,tmatch_width_obs,0.8705075153862277
+Leipzig,Early,bc_sim_web,0.6730326971805479
+Leipzig,Early,cor_web,0.45900752726026284
 Leipzig,Early,rho_PEM_abundance_plant,-0.4153846153846154
 Leipzig,Early,rho_pvalue_PEM_abundance_plant,0.14120685734223112
 Leipzig,Early,rho_PEM_abundance_poll,-0.03426307653804228
@@ -33,6 +35,8 @@ Leipzig,Early,q97.5 H2,0.3652675999034695
 Leipzig,Mid,delta,0.012179688896813964
 Leipzig,Mid,tmatch_width_pem,0.047774499920201
 Leipzig,Mid,tmatch_width_obs,47.67533572357167
+Leipzig,Mid,bc_sim_web,0.7125545959109736
+Leipzig,Mid,cor_web,0.32389369846185206
 Leipzig,Mid,rho_PEM_abundance_plant,-0.22987012987012986
 Leipzig,Mid,rho_pvalue_PEM_abundance_plant,0.31465658907042615
 Leipzig,Mid,rho_PEM_abundance_poll,-0.05692289745835229
@@ -64,6 +68,8 @@ Leipzig,Mid,q97.5 H2,0.14627687124705646
 Leipzig,Late,delta,0.6998845695441026
 Leipzig,Late,tmatch_width_pem,0.03535343859605369
 Leipzig,Late,tmatch_width_obs,30.02859135122092
+Leipzig,Late,bc_sim_web,0.7303475278715323
+Leipzig,Late,cor_web,0.2541872135731986
 Leipzig,Late,rho_PEM_abundance_plant,-0.4
 Leipzig,Late,rho_pvalue_PEM_abundance_plant,0.22501408866723577
 Leipzig,Late,rho_PEM_abundance_poll,0.701758705822504
@@ -95,6 +101,8 @@ Leipzig,Late,q97.5 H2,0.14053256792424346
 Halle,Early,delta,0.9923434256073109
 Halle,Early,tmatch_width_pem,0.029663118569200637
 Halle,Early,tmatch_width_obs,3.6544150538933846
+Halle,Early,bc_sim_web,0.7868187688462434
+Halle,Early,cor_web,0.5110485825232445
 Halle,Early,rho_PEM_abundance_plant,-0.32727272727272727
 Halle,Early,rho_pvalue_PEM_abundance_plant,0.32701595100267095
 Halle,Early,rho_PEM_abundance_poll,-0.21572774865200245
@@ -126,6 +134,8 @@ Halle,Early,q97.5 H2,0.47078395632573816
 Halle,Mid,delta,0.6066622212149776
 Halle,Mid,tmatch_width_pem,0.05939770064799885
 Halle,Mid,tmatch_width_obs,18.66757319848453
+Halle,Mid,bc_sim_web,0.562652079278241
+Halle,Mid,cor_web,0.3123861374320982
 Halle,Mid,rho_PEM_abundance_plant,0.05644176027835562
 Halle,Mid,rho_pvalue_PEM_abundance_plant,0.829642552163132
 Halle,Mid,rho_PEM_abundance_poll,-0.1811456999500006
@@ -157,6 +167,8 @@ Halle,Mid,q97.5 H2,0.16370046148795564
 Halle,Late,delta,0.6560398655880958
 Halle,Late,tmatch_width_pem,0.06175214420521552
 Halle,Late,tmatch_width_obs,1.8822414353205414
+Halle,Late,bc_sim_web,0.5871790084548147
+Halle,Late,cor_web,0.23506252458733046
 Halle,Late,rho_PEM_abundance_plant,-0.05882352941176471
 Halle,Late,rho_pvalue_PEM_abundance_plant,0.8241020337245606
 Halle,Late,rho_PEM_abundance_poll,-0.14550345162467193
@@ -188,6 +200,8 @@ Halle,Late,q97.5 H2,0.20591238764026604
 Jena,Early,delta,0.032247636614549456
 Jena,Early,tmatch_width_pem,0.008549420402204721
 Jena,Early,tmatch_width_obs,26.743876417614473
+Jena,Early,bc_sim_web,0.4757493919874739
+Jena,Early,cor_web,0.43667634237136776
 Jena,Early,rho_PEM_abundance_plant,-0.3592494732105316
 Jena,Early,rho_pvalue_PEM_abundance_plant,0.18848118889773027
 Jena,Early,rho_PEM_abundance_poll,-0.3025390007331775
@@ -219,6 +233,8 @@ Jena,Early,q97.5 H2,0.18221306673710025
 Jena,Mid,delta,0.9926559395962845
 Jena,Mid,tmatch_width_pem,16.422309565917022
 Jena,Mid,tmatch_width_obs,68.44082921388419
+Jena,Mid,bc_sim_web,0.12342714196401428
+Jena,Mid,cor_web,0.14216230177533615
 Jena,Mid,rho_PEM_abundance_plant,-0.1293419989447854
 Jena,Mid,rho_pvalue_PEM_abundance_plant,0.566188474607281
 Jena,Mid,rho_PEM_abundance_poll,-0.16318300624971194
@@ -250,6 +266,8 @@ Jena,Mid,q97.5 H2,0.07167246317680927
 Jena,Late,delta,0.6922875165912008
 Jena,Late,tmatch_width_pem,0.053659743863674565
 Jena,Late,tmatch_width_obs,53.01025031145083
+Jena,Late,bc_sim_web,0.55867785465047
+Jena,Late,cor_web,0.4131977202008578
 Jena,Late,rho_PEM_abundance_plant,-0.4454545454545455
 Jena,Late,rho_pvalue_PEM_abundance_plant,0.17278650658462552
 Jena,Late,rho_PEM_abundance_poll,0.07139147919948928
