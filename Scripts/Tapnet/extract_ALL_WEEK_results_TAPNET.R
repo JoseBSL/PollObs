@@ -120,14 +120,14 @@ for (garden_number in 1:length(gardens)) {
         select(variable, value)
       
       
-      # Store garden-Week results
-      aux_names <- c("delta", "tmatch_width_pem", "tmatch_width_obs", 
+      # Store garden-season results
+      aux_names <- c("delta", "tmatch_width_pem", "tmatch_width_obs", "bc_sim_web", "cor_web",
                      "rho_PEM_abundance_plant", "rho_pvalue_PEM_abundance_plant", 
                      "rho_PEM_abundance_poll", "rho_pvalue_PEM_abundance_poll", 
                      "rho_PEM_traits_plant", "rho_pvalue_PEM_traits_plant", 
                      "rho_PEM_traits_poll", "rho_pvalue_PEM_traits_poll")
       
-      aux_values <- c( delta, tmatch_width_pem, tmatch_width_obs, 
+      aux_values <- c( delta, tmatch_width_pem, tmatch_width_obs, bc_sim_web, cor_web,
                        rho_PEM_abundance_plant, rho_pvalue_PEM_abundance_plant, 
                        rho_PEM_abundance_poll, rho_pvalue_PEM_abundance_poll, 
                        rho_PEM_traits_plant, rho_pvalue_PEM_traits_plant, 
