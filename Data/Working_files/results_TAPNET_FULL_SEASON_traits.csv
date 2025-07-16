@@ -2,6 +2,8 @@ Botanical_garden,Variable,Value
 Leipzig,delta,0.4836702439006397
 Leipzig,tmatch_width_pem,0.01844150196088359
 Leipzig,tmatch_width_obs,8.952314401311867
+Leipzig,bc_sim_web,0.6342509628057496
+Leipzig,cor_web,0.28719421239402537
 Leipzig,rho_PEM_abundance_plant,-0.04144144144144144
 Leipzig,rho_pvalue_PEM_abundance_plant,0.8099476896798695
 Leipzig,rho_PEM_abundance_poll,-0.05612353709104628
@@ -33,6 +35,8 @@ Leipzig,q97.5 H2,0.1861173920088212
 Halle,delta,0.5310345233302769
 Halle,tmatch_width_pem,0.061443720009423504
 Halle,tmatch_width_obs,1.9489208250696584
+Halle,bc_sim_web,0.5831658626916467
+Halle,cor_web,0.2605818280571695
 Halle,rho_PEM_abundance_plant,0.03407181054239878
 Halle,rho_pvalue_PEM_abundance_plant,0.8481222635291369
 Halle,rho_PEM_abundance_poll,-0.20394657171073205
@@ -64,6 +68,8 @@ Halle,q97.5 H2,0.14830912037305444
 Jena,delta,0.22180843745022621
 Jena,tmatch_width_pem,0.02970084779734367
 Jena,tmatch_width_obs,16.93989392163573
+Jena,bc_sim_web,0.781824770461182
+Jena,cor_web,0.28937344993772035
 Jena,rho_PEM_abundance_plant,0.11310017862527792
 Jena,rho_pvalue_PEM_abundance_plant,0.5050963220613103
 Jena,rho_PEM_abundance_poll,-0.19595999081087023
