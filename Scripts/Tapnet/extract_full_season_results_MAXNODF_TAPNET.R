@@ -87,7 +87,7 @@ for (garden_number in 1:length(gardens)) {
                    "Median maxNODF", "q2.5 maxNODF", "q97.5 maxNODF"),
       Value = c(observed_val, mean_val, median_val, 
                 as.numeric(quantiles[1]), as.numeric(quantiles[2])),
-      Success = succcess,
+      Success = success,
       Season = "Full",
       Week = NA,
       Type = "Full"
