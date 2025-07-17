@@ -1,0 +1,16 @@
+Botanical_garden,Variable,Value,Season,Week,Type
+Leipzig,Observed maxNODF,3.125713835157171,Full,NA,Full
+Leipzig,Mean maxNODF,1.0159682400747672,Full,NA,Full
+Leipzig,Median maxNODF,1.0171458019300728,Full,NA,Full
+Leipzig,q2.5 maxNODF,0.976397462534991,Full,NA,Full
+Leipzig,q97.5 maxNODF,1.0494950371640037,Full,NA,Full
+Halle,Observed maxNODF,1.9631305142806132,Full,NA,Full
+Halle,Mean maxNODF,0.8567353846089794,Full,NA,Full
+Halle,Median maxNODF,0.8564632515725505,Full,NA,Full
+Halle,q2.5 maxNODF,0.8400484585182902,Full,NA,Full
+Halle,q97.5 maxNODF,0.8774225120513026,Full,NA,Full
+Jena,Observed maxNODF,2.326294635909449,Full,NA,Full
+Jena,Mean maxNODF,1.091935243971266,Full,NA,Full
+Jena,Median maxNODF,1.0887866498685248,Full,NA,Full
+Jena,q2.5 maxNODF,1.049749398813547,Full,NA,Full
+Jena,q97.5 maxNODF,1.1312026792097507,Full,NA,Full
