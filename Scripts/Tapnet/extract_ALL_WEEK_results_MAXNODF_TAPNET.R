@@ -148,8 +148,8 @@ for (garden_number in 1:length(gardens)) {
 }
 
 maxnodf_results_FINAL <- maxnodf_results %>%
-  left_join(groupped_dates) %>% dplyr::select(Botanical_garden, Season, Week,
-                                              Variable, Value)
+  left_join(groupped_dates) %>% dplyr::select(Botanical_garden, Variable, Value,
+                                              Success, Season, Week, Type)
 
 # Save results
 readr::write_csv(maxnodf_results_FINAL, "Data/Working_files/results_maxnodf_TAPNET_ALL_WEEK_traits.csv")
