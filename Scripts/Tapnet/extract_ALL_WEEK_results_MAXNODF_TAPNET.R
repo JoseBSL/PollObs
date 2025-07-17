@@ -124,9 +124,10 @@ for (garden_number in 1:length(gardens)) {
       summary_stats <- dplyr::tibble(
         Botanical_garden = garden_name,
         Variable = c("Observed maxNODF", "Mean maxNODF", 
-                     "Median maxNODF", "q2.5 maxNODF", "q97.5 maxNODF", "success"),
+                     "Median maxNODF", "q2.5 maxNODF", "q97.5 maxNODF"),
         Value = c(observed_val, mean_val, median_val, 
-                  as.numeric(quantiles[1]), as.numeric(quantiles[2]), success),
+                  as.numeric(quantiles[1]), as.numeric(quantiles[2])),
+        Success = success,
         Week = week_name,
         Type = "Weekly"
       )
@@ -151,4 +152,4 @@ maxnodf_results_FINAL <- maxnodf_results %>%
                                               Variable, Value)
 
 # Save results
-readr::write_csv(maxnodf_results_FINAL, "Data/Working_files/results_maxnodf_TAPNET_EARLY_MID_LATE_SEASON_traits.csv")
+readr::write_csv(maxnodf_results_FINAL, "Data/Working_files/results_maxnodf_TAPNET_ALL_WEEK_traits.csv")
