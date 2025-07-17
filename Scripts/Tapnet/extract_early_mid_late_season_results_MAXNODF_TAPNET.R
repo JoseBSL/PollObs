@@ -60,6 +60,7 @@ for (garden_number in 1:length(gardens)) {
       
       # Estimate maxnodf for 2D networks  
       maxnodf_web1 <- NULL
+      success <- 0
       
       for(j in 1:nrep){
         
@@ -70,6 +71,8 @@ for (garden_number in 1:length(gardens)) {
         
         if (inherits(result_j, "try-error")) {
           message("Error on iteration ", garden_name, season_name, j, ". Skipping.")
+        }else{
+          success <- success + 1
         }
         
       }
@@ -93,9 +96,10 @@ for (garden_number in 1:length(gardens)) {
                      "Median maxNODF", "q2.5 maxNODF", "q97.5 maxNODF"),
         Value = c(observed_val, mean_val, median_val, 
                   as.numeric(quantiles[1]), as.numeric(quantiles[2])),
+        Success = success,
         Season = season_name,
         Week = NA,
-        Type = season_name
+        Type = "Partial"
       )
       
       
