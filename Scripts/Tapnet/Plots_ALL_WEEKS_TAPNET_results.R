@@ -5,6 +5,10 @@ name_tapnet_full_season_csv <- "Data/Working_files/results_TAPNET_FULL_SEASON_tr
 name_tapnet_partial_season_csv <- "Data/Working_files/results_TAPNET_EARLY_MID_LATE_SEASON_traits.csv"
 name_tapnet_ALL_WEEK_csv <- "Data/Working_files/results_TAPNET_ALL_WEEK_WITH_REGULAR_traits.csv"
 
+name_tapnet_maxnodf_full_season_csv <- "Data/Working_files/results_maxnodf_TAPNET_FULL_SEASON_traits.csv"
+name_tapnet_maxnodf_partial_season_csv <- "Data/Working_files/results_maxnodf_TAPNET_EARLY_MID_LATE_SEASON_traits.csv"
+name_tapnet_maxnodf_ALL_WEEK_csv <- "Data/Working_files/results_maxnodf_TAPNET_ALL_WEEK_traits.csv"
+
 # Add type labels and fill missing columns
 full_season <- readr::read_csv(name_tapnet_full_season_csv) %>%
   mutate(Season = "Full", Week = NA, Type = "Full")
@@ -15,13 +19,23 @@ partial_season <- readr::read_csv(name_tapnet_partial_season_csv) %>%
 all_weeks <- readr::read_csv(name_tapnet_ALL_WEEK_csv) %>%
   mutate(Type = "Weekly")
 
+full_season_maxnodf <- readr::read_csv(name_tapnet_maxnodf_full_season_csv) %>%
+  dplyr::select(-Success)
+
+partial_season_maxnodf <- readr::read_csv(name_tapnet_maxnodf_partial_season_csv) %>%
+  dplyr::select(-Success)
+
+all_weeks_maxnodf <- readr::read_csv(name_tapnet_maxnodf_ALL_WEEK_csv) %>%
+  dplyr::select(-Success)
+
 # Bind all together
-tapnet_all_levels <- bind_rows(full_season, partial_season, all_weeks)
+tapnet_all_levels <- bind_rows(full_season, partial_season, all_weeks,
+                               full_season_maxnodf, partial_season_maxnodf, all_weeks_maxnodf)
 
 tapnet_all_levels$Variable %>% unique()
 
 # 1. Filter for the relevant variables
-structural_vars <- c("connectance", "H2", "NODF", "weighted NODF")
+structural_vars <- c("connectance", "H2", "maxNODF")
 
 tapnet_long <- tapnet_all_levels %>%
   filter(str_detect(Variable, paste(structural_vars, collapse = "|"))) %>%
