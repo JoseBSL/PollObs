@@ -36,7 +36,7 @@ library(tibble) #cols to rows
 
 \vspace{-2cm}
 
-Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Will Glenny^1^, Marc Hoffmann^1^, Panagiotis Theodorou^1,4^, Robert Paxton^1,4^, Isabell Hensen^1,4^,  Robert Rauschkolb^1,5^, Christine Römermann^1,5^, Oliver Schweiger ^1,7^, Martin Freiberg^1,6^, Tiffany Knight^1^
+Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Will Glenny^1^, Anna Traveset^2^, Marc Hoffmann^1^, Panagiotis Theodorou^1,4^, Robert Paxton^1,4^, Isabell Hensen^1,4^,  Robert Rauschkolb^1,5^, Christine Römermann^1,5^, Oliver Schweiger ^1,7^, Martin Freiberg^1,6^, Tiffany Knight^1^
 
 *Affiliations*
 
@@ -62,44 +62,19 @@ Flowering plants exhibit an astonishing diversity of reproductive structures, wh
 
 # Introduction
 
-1st paragrap 
+Flowering plants, pollinators, and their interactions form complex networks that are fundamental to the architecture of biodiversity. The structure and composition of these networks exhibit strong spatio-temporal variation, shaped by species attributes and environmental conditions [@burkle2011; @tylianakis2017]. While ecological networks provide insights into the ecological processes that govern community assembly [@bascompte2007; @guimaraes2020], documenting interactions remains extremely labour-intensive [@chacoff2012]. Moreover, the resulting network structures are also highly dependent on sampling effort and methodology [@jordano2016]. At the same time, interactions are often summarised into single metrics and analysed with a diverse array of statistical methods, each offering potentially distinct perspectives on the ecological system [@delmas2019; @peralta2024]. Despite pronounced temporal dynamics, networks are often treated as static entities [@poisot2015; @caradonna2017], requiring the aggregation or simplification of relevant information when evaluating ecological patterns. The complexity of plant-pollinator networks, together with the limitations of current analytical practices, can obscure rather than clarify our view of ecological systems. Addressing these challenges requires systematic approaches that integrate multiple layers of network complexity to improve both understanding and predictive power [@dormann2017; @bluthgen2024].
 
-Flowering plants, pollinators, and their interactions form complex networks that are fundamental to the architecture of biodiversity. Each of these interactions can be shaped by distinct ecological drivers, including species' local abundances, traits, and activity periods. However, our ability to predict and understand ecological patterns from these networks is strongly influenced by the spatiotemporal dynamics of the community and sampling effort. For instance, a species may be classified as a specialist due to under-sampling, rarity, or limited availability of floral resources. Thus, there is a need to disentangle sampling artifacts due to limited data availability from the real ecology of the species. 
+There is strong evidence that species phenology, abundances, and traits are key ecological drivers shaping species interactions and network structure [@vazquez2009; @kaiser2014], yet most studies lack the appropriate data to assess their combined influence [@vazquez2009; @olito2015]. Phenology is considered one of the main determinants of network structure, as temporal overlap between species constrains the pool of potential interactions [@encinas2012; @benadi2014], with approximately one-third of all potential interactions estimated to be impossible due to phenological mismatches [@olesen2011].  When two species overlap in time, the probability that two species interact is generally considered a function of their relative abundance and species traits [@olito2015; @stang2007]. Abundance influences both species’ roles [@fort2016; @simmons2019] and overall network structure [@vazquez2009; @canard2014], but independent estimates are rarely available and are often inferred from interaction data [@bluthgen2024]. 
 
+Traits, in turn, provide mechanistic insights, as they constrain the range of possible partners and help define species’ ecological roles within networks [@bartomeus2016; @dehling2016; @coux2016]. For instance, interaction probability often peaks when pollinator proboscis length matches floral tube depth [@klumpers2019], yet imperfect matches can still allow interactions. Although multiple traits often act simultaneously, capturing their multidimensional nature remains challenging [@eklof2013; @lanuza2023], though phylogenetic approaches may help integrate such complexity. Further, most pollinators tend to be generalist, and the relative importance of traits is expected to decline with increasing generalism [@peralta2020]. The strong context-dependency of these different ecological drivers constrains predictive power and highlights the need for high-quality data to evaluate multiple scenarios across taxonomic groups and spatiotemporal scales.
 
+Recent evidence suggests that distinct temporal scales can provide different views of the structure and processes that shape plant-pollinator interactions [@miele2020; @schwarz2020]. Species and interactions are highly dynamic, shifting markedly between years [@petanidou2008; @chacoff2018], across seasons [@vizentin2016; @souza2018], and even within days [@schwarz2021]. At fine scales, interactions are shaped by physiological responses to abiotic factors (e.g., temperature, light, precipitation) that determine activity periods, whereas variation across days or weeks also reflects phenological succession and changes in the species pool [@caradonna2017; @bramon2020]. Although some of this variation arises from natural dynamics, global change is expected to disrupt and intensify temporal fluctuations [@kharouba2018; @duchenne2020]. While aggregated snapshots of communities are valuable for describing structural and ecological properties at broad scales [@bascompte2007], the relative impact of ecological drivers may vary with temporal scale, underscoring the need to account for temporal dynamics to fully understand plant-pollinator interactions.
 
-2nd paragraph 
+Although there is no consensus on the range of ecological tools used to analyze ecological networks, combining approaches can provide complementary insights into predicting species interactions [@delmas2019]. For example, structural metrics are often compared with synthetic networks or null models built under different ecological constraints to test for significance, or across empirical networks to assess variation among systems [@vazquez2004; @santamaria2007;  @marjakangas2022], a strategy widely applied to evaluate properties such as nestedness [@bascompte2003; @Ulrich 2007; @payrato2019] and modularity [@olesen2007; @dormann2013]. In addition, statistical approaches can complement structural analyses by explicitly assessing the influence of biotic and abiotic drivers. Common approaches include matrix comparisons such as Mantel or Procrustes tests [@burkle2011; REF2; REF3] and conventional models such as generalized linear models [REFs]. In addition, complex associations that involve direct and indirect effects have traditionally been analyzed using structural equation models [e.g., @kaiser2014; @theodorou2017; @lazaro2020].
 
-Highlight the importance of abundance:
-
-There is consensus that including abundances in our view of ecological processes shaping network patterns yields consistently better results [REFS, eg., annual reviews]. However, most ecological studies... 
-
-Highlight the importance of phenology:
-Highlight the importance of traits/phylogeny:
-
-
-
-
-Last paragraph, introduce what we test!
-
-By conducting this experiment in botanical gardens, we have as objective reducing the "noise" associated with the context-dependent nature of ecological interactions [REF].
-
-What use and what temporal resolution of networks are best for improving our predictive understanding of the structure and dynamics of ecological communities? by Caradonna and Waser 2020
-
-
-Explore how traits, phenology and abundances shape species interactions in three botanical gardens from Germany at different levels of temporal complexity 
-
-Pending tasks:
-
-Question 1:
-
-- Explore relative contribution of ecological drivers (abundances, phenology, traits, phylogeny (plants and bees)).
-
-- Associated with this, how increasing sampling impact our view of those processes.
-
-- Temporal grain, how does it affect network patterns. Relative contribution of temporality to network stucture or patterns (e.g., day 1, only adds 1 spp versus day 10 that adds 30). 
-
-
+ Regression models enable more refined evaluations of the impact of biotic and abiotic drivers on species interactions or network properties [e.g., @geslin2013; @maglianesi2024; @herrera2020], while also allowing ecological predictions [e.g. @crea2016; REFs]. More complex associations that involve both direct and indirect effects have traditionally been analyzed using structural equation models, applied across the different variables of interest [e.g., @kaiser2014; @theodorou2017; @lazaro2020]. Recent attempts to improve the predictive power of species interactions have tried to overcome the limitations of conventional analytical methods like the non-independence of observations and the potential non-linear effects of key variables, while incorporating important drivers such as traits, abundances, and phylogenetic relationships allowing predictions of interaction probability [i.e tapnet approach; @benadi2022]. Finally, flexible machine learning methods have emerged as particularly promising for enhancing predictive accuracy [@strydom2021]. For instance, @pichler2020 found that flexible machine learning models outperformed traditional regression models in predicting species interactions in plant-pollinator networks. However, multiple analytical approaches exist to evaluate and predict ecological interactions, and skepticism remains due to the varying implementations of these methods, which strongly depend on sampling methods and effort [@bluthgen2024; @dormann2025].  Different analytical approaches can be complementary, each providing unique and relevant insights to predict species interactions [@peralta2024].
+ 
+In this study, we aim to evaluate the relative importance of biotic and abiotic drivers of plant-pollinator interactions within seasonal dynamics using various analytical methods, and to assess the predictive power of species interactions under different analytical approaches and temporal scales (Figure 1). To achieve this, we collected data on plant-pollinator interactions, along with associated biotic (i.e., abundances, traits, and phenology) and abiotic variables (i.e., temperature), in three German botanical gardens. Our objective is to contribute to a mechanistic understanding of these drivers by using a semi-controlled environment with numerous co-flowering species that exhibit heterogeneous traits and diverse phylogenetic backgrounds. This setting allows us to test multiple potential combinations of pairwise interactions within the gardens and to explore in depth the role of traits and phylogenetic relatedness as surrogates for unmeasured traits.
 
 # Methods
 
