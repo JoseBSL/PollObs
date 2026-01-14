@@ -1,5 +1,4 @@
 ---
-title: "Towards a mechanistic understanding of the drivers of plant-pollinator interactions"
 format:
   pdf:
     include-in-header: 
@@ -35,7 +34,10 @@ library(tibble) #cols to rows
 ```
 
 
-\vspace{-2.5cm}
+\begin{center}
+\LARGE\textbf{Towards a mechanistic understanding of the drivers of plant-pollinator interactions}
+\end{center}
+
 
 Jose B. Lanuza^1,2^, Alfonso Allen-Perkins^3^,  Henriette F. Morgenroth^1^,  Raymond Umazekabiri^1^, Will Glenny^1^, Anna Traveset^2^, Marc Hoffmann^1^, Panagiotis Theodorou^1,4^, Robert Paxton^1,4^, Isabell Hensen^1,4^,  Robert Rauschkolb^1,5^, Christine Römermann^1,5^, Oliver Schweiger ^1,7^, Martin Freiberg^1,6^, Tiffany Knight^1^
 
