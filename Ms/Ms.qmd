@@ -79,17 +79,29 @@ Traits, in turn, provide mechanistic insights, as they constrain the range of po
 
 Recent evidence suggests that distinct temporal scales can provide different views of the structure and processes that shape plant-pollinator interactions [@miele2020; @schwarz2020]. Species and interactions are highly dynamic, shifting markedly between years [@petanidou2008; @chacoff2018], across seasons [@vizentin2016; @souza2018], and even within days [@schwarz2021]. At fine scales, interactions are shaped by physiological responses to abiotic factors (e.g., temperature, light, precipitation) that determine activity periods, whereas variation across days or weeks also reflects phenological succession and changes in the species pool [@caradonna2017; @bramon2020]. Although some of this variation arises from natural dynamics, global change is expected to disrupt and intensify temporal fluctuations [@kharouba2018; @duchenne2020]. While aggregated snapshots of communities are valuable for describing structural and ecological properties at broad scales [@bascompte2007], the relative impact of ecological drivers may vary with temporal scale, underscoring the need to account for temporal dynamics to fully understand plant-pollinator interactions.
 
-Although there is no consensus on the range of tools used to analyze ecological networks, combining approaches can provide complementary insights [@delmas2019]. Structural metrics are often compared with synthetic networks or null models built under different ecological constraints to test for significance, or across empirical networks to assess variation among systems [@vazquez2004; @santamaria2007; @marjakangas2022], a strategy widely applied to evaluate properties such as nestedness [@bascompte2003; @ulrich2007; @payrato2019] and modularity [@olesen2007; @dormann2013]. Other statistical approaches can complement structural analyses by explicitly assessing the influence of biotic and abiotic drivers. Common approaches include matrix comparisons such as Mantel or Procrustes tests [@burkle2011; @dehling2016] and conventional models such as generalized linear models [@fornoff2017; @classen2020; @herrera2020], which allow more refined evaluations of the impact of biotic and abiotic drivers on species interactions. In addition, machine learning approaches provide more flexible alternatives that can capture nonlinear relationships and often outperform conventional methods. [@pichler2020]. Despite their complementary nature, selecting and interpreting the outputs of these different statistical tools remains challenging and requires a careful evaluation of their respective strengths and limitations when addressing ecological questions.
+Although there is no consensus on the range of tools used to analyze ecological networks, combining approaches can provide complementary insights [@delmas2019; @bluthgen2024; @dormann2025]. Structural metrics are often compared with synthetic networks or null models built under different ecological constraints to test for significance, or across empirical networks to assess variation among systems [@vazquez2004; @santamaria2007; @marjakangas2022], a strategy widely applied to evaluate properties such as nestedness [@bascompte2003; @ulrich2007; @payrato2019] and modularity [@olesen2007; @dormann2013]. Other statistical approaches can complement structural analyses by explicitly assessing the influence of biotic and abiotic drivers. Common approaches include matrix comparisons such as Mantel or Procrustes tests [@burkle2011; @dehling2016] and conventional models such as generalized linear models [@fornoff2017; @classen2020; @herrera2020], which allow more refined evaluations of the impact of biotic and abiotic drivers on species interactions. In addition, machine learning approaches provide more flexible alternatives that can capture nonlinear relationships and often outperform conventional methods. [@pichler2020]. Despite their complementary nature, selecting and interpreting the outputs of these different statistical tools remains challenging and requires a careful evaluation of their respective strengths and limitations when addressing ecological questions.
 
-Predicting species interactions is a central goal in ecology [@valdovinos2019; @peralta2024], particularly in the context of climate change, ongoing species loss, and the need to sustain ecosystem services. However, although overall network structure can be partially reproduced [@eklof2013; @crea2016], accurately predicting pairwise interactions remains a major challenge [@valdovinos2019; @peralta2024]. Recent efforts to improve predictive performance have sought to address limitations of conventional analytical methods, such as non-independence of observations and non-linear effects of key variables, while incorporating the aforementioned ecological drivers [@bartomeus2016; @benadi2022]. In parallel, flexible machine learning methods have emerged as particularly promising for enhancing predictive accuracy [@strydom2021]. For example, @pichler2020 showed that machine learning models outperformed traditional regression approaches when predicting species interactions in plant-pollinator networks. Nevertheless, skepticism remains, as predictive outcomes can vary substantially among analytical frameworks and are strongly influenced by sampling design and effort [@bluthgen2024; @dormann2025].
+Predicting species interactions is a central goal in ecology [@valdovinos2019; @peralta2024], particularly in the context of climate change, ongoing species loss, and the need to sustain ecosystem services. However, although overall network structure can be partially reproduced [@eklof2013; @crea2016], accurately predicting pairwise interactions remains a major challenge [@valdovinos2019; @peralta2024]. Recent efforts to improve predictive performance have sought to address limitations of conventional analytical methods, such as non-independence of observations and non-linear effects of key variables, while incorporating the aforementioned ecological drivers [@bartomeus2016; @benadi2022]. In parallel, flexible machine learning methods have emerged as particularly promising for enhancing predictive accuracy [@strydom2021]. For example, @pichler2020 showed that machine learning models outperformed traditional regression approaches when predicting species interactions in plant-pollinator networks. Nevertheless, skepticism remains, and comparative approaches that evaluate predictive ability in different contexts are needed.
 
-In this study, we aim to evaluate the relative importance of biotic and abiotic drivers of plant-pollinator interactions within seasonal dynamics using various analytical methods, and to assess the predictive power of species interactions under different analytical approaches and temporal scales (Figure 1). To achieve this, we collected data on plant-pollinator interactions, along with associated biotic (i.e., abundances, traits, and phenology) and abiotic variables (i.e., temperature), in three German botanical gardens. Our objective is to contribute to a mechanistic understanding of these drivers by using a semi-controlled environment with numerous co-flowering species that exhibit heterogeneous traits and diverse phylogenetic backgrounds. This setting allows us to test multiple potential combinations of pairwise interactions within the gardens and to explore in depth the role of traits and phylogenetic relatedness as surrogates for unmeasured traits.
+In this study, we aim to evaluate the relative importance of biotic and abiotic drivers of plant-pollinator interactions within seasonal dynamics using various analytical methods, and to assess the predictive power of species interactions under different analytical approaches and temporal scales (**Figure 1**). To achieve this, we collected data on plant-pollinator interactions, along with associated biotic (i.e., abundances, traits, and phenology) and abiotic variables (i.e., temperature), in three German botanical gardens. Our objective is to contribute to a mechanistic understanding of these drivers by using a semi-controlled environment with numerous co-flowering species that exhibit heterogeneous traits and diverse phylogenetic backgrounds. This setting allows us to test multiple potential combinations of pairwise interactions within the gardens and to explore in depth the role of traits and phylogenetic relatedness as surrogates for unmeasured traits.
+
+\vspace{-2cm}
+
+
+```{r, out.width="1\\linewidth", include=TRUE, fig.align="left", echo=FALSE}
+knitr::include_graphics("../Data/figure1.pdf")
+```
+
+\vspace{-2.5cm}
+
+**Figure 1**. Workflow of the study, showing how different ecological drivers (A) are tested across various temporal scales (B) using different analytical methods (C). Panel A illustrates the main ecological drivers used in this study to evaluate plant–pollinator interaction patterns: (1) pollinator and floral traits, (2) pollinator and floral abundances, and (3) pollinator and floral phenology. Panel B presents the three levels of temporal aggregation considered in this study: (1) individual sampling days, (2) early, mid, and late season, and (3) the full flowering season. Panel C depicts the three main analytical approaches implemented in this study to evaluate the effects of different ecological drivers across distinct levels of temporal aggregation: (1) matrix analyses, (2) generalized linear models (GLMs), and (3) machine learning
+
 
 # Methods
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant.  On each sampling day, the different focal plants were sampled in a random order and only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random site, resulting in a total of 30 minutes per sampling day and garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany; **Figure S1**). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant.  On each sampling day, the different focal plants were sampled in a random order and only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random site, resulting in a total of 30 minutes per sampling day and garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning="FALSE"}
 
@@ -210,9 +222,19 @@ capitulum_percent = capitulum_percent %>%
 
 ```
 
-## Sampling effort and plant taxonomic coverage
+## Sampling effort and taxonomic coverage
 
-This study monitored a total of `r phenobs_total` focal plant species that belonged to PhenObs initiative, which accounted for `r phenobs_genera` different genera, `r phenobs_families` families and `r phenobs_orders` different orders. In total, we sampled pollinators on `r phenobs_h` plants species in Halle (`r halle_hours` hours), `r phenobs_j` in Jena (`r jena_hours` hours) and `r phenobs_l` in Leipzig (`r leipzig_hours` hours), and only 12 species were shared across the three gardens. In addition, with the random stops across the garden we sampled a total of XXXX species that comprised XXXX genera, XXXXX families and XXXXX orders. This study accounted for a total of `r non_phenobs_h` plant species in Halle (`r halle_hours_random` hours), `r non_phenobs_j` in Jena (`r jena_hours_random` hours), and `r non_phenobs_l` in Leipzig (`r leipzig_hours_random` hours). Explain accumulation curves here!!!
+This study monitored a total of `r phenobs_total` focal plant species that belonged to PhenObs initiative, which accounted for `r phenobs_genera` different genera, `r phenobs_families` families and `r phenobs_orders` different orders. In total, we sampled pollinators on `r phenobs_h` plants species in Halle (`r halle_hours` hours), `r phenobs_j` in Jena (`r jena_hours` hours) and `r phenobs_l` in Leipzig (`r leipzig_hours` hours), and only 12 species were shared across the three gardens. 
+
+POLLINATORS
+
+
+
+In addition, with the random stops across the garden we sampled a total of XXXX species that comprised XXXX genera, XXXXX families and XXXXX orders. This study accounted for a total of `r non_phenobs_h` plant species in Halle (`r halle_hours_random` hours), `r non_phenobs_j` in Jena (`r jena_hours_random` hours), and `r non_phenobs_l` in Leipzig (`r leipzig_hours_random` hours). Explain accumulation curves here!!!
+
+FIGURE 2 can be S1 at some point
+
+
 
 ## Data description
 
@@ -223,7 +245,7 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 (ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies. We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded approximately 1000 kms in longitude and 500 kms in latitude (Figure S1). We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
-(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment. Pollinator traits included intertegular distance, body length and proboscis length. Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
+(iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment (**Table S1a**). Pollinator traits included intertegular distance, body length and proboscis length (**Table S1b**). Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
 ## Plant and pollinator phylogeny
 
@@ -244,12 +266,6 @@ To unravel the role of time in our understanding of the cological drivers of pla
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
-
-
-
-
-
-
 # References
 
 <div id="refs"></div>
@@ -257,62 +273,272 @@ PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden
 
 # Supporting information
 
-Figure S1: Some sort of combination of the code below and the graph of location from the poster
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width='60%', fig.align='center'}
+library(gt)
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=10, fig.cap = "\\textbf{Figure S1}."}
+library(gt)
+library(webshot2)
+library(knitr)
 
-##Load data
-#centroid = readRDS("../Data/Working_files/figs1_centroid.rds")
-#oc_2023 = readRDS("../Data/Working_files/oc_2023.rds")
-#rectangle = readRDS("../Data/Working_files/rectangle.rds")
-#
-#
-#
-#library(sf)
-## Convert points to sf
-#world <- map_data("world")
-#ggplot() +
-#  geom_map(
-#    data = world,
-#    map = world,
-#    aes(long, lat, map_id = region),
-#    color = "white",
-#    fill = "gray90",
-#    size = 0.1
-#  ) +
-#  ylim(0, 70) +
-#  geom_point(
-#    data = oc_2023,
-#    aes(decimalLongitude, decimalLatitude),
-#    color = "#0072B2",   # soft blue for points
-#    alpha = 0.6,
-#    size = 1.2
-#  ) +
-#  geom_point(
-#    data = centroid,
-#    aes(Longitude, Latitude),
-#    color = "black",
-#    size = 3
-#  ) +
-#  geom_sf(
-#    data = rectangle,
-#    colour = "red",
-#    fill = NA,
-#    linewidth = 1.2
-#  ) +
-#  coord_sf(
-#    xlim = c(-15, 44),
-#    ylim = c(33, 73),
-#    expand = FALSE
-#  ) +
-#  theme_minimal() +
-#  theme(
-#    panel.background = element_rect(fill = "aliceblue"),  # light blue #ocean
-#    panel.grid = element_line(color = "white"),  # faint grid
-#    axis.text = element_text(size = 10),
-#    axis.title = element_blank()
-#  )
-#
+tab <- readRDS("../Data/Working_files/Trait_summary_table.rds")
+tab <- tab |>
+  tab_caption(
+    md("**Table 1.** Summary of plant and pollinator traits.")
+  )
+
+
+fig_dir <- knitr::opts_chunk$get("fig.path")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
+out <- file.path(fig_dir, "Trait_summary_table.png")
+gtsave(tab, out, zoom = 13, vwidth = 3200)
+
+stopifnot(file.exists(out))
+knitr::include_graphics(out)
 ```
 
+\newpage
 
+Figure S1: MAP WITH POTENTIAL POINTS OF GBIF
+
+\newpage
+
+Figure S2: RAREFACTION CURVES
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="105%", fig.cap= ""}
+
+# ======================================================
+# Compute standardized accumulation curve
+# ======================================================
+
+# Load libraries
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(tibble)
+library(minpack.lm)
+library(patchwork)
+library(ggnewscale)
+
+# ======================================================
+# Load data
+raw_data <- readRDS("../Data/Working_files/interaction_data.rds")
+colnames(raw_data)
+
+# ======================================================
+# 1) Prepare data to compute accumulation curves across species
+
+# Get total sampling time per species and garden
+sampling_times <- raw_data %>%
+  filter(Plant_rank == "SPECIES") %>%
+  select(Plant_accepted_name, Botanical_garden, Total_time_species, Date, Sampling) %>%
+  distinct() %>%
+  rename(Plants = Plant_accepted_name,
+         Sampling_time = Total_time_species) %>% 
+  group_by(Plants, Botanical_garden, Sampling) %>%
+  summarise(Total_sampling_time = sum(Sampling_time), .groups = 'drop')
+
+# Get unique interactions per garden
+int_data <- raw_data %>%
+  filter(Plant_rank == "SPECIES", 
+         Pollinator_rank == "SPECIES") %>%
+  select(Plant_accepted_name, Pollinator_accepted_name, Botanical_garden, Sampling) %>%
+  rename(Plants = Plant_accepted_name,
+         Pollinators = Pollinator_accepted_name) %>%
+  distinct()
+
+# Join data
+data <- left_join(int_data, sampling_times) %>%
+  arrange(Botanical_garden)
+
+# ======================================================
+# Accumulation curve function
+curves <- function(data) {
+  
+  # Random order of all plants
+  sampled_plant <- sample(unique(data$Plants), length(unique(data$Plants)))
+  
+  output <- data %>% 
+    filter(Plants %in% sampled_plant) %>%
+    arrange(match(Plants, sampled_plant)) %>%
+    group_by(Pollinators) %>%
+    mutate(distinct = row_number() == 1) %>%
+    ungroup() %>%
+    group_by(Plants) %>%
+    mutate(Unique_spp = sum(distinct)) %>%
+    ungroup() %>%
+    select(Plants, Unique_spp, Botanical_garden, Sampling) %>%
+    distinct() %>%
+    mutate(Unique_spp_cumulative = cumsum(Unique_spp)) %>%
+    mutate(Plant_sampled = row_number())
+  
+  output_time <- data %>%
+    filter(Plants %in% sampled_plant) %>%
+    arrange(match(Plants, sampled_plant)) %>%
+    select(Plants, Total_sampling_time, Botanical_garden, Sampling) %>%
+    distinct() %>%  # one row per plant
+    mutate(
+      Cumulative_time = cumsum(Total_sampling_time),
+      Plant_sampled = row_number())
+  
+  output_curve <- left_join(output_time, output, by = c("Plants", "Plant_sampled",
+                                                        "Botanical_garden","Sampling"))
+  
+  return(output_curve)
+}
+
+# ======================================================
+# Run accumulation curves iteratively by garden and sampling type
+results_by_garden_sampling <- data %>%
+  group_split(Botanical_garden, Sampling) %>%
+  map(~ map_dfr(1:100, function(i) curves(.x), .id = "iteration"))
+
+iterations_combined <- bind_rows(results_by_garden_sampling)
+
+# ======================================================
+# Summarize mean curve per plant sampled, per garden and sampling type
+summary_by_garden_sampling <- results_by_garden_sampling %>%
+  map(~ .x %>%
+        group_by(Plant_sampled, Botanical_garden, Sampling) %>%
+        summarise(
+          Mean_cumulative_spp = mean(Unique_spp_cumulative),
+          Mean_cumulative_time = mean(Cumulative_time),
+          .groups = "drop"))
+
+# Combine summaries
+summary_for_plot <- bind_rows(summary_by_garden_sampling)
+
+# ======================================================
+# Optional: Save data
+# saveRDS(iterations_combined, "Data/Working_files/rarefied_curves.rds")
+# saveRDS(summary_for_plot, "Data/Working_files/mean_rarefied_curve.rds")
+
+# ======================================================
+# Extrapolation to fixed max time
+global_max_time <- 4000
+
+fit_extrapolate_fixed_time <- function(df, max_time) {
+  model <- nlsLM(Unique_spp_cumulative ~ a * (1 - exp(-(b * Cumulative_time)^c)),
+                 data = df,
+                 start = list(a = max(df$Unique_spp_cumulative), b = 0.001, c = 1))
+  
+  new_times <- data.frame(Cumulative_time = seq(0, max_time, length.out = 100))
+  new_times$predicted <- predict(model, newdata = new_times)
+  new_times$Botanical_garden <- unique(df$Botanical_garden)
+  new_times$Sampling <- unique(df$Sampling)
+  
+  return(new_times)
+}
+
+# Apply extrapolation by group
+extrapolated_data_fixed <- iterations_combined %>%
+  group_by(Botanical_garden, Sampling) %>%
+  group_split() %>%
+  map_dfr(~ fit_extrapolate_fixed_time(.x, global_max_time))
+
+# Max observed time per group
+max_times_df <- iterations_combined %>%
+  group_by(Botanical_garden, Sampling) %>%
+  summarise(max_observed_time = max(Cumulative_time), .groups = 'drop')
+
+# Add alpha group to extrapolated data
+extrapolated_data_fixed <- extrapolated_data_fixed %>%
+  left_join(max_times_df, by = c("Botanical_garden", "Sampling")) %>%
+  mutate(alpha_group = ifelse(Cumulative_time <= max_observed_time, "observed", "extrapolated"))
+
+# ======================================================
+
+summary_for_plot_points = extrapolated_data_fixed %>% 
+  filter(alpha_group == "observed") %>% 
+  group_by(Botanical_garden, Sampling) %>% 
+  summarise(Mean_cumulative_time = max(Cumulative_time),
+            Mean_cumulative_spp = max(predicted))
+
+
+# Final plot
+ggplot() +
+  # Iteration lines
+  geom_path(data = iterations_combined, 
+            aes(x = Cumulative_time, y = Unique_spp_cumulative, 
+                group = interaction(iteration, Botanical_garden, Sampling),
+                color = Plant_sampled),
+            size = 0.3, alpha = 0.5) +
+  scale_colour_gradient(low = "grey90", high = "grey10", guide = "colorbar") +
+  labs(color = "Plants sampled") +
+  new_scale_color() +
+  
+  # Mean extrapolated curves
+  geom_line(data = extrapolated_data_fixed, 
+            aes(x = Cumulative_time, y = predicted, 
+                color = Botanical_garden, linetype = Sampling, alpha = alpha_group),
+            size = 1.2) +
+  scale_alpha_manual(values = c("observed" = 1, "extrapolated" = 0.5), guide = "none") +
+  scale_colour_viridis_d() +
+  scale_linetype_manual(
+    values = c("Focal" = "solid", "Random_census" = 22),
+    labels = c("Focal" = "Phenobs plants", "Random_census" = "Random plants")) +
+    geom_point(data = summary_for_plot_points, 
+             aes(x = Mean_cumulative_time, y = Mean_cumulative_spp, 
+                 color = Botanical_garden, linetype = Sampling),
+             size = 2.74) +
+  scale_colour_viridis_d() +
+  
+  # Labels and theme
+  xlab("Time (mins)") +
+  ylab("Pollinators") +
+  theme_minimal(base_size = 14) +
+  labs(color = "Botanical Garden", linetype = "Sampling type", alpha = "Data Type")
+
+#Read interaction daa
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(readr)
+library(ggplot2)
+library(viridis)
+library(scales)
+#Load data
+raw_data = readRDS("../Data/Working_files/interaction_data.rds")
+
+
+poll_species = raw_data %>% 
+  filter(Pollinator_rank == "SPECIES") %>% 
+  filter(Pollinator_order == "Hymenoptera" | Pollinator_order == "Diptera"| 
+           Pollinator_order == "Coleoptera" |  Pollinator_order == "Lepidoptera") %>% 
+  select(Pollinator_accepted_name, Pollinator_order) %>% 
+  group_by(Pollinator_order) %>% 
+  summarise(Species = n_distinct(Pollinator_accepted_name)/n_distinct(.),
+            Interactions = length(Pollinator_accepted_name)/ nrow(.))
+
+# Combine Interactions and Species into a single column
+data_long = pivot_longer(poll_species, cols = c(Interactions, Species), names_to = "Variable", values_to = "Value")
+
+#Set order of levels for plotting
+data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Coleoptera", "Lepidoptera", "Diptera", "Hymenoptera"))
+
+data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
+
+p1 = ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) + 
+  geom_bar(stat = "identity", width = 0.7, alpha=0.85) +
+  theme_classic() +
+  scale_fill_viridis(discrete=TRUE, direction = -1, name="Pollinator order") +
+  xlab(NULL) +
+  ylab(NULL) + 
+  scale_y_continuous(breaks=c(0,0.5,1),labels = percent_format(), expand = c(0, 0)) +
+  theme(axis.text.y = element_text(size=14), 
+        axis.text.x = element_text(size=14), 
+        axis.title.y = element_text(face = "bold", size = 18, vjust = -2),  
+        axis.title.x = element_text(face="bold", size = 18),
+        legend.position = "right",
+        legend.title = element_text(size = 14, face = "bold"),
+        legend.text = element_text(size = 14),
+        legend.key.size = unit(5, "mm"),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(-8,-5,-5,-5)) +
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+p1
+
+
+```

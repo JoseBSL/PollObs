@@ -202,6 +202,10 @@ cols_to_transform = c("Autonomous_selfing_level_fruit_set",
                       "Pollen_per_flower",
                       "Mean_interaction_frequency")
 
+#Save trait data 
+saveRDS(all_traits4, "Data/Working_files/plant_trait_data.rds")
+
+
 #Conduct log transformation and scaling using mutate across selected columns
 final_d = all_traits4 %>%
   mutate(across(all_of(cols_to_transform), ~ log(. + 1))) %>%
