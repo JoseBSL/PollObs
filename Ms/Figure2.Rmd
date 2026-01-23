@@ -1,3 +1,20 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=8, out.width="100%"}
+
+
 # ======================================================
 # Compute standardized accumulation curve
 # ======================================================
@@ -13,8 +30,8 @@ library(ggnewscale)
 
 # ======================================================
 # Load data
-raw_data <- readRDS("Data/Working_files/interaction_data.rds")
-colnames(raw_data)
+raw_data <- readRDS("../Data/Working_files/interaction_data.rds")
+
 
 # ======================================================
 # 1) Prepare data to compute accumulation curves across species
@@ -147,7 +164,7 @@ summary_for_plot_points = extrapolated_data_fixed %>%
 
 
 # Final plot
-ggplot() +
+curves = ggplot() +
   # Iteration lines
   geom_path(data = iterations_combined, 
             aes(x = Cumulative_time, y = Unique_spp_cumulative, 
@@ -168,7 +185,7 @@ ggplot() +
   scale_linetype_manual(
     values = c("Focal" = "solid", "Random_census" = 22),
     labels = c("Focal" = "Phenobs plants", "Random_census" = "Random plants")) +
-    geom_point(data = summary_for_plot_points, 
+  geom_point(data = summary_for_plot_points, 
              aes(x = Mean_cumulative_time, y = Mean_cumulative_spp, 
                  color = Botanical_garden, linetype = Sampling),
              size = 2.74) +
@@ -180,6 +197,9 @@ ggplot() +
   theme_minimal(base_size = 14) +
   labs(color = "Botanical Garden", linetype = "Sampling type", alpha = "Data Type")
 
+
+#############################
+
 #Read interaction daa
 library(dplyr)
 library(tidyr)
@@ -189,7 +209,7 @@ library(ggplot2)
 library(viridis)
 library(scales)
 #Load data
-raw_data = readRDS("Data/Working_files/interaction_data.rds")
+raw_data = readRDS("../Data/Working_files/interaction_data.rds")
 
 
 poll_species = raw_data %>% 
@@ -217,18 +237,22 @@ p1 = ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) +
   ylab(NULL) + 
   scale_y_continuous(breaks=c(0,0.5,1),labels = percent_format(), expand = c(0, 0)) +
   theme(axis.text.y = element_text(size=14), 
-        axis.text.x = element_text(size=14), 
-        axis.title.y = element_text(face = "bold", size = 18, vjust = -2),  
-        axis.title.x = element_text(face="bold", size = 18),
+        axis.text.x = element_text(size=14, angle = 45, hjust = 1, vjust = 1), 
+        axis.title.y = element_text(face = "bold", size = 14, vjust = -2),  
+        axis.title.x = element_text(face="bold", size = 14, angle = 45),
         legend.position = "right",
-        legend.title = element_text(size = 14, face = "bold"),
-        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10),
         legend.key.size = unit(5, "mm"),
         legend.margin=margin(0,0,0,0),
         legend.box.margin=margin(-8,-5,-5,-5)) +
-  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+  guides(fill=guide_legend(ncol=1,byrow=TRUE))
 
 
-p1
+ 
 
+(curves | p1) +
+  plot_layout(widths = c(2.2, 0.5))
+
+```
 
