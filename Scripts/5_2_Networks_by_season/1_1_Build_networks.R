@@ -34,6 +34,9 @@ groupped_dates = dates %>%
   select(!Season_group) %>% 
   ungroup()
 
+#Save dates
+saveRDS(groupped_dates, "Data/Working_files/groupped_dates.rds")
+
 # Prepare interaction data
 # Filter by main poll orders
 poll_order = c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
