@@ -25,7 +25,8 @@ library(ggplot2)
 library(viridis)
 library(scales)
 #Load data
-raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+raw_data = readRDS("interaction_data.rds")
+
 
 poll_species = raw_data %>% 
 filter(Pollinator_rank == "SPECIES") %>% 
@@ -55,7 +56,7 @@ theme(axis.text.y = element_text(size=14),
      axis.text.x = element_text(size=14), 
      axis.title.y = element_text(face = "bold", size = 18, vjust = -2),  
      axis.title.x = element_text(face="bold", size = 18),
-     legend.position = "none",
+     legend.position = "right",
      legend.title = element_text(size = 14, face = "bold"),
      legend.text = element_text(size = 14),
      legend.key.size = unit(1, "mm"),
@@ -64,8 +65,10 @@ theme(axis.text.y = element_text(size=14),
 guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
+p1
+
 # Save the plot as a high-quality PNG
-ggsave("main_poll_orders.png", plot = p1, width = 3, height = 3, dpi = 500)
+#ggsave("main_poll_orders.png", plot = p1, width = 3, height = 3, dpi = 500)
 
 
 ```
@@ -86,7 +89,7 @@ library(ggplot2)
 library(viridis)
 library(scales)
 #Load data
-raw_data = readRDS("../../Data/Working_files/interaction_data.rds")
+raw_data = readRDS("interaction_data.rds")
 
 poll_species = raw_data %>% 
 filter(Pollinator_rank == "SPECIES") %>% 
@@ -129,7 +132,7 @@ p2 = ggplot(data_long, aes(x = "", y = Value, fill = Pollinator_order)) +
   facet_wrap(~Variable)
 
 
-
+p2
 
 ```
 
