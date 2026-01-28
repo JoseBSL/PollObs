@@ -39,7 +39,7 @@ pheno_season_dot <- pheno_season %>%
 # --- Outside facet labels ---
 panel_labels <- data.frame(
   Botanical_garden = c("Halle", "Jena", "Leipzig"),
-  label = c("a) Halle", "b) Jena", "c) Leipzig"),
+  label = c("d) Halle", "e) Jena", "f) Leipzig"),
   x = -Inf, y = Inf
 )
 
@@ -50,7 +50,7 @@ dummy_weekly <- pheno_week_box %>%
   slice(1)
 
 # --- Plot ---
-fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) +
+panel2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) +
   
   geom_violin(alpha = 0.45, width = 0.65, colour = NA) +
   
@@ -170,4 +170,4 @@ fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) 
   xlab(NULL) +
   ggtitle("Visitation rate – Phenology")
 
-fig2
+panel2

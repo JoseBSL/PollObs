@@ -80,6 +80,9 @@ results_intFreq_abund <- pmap_dfr(
 combined_results <- bind_rows(results_int_abund, results_intFreq_abund) %>%
   mutate(Mantel_corr = abs(Mantel_corr))
 
+results_intFreq_abund$Mantel_corr = abs(results_intFreq_abund$Mantel_corr)
+
+saveRDS(results_intFreq_abund, "Data/Working_files/Mantel_abund_week_result.rds")
 # ======================================================
 # Plot
 ggplot(combined_results, aes(x = Sampling_week, 

@@ -1,13 +1,13 @@
-# FIGURE 2 (clean): violin + weekly dotplot + seasonal points + full-season dashed line + unified legend
+# FIGURE 2 (ABUNDANCE): violin + weekly dotplot + seasonal points + full-season dashed line + unified legend
 
 library(dplyr)
 library(ggplot2)
 library(lubridate)
 
 # --- Load inputs ---
-pheno_week   <- readRDS("Data/Working_files/Mantel_pheno_week_result.rds")
-pheno_season <- readRDS("Data/Working_files/Mantel_pheno_season_result.rds")
-pheno_full   <- readRDS("Data/Working_files/Mantel_pheno_full_result.rds")
+abund_week   <- readRDS("Data/Working_files/Mantel_abund_week_result.rds")
+abund_season <- readRDS("Data/Working_files/Mantel_abund_season_result.rds")
+abund_full   <- readRDS("Data/Working_files/Mantel_abund_full_result.rds")
 
 groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
   mutate(Sampling_week = isoweek(Date))
@@ -26,13 +26,26 @@ week_season <- groupped_dates %>%
   select(Botanical_garden, Sampling_week, Season)
 
 # --- Weekly data used for violin + dotplot ---
-pheno_week_box <- pheno_week %>%
+abund_week_box <- abund_week %>%
   select(-any_of("Season")) %>%
   left_join(week_season, by = c("Botanical_garden", "Sampling_week")) %>%
   mutate(Season = factor(Season, levels = season_levels))
 
+# Small jitter to improve visualization ONLY for Leipzig Late (ties near 1)
+abund_week_box_leip_late <- abund_week_box %>%
+  filter(Season == "Late" & Botanical_garden == "Leipzig")
+
+set.seed(5)
+abund_week_box_leip_late <- abund_week_box_leip_late %>%
+  mutate(Mantel_corr = pmin(pmax(Mantel_corr + rnorm(n(), 0, 0.1), 0), 1))
+
+abund_week_box_rest <- abund_week_box %>%
+  filter(!(Season == "Late" & Botanical_garden == "Leipzig"))
+
+abund_week_box <- bind_rows(abund_week_box_leip_late, abund_week_box_rest)
+
 # --- Seasonal points (one per garden × season) ---
-pheno_season_dot <- pheno_season %>%
+abund_season_dot <- abund_season %>%
   mutate(Season = factor(Season, levels = season_levels)) %>%
   select(Botanical_garden, Season, Mantel_corr)
 
@@ -44,19 +57,27 @@ panel_labels <- data.frame(
 )
 
 # --- Dummy to force "Weekly" entry in size legend (dotplot doesn't create it reliably) ---
-dummy_weekly <- pheno_week_box %>%
+dummy_weekly <- abund_week_box %>%
   distinct(Botanical_garden, Season) %>%
   mutate(Mantel_corr = 0) %>%
   slice(1)
 
 # --- Plot ---
-fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) +
+panel1 <- ggplot(abund_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) +
   
-  geom_violin(alpha = 0.45, width = 0.65, colour = NA) +
+  geom_violin(
+    alpha = 0.45,
+    width = 0.5,
+    colour = NA,
+    adjust = 0.5,
+    scale = "width",   # equal max width everywhere
+    trim = TRUE,
+    cut = 0
+  ) +
   
   # Full-season dashed line (in legend)
   geom_hline(
-    data = pheno_full,
+    data = abund_full,
     aes(yintercept = Mantel_corr, linetype = "Full season"),
     color = "black",
     linewidth = 0.4,
@@ -84,7 +105,7 @@ fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) 
   
   # Seasonal point (nudged right)
   geom_point(
-    data = pheno_season_dot,
+    data = abund_season_dot,
     aes(x = Season, y = Mantel_corr, fill = Season, size = "Seasonal"),
     inherit.aes = FALSE,
     shape = 23,
@@ -107,7 +128,7 @@ fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) 
     size = 3
   ) +
   
-  scale_y_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1)) +
+  scale_y_continuous(breaks = c(0, 0.5, 1)) +
   scale_fill_manual(values = season_cols, drop = FALSE) +
   
   # Temporal complexity legend: points
@@ -168,6 +189,9 @@ fig2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)) 
   ) +
   ylab("Mantel test") +
   xlab(NULL) +
-  ggtitle("Visitation rate – Phenology")
+  ggtitle("Visitation rate – Abundance")
 
-fig2
+panel1 = panel1 + theme(legend.position = "none")
+panel1
+
+

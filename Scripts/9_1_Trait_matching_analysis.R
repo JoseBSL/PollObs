@@ -1,7 +1,9 @@
 # Script to calculate interaction probability based on trait-matching
 
 #Load libraries
+library(readr)
 library(dplyr)
+library(tidyr)
 #Load pollinator trait data
 poll_traits = readRDS("Data/Trait_data/Processed/PollTraits.rds")
 poll_width = poll_traits %>% 
