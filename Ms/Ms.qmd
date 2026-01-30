@@ -255,7 +255,6 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 *compute phenology matrices: presence absence and probability ones based by calculating the probability of observing both if they are independent events divided by total number of sampling days
 
 
-CONCEPTUAL GRAPH. **Figure 1**
 
 ## Analysess
 
@@ -265,6 +264,14 @@ To unravel the role of time in our understanding of the cological drivers of pla
 # Results
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
+
+Figure 2 Matrix analyses
+
+Figure 3 GLm's
+
+Figure 4 Machine learning
+
+Figure 5 Stop inventing but maybe something...
 
 # References
 
@@ -303,9 +310,7 @@ Figure S1: MAP WITH POTENTIAL POINTS OF GBIF
 
 \newpage
 
-Figure S2: RAREFACTION CURVES
-
-```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="105%", fig.cap= ""}
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="105%", fig.cap= "Figure S2"}
 
 # ======================================================
 # Compute standardized accumulation curve
@@ -323,7 +328,6 @@ library(ggnewscale)
 # ======================================================
 # Load data
 raw_data <- readRDS("../Data/Working_files/interaction_data.rds")
-colnames(raw_data)
 
 # ======================================================
 # 1) Prepare data to compute accumulation curves across species
