@@ -157,13 +157,7 @@ panel2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)
     strip.placement = "outside",
     plot.margin = margin(t = 20 , r = 20, b = 20, l = 20),
     panel.grid.minor = element_blank(),
-    legend.box = "vertical",
-    legend.box.just = "left",
-    legend.spacing = unit(1, "pt"),
-    legend.key.width  = unit(1, "cm"),
-    legend.key.height = unit(0.45, "cm"),
-    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
-    legend.title = element_text(face = "bold"),
+    legend.position = "none",   # ← THIS LINE
     plot.title = element_text(face = "bold", size = 10, vjust = 3)
   ) +
   ylab("Mantel test") +
