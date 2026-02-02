@@ -165,3 +165,5 @@ panel2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)
   ggtitle("Visitation rate – Phenology")
 
 panel2
+saveRDS(panel2, "Data/Working_files/Figures2_panel2.rds")
+

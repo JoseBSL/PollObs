@@ -265,7 +265,28 @@ To unravel the role of time in our understanding of the cological drivers of pla
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
-Figure 2 Matrix analyses
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.width =10,fig.height=7, fig.cap= "\\textbf{Figure 2}. Association between visitation rate and abundance (a-b-c), phenology (d-e-f), and traits (size matching; g-h-i) across botanical gardens and three levels of temporal complexity. The horizontal dashed line indicates analyses considering the full season; the diamond symbols represent seasonal aggregation into three levels (early, mid, and late); and the dots represent individual sampling weeks nested within these seasonal levels."}
+
+library(patchwork)
+
+panel1 = readRDS("../Data/Working_files/Figure2_panel1.rds")
+panel2 = readRDS("../Data/Working_files/Figure2_panel2.rds")
+panel3 = readRDS("../Data/Working_files/Figure2_panel3.rds")
+
+(panel1 + panel2 + panel3) +
+  plot_layout(nrow = 1, guides = "collect") &
+  theme(
+    plot.margin = margin(6, 2, 2, 2),
+    text = element_text(size = 12),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x  = element_text(size = 14)
+
+
+  )
+```
+
 
 Figure 3 GLm's
 
@@ -546,3 +567,7 @@ p1
 
 
 ```
+
+\newpage
+
+Figure S2: Analogous figure 2 with Mantel test

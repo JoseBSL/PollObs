@@ -171,3 +171,4 @@ panel3 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_corr, fill = Season)
   ggtitle("Visitation rate – Sizematching")
 
 panel3
+saveRDS(panel3, "Data/Working_files/Figures2_panel3.rds")

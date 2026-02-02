@@ -144,7 +144,7 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     hjust = -0.05,
     vjust = -0.6,
     fontface = "bold",
-    size = 3
+    size = 5
   ) +
   
   scale_y_continuous(breaks = c(0, 0.5, 1)) +
@@ -188,14 +188,14 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
   
   theme(
     axis.text.x = element_text(angle = 0, hjust = 0.5),
-    panel.spacing = unit(1, "lines"),
+    panel.spacing = unit(1.8, "lines"),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
     axis.ticks.y = element_line(color = "black", linewidth = 0.5),
     axis.ticks.length = unit(0.2, "cm"),
     strip.background = element_blank(),
     strip.text = element_blank(),
     strip.placement = "outside",
-    plot.margin = margin(t = 20 , r = 20, b = 20, l = 20),
+    plot.margin = margin(t = 60 , r = 20, b = 20, l = 20),
     panel.grid.minor = element_blank(),
     legend.box = "vertical",
     legend.box.just = "left",
@@ -204,11 +204,14 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     legend.key.height = unit(0.45, "cm"),
     legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
     legend.title = element_text(face = "bold"),
-    plot.title = element_text(face = "bold", size = 10, vjust = 3)
+    plot.title = element_text(face = "bold", size = 10, vjust = 4.5),
+    axis.title = element_text(face = "bold")
   ) +
-  ylab("PROTEST (Procrustes r)") +
+  ylab("Procrustes r") +
   xlab(NULL) +
   ggtitle("Visitation rate – Abundance")
 
 panel1 <- panel1 + theme(legend.position = "none")
 panel1
+
+saveRDS(panel1, "Data/Working_files/Figure2_panel1.rds")
