@@ -119,7 +119,7 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     hjust = -0.05,
     vjust = -0.6,
     fontface = "bold",
-    size = 3
+    size = 5
   ) +
   
   scale_y_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1)) +
@@ -163,26 +163,28 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
   
   theme(
     axis.text.x = element_text(angle = 0, hjust = 0.5),
-    panel.spacing = unit(1, "lines"),
+    panel.spacing = unit(1.8, "lines"),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
     axis.ticks.y = element_line(color = "black", linewidth = 0.5),
     axis.ticks.length = unit(0.2, "cm"),
     strip.background = element_blank(),
     strip.text = element_blank(),
     strip.placement = "outside",
-    plot.margin = margin(t = 20 , r = 20, b = 20, l = 20),
+    plot.margin = margin(t = 60 , r = 20, b = 20, l = 20),
     panel.grid.minor = element_blank(),
     legend.box = "vertical",
     legend.box.just = "left",
-    legend.spacing = unit(1, "pt"),
+    legend.spacing = unit(-10, "pt"),
     legend.key.width  = unit(1, "cm"),
     legend.key.height = unit(0.45, "cm"),
-    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    legend.margin = margin(t = -10, r = 0, b = 0, l = 0),
     legend.title = element_text(face = "bold"),
-    plot.title = element_text(face = "bold", size = 10, vjust = 3)
+    plot.title = element_text(face = "bold", size = 10, vjust = 4.5)
   ) +
-  ylab("PROTEST (Procrustes r)") +
+  ylab(NULL) +
   xlab(NULL) +
   ggtitle("Visitation rate – Sizematching")
 
 panel3
+
+saveRDS(panel3, "Data/Working_files/Figure2_panel3.rds")

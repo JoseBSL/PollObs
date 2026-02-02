@@ -194,4 +194,5 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Mantel_corr, fill = Season)
 panel1 = panel1 + theme(legend.position = "none")
 panel1
 
+saveRDS(panel1, "Data/Working_files/Figures2_panel1.rds")
 
