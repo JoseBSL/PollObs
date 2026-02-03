@@ -86,9 +86,9 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
   
   geom_violin(
     alpha = 0.45,
-    width = 0.5,
+    width = 0.55,
     colour = NA,
-    adjust = 0.5,
+    adjust = 1.2,
     scale = "width",
     trim = TRUE,
     cut = 0
@@ -130,7 +130,7 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     shape = 23,
     stroke = 0.5,
     alpha = 0.95,
-    position = position_nudge(x = +0.22)
+    position = position_nudge(x = +0.5)
   ) +
   
   facet_wrap(~Botanical_garden, ncol = 1) +
@@ -155,7 +155,7 @@ panel1 <- ggplot(abund_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     name   = "Temporal complexity",
     breaks = c("Weekly", "Seasonal"),
     labels = c(Weekly = "Weekly", Seasonal = "Weekly aggregated"),
-    values = c(Weekly = 1.4, Seasonal = 1.8)
+    values = c(Weekly = 1.4, Seasonal = 2.4)
   ) +
   
   # Temporal complexity legend: line

@@ -67,8 +67,15 @@ dummy_weekly <- trait_week_box %>%
 # --- Plot ---
 panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season)) +
   
-  geom_violin(alpha = 0.45, width = 0.65, colour = NA) +
-  
+  geom_violin(
+    alpha = 0.45,
+    width = 0.55,
+    colour = NA,
+    adjust = 1.2,
+    scale = "width",
+    trim = TRUE,
+    cut = 0
+  )+  
   # Full-season dashed line (per facet)
   geom_hline(
     data = trait_full_line,
@@ -105,7 +112,7 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     shape = 23,
     stroke = 0.5,
     alpha = 0.95,
-    position = position_nudge(x = +0.22)
+    position = position_nudge(x = +0.5)
   ) +
   
   facet_wrap(~Botanical_garden, ncol = 1) +
@@ -130,7 +137,7 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
     name   = "Temporal complexity",
     breaks = c("Weekly", "Seasonal"),
     labels = c(Weekly = "Weekly", Seasonal = "Weekly aggregated"),
-    values = c(Weekly = 1.4, Seasonal = 1.8)
+    values = c(Weekly = 1.4, Seasonal = 2.4)
   ) +
   
   # Temporal complexity legend: line
@@ -149,6 +156,7 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
       title = "Temporal complexity",
       override.aes = list(
         shape = c(21, 23),
+        size  = c(2.5, 2.5),
         color = c("black", "black"),
         fill  = c("grey70", "grey70"),
         alpha = c(1, 1)
@@ -183,7 +191,7 @@ panel3 <- ggplot(trait_week_box, aes(x = Season, y = Procrustes_r, fill = Season
   ) +
   ylab(NULL) +
   xlab(NULL) +
-  ggtitle("Visitation rate – Sizematching")
+  ggtitle("Visitation rate – Size matching")
 
 panel3
 
