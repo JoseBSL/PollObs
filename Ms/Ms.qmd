@@ -266,7 +266,7 @@ To unravel the role of time in our understanding of the cological drivers of pla
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
 
-```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.width =10,fig.height=7, fig.cap= "\\textbf{Figure 2}. Association between visitation rate and abundance (a-b-c), phenology (d-e-f), and traits (size matching; g-h-i) across botanical gardens and three levels of temporal complexity. The horizontal dashed line indicates analyses considering the full season; the diamond symbols represent seasonal aggregation into three levels (early, mid, and late); and the dots represent individual sampling weeks nested within these seasonal levels."}
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.width =10,fig.height=7, fig.cap= "\\textbf{Figure 2}. Association between visitation rate and abundance (a-b-c), phenology (d-e-f), and traits (size matching; g-h-i) across botanical gardens and three levels of temporal complexity. The strength of the association is quantified using Procrustes r. The horizontal dashed line indicates analyses considering the full season; the diamond symbols represent seasonal aggregation into three levels (early, mid, and late); and the dots represent individual sampling weeks nested within these seasonal levels."}
 
 library(patchwork)
 
@@ -327,11 +327,137 @@ knitr::include_graphics(out)
 
 \newpage
 
-Figure S1: MAP WITH POTENTIAL POINTS OF GBIF
+Figure S1: Map
 
 \newpage
 
-```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="105%", fig.cap= "Figure S2"}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8.5,fig.width=8.5,out.width="80%", fig.cap="\\textbf{Figure S2}. Temporal dynamics of plant-pollinator interactions across three botanical gardens. Solid lines represent focal observations on PhenObs plants, whereas dashed lines indicate random census observations across the gardens. Each panel corresponds to a different botanical garden: (a) Halle, (b) Leipzig, and (c) Jena."}
+
+#Read now the downloaded occurrence data
+#https://doi.org/10.15468/dl.saf8be
+library(data.table)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(stringr)
+library(tidygeocoder)
+library(pracma)
+library(giscoR)
+library(sf)
+library(googlesheets4)
+library(readr)
+library(patchwork)
+library(giscoR) #map of europe
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(sf)
+library(patchwork)
+library(rnaturalearth)
+
+#Try to prepare complementary informative graphs
+#Load data
+data = readRDS("../Data/Working_files/interaction_data.rds")
+plant_list = read_csv("../Data/PollObs_species.csv")
+#Generacte vector with species names
+spp_list = plant_list %>%  
+select(Accepted_name) %>% 
+pull()
+
+#Extract focal species that are not matching
+spp_to_exclude = data %>% 
+filter(Sampling == "Focal") %>% 
+filter(!Plant %in% spp_list) %>% 
+select(Plant) %>% 
+pull()
+
+#Exclude non-matching focals now
+data = data %>% 
+filter(!Plant %in% spp_to_exclude)
+#Filter out species with 0 pollinators
+data = data %>% 
+filter(!Pollinator == "None")
+
+#Explore interactions across time
+#1st create date col
+data = data %>%
+mutate(Date = make_date(Year, Month, Day))
+#Now summarise interactions by dates and bot garden
+data_dates_1 = data %>% 
+select(Interactions, Botanical_garden, Date) %>% 
+group_by(Botanical_garden, Date) %>% 
+summarise(Interactions = n())
+
+#Prepare dataset with sampling method
+data_dates_2 = data %>% 
+select(Interactions, Botanical_garden, Date, Sampling) %>% 
+group_by(Botanical_garden, Date, Sampling) %>% 
+summarise(Interactions = n())
+
+#Order levels
+data_dates_2$Botanical_garden = factor(data_dates_2$Botanical_garden, 
+                                       levels = c("Halle", "Leipzig", "Jena"))
+
+data_dates_2_a = data_dates_2 %>%  filter(Sampling == "Focal")
+data_dates_2_b = data_dates_2 %>%  filter(Sampling == "Random_census")
+
+
+# Suponiendo que los datos están en data_dates_2_a y data_dates_2_b
+
+# Suponiendo que los datos están en data_dates_2_a y data_dates_2_b
+p2 = ggplot(data_dates_2_a) + 
+  geom_line(aes(Date, Interactions, 
+                colour = Botanical_garden, 
+                linetype = "Dashed"), 
+            stat = "identity", size = 1.8) +
+  geom_line(data = data_dates_2_b, aes(Date, Interactions, 
+      colour = Botanical_garden, 
+      linetype = "Solid"),  stat = "identity", size = 1.8) +
+  scale_colour_manual(
+    values = c("#440154FF", "#2A788EFF", "#7AD151FF"),
+    guide = "none") +
+  scale_linetype_manual(
+    values = c("Dashed" = "solid", "Solid" = "dashed"),
+    labels = c("Focal obs.", "Random census"),
+    name = "Sampling",
+    guide = guide_legend(
+      override.aes = list(colour = "black", size = 2.25)
+    )) +
+theme_bw()+
+  scale_y_continuous(breaks = seq(0, max(data_dates_2_a$Interactions, data_dates_2_b$Interactions, na.rm = TRUE), by = 100)) +
+facet_wrap(~Botanical_garden, ncol = 1) +
+  theme(
+    axis.line = element_line(color = "black"),
+    axis.text = element_text(size = 16, color = "black"),
+    axis.title = element_text(size = 18),
+    axis.ticks = element_line(color = "black"),
+    panel.background = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_rect(colour = "black", fill = NA, size = 1.5),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 16, face = "bold"),
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    legend.text = element_text(size = 14),
+    legend.spacing.y  = unit(-10, "mm"),
+    legend.key.height = unit(2, "mm"),
+    legend.title = element_text(size = 16),
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.55, face = "bold", size = 18),
+    legend.key.size = unit(5, "line")
+  ) +
+  ylab("Pollinator species")
+
+p2
+
+# Save the plot as a high-quality PNG
+#ggsave("interactions.png", plot = p2, width = 6.5, height = 8.5, dpi = 500)
+
+```
+
+\newpage
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 3, fig.width= 4.5, fig.cap= "\\textbf{Figure S3}. Accumulation curves of pollinator species across botanical gardens and sampling methods (dashed and solid lines). Each grey line represents one iteration of the accumulation curve, with a total of 100 iterations per garden and sampling method. The coloured lines represent the rarefied mean accumulation curves, with the dot indicating the total number of observed species. The segments of the lines extending beyond the dot represent the extrapolated number of expected species."}
 
 # ======================================================
 # Compute standardized accumulation curve
@@ -487,8 +613,11 @@ ggplot() +
             aes(x = Cumulative_time, y = Unique_spp_cumulative, 
                 group = interaction(iteration, Botanical_garden, Sampling),
                 color = Plant_sampled),
-            size = 0.3, alpha = 0.5) +
-  scale_colour_gradient(low = "grey90", high = "grey10", guide = "colorbar") +
+                size = 0.3, alpha = 0.5) +
+  scale_colour_gradient(
+  low = "grey90", high = "grey10",
+  guide = guide_colorbar(order = 1, barwidth = unit(2, "mm"), barheight = unit(12, "mm"),
+                         frame.colour = "black", title.position = "top"))+
   labs(color = "Plants sampled") +
   new_scale_color() +
   
@@ -496,78 +625,78 @@ ggplot() +
   geom_line(data = extrapolated_data_fixed, 
             aes(x = Cumulative_time, y = predicted, 
                 color = Botanical_garden, linetype = Sampling, alpha = alpha_group),
-            size = 1.2) +
+            size = 0.8) +
   scale_alpha_manual(values = c("observed" = 1, "extrapolated" = 0.5), guide = "none") +
-  scale_colour_viridis_d() +
+scale_colour_viridis_d(
+  guide = guide_legend(
+    order = 2,
+    title.position = "top",
+    keyheight = unit(2, "mm"),
+    keywidth  = unit(4.5, "mm"),
+    label.vjust = 0.5,
+    override.aes = list(linewidth = 1.0, shape = 16, size = 2)
+  )
+) +
   scale_linetype_manual(
     values = c("Focal" = "solid", "Random_census" = 22),
     labels = c("Focal" = "Phenobs plants", "Random_census" = "Random plants")) +
-    geom_point(data = summary_for_plot_points, 
-             aes(x = Mean_cumulative_time, y = Mean_cumulative_spp, 
-                 color = Botanical_garden, linetype = Sampling),
-             size = 2.74) +
-  scale_colour_viridis_d() +
-  
+   geom_point(data = summary_for_plot_points, 
+           aes(x = Mean_cumulative_time, y = Mean_cumulative_spp, 
+               color = Botanical_garden),
+           size = 2.25) +
+theme(
+  legend.key.width  = unit(1, "mm"),
+  legend.key.height = unit(1, "mm"),
+  legend.title = element_text(size = 8, margin = margin(b = -2)),
+  legend.text  = element_text(size = 7),
+
+  legend.box = "vertical",
+  legend.justification = c(0, 1),
+  legend.position = c(1, 1),
+
+  legend.box.spacing = unit(-12, "mm"),
+  legend.spacing.y   = unit(-3, "mm"),
+  legend.margin      = margin(-6, -6, -6, -6),
+
+  panel.border = element_rect(color = "black", fill = NA, linewidth = 2.5)
+) +
   # Labels and theme
   xlab("Time (mins)") +
   ylab("Pollinators") +
-  theme_minimal(base_size = 14) +
-  labs(color = "Botanical Garden", linetype = "Sampling type", alpha = "Data Type")
-
-#Read interaction daa
-library(dplyr)
-library(tidyr)
-library(lubridate)
-library(readr)
-library(ggplot2)
-library(viridis)
-library(scales)
-#Load data
-raw_data = readRDS("../Data/Working_files/interaction_data.rds")
-
-
-poll_species = raw_data %>% 
-  filter(Pollinator_rank == "SPECIES") %>% 
-  filter(Pollinator_order == "Hymenoptera" | Pollinator_order == "Diptera"| 
-           Pollinator_order == "Coleoptera" |  Pollinator_order == "Lepidoptera") %>% 
-  select(Pollinator_accepted_name, Pollinator_order) %>% 
-  group_by(Pollinator_order) %>% 
-  summarise(Species = n_distinct(Pollinator_accepted_name)/n_distinct(.),
-            Interactions = length(Pollinator_accepted_name)/ nrow(.))
-
-# Combine Interactions and Species into a single column
-data_long = pivot_longer(poll_species, cols = c(Interactions, Species), names_to = "Variable", values_to = "Value")
-
-#Set order of levels for plotting
-data_long$Pollinator_order = factor(data_long$Pollinator_order, levels = c("Coleoptera", "Lepidoptera", "Diptera", "Hymenoptera"))
-
-data_long$Variable = factor(data_long$Variable, levels = c("Species", "Interactions"))
-
-p1 = ggplot(data_long, aes(x = Variable, y = Value, fill = Pollinator_order)) + 
-  geom_bar(stat = "identity", width = 0.7, alpha=0.85) +
-  theme_classic() +
-  scale_fill_viridis(discrete=TRUE, direction = -1, name="Pollinator order") +
-  xlab(NULL) +
-  ylab(NULL) + 
-  scale_y_continuous(breaks=c(0,0.5,1),labels = percent_format(), expand = c(0, 0)) +
-  theme(axis.text.y = element_text(size=14), 
-        axis.text.x = element_text(size=14), 
-        axis.title.y = element_text(face = "bold", size = 18, vjust = -2),  
-        axis.title.x = element_text(face="bold", size = 18),
-        legend.position = "right",
-        legend.title = element_text(size = 14, face = "bold"),
-        legend.text = element_text(size = 14),
-        legend.key.size = unit(5, "mm"),
-        legend.margin=margin(0,0,0,0),
-        legend.box.margin=margin(-8,-5,-5,-5)) +
-  guides(fill=guide_legend(nrow=2,byrow=TRUE))
-
-
-p1
-
+  theme_bw(base_size = 8) +
+  labs(color = "Botanical Garden", linetype = "Sampling type", alpha = "Data Type") +
+guides(
+  linetype = guide_legend(
+    order = 3,
+    override.aes = list(shape = NA, linewidth = 0.6),
+    keyheight = unit(2, "mm"),
+    keywidth  = unit(6, "mm")))+ 
+  scale_x_continuous(expand = c(0, 0), limits = c(0, NA)) + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) + 
+  coord_cartesian(clip = "off")
 
 ```
 
 \newpage
 
-Figure S2: Analogous figure 2 with Mantel test
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.width =10,fig.height=7, fig.cap= "\\textbf{Figure S4}. Association between visitation rate and abundance (a-b-c), phenology (d-e-f), and traits (size matching; g-h-i) across botanical gardens and three levels of temporal complexity. The strength of the association is quantified using Mantel r. The horizontal dashed line indicates analyses considering the full season; the diamond symbols represent seasonal aggregation into three levels (early, mid, and late); and the dots represent individual sampling weeks nested within these seasonal levels."}
+
+library(patchwork)
+
+panel1 = readRDS("../Data/Working_files/FigureS2_panel1.rds")
+panel2 = readRDS("../Data/Working_files/FigureS2_panel2.rds")
+panel3 = readRDS("../Data/Working_files/FigureS2_panel3.rds")
+
+(panel1 + panel2 + panel3) +
+  plot_layout(nrow = 1, guides = "collect") &
+  theme(
+    plot.margin = margin(6, 2, 2, 2),
+    text = element_text(size = 12),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x  = element_text(size = 14)
+
+
+  )
+```
+
