@@ -94,14 +94,18 @@ knitr::include_graphics("../Data/figure1.pdf")
 
 \vspace{-2.5cm}
 
-**Figure 1**. Workflow of the study, showing how different ecological drivers (A) are tested across various temporal scales (B) using different analytical methods (C). Panel A illustrates the main ecological drivers used in this study to evaluate plant–pollinator interaction patterns: (1) pollinator and floral traits, (2) pollinator and floral abundances, and (3) pollinator and floral phenology. Panel B presents the three levels of temporal aggregation considered in this study: (1) individual sampling days, (2) early, mid, and late season, and (3) the full flowering season. Panel C depicts the three main analytical approaches implemented in this study to evaluate the effects of different ecological drivers across distinct levels of temporal aggregation: (1) matrix analyses, (2) generalized linear models (GLMs), and (3) machine learning
+**Figure 1**. Workflow of the study, showing how different ecological drivers (A) are tested across various temporal scales (B) using different analytical methods (C). Panel A illustrates the main ecological drivers used in this study to evaluate plant-pollinator interaction patterns: (1) pollinator and floral traits, (2) pollinator and floral abundances, and (3) pollinator and floral phenology. Panel B presents the three levels of temporal aggregation considered in this study: (1) individual sampling days, (2) early, mid, and late season, and (3) the full flowering season. Panel C depicts the three main analytical approaches implemented in this study to evaluate the effects of different ecological drivers across distinct levels of temporal aggregation: (1) matrix analyses, (2) generalized linear models (GLMs), and (3) machine learning
 
 
 # Methods
 
 ## Study site and sampling method
 
-Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany; **Figure S1**). These gardens belong to PhenObs initiative [@nordt2021], which consists of a network of botanical gardens across the Northern Hemisphere that records phenological observations on a large set of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g.\, @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens. Each garden was visited weekly, and plant-pollinator interactions were sampled during 15 mins on each focal plant.  On each sampling day, the different focal plants were sampled in a random order and only pollinator individuals that contacted the reproductive organs of the plant were recorded as interacting species. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, 10 random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each random site, resulting in a total of 30 minutes per sampling day and garden. Therefore, two sampling methodologies were implemented, one that recorded interactions on PhenObs plants, and another that consisted of random stops within the garden, with the specific goal of describing all potential pollinators present in the garden.
+Plant-pollinator interactions were monitored during the entire flowering season of 2023 in the botanical gardens of Halle, Jena, and Leipzig (Germany; **Figure S1**). These gardens belong to the PhenObs initiative [@nordt2021], a network of botanical gardens across the Northern Hemisphere that records phenological observations on a wide range of herbaceous species. The objective of PhenObs is to evaluate the impacts of climate change on species performance [e.g., @sporbert2022]. In this study, plant-pollinator interactions were recorded for a subset of species from the PhenObs project within these three gardens.
+
+Each garden was visited weekly, and plant-pollinator interactions were sampled for 15 minutes on each focal plant. On each sampling day, focal plants were surveyed in a random order, and only pollinator individuals contacting the reproductive organs of the plant were recorded as interacting species. In addition, to create a comprehensive inventory of pollinators and their interactions within the gardens, ten random sites were selected each sampling day, and plant-pollinator interactions were monitored for three minutes at each site, resulting in a total of 30 minutes of random observations per sampling day and garden.
+
+Pollinator monitoring concluded once PhenObs species had largely ceased flowering in each garden, corresponding to the late phase of the flowering season. Random surveys nevertheless showed continued pollinator activity and flowering of non-PhenObs plants (**Figure S2**), indicating that sampling was constrained by focal plant phenology rather than pollinator availability. Consequently, two complementary sampling approaches were implemented: targeted observations on PhenObs plants, representing a subset of the available floral resources, and random stops within the gardens designed to characterise the broader pollinator assemblage that may not be captured through this subset.
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning="FALSE"}
 
@@ -219,47 +223,58 @@ capitulum_percent = capitulum_percent %>%
   pull(n_plants) %>% 
   round(1)
 
+#Total pollinator species observed
+poll_total = raw_data %>%
+  filter(Pollinator_rank == "SPECIES",
+         !is.na(Pollinator_accepted_name),
+         Pollinator_accepted_name != "None") %>%
+  summarise(n_pollinator_spp = n_distinct(Pollinator_accepted_name))
+#Total pollinator species observed with focal observations
+poll_focal_total = raw_data %>%
+  filter(Sampling == "Focal",
+         Pollinator_rank == "SPECIES",
+         !is.na(Pollinator_accepted_name),
+         Pollinator_accepted_name != "None") %>%
+  summarise(n_pollinator_spp = n_distinct(Pollinator_accepted_name))
+#Total pollinator species observed with focal observations per garden
+poll_focal_by_garden = raw_data %>%
+  filter(Sampling == "Focal",
+         Pollinator_rank == "SPECIES",
+         !is.na(Pollinator_accepted_name),
+         Pollinator_accepted_name != "None") %>%
+  group_by(Botanical_garden) %>%
+  summarise(n_pollinator_spp = n_distinct(Pollinator_accepted_name), .groups = "drop")
+
+poll_focal_h = poll_focal_by_garden$n_pollinator_spp[1]
+poll_focal_j = poll_focal_by_garden$n_pollinator_spp[2]
+poll_focal_l = poll_focal_by_garden$n_pollinator_spp[3]
+
+#Calculate number of additional pollinators from random census
+additional_poll_random = poll_total - poll_focal_total
+
 
 ```
 
 ## Sampling effort and taxonomic coverage
 
-This study monitored a total of `r phenobs_total` focal plant species that belonged to PhenObs initiative, which accounted for `r phenobs_genera` different genera, `r phenobs_families` families and `r phenobs_orders` different orders. In total, we sampled pollinators on `r phenobs_h` plants species in Halle (`r halle_hours` hours), `r phenobs_j` in Jena (`r jena_hours` hours) and `r phenobs_l` in Leipzig (`r leipzig_hours` hours), and only 12 species were shared across the three gardens. 
+This study monitored `r phenobs_total` focal plant species from the PhenObs initiative, encompassing `r phenobs_genera` genera, `r phenobs_families` families, and `r phenobs_orders` orders. Pollinator observations were conducted on `r phenobs_h` plant species in Halle (`r halle_hours` h), `r phenobs_j` in Jena (`r jena_hours` h), and `r phenobs_l` in Leipzig (`r leipzig_hours` h), with only 12 species shared among gardens. Complementary random census sampling expanded plant coverage, recording plant-pollinator interactions on `r non_phenobs_h`, `r non_phenobs_j`, and `r non_phenobs_l` plant species in Halle, Jena, and Leipzig, respectively (`r halle_hours_random`, `r jena_hours_random`, and `r leipzig_hours_random` h per garden), collectively capturing a broad taxonomic representation of flowering plants.
 
-POLLINATORS
-
-
-
-In addition, with the random stops across the garden we sampled a total of XXXX species that comprised XXXX genera, XXXXX families and XXXXX orders. This study accounted for a total of `r non_phenobs_h` plant species in Halle (`r halle_hours_random` hours), `r non_phenobs_j` in Jena (`r jena_hours_random` hours), and `r non_phenobs_l` in Leipzig (`r leipzig_hours_random` hours). Explain accumulation curves here!!!
-
-FIGURE 2 can be S1 at some point
-
-
+Focal observations captured a total of `r poll_focal_total` pollinator species across the three gardens, with `r poll_focal_h` species in Halle, `r poll_focal_j` in Jena, and `r poll_focal_l` in Leipzig. The random census sampling further enriched pollinator diversity, documenting an additional `r additional_poll_random` species not observed on focal plants. Overall, the combined sampling approaches provided a comprehensive overview of the pollinator assemblages within these botanical gardens. The accumulation curves (**Figure S3**) indicate that sampling effort was sufficient to characterise pollinator assemblages associated with PhenObs plants across gardens. However, random observations proved more efficient for capturing overall pollinator diversity at the garden scale, providing a more comprehensive representation of the pollinator assemblage with lower sampling effort while covering a broader range of plant species.
 
 ## Data description
 
 To evaluate the different mechanisms that drive plant-pollinator interactions, detailed information on abundance, phenology and species traits for both plants and pollinators was recorded as follows: 
 
 (i) Floral abundance was annotated for each focal plant species, and given that botanical gardens are a semi-control setting with relatively low abundance of pollinators, we were also able to annotate the different number of pollinator individuals on each sampled plant when documenting interactions. Despite not being fully independent of interactions, this approach offers a more realistic estimate of pollinator abundance than the standard method of estimating abundances from interactions, which can bias our understanding of the mechanisms driving network structure [@bluthgen2006; @vizentin2014]. Note that flowering species with tiny densely packed flowers were considered at inflorescence level (`r capitulum_percent`% of the total flowering species considered in this study). 
-
-
 (ii) Given that plant phenology was already monitored on the PhenObs project, we have weekly phenological records with flowering percent for all focal plants. For 10 species with missing phenology data, we conducted generative additive models (GAM) with our records of flower number to build the phenology on the same sampling dates as the other species by using the *mgcv* package. Unlike plants, pollinator phenology relies on ‘stochastic’ interaction observations that may not represent their complete flying period. For this reason, we opted to complement our observational data from the Global Biodiversity Information Facility (GBIF). Germany is one of the countries with highest records of occurrence data [@rocha2021], and in particular, their cities (e.g., botanical gardens) contain most of those records [@sweet2022]. Thus, we opted to extract occurrence records around the three cities for the different pollinator species to complement the different pollinator phenologies. We first created a centroid within the 3 cities, and then, created a rectangular shape around it that expanded approximately 1000 kms in longitude and 500 kms in latitude (Figure S1). We used this shape because we expect environmental variables to be more consistent and phenology to be more similar across a longitudinal range than a latitudinal one. Thus, our download resulted in 2,933,772 occurrence records (https://doi.org/10.15468/dl.k5cnuf).
 
 (iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment (**Table S1a**). Pollinator traits included intertegular distance, body length and proboscis length (**Table S1b**). Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
-## Plant and pollinator phylogeny
-
-
-*Phylogeny... Plant phylogeny is easy, bee phylogeny too... 
-
-*compute phenology matrices: presence absence and probability ones based by calculating the probability of observing both if they are independent events divided by total number of sampling days
-
-
+*Consider phylogeny?
 
 ## Analysess
 
-To unravel the role of time in our understanding of the cological drivers of plant-pollinator networks, this study analyses the relative importance of abundance, phenology and traits at the whole season level, by dividing in early-mid-and late season and by analysing at the sampling day level. 
-
+To unravel the role of time and analytical methods in our understanding of the ecological drivers of plant-pollinator networks, this study analyses the relative importance of abundance, phenology and traits at three different levels using three different analytical approaches (see **Figure 1**). The three temporal levels considered are: (i) the full flowering season, (ii) seasonal aggregation into three levels (early, mid, and late), and (iii) individual sampling weeks nested within these seasonal levels. The three analytical approaches implemented are: (i) matrix analyses using Procrustes tests, (ii) generalized linear models (GLMs), and (iii) machine learning. Each of these methods provides complementary insights into the mechanisms driving plant-pollinator interactions across different temporal scales.
 
 # Results
 
@@ -292,7 +307,6 @@ Figure 3 GLm's
 
 Figure 4 Machine learning
 
-Figure 5 Stop inventing but maybe something...
 
 # References
 
@@ -327,7 +341,91 @@ knitr::include_graphics(out)
 
 \newpage
 
-Figure S1: Map
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8,out.width="80%", fig.cap="\\textbf{Figure S1}."}
+
+#Read now the downloaded occurrence data
+#https://doi.org/10.15468/dl.saf8be
+library(data.table)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(stringr)
+library(tidygeocoder)
+library(pracma)
+library(giscoR)
+library(sf)
+library(googlesheets4)
+library(readr)
+library(patchwork)
+library(giscoR) #map of europe
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(sf)
+library(patchwork)
+library(rnaturalearth)
+
+#Create tibble with the three cities
+cities = tibble(Cities = c("Jena", "Halle", "Leipzig"))
+#First find approximate coordinates for Jena, Halle and Leipzig
+coords = cities %>%  geocode(Cities, method = 'osm', lat = Latitude , long = Longitude)
+
+# Get all countries and transform to the same CRS
+cntries <- gisco_get_countries(year = 2020,
+                               resolution = 20) %>%
+           st_transform(4326)
+
+#Europe----
+#Load europe map
+Europe <- gisco_get_countries(region = "Europe")
+europe_map = Europe %>% 
+filter(CNTR_ID == "DE")
+
+#Plot Europe map with counties of interest highlighted
+p1 = ggplot(Europe) +
+geom_sf(fill="gray70",color = "black", alpha = 0.5,size=0.4)  +
+geom_sf(data= europe_map,
+aes(fill = CNTR_ID, group=CNTR_ID),fill = "#D4D5A3", color = "black",alpha=0.8, size = 0.25) +
+coord_sf(xlim = c(-10, 30), ylim = c(35, 65))  + 
+microplot::theme_collapse(panel.border = element_rect(colour = "black", fill=NA, size=1.5),
+panel.background = element_rect(fill = "white")) +
+geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 1.5) +
+scale_colour_manual(values=c("#440154FF", "#7AD151FF", "#2A788EFF")) +
+theme(legend.position = "none", panel.border = element_rect(colour = "black", fill=NA, size=1.5))
+
+#Modify coords for plotting
+coords1 = tibble(Cities = c("Jena", "Halle", "Leipzig"), 
+       Latitude = c(50.9,51.7,51.35),
+       Longitude =c(11.3,11.6,11.85))
+
+p2 = ggplot(europe_map) +
+geom_sf(fill="#D4D5A3",color = "black", alpha = 0.8,size=0.4)  + 
+microplot::theme_collapse(panel.border = element_rect(colour = "black", fill=NA, size=1.5),
+panel.background = element_rect(fill = "white")) +
+geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 7) +
+scale_colour_manual(values=c("#440154FF", "#7AD151FF", "#2A788EFF")) +
+  geom_text(
+  data = coords1,
+  aes(Longitude, Latitude, label = Cities),
+  colour = "black",
+  fontface = "bold",
+  size = 5.5,
+  hjust = -0.2,
+  vjust = 0.5
+)+
+#geom_text(data = coords1, aes(Longitude, Latitude, label = Cities), color= "black", hjust = -0.5, size=10) +
+coord_sf(xlim = c(6.05, 14.9), ylim = c(47.55, 54.8))  + 
+theme(legend.position = "none", panel.border = element_rect(colour = "black", fill=NA, size=1.5))
+
+
+#Insert general plot within specific plot
+panel1 = p2 + inset_element(p1, left = -0.0002, bottom = -0.8 , right = 0.5, top = 1.25, ignore_tag = TRUE) 
+
+panel1
+
+
+
+```
 
 \newpage
 
@@ -435,7 +533,7 @@ facet_wrap(~Botanical_garden, ncol = 1) +
     panel.grid.minor = element_blank(),
     panel.border = element_rect(colour = "black", fill = NA, size = 1.5),
     strip.background = element_blank(),
-    strip.text = element_text(size = 16, face = "bold"),
+    strip.text = element_text(size = 18, face = "bold"),
     legend.background = element_blank(),
     legend.key = element_blank(),
     legend.text = element_text(size = 14),
@@ -443,7 +541,7 @@ facet_wrap(~Botanical_garden, ncol = 1) +
     legend.key.height = unit(2, "mm"),
     legend.title = element_text(size = 16),
     legend.position = "right",
-    plot.title = element_text(hjust = 0.55, face = "bold", size = 18),
+    plot.title = element_text(hjust = 0.55, face = "bold", size = 20),
     legend.key.size = unit(5, "line")
   ) +
   ylab("Pollinator species")
@@ -457,7 +555,7 @@ p2
 
 \newpage
 
-```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 3, fig.width= 4.5, fig.cap= "\\textbf{Figure S3}. Accumulation curves of pollinator species across botanical gardens and sampling methods (dashed and solid lines). Each grey line represents one iteration of the accumulation curve, with a total of 100 iterations per garden and sampling method. The coloured lines represent the rarefied mean accumulation curves, with the dot indicating the total number of observed species. The segments of the lines extending beyond the dot represent the extrapolated number of expected species."}
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 2.5, fig.width= 4, fig.cap= "\\textbf{Figure S3}. Accumulation curves of pollinator species across botanical gardens and sampling methods (dashed and solid lines). Each grey line represents one iteration of the accumulation curve, with a total of 100 iterations per garden and sampling method. The coloured lines represent the rarefied mean accumulation curves, with the dot indicating the total number of observed species. The segments of the lines extending beyond the dot represent the extrapolated number of expected species."}
 
 # ======================================================
 # Compute standardized accumulation curve
