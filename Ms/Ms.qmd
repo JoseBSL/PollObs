@@ -274,12 +274,29 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 ## Analysess
 
-To unravel the role of time and analytical methods in our understanding of the ecological drivers of plant-pollinator networks, this study analyses the relative importance of abundance, phenology and traits at three different levels using three different analytical approaches (see **Figure 1**). The three temporal levels considered are: (i) the full flowering season, (ii) seasonal aggregation into three levels (early, mid, and late), and (iii) individual sampling weeks nested within these seasonal levels. The three analytical approaches implemented are: (i) matrix analyses using Procrustes tests, (ii) generalized linear models (GLMs), and (iii) machine learning. Each of these methods provides complementary insights into the mechanisms driving plant-pollinator interactions across different temporal scales.
+To unravel the role of time and analytical methods in our understanding of the ecological drivers of plant-pollinator networks, this study analyses the role of abundance, phenology and traits at three different levels of temporal complexity (i.e., weekly, weekly aggregated and full season) using three different analytical approaches (see **Figure 1**). The three analytical approaches implemented are: (i) matrix analyses using Procrustes tests, (ii) generalized linear models (GLMs), and (iii) machine learning. Each of these methods provides complementary insights into the mechanisms driving plant-pollinator interactions across different temporal scales.
+
+_Matrix analyses_
+
+Visitation rate networks were built for each botanical garden for pollinators identified to species, and the main pollinator orders (Hymenoptera, Diptera, Coleoptera, Lepidoptera). Plant-pollinator interaction records were aggregated by garden and species pair to generate weighted bipartite interaction matrices. Interaction frequency (visitation rate) networks were calculated by dividing total interactions for each plant–pollinator pair by the total observation time for each plant species within a garden, thereby standardizing visitation rates. These standardized rates were summed across sampling occasions to produce garden-level visitation-rate networks representing cumulative seasonal interaction intensity while accounting for plant-specific sampling effort.
+
+Abundance probability matrices were generated for each botanical garden using standardized relative abundances of pollinator species and floral resources. Pollinator and floral abundances were summed within each garden and converted to relative abundances by dividing species-level abundances by total community abundance. Finally, interaction probabilities were calculated by combining plant and pollinator relative abundances under an independence assumption, whereby the expected probability of interaction between a plant and a pollinator species was proportional to the product of their relative abundances.
+
+Phenology probability matrices were calculated following a similar approach, but abundances were standardized within each species by dividing weekly observations by the total number of observations for that species. This procedure generates a temporal probability distribution describing the likelihood that a species is phenologically active in a given week. Weekly plant and pollinator probabilities were then combined under an independence assumption to estimate temporal interaction probabilities for each plant-pollinator pair.
+
+Trait-based probability matrices were constructed using a size-matching approach between plant and pollinator traits. Pollinator intertegular distance and plant flower width were averaged at the species level to obtain a single representative trait value per species. Trait compatibility for each plant–pollinator pair was quantified using a Gaussian matching function, in which similarity declines smoothly with increasing trait mismatch and is controlled by a tolerance parameter. Pairwise matching scores were assembled into a global plant × pollinator matrix and subsequently subset for each botanical garden by aligning rows and columns to the species composition and ordering of each garden’s interaction network and temporal scale.
+
+First, matrix analyses were used to evaluate how similar interaction frequency matrix configurations were across temporal scales for each driver. This was assessed using Procrustes analysis implemented through the _protest_ function, and the strength of configuration similarity was quantified using the Procrustes correlation coefficient (r). Analogous analyses were conducted using the Mantel test using the _mantel_ function, and the strength of the association was quantified using the absolute values of the Mantel correlation coefficient. Because probability matrices for all drivers were scaled between 0 and 1, Euclidean distance was used as the distance metric in both analyses, as it preserves the geometric relationships among observations compared to alternative distance metrics.
+
+_Generalized linear models_
+
+
 
 # Results
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
+**Figure 2**
 
 ```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.width =10,fig.height=7, fig.cap= "\\textbf{Figure 2}. Association between visitation rate and abundance (a-b-c), phenology (d-e-f), and traits (size matching; g-h-i) across botanical gardens and three levels of temporal complexity. The strength of the association is quantified using Procrustes r. The horizontal dashed line indicates analyses considering the full season; the diamond symbols represent seasonal aggregation into three levels (early, mid, and late); and the dots represent individual sampling weeks nested within these seasonal levels."}
 
@@ -312,36 +329,31 @@ Figure 4 Machine learning
 
 <div id="refs"></div>
 
+\clearpage
 
 # Supporting information
 
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width='60%', fig.align='center'}
-library(gt)
 
-library(gt)
-library(webshot2)
-library(knitr)
+library(kableExtra)
 
-tab <- readRDS("../Data/Working_files/Trait_summary_table.rds")
-tab <- tab |>
-  tab_caption(
-    md("**Table 1.** Summary of plant and pollinator traits.")
-  )
+table_kable = readRDS("../Data/Working_files/Table_traits.rds")
 
+  kbl(table_kable[,c(2,3,4)],
+    caption = "\\textbf{Table S1} Summary of plant and pollinator traits",
+    align = c("l", "c", "c"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(full_width = FALSE,
+                latex_options = c("hold_position")) %>%
+  pack_rows(index = table(table_kable$Group))
 
-fig_dir <- knitr::opts_chunk$get("fig.path")
-dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
-
-out <- file.path(fig_dir, "Trait_summary_table.png")
-gtsave(tab, out, zoom = 13, vwidth = 3200)
-
-stopifnot(file.exists(out))
-knitr::include_graphics(out)
 ```
 
 \newpage
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8,out.width="80%", fig.cap="\\textbf{Figure S1}."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4,fig.width=4,out.width="50%", fig.cap="\\textbf{Figure S1}.Map showing the locations of the three botanical gardens included in the study."}
 
 #Read now the downloaded occurrence data
 #https://doi.org/10.15468/dl.saf8be
@@ -402,15 +414,15 @@ p2 = ggplot(europe_map) +
 geom_sf(fill="#D4D5A3",color = "black", alpha = 0.8,size=0.4)  + 
 microplot::theme_collapse(panel.border = element_rect(colour = "black", fill=NA, size=1.5),
 panel.background = element_rect(fill = "white")) +
-geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 7) +
+geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 5) +
 scale_colour_manual(values=c("#440154FF", "#7AD151FF", "#2A788EFF")) +
   geom_text(
   data = coords1,
   aes(Longitude, Latitude, label = Cities),
   colour = "black",
   fontface = "bold",
-  size = 5.5,
-  hjust = -0.2,
+  size = 3.5,
+  hjust = -0.5,
   vjust = 0.5
 )+
 #geom_text(data = coords1, aes(Longitude, Latitude, label = Cities), color= "black", hjust = -0.5, size=10) +
