@@ -61,6 +61,32 @@ poll_sum  <- make_summary(poll_traits_num,"b) Pollinator traits")
 # stack pollinators at the bottom
 all_sum <- bind_rows(plant_sum, poll_sum)
 
+table_kable <- all_sum %>%
+  
+  # Keep only columns to display
+  select(Group, Traits, Mean, SD) %>%
+  
+  # Format numeric values
+  mutate(
+    Mean = round(Mean, 2),
+    SD   = round(SD, 2)
+  ) %>%
+  
+  arrange(Group)   # IMPORTANT for group_rows()
+
+saveRDS(table_kable, "Data/Working_files/Table_traits.rds")
+
+library(kableExtra)
+table_kable %>%
+  select(-Group) %>%     # Group used only for row grouping
+  kbl(
+    caption = "Summary of plant and pollinator traits",
+    align = c("l", "c", "c"),
+    booktabs = TRUE
+  ) %>%
+  kable_styling(full_width = FALSE)
+
+
 # --- build gt table (now has BOTH sections)
 tab = all_sum %>%
   gt(groupname_col = "Group") %>%
