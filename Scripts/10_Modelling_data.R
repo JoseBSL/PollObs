@@ -119,7 +119,7 @@ model_data = interaction_data %>%
   left_join(floral_abundance_week,   by = c("Botanical_garden", "Plant", "Week")) %>%
   left_join(poll_abundance_week,     by = c("Botanical_garden", "Pollinator", "Week")) 
 
-
+############################################################ #
 # Check distribution of response variable
 ggplot(model_data, aes(x = VisitRate)) +
   geom_histogram(bins = 30, fill = "steelblue", colour = "black") +
@@ -130,21 +130,37 @@ ggplot(model_data, aes(x = VisitRate)) +
   geom_histogram(bins = 25, fill = "steelblue", colour = "black") +
   facet_wrap(~Botanical_garden) +
   theme_minimal()
+############################################################ #
+# Modelling
 
-
+model_data <- model_data %>%
+  mutate(
+    log_flower = log1p(Floral_abundance),
+    log_poll   = log1p(Total_pollinator_abundance),
+    log_flower_z = as.numeric(scale(log_flower)),
+    log_poll_z   = as.numeric(scale(log_poll))
+  )
 
 library(glmmTMB)
-model1 = glmmTMB(VisitRate ~  scale(Floral_abundance) * 
-                   scale(Total_pollinator_abundance) +
+library(DHARMa)
+model1 = glmmTMB(VisitRate ~  log_flower * 
+                   log_poll_z +
                    Botanical_garden +
                    (1 | Week) +
                    (1 | Pair),
-                 family = tweedie(link = "log"),
+                 family = Gamma(link = "log"),
                  data = model_data)
-
+summary(model1)
+simulationOutput <- simulateResiduals(fittedModel = model1)
+plot(simulationOutput)
 library(ggeffects)
 
-eff_floral <- ggpredict(model1, terms = "Floral_abundance")
+library(performance)
+r2(model1)
+
+
+
+eff_floral <- ggpredict(model1, terms = "log_flower")
 ggplot(eff_floral, aes(x = x, y = predicted)) +
   geom_line(size = 1.2) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
@@ -154,7 +170,7 @@ ggplot(eff_floral, aes(x = x, y = predicted)) +
   ) +
   theme_minimal()
 
-eff_poll = ggpredict(model1, terms = "Total_pollinator_abundance")
+eff_poll = ggpredict(model1, terms = "log_poll_z")
 ggplot(eff_poll, aes(x = x, y = predicted)) +
   geom_line(size = 1.2) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
@@ -167,7 +183,7 @@ ggplot(eff_poll, aes(x = x, y = predicted)) +
 # Interactive abundance effect
 eff_interaction <- ggpredict(
   model1,
-  terms = c("Floral_abundance", "Total_pollinator_abundance")
+  terms = c("log_flower", "log_poll_z")
 )
 
 ggplot(eff_interaction,
