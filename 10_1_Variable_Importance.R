@@ -58,3 +58,58 @@ ggplot(r2_table,
     title = "Relative importance of predictors"
   ) +
   theme_minimal()
+
+# -----------------------------
+# Function to compute ΔR² for one garden
+# -----------------------------
+importance_by_garden <- function(df) {
+  
+  # Fit garden-specific model
+  m_full <- glmmTMB(
+    VisitRate ~ log_flower * log_poll_z +
+      (1 | Week) +
+      (1 | Pair),
+    family = Gamma(link = "log"),
+    data = df
+  )
+  
+  r2_full <- r2_nakagawa(m_full)$R2_marginal
+  
+  # Reduced models
+  m_no_inter  <- update(m_full, . ~ . - log_flower:log_poll_z)
+  m_no_flower <- update(m_full, . ~ . - log_flower - log_flower:log_poll_z)
+  m_no_poll   <- update(m_full, . ~ . - log_poll_z - log_flower:log_poll_z)
+  
+  tibble(
+    Garden = unique(df$Botanical_garden),
+    Variable = c("Interaction", "Floral abundance", "Pollinator abundance"),
+    Delta_R2 = c(
+      r2_full - r2_nakagawa(m_no_inter)$R2_marginal,
+      r2_full - r2_nakagawa(m_no_flower)$R2_marginal,
+      r2_full - r2_nakagawa(m_no_poll)$R2_marginal
+    )
+  )
+}
+
+# -----------------------------
+# Run across gardens
+# -----------------------------
+garden_importance <- model_data %>%
+  filter(!is.na(VisitRate)) %>%
+  group_split(Botanical_garden) %>%
+  map_dfr(importance_by_garden)
+
+garden_importance
+
+
+ggplot(garden_importance,
+       aes(x = Variable, y = Delta_R2, fill = Variable)) +
+  geom_col() +
+  facet_wrap(~ Garden) +
+  theme_minimal() +
+  labs(
+    y = "Change in marginal R²",
+    x = "Predictor importance"
+  ) +
+  theme(legend.position = "none")
+
