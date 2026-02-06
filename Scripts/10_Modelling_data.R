@@ -10,6 +10,10 @@
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(glmmTMB)
+library(DHARMa)
+library(ggeffects)
+library(performance)
 ############################################################ #
 # Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
@@ -121,15 +125,15 @@ model_data = interaction_data %>%
 
 ############################################################ #
 # Check distribution of response variable
-ggplot(model_data, aes(x = VisitRate)) +
-  geom_histogram(bins = 30, fill = "steelblue", colour = "black") +
-  theme_minimal() +
-  labs(x = "Visit rate", y = "Frequency")
-# Check distribution of response variable by garden
-ggplot(model_data, aes(x = VisitRate)) +
-  geom_histogram(bins = 25, fill = "steelblue", colour = "black") +
-  facet_wrap(~Botanical_garden) +
-  theme_minimal()
+#ggplot(model_data, aes(x = VisitRate)) +
+#  geom_histogram(bins = 30, fill = "steelblue", colour = "black") +
+#  theme_minimal() +
+#  labs(x = "Visit rate", y = "Frequency")
+## Check distribution of response variable by garden
+#ggplot(model_data, aes(x = VisitRate)) +
+#  geom_histogram(bins = 25, fill = "steelblue", colour = "black") +
+#  facet_wrap(~Botanical_garden) +
+#  theme_minimal()
 ############################################################ #
 # Modelling
 
@@ -141,8 +145,6 @@ model_data <- model_data %>%
     log_poll_z   = as.numeric(scale(log_poll))
   )
 
-library(glmmTMB)
-library(DHARMa)
 model1 = glmmTMB(VisitRate ~  log_flower * 
                    log_poll_z +
                    Botanical_garden +
@@ -153,51 +155,66 @@ model1 = glmmTMB(VisitRate ~  log_flower *
 summary(model1)
 simulationOutput <- simulateResiduals(fittedModel = model1)
 plot(simulationOutput)
-library(ggeffects)
 
-library(performance)
 r2(model1)
 
+# ============================================================
+# Faceted interaction plot by Botanical_garden
+# RAW axes + RAW legend values
+# ============================================================
 
-
-eff_floral <- ggpredict(model1, terms = "log_flower")
-ggplot(eff_floral, aes(x = x, y = predicted)) +
-  geom_line(size = 1.2) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(
-    x = "Floral abundance (scaled)",
-    y = "Predicted visitation rate"
-  ) +
-  theme_minimal()
-
-eff_poll = ggpredict(model1, terms = "log_poll_z")
-ggplot(eff_poll, aes(x = x, y = predicted)) +
-  geom_line(size = 1.2) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(
-    x = "Pollinator abundance (scaled)",
-    y = "Predicted visitation rate"
-  ) +
-  theme_minimal()
-
-# Interactive abundance effect
-eff_interaction <- ggpredict(
-  model1,
-  terms = c("log_flower", "log_poll_z")
+# 1) Choose pollinator abundance levels (RAW scale)
+poll_levels_raw <- as.numeric(
+  quantile(model_data$Total_pollinator_abundance,
+           probs = c(0.5, 0.7, 0.895),
+           na.rm = TRUE)
 )
 
+# 2) Convert RAW levels to model scale (log_poll_z)
+poll_center <- attr(scale(model_data$log_poll), "scaled:center")
+poll_scale  <- attr(scale(model_data$log_poll), "scaled:scale")
+
+poll_levels_z <- (log1p(poll_levels_raw) - poll_center) / poll_scale
+
+# 3) Predict interaction at those levels, BY GARDEN
+eff_interaction <- ggpredict(
+  model1,
+  terms = c(
+    "log_flower",
+    paste0("log_poll_z [", paste(round(poll_levels_z, 3), collapse = ", "), "]"),
+    "Botanical_garden"
+  )
+)
+
+eff_interaction <- as.data.frame(eff_interaction)
+
+# 4) Back-transform floral abundance to RAW scale
+eff_interaction$Floral_abundance_raw <- exp(eff_interaction$x) - 1
+
+# 5) Use RAW pollinator values directly in legend
+eff_interaction$group <- factor(eff_interaction$group, levels = unique(eff_interaction$group))
+
+eff_interaction$poll_group_label <- factor(
+  eff_interaction$group,
+  levels = levels(eff_interaction$group),
+  labels = round(poll_levels_raw, 0)
+)
+
+# 6) Plot (facet by garden)
 ggplot(eff_interaction,
-       aes(x = x, y = predicted, color = group)) +
-  geom_line(size = 1.2) +
-  geom_ribbon(
-    aes(ymin = conf.low, ymax = conf.high, fill = group),
-    alpha = 0.15,
-    color = NA
-  ) +
+       aes(x = Floral_abundance_raw, y = predicted,
+           color = poll_group_label, fill = poll_group_label)) +
+  geom_line(linewidth = 1.2) +
+  scale_x_log10() +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
+              alpha = 0.15, color = NA) +
+  scale_color_viridis_d(option = "D") +
+  scale_fill_viridis_d(option = "D") +
+  facet_wrap(~ facet) +
   labs(
-    x = "Floral abundance (scaled)",
+    x = "Floral abundance",
     y = "Predicted visitation rate",
     color = "Pollinator abundance",
-    fill = "Pollinator abundance"
+    fill  = "Pollinator abundance"
   ) +
   theme_minimal()
