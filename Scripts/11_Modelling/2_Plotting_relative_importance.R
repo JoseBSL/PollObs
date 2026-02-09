@@ -2,9 +2,9 @@
 library(dplyr)
 library(ggplot2)
 
-r2_season_blocks <- readRDS("Data/Working_files/r2_season_blocks.rds")
-r2_weekly        <- readRDS("Data/Working_files/r2_weekly.rds")
-r2_full_season   <- readRDS("Data/Working_files/r2_full_season.rds")
+r2_season_blocks = readRDS("Data/Working_files/r2_season_blocks.rds")
+r2_weekly        = readRDS("Data/Working_files/r2_weekly.rds")
+r2_full_season   = readRDS("Data/Working_files/r2_full_season.rds")
 
 # --- Keep only the predictors you want (edit if needed) ---
 keep_terms <- c("Floral abundance", "Pollinator abundance")
