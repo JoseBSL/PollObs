@@ -1,7 +1,5 @@
 ############################################################
-# SEASON-BLOCK DATA PREP (Early / Mid / Late)
-# Parallel to weekly pipeline, but using Season instead of Week
-# Output: model_data_season (one row per garden × plant × pollinator × Season)
+#Prepare data for modelling SEASON BLOCKS:
 ############################################################
 
 library(dplyr)
@@ -132,7 +130,7 @@ poll_abundance_season <- raw_season %>%
     Season
   ) %>%
   summarise(
-    Total_pollinator_abundance = n(),
+    Pollinator_abundance = n(),
     .groups = "drop"
   )
 
@@ -158,7 +156,7 @@ floral_abundance_season <- raw_season %>%
 # ------------------------------------------------------------
 # 7) FINAL JOIN: one row per (garden × plant × pollinator × Season)
 # ------------------------------------------------------------
-model_data_season <- interaction_season_data %>%
+season_blocks_data <- interaction_season_data %>%
   left_join(environmental_season,  by = c("Botanical_garden", "Season")) %>%
   left_join(floral_abundance_season, by = c("Botanical_garden", "Plant", "Season")) %>%
   left_join(poll_abundance_season, by = c("Botanical_garden", "Pollinator", "Season"))
@@ -166,9 +164,14 @@ model_data_season <- interaction_season_data %>%
 # ------------------------------------------------------------
 # 8) Transforms ready for modelling
 # ------------------------------------------------------------
-model_data_season <- model_data_season %>%
+season_blocks_data = season_blocks_data %>%
   mutate(
     log_flower = log1p(Floral_abundance),
-    log_poll   = log1p(Total_pollinator_abundance),
+    log_flower_z = as.numeric(scale(log_flower)),
+    log_poll   = log1p(Pollinator_abundance),
     log_poll_z = as.numeric(scale(log_poll))
   )
+
+saveRDS(season_blocks_data, "Data/Working_files/season_blocks_data.rds")
+################################################################################
+

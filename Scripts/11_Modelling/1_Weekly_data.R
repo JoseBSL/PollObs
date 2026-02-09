@@ -1,10 +1,5 @@
 ############################################################ #
-#Prepare data for modelling FULL SEASON:
-# Response variable - int_season
-# Key predictors: - env_season
-#                 - floral_season
-#                 - poll_season
-# data:           - season_data
+#Prepare data for modelling WEEKLY DATA:
 ############################################################ #
 # Load libraries
 library(dplyr)
@@ -130,7 +125,21 @@ floral_abundance_week <- raw_week %>%
   )
 
 # 7) FINAL JOIN: one row per (garden × plant × pollinator × week)
-weekly_data <- interaction_data %>%
+weekly_data = interaction_data %>%
   left_join(environmental_variables, by = c("Botanical_garden", "Week")) %>%
   left_join(floral_abundance_week,   by = c("Botanical_garden", "Plant", "Week")) %>%
   left_join(poll_abundance_week,     by = c("Botanical_garden", "Pollinator", "Week"))
+
+
+# 8) Transforms ready for modelling (WEEKLY)
+weekly_data <- weekly_data %>%
+  mutate(
+    log_flower   = log1p(Floral_abundance),
+    log_poll     = log1p(Total_pollinator_abundance),
+    log_flower_z = as.numeric(scale(log_flower)),
+    log_poll_z   = as.numeric(scale(log_poll))
+  )
+
+saveRDS(weekly_data, "Data/Working_files/weekly_data.rds")
+################################################################################
+
