@@ -132,7 +132,7 @@ weekly_data = interaction_data %>%
 
 
 # 8) Transforms ready for modelling (WEEKLY)
-weekly_data <- weekly_data %>%
+weekly_data = weekly_data %>%
   mutate(
     log_flower   = log1p(Floral_abundance),
     log_poll     = log1p(Total_pollinator_abundance),
