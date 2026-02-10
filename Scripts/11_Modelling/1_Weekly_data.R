@@ -11,7 +11,10 @@ library(ggeffects)
 library(performance)
 ############################################################ #
 # Load data
-raw_data = readRDS("Data/Working_files/interaction_data.rds")
+raw_data = readRDS("Data/Working_files/interaction_data.rds")  %>% 
+  filter(Sampling == "Focal") %>% 
+  filter(Plant_rank == "SPECIES") %>% 
+  filter(Pollinator_rank == "SPECIES")
 ############################################################ #
 
 ############################################################

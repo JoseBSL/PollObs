@@ -6,7 +6,10 @@ library(dplyr)
 library(lubridate)
 
 # Load data
-raw_data <- readRDS("Data/Working_files/interaction_data.rds")
+raw_data <- readRDS("Data/Working_files/interaction_data.rds") %>% 
+  filter(Sampling == "Focal") %>% 
+  filter(Plant_rank == "SPECIES") %>% 
+  filter(Pollinator_rank == "SPECIES")
 
 # ------------------------------------------------------------
 # 0) Build Season labels per garden based on date terciles

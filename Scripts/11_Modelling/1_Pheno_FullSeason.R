@@ -73,7 +73,7 @@ plant_phen_fixed = bind_rows(plant_phen_na, plant_phen_non_na) %>%
     Sampling_week = week(Date),
     Flowering_intensity = if_else(Flowers_opening == "No", 0, Flowering_intensity),
     Year = year(Date)) %>%
-    filter(Year != 2022)
+  filter(Year != 2022)
 
 #Important step!!!
 #Convert to probability
@@ -149,11 +149,11 @@ poll_phen_week_complete %>%
 #Now check if probabilities worked well
 #Do an example for a single spp
 poll_phen %>% 
-    filter(Species == "Aglais io") %>% 
-    mutate(Abundances1 = Abundances/sum(Abundances)) %>% 
-    summarise(Mean_probability = sum(Abundances1)) #check if it sums 1
-  
-  
+  filter(Species == "Aglais io") %>% 
+  mutate(Abundances1 = Abundances/sum(Abundances)) %>% 
+  summarise(Mean_probability = sum(Abundances1)) #check if it sums 1
+
+
 # ======================================================
 #### ---- (Prepare sampling weeks) ----
 sampling_dates = raw_data %>% 
@@ -172,53 +172,52 @@ sampling_dates = raw_data %>%
 # Get list of unique gardens
 gardens = unique(plant_phen_week_complete$Garden)
 
-# Function to run the process for one garden
-compute_probability_matrix = function(garden_name) {
 
-sampling_dates = sampling_dates %>% 
-  filter(Botanical_garden == garden_name) %>% 
-  select(Sampling_week) %>% 
-  pull()
-
-#Create 1st an example with 1 week and bot garden
-plant_phen = plant_phen_week_complete %>% 
-  filter(Garden == garden_name) %>% 
-  filter(Sampling_week %in% sampling_dates) %>% 
-  rename(Plants = Species) %>% 
-  select(!Garden)
-poll_phen = poll_phen_week_complete %>% 
-  filter(Sampling_week %in% sampling_dates) %>% 
-  rename(Pollinators = Species)
-#Extract unique species
-plants = plant_phen %>% distinct(Plants) %>% pull()
-polls = poll_phen %>% distinct(Pollinators) %>% pull()
-
-#Create full grid
-full_grid = expand_grid(Plants = plants, Pollinators= polls, Sampling_week = sampling_dates)
-#Now join plants
-full_grid1 = left_join(full_grid, plant_phen, by = c("Plants", "Sampling_week")) 
-#Rename to avoid duplicate cols in the next step
-full_grid2 = full_grid1 %>% 
-  rename(Mean_probability_plants = Mean_probability)
-#Now join polls
-full_grid3 = left_join(full_grid2, poll_phen, by = c("Pollinators", "Sampling_week")) 
-#Rename accordingly
-full_grid_final = full_grid3 %>% 
-  rename(Mean_probability_pollinators = Mean_probability)
-#Compute probability
-full_grid_final = full_grid_final %>% 
-  mutate(Total_probability = Mean_probability_plants * Mean_probability_pollinators)
-#In order to condense in a final matrix
-#we need to group by Plants and pollinators
-full_grid_condensed = full_grid_final %>% 
-  group_by(Plants, Pollinators) %>% 
-  summarise(Mean_probability = mean(Total_probability))
-
-
-#Those are all combinations
-#For tomorrow convert to a matrix 
-#And do it for each garden
-return(full_grid_condensed)
+  
+  sampling_dates = sampling_dates %>% 
+    filter(Botanical_garden == "Halle") %>% 
+    select(Sampling_week) %>% 
+    pull()
+  
+  #Create 1st an example with 1 week and bot garden
+  plant_phen = plant_phen_week_complete %>% 
+    filter(Garden == "Halle") %>% 
+    filter(Sampling_week %in% sampling_dates) %>% 
+    rename(Plants = Species) %>% 
+    select(!Garden)
+  poll_phen = poll_phen_week_complete %>% 
+    filter(Sampling_week %in% sampling_dates) %>% 
+    rename(Pollinators = Species)
+  #Extract unique species
+  plants = plant_phen %>% distinct(Plants) %>% pull()
+  polls = poll_phen %>% distinct(Pollinators) %>% pull()
+  
+  #Create full grid
+  full_grid = expand_grid(Plants = plants, Pollinators= polls, Sampling_week = sampling_dates)
+  #Now join plants
+  full_grid1 = left_join(full_grid, plant_phen, by = c("Plants", "Sampling_week")) 
+  #Rename to avoid duplicate cols in the next step
+  full_grid2 = full_grid1 %>% 
+    rename(Mean_probability_plants = Mean_probability)
+  #Now join polls
+  full_grid3 = left_join(full_grid2, poll_phen, by = c("Pollinators", "Sampling_week")) 
+  #Rename accordingly
+  full_grid_final = full_grid3 %>% 
+    rename(Mean_probability_pollinators = Mean_probability)
+  #Compute probability
+  full_grid_final = full_grid_final %>% 
+    mutate(Total_probability = Mean_probability_plants * Mean_probability_pollinators)
+  #In order to condense in a final matrix
+  #we need to group by Plants and pollinators
+  full_grid_condensed = full_grid_final %>% 
+    group_by(Plants, Pollinators) %>% 
+    summarise(Mean_probability = mean(Total_probability))
+  
+  
+  #Those are all combinations
+  #For tomorrow convert to a matrix 
+  #And do it for each garden
+  return(full_grid_condensed)
 }
 
 
@@ -235,64 +234,13 @@ all_gardens_probabilities_nested %>%
   select(Probabilities) %>% 
   pull()
 
+all_gardens_pheno_probabilities = all_gardens_probabilities_nested %>% 
+  tidyr::unnest(cols = c(Probabilities))
 
-# ======================================================
-# CONVERT LONG FORMAT TO MATRIX
-net_by_garden 
-
-# Build phenology matrix
-build_prob_matrix = function(garden_name) {
-  
-  # Extract right poll and plant order
-  network = net_by_garden %>% 
-    filter(Botanical_garden == garden_name) %>% 
-    select(Interaction_network) %>% 
-    pull(Interaction_network) %>% 
-    .[[1]]
-  # Create vectors with the desire order
-  poll_order = colnames(network)
-  plant_order = rownames(network)
-  
-  # Select long format from garden x
-  garden_prob = all_gardens_probabilities_nested %>% 
-    filter(Garden == garden_name) %>% 
-    select(Probabilities) %>% 
-    pull()  %>%
-    .[[1]] 
-  
-  #Safety check conducted for each garden, it works
-  #a = unique(garden_prob$Plants)
-  #b = unique(plant_order)
-  #setdiff(b,a)
-  
-  garden_prob = garden_prob %>% 
-    filter(Plants %in% plant_order) %>% 
-    filter(Pollinators %in% poll_order)
-  
-  # Create phenology matrix
-  garden_prob_matrix = garden_prob %>%
-    pivot_wider(
-      names_from = Pollinators,
-      values_from = Mean_probability
-    ) %>%
-    column_to_rownames("Plants") %>%
-    as.matrix()
-  
-
-  garden_prob_matrix = garden_prob_matrix[plant_order, poll_order]
-  
-  return(garden_prob_matrix)
-  
-}
-
-#Build phenology matrices
-pheno_prob_matrices_by_garden = tibble(
-  Botanical_garden = gardens,
-  Prob_matrix = map(gardens, build_prob_matrix))
 
 
 #Save network matrices
-saveRDS(pheno_prob_matrices_by_garden, 
-        "Data/Working_files/phenology_networks_only_phenobs_pheno.rds")
+saveRDS(all_gardens_pheno_probabilities, 
+        "Data/Working_files/pheno_probabilities_FullSeason.rds")
 
 

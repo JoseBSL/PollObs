@@ -6,7 +6,10 @@ library(dplyr)
 library(lubridate)
 ############################################################ #
 # Load data
-raw_data = readRDS("Data/Working_files/interaction_data.rds")
+raw_data = readRDS("Data/Working_files/interaction_data.rds") %>% 
+  filter(Sampling == "Focal") %>% 
+  filter(Plant_rank == "SPECIES") %>% 
+  filter(Pollinator_rank == "SPECIES")
 ############################################################ #
 #Prepare pair interactions per season (numerator)
 int_season <- raw_data %>%
@@ -103,6 +106,19 @@ full_season_data = int_season %>%
     log_poll_z = as.numeric(scale(log_poll))
   )
 
+#Add Phenology data
+pheno_prob_matrices_by_garden = readRDS("Data/Working_files/pheno_probabilities_FullSeason.rds")
+pheno_prob_matrices_by_garden = pheno_prob_matrices_by_garden %>% 
+  rename(Botanical_garden = Garden) %>% 
+  rename(Pheno_probability = Mean_probability) %>% 
+  rename(Plant = Plants) %>% 
+  rename(Pollinator = Pollinators)
+
+full_season_data = left_join(full_season_data, pheno_prob_matrices_by_garden)
+
+
+################################################################################
+#Save data
 saveRDS(full_season_data, "Data/Working_files/full_season_data.rds")
 ################################################################################
 
