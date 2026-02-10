@@ -6,9 +6,11 @@ library(ggplot2)
 library(lubridate)
 
 # --- Load inputs (PROTEST outputs) ---
-abund_week   <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds")
+abund_week   <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds") %>% 
+  filter(Test == "Int_frequency_network")
 abund_season <- readRDS("Data/Working_files/PROTEST_abund_season_result.rds")
 abund_full   <- readRDS("Data/Working_files/PROTEST_abund_full_result.rds")
+
 
 groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
   mutate(Sampling_week = isoweek(Date))
@@ -25,6 +27,7 @@ week_season <- groupped_dates %>%
   slice_max(n, n = 1, with_ties = FALSE) %>%
   ungroup() %>%
   select(Botanical_garden, Sampling_week, Season)
+
 
 # --- Weekly data used for violin + dotplot ---
 # If your weekly PROTEST file already has Season, we remove it and re-attach from groupped_dates.

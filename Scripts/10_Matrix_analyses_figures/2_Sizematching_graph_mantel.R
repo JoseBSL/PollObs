@@ -6,7 +6,8 @@ library(ggplot2)
 library(lubridate)
 
 # --- Load inputs ---
-trait_week   <- readRDS("Data/Working_files/PROTEST_trait_week_result.rds")
+trait_week   <- readRDS("Data/Working_files/PROTEST_trait_week_result.rds") %>% 
+  filter(Test == "Int_frequency_network")
 trait_season <- readRDS("Data/Working_files/PROTEST_trait_season_result.rds")
 trait_full   <- readRDS("Data/Working_files/PROTEST_trait_full_result.rds")
 
