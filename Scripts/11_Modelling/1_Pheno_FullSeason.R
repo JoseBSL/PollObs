@@ -33,7 +33,7 @@ raw_data = readRDS("Data/Working_files/interaction_data.rds")
 #Load plant-poll networks by garden
 net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
 
-spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
+#spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
 
 
 # ======================================================
@@ -135,8 +135,8 @@ poll_phen_week_complete = poll_phen %>%
   summarise(Mean_probability = mean(Probability))
 
 #Exclude polls with insuficent information
-poll_phen_week_complete = poll_phen_week_complete %>% 
-  filter(!Species %in% spp_to_exclude)
+#poll_phen_week_complete = poll_phen_week_complete %>% 
+#  filter(!Species %in% spp_to_exclude)
 
 #I think all weeks are already for each poll
 #Check it just in case
@@ -172,16 +172,17 @@ sampling_dates = raw_data %>%
 # Get list of unique gardens
 gardens = unique(plant_phen_week_complete$Garden)
 
-
+# Function to run the process for one garden
+compute_probability_matrix = function(garden_name) {
   
   sampling_dates = sampling_dates %>% 
-    filter(Botanical_garden == "Halle") %>% 
+    filter(Botanical_garden == garden_name) %>% 
     select(Sampling_week) %>% 
     pull()
   
   #Create 1st an example with 1 week and bot garden
   plant_phen = plant_phen_week_complete %>% 
-    filter(Garden == "Halle") %>% 
+    filter(Garden == garden_name) %>% 
     filter(Sampling_week %in% sampling_dates) %>% 
     rename(Plants = Species) %>% 
     select(!Garden)
@@ -236,9 +237,6 @@ all_gardens_probabilities_nested %>%
 
 all_gardens_pheno_probabilities = all_gardens_probabilities_nested %>% 
   tidyr::unnest(cols = c(Probabilities))
-
-
-
 #Save network matrices
 saveRDS(all_gardens_pheno_probabilities, 
         "Data/Working_files/pheno_probabilities_FullSeason.rds")
