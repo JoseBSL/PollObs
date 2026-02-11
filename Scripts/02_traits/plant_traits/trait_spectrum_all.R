@@ -325,10 +325,3 @@ local_phenobs_pca <- function(PC, x = "PC1", y = "PC2") {
 # Call the function
 local_phenobs_pca(PC)
 
-
-
-#Check pair correlations among traits
-# You need both ggplot2 and GGally packages loaded to use ggpairs()
-library(GGally)
-ggpairs(final_d)
-

@@ -1,4 +1,4 @@
-#Prepare selfing data as in Lanuza et al., 2023
+#Prepare selfing data
 #Load libraries
 library(readr)
 library(dplyr)
