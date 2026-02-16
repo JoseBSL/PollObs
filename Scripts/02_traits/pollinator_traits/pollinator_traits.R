@@ -31,7 +31,7 @@ int_data = readRDS("Data/Working_files/interaction_data.rds")
 poll_accepted_names = int_data %>% 
   select(Pollinator, Pollinator_accepted_name) %>% 
   distinct()
-#Match old names with Id's with the aceepted ones
+#Match old names with Id's with the accepted ones
 pollinator_species = left_join(poll_spp_id, poll_accepted_names)
 
 #3)Convert pixels to mm
