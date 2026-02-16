@@ -20,12 +20,12 @@ raw_data = readRDS("Data/Working_files/interaction_data.rds")
 # Get focal species to recover those from random sampling
 focal_spp = raw_data %>% 
   filter(Sampling == "Focal") %>% 
-  distinct(Plant) %>% 
-  pull(Plant)
+  distinct(Plant_accepted_name) %>% 
+  pull(Plant_accepted_name)
 # get random species that match plant focal species
 raw_random = raw_data %>% 
   filter(Sampling == "Random_census") %>% 
-  filter(Plant %in% focal_spp) %>% 
+  filter(Plant_accepted_name %in% focal_spp) %>% 
   filter(Plant_rank == "SPECIES") %>% 
   filter(Pollinator_rank == "SPECIES")
 # Bind back to focal
@@ -168,10 +168,23 @@ weekly_data %>%
 trait_pairs = readRDS("Data/Working_files/trait_pairs.rds")
 weekly_data = left_join(weekly_data,trait_pairs, by="Pair")
 #Filter out pairs with missing trait data
+checks = weekly_data %>% 
+  filter(is.na(T_gauss))
+
 weekly_data = weekly_data %>% 
   filter(!is.na(T_gauss))
 #Some could be recovered, for now sample size, over 1000 rows
 ################################################################################
+# Add phenology
+pheno_overlap = readRDS("Data/Working_files/phenoloical_overlap.rds")
+
+weekly_data = left_join(weekly_data, pheno_overlap)
+
+checks = weekly_data %>% filter(is.na(Overlap_days))
+colnames(checks)
+weekly_data = weekly_data %>% 
+  filter(!is.na(Overlap_days))
+#55 missing observations, those could be recovered
 # Save data
 saveRDS(weekly_data, "Data/Working_files/weekly_data.rds")
 ################################################################################

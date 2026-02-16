@@ -38,6 +38,17 @@ raw_data <- readRDS("Data/Working_files/interaction_data.rds")
 
 # Morphometrics to get phenobs species vector
 morphometrics <- read_csv("Data/Trait_data/Raw/ReproductiveTraits_Morphometrics.csv")
+morphometrics <- morphometrics %>%
+  mutate(Style_length = as.numeric(Style_length))
+str(p_vulgaris)
+#Add missing species
+online_data = read_csv("Data/Trait_data/Raw/online_data.csv")
+online_data <- online_data %>%
+  mutate(Style_length = as.numeric(Style_length))
+str(p_vulgaris)
+#Morphometrics
+morphometrics = bind_rows(morphometrics, online_data)
+
 
 phenobs_spp <- morphometrics %>%
   select(Species) %>%
@@ -79,7 +90,7 @@ interaction_data <- raw_data %>%
   filter(!Plants == "Iberis sempervirens")
 
 interaction_data <- interaction_data %>%
-  filter(Plant %in% phenobs_spp)
+  filter(Plants %in% phenobs_spp)
 
 # Add week number (kept for consistency; not required for trait-only matrices)
 interaction_data <- left_join(interaction_data, dates)
@@ -92,11 +103,12 @@ interaction_data <- left_join(interaction_data, dates)
 poll_traits <- readRDS("Data/Trait_data/Processed/PollTraits.rds")
 
 poll_len <- poll_traits %>%
-  select(Pollinator, !!sym(poll_length_col)) %>%
+  select(Pollinator_accepted_name, !!sym(poll_length_col)) %>%
   rename(trait = !!sym(poll_length_col)) %>%
-  group_by(Pollinator) %>%
+  group_by(Pollinator_accepted_name) %>%
   summarise(t_poll = mean(trait, na.rm = TRUE), .groups = "drop") %>%
-  filter(!is.na(t_poll))
+  filter(!is.na(t_poll)) %>% 
+  rename(Pollinator = Pollinator_accepted_name)
 
 # Plant traits
 plant_len <- morphometrics %>%
@@ -105,6 +117,27 @@ plant_len <- morphometrics %>%
   group_by(Species) %>%
   summarise(t_plant = mean(trait, na.rm = TRUE), .groups = "drop") %>%
   filter(!is.na(t_plant))
+#Create conversion to accepted species names
+spp = raw_data %>% 
+  select(Plant, Plant_accepted_name) %>% 
+  distinct() %>% 
+  rename(Species = Plant)
+
+plant_len = left_join(plant_len, spp)
+plant_len <- plant_len %>%
+  mutate(
+    Plant_accepted_name = case_when(
+      Species == "Aquilegia chrysantha" ~ "Aquilegia vulgaris",
+      Species == "Persicaria bistorta" ~ "Polygonum bistorta",
+      TRUE ~ Plant_accepted_name
+    )
+  )
+
+
+
+plant_len = plant_len %>% 
+  select(!Species) %>% 
+  rename(Species = Plant_accepted_name)
 
 # ======================================================
 # GLOBAL TRAIT MATCHING MATRIX (rows = Plants, cols = Pollinators)
