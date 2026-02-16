@@ -121,14 +121,7 @@ trait_pairs <- tidyr::crossing(
 trait_pairs = trait_pairs %>% 
 mutate(Pair = paste0(Plants, "_", Pollinators))
 
-weekly_data = readRDS("Data/Working_files/weekly_data.rds")
+# Save data
+saveRDS(trait_pairs, "Data/Working_files/trait_pairs.rds")
 
 
-
-weekly_data = left_join(weekly_data,trait_pairs, by="Pair")
-
-
-colnames(weekly_data)
-
-weekly_data = weekly_data %>% 
-  filter(!is.na(T_gauss))

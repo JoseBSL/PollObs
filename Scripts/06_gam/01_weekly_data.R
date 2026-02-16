@@ -11,25 +11,37 @@ library(ggeffects)
 library(performance)
 ############################################################ #
 # Load data
-raw_data = readRDS("Data/Working_files/interaction_data.rds")  %>% 
+raw_data = readRDS("Data/Working_files/interaction_data.rds") 
+# Get focal species
+  raw_focal = raw_data  %>% 
   filter(Sampling == "Focal") %>% 
   filter(Plant_rank == "SPECIES") %>% 
   filter(Pollinator_rank == "SPECIES")
-############################################################ #
-
+# Get focal species to recover those from random sampling
+focal_spp = raw_data %>% 
+  filter(Sampling == "Focal") %>% 
+  distinct(Plant) %>% 
+  pull(Plant)
+# get random species that match plant focal species
+raw_random = raw_data %>% 
+  filter(Sampling == "Random_census") %>% 
+  filter(Plant %in% focal_spp) %>% 
+  filter(Plant_rank == "SPECIES") %>% 
+  filter(Pollinator_rank == "SPECIES")
+# Bind back to focal
+raw_focal = bind_rows(raw_focal, raw_random)
 ############################################################
 # WEEKLY DATA (one row per garden × plant × pollinator × week)
 ############################################################
-
 # Add Date + Week once
-raw_week <- raw_data %>%
+raw_week = raw_focal %>%
   mutate(
     Date = as.Date(Date_time),
     Week = lubridate::week(Date)
   )
 
 # 1) Pair-week totals (counts)
-interaction_week <- raw_week %>%
+interaction_week = raw_week %>%
   filter(!is.na(Interactions),
          !is.na(Floral_abundance),
          Pollinator != "None",
@@ -143,6 +155,7 @@ weekly_data = weekly_data %>%
     log_poll_z   = as.numeric(scale(log_poll))
   )
 
+# Checks
 weekly_data %>% 
   group_by(Botanical_garden) %>% 
   summarise(n_distinct(Week))
@@ -150,7 +163,16 @@ weekly_data %>%
 weekly_data %>% 
   group_by(Botanical_garden) %>% 
   summarise(n_distinct(Pair))
-
+################################################################################
+# add trait data
+trait_pairs = readRDS("Data/Working_files/trait_pairs.rds")
+weekly_data = left_join(weekly_data,trait_pairs, by="Pair")
+#Filter out pairs with missing trait data
+weekly_data = weekly_data %>% 
+  filter(!is.na(T_gauss))
+#Some could be recovered, for now sample size, over 1000 rows
+################################################################################
+# Save data
 saveRDS(weekly_data, "Data/Working_files/weekly_data.rds")
 ################################################################################
 

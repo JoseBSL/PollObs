@@ -1,22 +1,24 @@
-
-
-
+############################################################ #
+# Model data with GAM:
+############################################################ #
+# Load libraries
 library(mgcv)
 library(gratia)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-
+############################################################ #
+# Load data 
 weekly_data = readRDS("Data/Working_files/weekly_data.rds")
-
-
+############################################################ #
 # The following model
 # Evaluates how poll and plant abundances influence visitation rate
 # Botanical garden is considered a random effect
 # ti permite que cambie el efecto de las abundancias con el tiempo
 # s(Pair, bs="re") es el intercepto aleatorio por pareja
-
-weekly_data <- weekly_data %>%
+############################################################ #
+# Scale variables before modelling
+weekly_data = weekly_data %>%
   mutate(
     Week = as.numeric(Week),
     log_flower_z = as.numeric(log_flower_z),
@@ -24,9 +26,8 @@ weekly_data <- weekly_data %>%
     Botanical_garden = factor(Botanical_garden),
     Pair = factor(Pair),
     T_gauss_z = as.numeric(scale(T_gauss))
-  
   )
-
+# Run GAM
 m_temporal <- gam(
   VisitRate ~ log_flower_z * log_poll_z + T_gauss_z +
     Botanical_garden +
@@ -39,11 +40,14 @@ m_temporal <- gam(
   data = weekly_data,
   method="REML")
 
+# Add here modelling checks
+
+# Prepare table with modelling output
+
 coef_table <- summary(m_temporal)$p.table
 coef_table
 dev.off()
 plot(m_temporal,shade = TRUE, residuals = FALSE)
-
 
 season_importance <- data.frame(
   Variable = c("Flower", "Pollinator", "Interaction", "Trait_matching"),
@@ -69,6 +73,7 @@ season_importance <- data.frame(
 
 season_importance
 
+# Plot variable importance
 ggplot(season_importance, aes(x = Variable, y = abs(Effect))) +
   geom_col() +
   labs(
