@@ -9,7 +9,8 @@ library(ggplot2)
 library(tidyr)
 ############################################################ #
 # Load data 
-weekly_data = readRDS("Data/Working_files/weekly_data.rds")
+weekly_data = readRDS("Data/Working_files/weekly_data_pheno_probability.rds")
+colnames(weekly_data)
 ############################################################ #
 
 dat <- weekly_data %>%
@@ -19,7 +20,7 @@ dat <- weekly_data %>%
 m0_ar1 <- bam(
   Total_pair_interactions ~ 
     log_flower_z + log_poll_z +
-    T_gauss_z + Overlap_days_z +
+    T_gauss_z + Pheno_probability_z +
     Botanical_garden +
     s(Week, Botanical_garden, bs="fs", k=8) +
     s(Pair, bs="re") +
@@ -48,12 +49,12 @@ coef_tab <- as.data.frame(summary(m0_ar1)$p.table) %>%
   tibble::rownames_to_column("term")
 
 # keep only the drivers you care about
-drivers <- c("log_flower_z", "log_poll_z", "T_gauss_z", "Overlap_days_z")
+drivers <- c("log_flower_z", "log_poll_z", "T_gauss_z", "Pheno_probability_z")
 lab_map <- c(
   log_flower_z = "Flower abundance",
   log_poll_z   = "Pollinator abundance",
   T_gauss_z    = "Trait matching",
-  Overlap_days_z = "Phenology overlap"
+  Pheno_probability_z = "Phenology overlap prob."
 )
 
 imp <- coef_tab %>%

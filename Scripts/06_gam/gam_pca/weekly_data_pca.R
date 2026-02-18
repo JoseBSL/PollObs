@@ -9,11 +9,12 @@ library(glmmTMB)
 library(DHARMa)
 library(ggeffects)
 library(performance)
+library(tibble)
 ############################################################ #
 # Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds") 
 # Get focal species
-  raw_focal = raw_data  %>% 
+raw_focal = raw_data  %>% 
   filter(Sampling == "Focal") %>% 
   filter(Plant_rank == "SPECIES") %>% 
   filter(Pollinator_rank == "SPECIES")
@@ -165,18 +166,30 @@ weekly_data %>%
   summarise(n_distinct(Pair))
 ################################################################################
 # add trait data
-trait_pairs = readRDS("Data/Working_files/trait_pairs.rds")
-weekly_data = left_join(weekly_data,trait_pairs, by="Pair")
-#Filter out pairs with missing trait data
-checks = weekly_data %>% 
-  filter(is.na(T_gauss))
+phyl_pca_forest = readRDS("Data/Working_files/local_pca_phenobs_species_output.rds")
 
-weekly_data = weekly_data %>% 
-  filter(!is.na(T_gauss))
+pc1 = phyl_pca_forest$S %>% 
+  as.data.frame() %>% 
+  rownames_to_column("Plant") %>% 
+  select(Plant, PC1,PC2) %>% 
+  mutate(Plant = gsub("_", " ", Plant))
 
-##Scale data
-weekly_data = weekly_data %>% 
-  mutate(T_gauss_z   = as.numeric(scale(T_gauss)))
+weekly_data = left_join(weekly_data,pc1, by="Plant")
+
+# Now add poll traits
+poll_traits = readRDS("Data/Trait_data/Processed/PollTraits.rds")
+
+poll_traits = poll_traits %>% 
+  group_by(Pollinator) %>%
+  mutate(IT_mm_mean = mean(IT_mm, na.rm = TRUE)) %>% 
+  mutate(Length_mm_mean = mean(Length_mm, na.rm = TRUE)) %>% 
+  mutate(Tongue_mm_mean = mean(Tongue_mm, na.rm = TRUE)) %>% 
+  select(Pollinator, IT_mm_mean, Length_mm_mean,Tongue_mm_mean) %>% 
+  distinct()
+
+
+weekly_data = left_join(weekly_data,poll_traits, by="Pollinator")
+
 
 #Some could be recovered, for now sample size, over 1000 rows
 ################################################################################
@@ -191,7 +204,7 @@ weekly_data = weekly_data %>%
   filter(!is.na(Overlap_days))
 #Scale data
 weekly_data = weekly_data %>% 
- mutate(Overlap_days_z   = as.numeric(scale(Overlap_days)))
+  mutate(Overlap_days_z   = as.numeric(scale(Overlap_days)))
 
 
 #Fix cols:
@@ -208,6 +221,9 @@ weekly_data <- weekly_data %>%
 
 #55 missing observations, those could be recovered
 # Save data
-saveRDS(weekly_data, "Data/Working_files/weekly_data.rds")
+saveRDS(weekly_data, "Data/Working_files/weekly_data_pca.rds")
 ################################################################################
+
+
+
 
