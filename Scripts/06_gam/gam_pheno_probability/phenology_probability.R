@@ -17,11 +17,10 @@ library(ggplot2)
 library(lubridate)
 library(tibble)
 # ======================================================
-#### ---- Load data ----
-
+# Load data
 # Plant phenology data
-jena_phen    = readRDS("Data/Phenology_data/clean_plant_phenobs_jena.rds")
-halle_phen   = readRDS("Data/Phenology_data/clean_plant_phenobs_halle.rds")
+jena_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_jena.rds")
+halle_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_halle.rds")
 leipzig_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_leipzig.rds")
 
 # Pollinator phenology (same for all gardens)
@@ -31,13 +30,13 @@ poll_phen = readRDS("Data/Working_files/pollinator_phenology.rds")
 raw_data = readRDS("Data/Working_files/interaction_data.rds")
 
 #Load plant-poll networks by garden
-net_by_garden = readRDS("Data/Working_files/networks_by_garden_only_phenobs_pheno.rds")
-
-#spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
+net_by_garden = readRDS("Data/Working_files/networks_by_garden_and_week_only_phenobs_pheno.rds")
+# Vector to exclude polls without phenology
+spp_to_exclude = readRDS("Data/Working_files/spp_to_exclude_pheno.rds")
 
 
 # ======================================================
-#### ---- Prepare plant phenology ----
+# Prepare plant phenology
 
 # Add missing 'Garden' labels
 jena_phen  = jena_phen %>% mutate(Garden = "Jena")
@@ -76,16 +75,16 @@ plant_phen_fixed = bind_rows(plant_phen_na, plant_phen_non_na) %>%
   filter(Year != 2022)
 
 #Important step!!!
+#At the moment the column of flowering intensity is a proportion (value/max value)
 #Convert to probability
+#Multiply back by max value and then divide by total
 plant_phen_fixed = plant_phen_fixed %>% 
   group_by(Species, Garden) %>% 
-  mutate(
-    Probability = Flowering_intensity / sum(Flowering_intensity, na.rm = TRUE)) 
-
-
+  mutate(Flowering_intensity1 = (Flowering_intensity * max(Flowering_intensity))/sum(Flowering_intensity)) %>% 
+  mutate(Probability = Flowering_intensity1/sum(Flowering_intensity1))
 #Safety check
 plant_phen_fixed %>% 
-  filter(Species == "Viscaria vulgaris" & Garden == "Jena") %>% 
+  filter(Species == "Silene viscaria" & Garden == "Jena") %>% 
   summarise(Sum_Probability = sum(Probability))
 #Sums 1, seems right!
 
@@ -105,11 +104,11 @@ v_weeks_2023 = weeks_2023 %>%
   pull()
 
 # Get unique Species and Gardens
-species_garden = plant_phen_fixed_week %>% 
+species_garden <- plant_phen_fixed_week %>% 
   distinct(Species, Garden)
 
 # Create all possible combinations
-full_combinations = crossing(
+full_combinations <- crossing(
   species_garden,
   Sampling_week = v_weeks_2023
 )
@@ -122,10 +121,10 @@ plant_phen_week_complete = full_combinations %>%
 #Looks good to me!
 
 # ======================================================
-#### ---- Prepare pollinator phenology ----
+# Prepare pollinator phenology
 poll_phen_week_complete = poll_phen %>%
   mutate(
-    Date          = as.Date(Doy - 1, origin = "2023-01-01"),
+    Date = as.Date(Doy - 1, origin = "2023-01-01"),
     Sampling_week = week(Date)) %>% 
   select(Species, Sampling_week, Probability, Abundances) %>% 
   rename(Proportion = Probability)  %>%
@@ -135,8 +134,8 @@ poll_phen_week_complete = poll_phen %>%
   summarise(Mean_probability = mean(Probability))
 
 #Exclude polls with insuficent information
-#poll_phen_week_complete = poll_phen_week_complete %>% 
-#  filter(!Species %in% spp_to_exclude)
+poll_phen_week_complete = poll_phen_week_complete %>% 
+  filter(!Species %in% spp_to_exclude)
 
 #I think all weeks are already for each poll
 #Check it just in case
@@ -155,7 +154,7 @@ poll_phen %>%
 
 
 # ======================================================
-#### ---- (Prepare sampling weeks) ----
+# Prepare sampling weeks
 sampling_dates = raw_data %>% 
   select(Botanical_garden, Date) %>% 
   distinct() %>% 
@@ -224,21 +223,98 @@ compute_probability_matrix = function(garden_name) {
 
 # Create nested tibble (LONG FORMAT) with one row per garden
 all_gardens_probabilities_nested = tibble(
-  Garden = gardens,
+  Botanical_garden = gardens,
   Probabilities = map(gardens, compute_probability_matrix))
 
 # View it
 all_gardens_probabilities_nested
 # Safety check
 all_gardens_probabilities_nested %>% 
-  filter(Garden == "Halle") %>% 
+  filter(Botanical_garden == "Halle") %>% 
   select(Probabilities) %>% 
   pull()
 
-all_gardens_pheno_probabilities = all_gardens_probabilities_nested %>% 
-  tidyr::unnest(cols = c(Probabilities))
-#Save network matrices
-saveRDS(all_gardens_pheno_probabilities, 
-        "Data/Working_files/pheno_probabilities_FullSeason.rds")
+
+# ======================================================
+# CONVERT LONG FORMAT TO MATRIX
+net_by_garden 
+
+garden_season_combos = net_by_garden %>% 
+  select(Botanical_garden, Sampling_week) %>% 
+  distinct()
+
+# Build phenology matrix
+build_prob_matrix = function(garden_name, week) {
+  
+  # Extract right poll and plant order
+  network = net_by_garden %>% 
+    filter(Botanical_garden == garden_name, Sampling_week == week) %>% 
+    select(Interaction_network) %>% 
+    pull(Interaction_network) %>% 
+    .[[1]]
+  # Create vectors with the desire order
+  poll_order = colnames(network)
+  plant_order = rownames(network)
+  
+  # Select long format from garden x
+  garden_prob = all_gardens_probabilities_nested %>% 
+    filter(Botanical_garden == garden_name) %>% 
+    select(Probabilities) %>% 
+    pull()  %>%
+    .[[1]] 
+  
+  #Safety check conducted for each garden, it works
+  #a = unique(garden_prob$Plants)
+  #b = unique(plant_order)
+  #setdiff(b,a)
+  
+  garden_prob = garden_prob %>% 
+    filter(Plants %in% plant_order) %>% 
+    filter(Pollinators %in% poll_order)
+  
+  # Create phenology matrix
+  garden_prob_matrix = garden_prob %>%
+    pivot_wider(
+      names_from = Pollinators,
+      values_from = Mean_probability
+    ) %>%
+    column_to_rownames("Plants") %>%
+    as.matrix()
+  
+  
+  garden_prob_matrix = garden_prob_matrix[plant_order, poll_order]
+  
+  return(garden_prob_matrix)
+  
+}
+
+garden_season_combos = net_by_garden %>% 
+  select(Botanical_garden, Sampling_week) %>% 
+  distinct()
+
+pheno_prob_matrices_by_garden = garden_season_combos %>% 
+  mutate(Prob_matrix = map2(Botanical_garden, Sampling_week, build_prob_matrix))
 
 
+long_data = pheno_prob_matrices_by_garden %>%
+  mutate(
+    Prob_matrix = map(Prob_matrix, ~
+                        .x %>%
+                        as.data.frame() %>%
+                        rownames_to_column(var = "plant") %>%   # keeps plant names
+                        pivot_longer(
+                          -plant,
+                          names_to = "pollinator",
+                          values_to = "Pheno_probability"
+                        )
+    )
+  ) %>%
+  unnest(Prob_matrix)
+
+long_data = long_data %>% 
+  rename(Plant = plant,
+         Pollinator = pollinator,
+         Week= Sampling_week)
+
+# Save the long format data
+saveRDS(long_data, "Data/Working_files/phenology_probabilities_long_format.rds")

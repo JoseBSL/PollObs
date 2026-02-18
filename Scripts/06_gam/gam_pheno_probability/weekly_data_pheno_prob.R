@@ -13,7 +13,7 @@ library(performance)
 # Load data
 raw_data = readRDS("Data/Working_files/interaction_data.rds") 
 # Get focal species
-  raw_focal = raw_data  %>% 
+raw_focal = raw_data  %>% 
   filter(Sampling == "Focal") %>% 
   filter(Plant_rank == "SPECIES") %>% 
   filter(Pollinator_rank == "SPECIES")
@@ -174,24 +174,24 @@ checks = weekly_data %>%
 weekly_data = weekly_data %>% 
   filter(!is.na(T_gauss))
 
-##Scale data
+#Scale data
 weekly_data = weekly_data %>% 
   mutate(T_gauss_z   = as.numeric(scale(T_gauss)))
 
 #Some could be recovered, for now sample size, over 1000 rows
 ################################################################################
 # Add phenology
-pheno_overlap = readRDS("Data/Working_files/phenoloical_overlap.rds")
+pheno_probability = readRDS("Data/Working_files/phenology_probabilities_long_format.rds")
 
-weekly_data = left_join(weekly_data, pheno_overlap)
+weekly_data = left_join(weekly_data, pheno_probability)
 
-checks = weekly_data %>% filter(is.na(Overlap_days))
+checks = weekly_data %>% filter(is.na(Pheno_probability))
 colnames(checks)
 weekly_data = weekly_data %>% 
-  filter(!is.na(Overlap_days))
+  filter(!is.na(Pheno_probability))
 #Scale data
 weekly_data = weekly_data %>% 
- mutate(Overlap_days_z   = as.numeric(scale(Overlap_days)))
+  mutate(Pheno_probability_z   = as.numeric(scale(Pheno_probability)))
 
 
 #Fix cols:
@@ -199,7 +199,8 @@ weekly_data <- weekly_data %>%
   mutate(
     log_flower_z    = as.numeric(log_flower_z),
     log_poll_z      = as.numeric(log_poll_z),
-    Overlap_days_z  = as.numeric(Overlap_days_z),
+    T_gauss_z       = as.numeric(T_gauss_z),
+    Pheno_probability_z  = as.numeric(Pheno_probability_z),
     Week            = as.numeric(Week),
     Botanical_garden = as.factor(Botanical_garden),
     Pair            = as.factor(Pair),
@@ -208,6 +209,6 @@ weekly_data <- weekly_data %>%
 
 #55 missing observations, those could be recovered
 # Save data
-saveRDS(weekly_data, "Data/Working_files/weekly_data.rds")
+saveRDS(weekly_data, "Data/Working_files/weekly_data_pheno_probability.rds")
 ################################################################################
 
