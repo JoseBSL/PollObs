@@ -95,7 +95,7 @@ sep_df <- tibble(
   kind = c("light","light","strong")
 )
 
-panel1_swapped <- ggplot() +
+panel_abundance_swapped <- ggplot() +
   
   # separators (black solid)
   geom_hline(
@@ -128,7 +128,7 @@ panel1_swapped <- ggplot() +
     aes(xmin = lwr, xmax = upr, y = y, colour = Botanical_garden),
     inherit.aes = FALSE,
     height = 0.05,
-    linewidth = 0.7,
+    linewidth = 1,
     alpha = 0.7
   ) +
   geom_point(
@@ -190,9 +190,9 @@ panel1_swapped <- ggplot() +
     name   = "Temporal complexity",
     breaks = c("Weekly", "Weekly aggregated", "Full season"),
     values = c(
-      "Weekly" = 2.0,
-      "Weekly aggregated" = 4,
-      "Full season" = 6
+      "Weekly" = 3.0,
+      "Weekly aggregated" = 5.8,
+      "Full season" = 8.2
     ),
     drop = FALSE
   ) +
@@ -210,7 +210,7 @@ panel1_swapped <- ggplot() +
     # Garden legend second
     colour = guide_legend(
       order = 2,
-      override.aes = list(shape = 16, alpha = 1, size = 3.0)
+      override.aes = list(shape = 16, alpha = 1, size = 5.0)
     )
   ) +
   
@@ -230,7 +230,8 @@ panel1_swapped <- ggplot() +
   labs(
     x = "Procrustes r",
     y = NULL,
-    title = "Visitation rate – Abundance (all gardens pooled)"
+    title = "a) Abundance"
   )
 
-panel1_swapped
+panel_abundance_swapped
+saveRDS(panel_abundance_swapped, "Data/Working_files/panel_abundance_swapped.rds")

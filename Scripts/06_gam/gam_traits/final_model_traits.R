@@ -79,13 +79,13 @@ coef_tab <- as.data.frame(summary(m_final_ar1)$p.table) %>%
   rownames_to_column("term")
 
 lab_map <- c(
-  log_flower_z                = "Flower abundance (z)",
-  log_poll_z                  = "Pollinator abundance (z)",
-  T_gauss_z                   = "Trait matching (z)",
-  Overlap_days_z              = "Phenology overlap (z)",
-  Flower_width_z              = "Flower width (z)",
-  `log_flower_z:log_poll_z`   = "Flower × Pollinator",
-  `log_poll_z:Flower_width_z` = "Pollinator × Width"
+  log_flower_z                = "Flower abundance",
+  log_poll_z                  = "Pollinator abundance",
+  T_gauss_z                   = "Trait matching",
+  Overlap_days_z              = "Phenology overlap",
+  Flower_width_z              = "Flower width",
+  `log_flower_z:log_poll_z`   = "Flower abund. × Pollinator abund.",
+  `log_poll_z:Flower_width_z` = "Flower width x Pollinator abund."
 )
 
 coef_tab <- as.data.frame(summary(m_final_ar1)$p.table) %>%
@@ -94,16 +94,21 @@ coef_tab <- as.data.frame(summary(m_final_ar1)$p.table) %>%
 imp <- coef_tab %>%
   filter(term %in% names(lab_map)) %>%
   transmute(
+    term,
     Variable  = lab_map[term] |> unname(),
     Estimate  = Estimate,
     CI_low    = Estimate - 1.96 * `Std. Error`,
     CI_high   = Estimate + 1.96 * `Std. Error`,
-    absE      = abs(Estimate)
+    absE      = abs(Estimate),
+    is_interaction = grepl(":", term)   # <- detect interaction
   ) %>%
   arrange(absE) %>%
   mutate(Variable = fct_rev(factor(Variable, levels = Variable)))
 
 xlim <- range(c(imp$CI_low, imp$CI_high), na.rm = TRUE)
+
+#Manual fix
+imp$is_interaction = c(FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,FALSE)
 
 p_imp_mag <- ggplot(imp, aes(x = Estimate, y = Variable)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
@@ -116,17 +121,17 @@ p_imp_mag <- ggplot(imp, aes(x = Estimate, y = Variable)) +
   coord_cartesian(xlim = xlim) +
   labs(
     x = "Effect (log link scale, ±95% CI)",
-    y = NULL,
-    title = NULL
+    y = NULL
   ) +
   theme_minimal(base_size = 13) +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.minor = element_blank(),
-    plot.title = element_text(face = "bold"),
-    legend.position = "right"
+    legend.position = "right",
+    axis.text.y = element_text(
+      face = ifelse(imp$is_interaction, "bold", "plain")
+    )
   )
-
 print(p_imp_mag)
 # -----------------------------
 # Prediction curves on response scale (population-level)
@@ -203,8 +208,13 @@ p_f_abundance <- ggplot(newF, aes(x = log_flower_z, y = fit, colour = Poll_group
     fill   = "Pollinator abundance",
     title  = NULL
   ) +
-  guides(fill = "none")  # keep only colour legend
-
+  guides(fill = "none") +   # keep only colour legend
+  labs(
+    subtitle = "Flower abund. × Pollinator abund."
+  )+
+  theme(
+    plot.subtitle = element_text(face = "bold")
+  )
 p_f_width <- ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, fill = Poll_group)) +
   geom_line(linewidth = 1.2) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.18, colour = NA) +
@@ -219,10 +229,17 @@ p_f_width <- ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, 
     fill   = "Pollinator abundance",
     title  = NULL
   ) +
-  guides(fill = "none")    # <- force legend format
-
+  guides(fill = "none")  +  # <- force legend format
+  labs(
+    subtitle = "Flower width × Pollinator abund."
+  ) +
+  theme(
+    plot.subtitle = element_text(face = "bold")
+  )
 # Force ONE legend by removing it from the left plot
 p_imp_mag
+p_f_abundance_noleg <- p_f_abundance + theme(legend.position = "none")
+
 p_f_width_leg = p_f_width + theme(legend.position = "right")
   
 panel2 <- plot_spacer() + p_f_abundance_noleg + p_f_width_leg +
