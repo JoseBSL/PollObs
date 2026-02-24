@@ -431,6 +431,8 @@ Europe <- gisco_get_countries(region = "Europe")
 europe_map = Europe %>% 
 filter(CNTR_ID == "DE")
 
+
+plasma_cols <- viridis::viridis(n = 3, option = "plasma", begin = 0, end = 0.8)
 #Plot Europe map with counties of interest highlighted
 p1 = ggplot(Europe) +
 geom_sf(fill="gray70",color = "black", alpha = 0.5,size=0.4)  +
@@ -440,7 +442,7 @@ coord_sf(xlim = c(-10, 30), ylim = c(35, 65))  +
 microplot::theme_collapse(panel.border = element_rect(colour = "black", fill=NA, size=1.5),
 panel.background = element_rect(fill = "white")) +
 geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 1.5) +
-scale_colour_manual(values=c("#440154FF", "#7AD151FF", "#2A788EFF")) +
+scale_colour_manual(values=plasma_cols) +
 theme(legend.position = "none", panel.border = element_rect(colour = "black", fill=NA, size=1.5))
 
 #Modify coords for plotting
@@ -453,7 +455,7 @@ geom_sf(fill="#D4D5A3",color = "black", alpha = 0.8,size=0.4)  +
 microplot::theme_collapse(panel.border = element_rect(colour = "black", fill=NA, size=1.5),
 panel.background = element_rect(fill = "white")) +
 geom_point(data = coords, aes(Longitude, Latitude, color= Cities), size = 5) +
-scale_colour_manual(values=c("#440154FF", "#7AD151FF", "#2A788EFF")) +
+scale_colour_manual(values=plasma_cols) +
   geom_text(
   data = coords1,
   aes(Longitude, Latitude, label = Cities),
@@ -544,11 +546,12 @@ summarise(Interactions = n())
 
 #Order levels
 data_dates_2$Botanical_garden = factor(data_dates_2$Botanical_garden, 
-                                       levels = c("Halle", "Leipzig", "Jena"))
+                                       levels = c("Halle", "Jena", "Leipzig"))
 
 data_dates_2_a = data_dates_2 %>%  filter(Sampling == "Focal")
 data_dates_2_b = data_dates_2 %>%  filter(Sampling == "Random_census")
 
+plasma_cols <- viridis::viridis(n = 3, option = "plasma", begin = 0, end = 0.8)
 
 # Suponiendo que los datos están en data_dates_2_a y data_dates_2_b
 
@@ -561,9 +564,7 @@ p2 = ggplot(data_dates_2_a) +
   geom_line(data = data_dates_2_b, aes(Date, Interactions, 
       colour = Botanical_garden, 
       linetype = "Solid"),  stat = "identity", size = 1.8) +
-  scale_colour_manual(
-    values = c("#440154FF", "#2A788EFF", "#7AD151FF"),
-    guide = "none") +
+  scale_colour_manual(values = plasma_cols, guide = "none") +
   scale_linetype_manual(
     values = c("Dashed" = "solid", "Solid" = "dashed"),
     labels = c("Focal obs.", "Random census"),
