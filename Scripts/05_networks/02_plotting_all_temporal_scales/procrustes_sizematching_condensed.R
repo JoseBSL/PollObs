@@ -24,7 +24,7 @@ groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
 # ---- Levels ----
 season_levels <- c("Early","Mid","Late")
 season_levels_full <- c(season_levels, "Full")
-season_labels_full <- c("Early","Mid","Late","Full season")
+season_labels_full <- c("Early season","Mid season","Late season","Full season")
 
 garden_levels <- c("Halle","Jena","Leipzig")
 garden_offset <- c(Halle = -0.18, Jena = 0.00, Leipzig = +0.18)
