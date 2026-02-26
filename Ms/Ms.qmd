@@ -358,34 +358,17 @@ final_plot_col
 
 
 
-Figure 3 GLm's
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=12,out.width="100%", fig.cap= "\\textbf{Figure 3}. "}
 
-Figure 4 Machine learning
+library(patchwork)
 
-
-# References
-
-<div id="refs"></div>
-
-\clearpage
-
-# Supporting information
+top_panel = readRDS("../Data/Working_files/panel1_gam.rds")
+panel2 = readRDS("../Data/Working_files/panel2_gam.rds")
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width='60%', fig.align='center'}
-
-library(kableExtra)
-
-table_kable = readRDS("../Data/Working_files/Table_traits.rds")
-
-  kbl(table_kable[,c(2,3,4)],
-    caption = "\\textbf{Table S1} Summary of plant and pollinator traits",
-    align = c("l", "c", "c"),
-    booktabs = TRUE
-  ) %>%
-  kable_styling(full_width = FALSE,
-                latex_options = c("hold_position")) %>%
-  pack_rows(index = table(table_kable$Group))
+(top_panel / plot_spacer() / panel2) +
+  plot_layout(heights = c(1, 0.05, 1)) &
+  theme(text = element_text(size = 18))
 
 ```
 
