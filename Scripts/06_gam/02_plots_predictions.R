@@ -13,7 +13,7 @@ library(forcats)
 library(tibble)
 library(viridis)
 library(patchwork)
-
+library(tidyr)
 # -----------------------------
 # Load saved objects
 # -----------------------------
@@ -77,9 +77,9 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
   geom_errorbarh(aes(xmin = CI_low, xmax = CI_high),
                  height = 0, linewidth = 1.5, colour = "grey30",
                  lineend = "round") +
-  geom_point(aes(fill = absE),
-             shape = 21, size = 5, colour = "black", stroke = 0.6) +
-  fill_magma +
+  geom_point(fill = "#B12A90", colour = "black",
+             shape = 21, size = 5, stroke = 0.6) +
+#  fill_magma +
   scale_x_continuous(
     breaks = c(0, 0.4, 0.8))+
   labs(
@@ -110,8 +110,8 @@ fill_magma_aic <- scale_fill_viridis_c(
 )
 p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
-  geom_col(aes(fill = deltaAIC), width = 0.65, colour = "black") +
-  fill_magma_aic +
+  geom_col(width = 0.65, fill = "#B12A90", colour = "black") +
+ # fill_magma_aic +
   labs(
     x = expression("Model contribution (" * Delta * AIC * ")"),
     y = NULL,
