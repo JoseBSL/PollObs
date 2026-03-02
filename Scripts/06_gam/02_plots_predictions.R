@@ -69,6 +69,7 @@ imp2 <- imp %>%
 # Shared palette (same gradient, independent scaling in each plot)
 fill_magma <- scale_fill_viridis_c(option = "magma", direction = -1)
 
+imp2$Variable <- factor(imp2$Variable, levels = rev(levels(factor(imp2$Variable))))
 # -----------------------------
 # Panel A: β plot (link scale)
 # -----------------------------
@@ -77,8 +78,13 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
   geom_errorbarh(aes(xmin = CI_low, xmax = CI_high),
                  height = 0, linewidth = 1.5, colour = "grey30",
                  lineend = "round") +
-  geom_point(fill = "#B12A90", colour = "black",
+  geom_point(aes(fill=is_interaction), colour = "black",
              shape = 21, size = 5, stroke = 0.6) +
+  scale_fill_manual(
+    values = c("FALSE" = "#B12A90",   # main effects
+               "TRUE"  = "#FCA636"),  # interactions (plasma orange)
+    guide = "none"
+  )+
 #  fill_magma +
   scale_x_continuous(
     breaks = c(0, 0.4, 0.8))+
@@ -103,6 +109,7 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
 
 aic_breaks = c(0,50,100)
 
+
 fill_magma_aic <- scale_fill_viridis_c(
   option = "magma",
   direction = -1,
@@ -110,7 +117,12 @@ fill_magma_aic <- scale_fill_viridis_c(
 )
 p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
-  geom_col(width = 0.65, fill = "#B12A90", colour = "black") +
+  geom_col(aes(fill=is_interaction),width = 0.65, colour = "black") +
+  scale_fill_manual(
+    values = c("FALSE" = "#B12A90",   # main effects
+               "TRUE"  = "#FCA636"),  # interactions (plasma orange)
+    guide = "none"
+  )+
  # fill_magma_aic +
   labs(
     x = expression("Model contribution (" * Delta * AIC * ")"),
@@ -121,15 +133,16 @@ p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
     panel.grid.major.y = element_blank(),
     panel.grid.minor = element_blank(),
     axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
     legend.title = element_text(face = "bold"),
     legend.position = "right",
     legend.box.margin = margin(l = -10),   # pull legend closer (try -5 to -15)
     legend.margin = margin(l = -5),
-    plot.margin = margin(8.5, 0, 5.5, 0)
+    plot.margin = margin(8.5, 0, 5.5, 0),
+    axis.ticks.y = element_line(colour = "black"),
+    axis.ticks.length = unit(4, "pt")
   )
 
-top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()| p_aic) + plot_layout(widths = c(0.1, 3.2,0.5, 3.2))
+top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()| p_aic) + plot_layout(widths = c(0.1, 3.2,0.7, 3.2))
 
 # -----------------------------
 # Predictions (population-level)
@@ -189,43 +202,112 @@ newW$Poll_group <- factor(newW$log_poll_z, levels = poll_vals, labels = poll_lab
 
 y_lim <- range(c(newF$lwr, newF$upr, newW$lwr, newW$upr), na.rm = TRUE)
 
-p_f_abundance <- ggplot(newF, aes(x = log_flower_z, y = fit, colour = Poll_group, fill = Poll_group)) +
+p_f_abundance <- ggplot(
+  newF,
+  aes(x = log_flower_z, y = fit,
+      colour = Poll_group, linetype = Poll_group)
+) +
   geom_line(linewidth = 1.5) +
-  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, colour = NA) +
-  scale_colour_viridis_d(option = "plasma", end = 0.9) +
-  scale_fill_viridis_d(option = "plasma", end = 0.9) +
+  geom_ribbon(
+    aes(ymin = lwr, ymax = upr, fill = Poll_group),
+    alpha = 0.18,
+    colour = NA
+  ) +
   coord_cartesian(ylim = y_lim) +
+  scale_linetype_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "dotted",
+               "High" = "dashed",
+               "Very high" = "solid")
+  ) +
+  scale_colour_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "#B35806",
+               "High" = "#F46D43",
+               "Very high" = "#FCA636")
+  ) +
+  scale_fill_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "#B35806",
+               "High" = "#F46D43",
+               "Very high" = "#FCA636"),
+    guide = "none"
+  ) +
   theme_bw(base_size = 15) +
   labs(
     x = "Flower abundance (z)",
     y = "Predicted visitation",
+    linetype = "Pollinator abundance",
     colour = "Pollinator abundance",
-    fill   = "Pollinator abundance",
     subtitle = "Flower abund. × Pollinator abund."
   ) +
-  guides(fill = "none") +
-  theme(plot.subtitle = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
-        panel.border = element_rect(size = 1.2))
+  theme(
+    plot.subtitle = element_text(face = "bold"),
+    legend.title = element_text(face = "bold"),
+    panel.border = element_rect(size = 1.2),
+    legend.key.width = unit(1.6, "cm"),
+    legend.key = element_blank(),
+    legend.background = element_blank()
+  ) +
+  guides(
+    colour = "none",
+    fill = "none",
+    linetype = guide_legend(
+      override.aes = list(
+        colour = c("#B35806", "#F46D43", "#FCA636"),
+        linewidth = 1.5,
+        fill = NA
+      )
+    )
+  )
 
-p_f_width <- ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, fill = Poll_group)) +
+p_f_width <- ggplot(
+  newW,
+  aes(x = Flower_width_z, y = fit,
+      colour = Poll_group, fill = Poll_group, linetype = Poll_group)
+) +
   geom_line(linewidth = 1.5) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.18, colour = NA) +
-  scale_colour_viridis_d(option = "plasma", end = 0.9, drop = FALSE) +
-  scale_fill_viridis_d(option = "plasma", end = 0.9, drop = FALSE) +
+  scale_linetype_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "dotted",
+               "High" = "dashed",
+               "Very high" = "solid")
+  ) +
+  scale_colour_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "#B35806",
+               "High" = "#F46D43",
+               "Very high" = "#FCA636")
+  ) +
+  scale_fill_manual(
+    breaks = c("Low", "High", "Very high"),
+    values = c("Low" = "#B35806",
+               "High" = "#F46D43",
+               "Very high" = "#FCA636"),
+    guide = "none"
+  ) +
+  guides(
+    colour = guide_legend(override.aes = list(fill = NA)),
+    linetype = guide_legend(override.aes = list(fill = NA))
+  ) +
   coord_cartesian(ylim = y_lim) +
   theme_bw(base_size = 15) +
   labs(
     x = "Flower width (z)",
     y = "Predicted visitation",
+    linetype = "Pollinator\nabundance",
     colour = "Pollinator\nabundance",
-    fill   = "Pollinator\nabundance",
     subtitle = "Flower width × Pollinator abund."
   ) +
-  guides(fill = "none") +
-  theme(plot.subtitle = element_text(face = "bold"),
-        legend.title = element_text(face = "bold"),
-        panel.border = element_rect(size = 1.2))
+  theme(
+    plot.subtitle = element_text(face = "bold"),
+    legend.title = element_text(face = "bold"),
+    panel.border = element_rect(size = 1.2),
+    legend.key.width = unit(1.6, "cm"),
+    legend.key = element_rect(fill = NA, colour = NA),
+    legend.background = element_rect(fill = NA, colour = NA)
+  )
 
 # ONE legend only (keep right plot legend)
 p_f_abundance_noleg <- p_f_abundance + theme(legend.position = "none")
@@ -244,6 +326,4 @@ top_panel / panel2
 
 saveRDS(top_panel, "Data/Working_files/panel1_gam.rds")
 saveRDS(panel2, "Data/Working_files/panel2_gam.rds")
-
-
 
