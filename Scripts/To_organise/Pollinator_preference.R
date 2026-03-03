@@ -113,6 +113,29 @@ pheatmap(SES,
          display_numbers = round(SES, 1),
          main = "Pollinator Preference SES (Observed vs Null Expectation)")
 
+
+# Diverging palette centered at 0 (darker endpoints)
+breaks <- seq(-cap, cap, length.out = n_steps + 1)
+cols   <- colorRampPalette(c("#B12A90", "#f7f7f7", "#FCA636"))(n_steps)
+
+# ======================================================
+# Plot heatmap (NO CLUSTERING; KEEP empties)
+pheatmap(
+  SES,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  display_numbers = FALSE,
+  breaks = breaks,
+  color = cols,
+  na_col = "grey90",
+  border_color = "black",
+  main = paste0("Pollinator preference SES (masked; capped at ±", cap, ")"),
+  fontsize_row = 10,
+  fontsize_col = 10,
+  cellwidth = 16,
+  cellheight = 10
+)
+
 # Check percentage of significant z-scores (p<0.05)
 significant_ses = ses_df %>%
   mutate(Significant = abs(SES) >= 1.96) %>%
