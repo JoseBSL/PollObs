@@ -35,7 +35,7 @@ library(tibble) #cols to rows
 
 
 \begin{center}
-\LARGE\textbf{Towards a mechanistic understanding of the drivers of plant-pollinator interactions}
+\LARGE\textbf{Abundance, traits and phenology jointly structure plant-pollinator interaction networks}
 \end{center}
 
 
@@ -296,9 +296,6 @@ _Generalized linear models_
 
 PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
-**Figure 2**
-
-
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=7,out.width="80%", fig.cap= "\\textbf{Figure 2}. Procrustes association between visitation rate and abundance (a), phenology (b), and traits (size matching; c) across botanical gardens and three levels of temporal complexity (weekly, weekly aggregated and full season). Weekly aggregated values correspond to three seasonal categories (Early, Mid, and Late), obtained by pooling weekly networks into three equal temporal partitions of the full sampling period. Weekly values represent individual weekly networks and are displayed within the corresponding seasonal category. Because multiple weekly values are available per garden and seasonal category, weekly data are shown as individual points together with their mean and 95% confidence intervals (± 1.96 SE). Full-season values correspond to networks aggregated across the entire sampling period for each botanical garden. Temporal complexity is represented by point size, and botanical garden by colour."}
 
@@ -358,7 +355,7 @@ final_plot_col
 
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=12,out.width="105%", fig.cap= "\\textbf{Figure 3}. Effects of ecological drivers (i.e., abundance, traits, and phenology) on the number of plant-pollinator interactions. (a) Standardized model coefficients (log link scale) with 95% confidence intervals, illustrating the direction and relative strength of the ecological drivers. (b) Relative importance of ecological drivers expressed as increment of AIC, indicating the change in model fit associated with each predictor. (c-d) Predicted number of plant-pollinator interactions across gradients of flower abundance (c) and flower width. Lines show predicted values from the fitted model and shaded areas represent 95% confidence intervals. Different line types and colour gradients indicate different levels of pollinator abundance."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=12,out.width="105%", fig.cap= "\\textbf{Figure 3}. Effects of ecological drivers (i.e., abundance, traits, and phenology) on the number of plant-pollinator interactions. (a) Standardized model coefficients (log link scale) with 95% confidence intervals, illustrating the direction and relative strength of the ecological drivers. (b) Relative importance of ecological drivers expressed as increment of AIC, indicating the change in model fit associated with each predictor. (c-d) Predicted number of plant-pollinator interactions across gradients of flower abundance (c) and flower width. Lines show predicted values from the fitted model and shaded areas represent 95% confidence intervals. Different line types and colour gradients indicate pollinator abundance levels corresponding to the 10th (low), 75th (high), and 90th (very high) percentiles of standardized log pollinator abundance."}
 
 library(patchwork)
 

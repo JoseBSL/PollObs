@@ -67,8 +67,11 @@ imp2 <- imp %>%
   )
 
 # Shared palette (same gradient, independent scaling in each plot)
-fill_magma <- scale_fill_viridis_c(option = "magma", direction = -1)
-
+fill_plasma_noleg <- scale_fill_viridis_c(
+  option = "plasma",
+  direction = -1,
+  guide = "none"
+)
 imp2$Variable <- factor(imp2$Variable, levels = rev(levels(factor(imp2$Variable))))
 # -----------------------------
 # Panel A: β plot (link scale)
@@ -78,14 +81,14 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
   geom_errorbarh(aes(xmin = CI_low, xmax = CI_high),
                  height = 0, linewidth = 1.5, colour = "grey30",
                  lineend = "round") +
-  geom_point(aes(fill=is_interaction), colour = "black",
+  geom_point(aes(fill=absE), colour = "black",
              shape = 21, size = 5, stroke = 0.6) +
-  scale_fill_manual(
-    values = c("FALSE" = "#B12A90",   # main effects
-               "TRUE"  = "#FCA636"),  # interactions (plasma orange)
-    guide = "none"
-  )+
-#  fill_magma +
+# scale_fill_manual(
+#   values = c("FALSE" = "#B12A90",   # main effects
+#              "TRUE"  = "#FCA636"),  # interactions (plasma orange)
+#   guide = "none"
+# )+
+  fill_plasma_noleg +
   scale_x_continuous(
     breaks = c(0, 0.4, 0.8))+
   labs(
@@ -117,13 +120,13 @@ fill_magma_aic <- scale_fill_viridis_c(
 )
 p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
-  geom_col(aes(fill=is_interaction),width = 0.65, colour = "black") +
-  scale_fill_manual(
-    values = c("FALSE" = "#B12A90",   # main effects
-               "TRUE"  = "#FCA636"),  # interactions (plasma orange)
-    guide = "none"
-  )+
- # fill_magma_aic +
+  geom_col(aes(fill=deltaAIC),width = 0.65, colour = "black") +
+ # scale_fill_manual(
+ #   values = c("FALSE" = "#B12A90",   # main effects
+ #              "TRUE"  = "#FCA636"),  # interactions (plasma orange)
+ #   guide = "none"
+ # )+
+  fill_plasma_noleg +
   labs(
     x = expression("Model contribution (" * Delta * AIC * ")"),
     y = NULL,
@@ -242,7 +245,7 @@ p_f_abundance <- ggplot(
     subtitle = "Flower abund. × Pollinator abund."
   ) +
   theme(
-    plot.subtitle = element_text(face = "bold"),
+    plot.subtitle = element_text(face = "bold", size=18),
     legend.title = element_text(face = "bold"),
     panel.border = element_rect(size = 1.2),
     legend.key.width = unit(1.6, "cm"),
@@ -301,7 +304,7 @@ p_f_width <- ggplot(
     subtitle = "Flower width × Pollinator abund."
   ) +
   theme(
-    plot.subtitle = element_text(face = "bold"),
+    plot.subtitle = element_text(face = "bold", size=18),
     legend.title = element_text(face = "bold"),
     panel.border = element_rect(size = 1.2),
     legend.key.width = unit(1.6, "cm"),
