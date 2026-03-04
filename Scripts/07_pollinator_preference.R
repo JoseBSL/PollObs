@@ -51,10 +51,10 @@ int_data <- int_data %>%
 # drop rare plant/pollinator families (< 15 interactions)
 int_data <- int_data %>%
   group_by(Plant_family) %>%
-  filter(n() >= 15) %>%
+  filter(n() >=20) %>%
   ungroup() %>%
   group_by(Pollinator_family) %>%
-  filter(n() >= 15) %>%
+  filter(n() >= 20) %>%
   ungroup()
 
 # -----------------------------
