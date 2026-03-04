@@ -18,7 +18,7 @@ raw_data <- readRDS("Data/Working_files/interaction_data.rds")
 # -----------------------------
 # Add ISO week (2023)
 # -----------------------------
-dates <- raw_data %>%
+dates = raw_data %>%
   distinct(Botanical_garden, Date) %>%
   mutate(Sampling_week = isoweek(Date))
 
@@ -40,6 +40,31 @@ interaction_data <- raw_data %>%
          Pollinator_order %in% poll_order,
          Plants != "Iberis sempervirens") %>%
   left_join(dates, by = c("Botanical_garden", "Date"))
+
+# ======================================================
+# Keep families with at least 15 interactions
+# ======================================================
+
+# Plant families
+families_keep_plants <- interaction_data %>%
+  group_by(Plant_family) %>%
+  summarise(total_int = sum(Interactions), .groups = "drop") %>%
+  filter(total_int >= 20) %>%
+  pull(Plant_family)
+
+# Pollinator families
+families_keep_polls <- interaction_data %>%
+  group_by(Pollinator_family) %>%
+  summarise(total_int = sum(Interactions), .groups = "drop") %>%
+  filter(total_int >= 20) %>%
+  pull(Pollinator_family)
+
+# Filter dataset
+interaction_data <- interaction_data %>%
+  filter(
+    Plant_family %in% families_keep_plants,
+    Pollinator_family %in% families_keep_polls
+  )
 
 # -----------------------------
 # Helper: garden-week -> family matrix (counts)
@@ -148,3 +173,4 @@ pval_df <- null_long %>%
     p_two = pmin(1, 2 * pmin(p_hi, p_lo)),
     .groups = "drop"
   )
+
