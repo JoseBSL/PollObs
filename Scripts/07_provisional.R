@@ -49,14 +49,14 @@ interaction_data <- raw_data %>%
 families_keep_plants <- interaction_data %>%
   group_by(Plant_family) %>%
   summarise(total_int = sum(Interactions), .groups = "drop") %>%
-  filter(total_int >= 20) %>%
+  filter(total_int >= 50) %>%
   pull(Plant_family)
 
 # Pollinator families
 families_keep_polls <- interaction_data %>%
   group_by(Pollinator_family) %>%
   summarise(total_int = sum(Interactions), .groups = "drop") %>%
-  filter(total_int >= 20) %>%
+  filter(total_int >= 50) %>%
   pull(Pollinator_family)
 
 # Filter dataset
@@ -171,6 +171,9 @@ pval_df <- null_long %>%
     p_hi  = (sum(Simulated >= Observed) + 1) / (n.sim + 1),
     p_lo  = (sum(Simulated <= Observed) + 1) / (n.sim + 1),
     p_two = pmin(1, 2 * pmin(p_hi, p_lo)),
-    .groups = "drop"
-  )
+    .groups = "drop")
 
+
+saveRDS(block_mats, "Data/Working_files/block_mats.rds")
+saveRDS(pval_df, "Data/Working_files/pval_df.rds")
+saveRDS(SES, "Data/Working_files/SES.rds")

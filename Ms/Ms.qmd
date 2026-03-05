@@ -270,31 +270,40 @@ To evaluate the different mechanisms that drive plant-pollinator interactions, d
 
 (iii) Plant reproductive traits were selected following the main traits driving the trait spectrum of flowering plants as shown in @lanuza2023 (i.e., flower number, plant height, style length, flower size, ovule number and selfing). In addition, we also included phenological traits (i.e., flower lifespan and flowering length), floral rewards (nectar volume and number of pollen grains per flower) and seed weight as a measurement of the reproductive investment (**Table S1a**). Pollinator traits included intertegular distance, body length and proboscis length (**Table S1b**). Both intertegular distance and body length were measured from images using ImageJ, and proboscis length was extrapolated for bee species by using the pollimetry package [@kendall2019]. Non-bee species were complemented with proboscis values from the literature and images when possible. 
 
-*Consider phylogeny?
-
 ## Analysess
 
 To unravel the role of time and analytical methods in our understanding of the ecological drivers of plant-pollinator networks, this study analyses the role of abundance, phenology and traits at three different levels of temporal complexity (i.e., weekly, weekly aggregated and full season) using three different analytical approaches (see **Figure 1**). The three analytical approaches implemented are: (i) matrix analyses using Procrustes tests, (ii) generalized linear models (GLMs), and (iii) machine learning. Each of these methods provides complementary insights into the mechanisms driving plant-pollinator interactions across different temporal scales.
 
 _Matrix analyses_
 
-Visitation rate networks were built for each botanical garden for pollinators identified to species, and the main pollinator orders (Hymenoptera, Diptera, Coleoptera, Lepidoptera). Plant-pollinator interaction records were aggregated by garden and species pair to generate weighted bipartite interaction matrices. Interaction frequency (visitation rate) networks were calculated by dividing total interactions for each plant–pollinator pair by the total observation time for each plant species within a garden, thereby standardizing visitation rates. These standardized rates were summed across sampling occasions to produce garden-level visitation-rate networks representing cumulative seasonal interaction intensity while accounting for plant-specific sampling effort.
+Visitation rate networks were built for each botanical garden for pollinators identified to species, and the main pollinator orders (Hymenoptera, Diptera, Coleoptera, Lepidoptera). Plant-pollinator interaction records were aggregated by garden and species pair to generate weighted bipartite interaction matrices. Interaction frequency (visitation rate) networks were calculated by dividing total interactions for each plant-pollinator pair by the total observation time for each plant species within a garden, thereby standardizing visitation rates. These standardized rates were summed across sampling occasions to produce garden-level visitation-rate networks representing cumulative seasonal interaction intensity while accounting for plant-specific sampling effort.
 
 Abundance probability matrices were generated for each botanical garden using standardized relative abundances of pollinator species and floral resources. Pollinator and floral abundances were summed within each garden and converted to relative abundances by dividing species-level abundances by total community abundance. Finally, interaction probabilities were calculated by combining plant and pollinator relative abundances under an independence assumption, whereby the expected probability of interaction between a plant and a pollinator species was proportional to the product of their relative abundances.
 
 Phenology probability matrices were calculated following a similar approach, but abundances were standardized within each species by dividing weekly observations by the total number of observations for that species. This procedure generates a temporal probability distribution describing the likelihood that a species is phenologically active in a given week. Weekly plant and pollinator probabilities were then combined under an independence assumption to estimate temporal interaction probabilities for each plant-pollinator pair.
 
-Trait-based probability matrices were constructed using a size-matching approach between plant and pollinator traits. Pollinator intertegular distance and plant flower width were averaged at the species level to obtain a single representative trait value per species. Trait compatibility for each plant–pollinator pair was quantified using a Gaussian matching function, in which similarity declines smoothly with increasing trait mismatch and is controlled by a tolerance parameter. Pairwise matching scores were assembled into a global plant × pollinator matrix and subsequently subset for each botanical garden by aligning rows and columns to the species composition and ordering of each garden’s interaction network and temporal scale.
+Trait-based probability matrices were constructed using a size-matching approach between plant and pollinator traits. Pollinator intertegular distance and plant flower width were averaged at the species level to obtain a single representative trait value per species. Trait compatibility for each plant-pollinator pair was quantified using a Gaussian matching function, in which similarity declines smoothly with increasing trait mismatch and is controlled by a tolerance parameter. Pairwise matching scores were assembled into a global plant × pollinator matrix and subsequently subset for each botanical garden by aligning rows and columns to the species composition and ordering of each garden’s interaction network and temporal scale.
 
 First, matrix analyses were used to evaluate how similar interaction frequency matrix configurations were across temporal scales for each driver. This was assessed using Procrustes analysis implemented through the _protest_ function, and the strength of configuration similarity was quantified using the Procrustes correlation coefficient (r). Analogous analyses were conducted using the Mantel test using the _mantel_ function, and the strength of the association was quantified using the absolute values of the Mantel correlation coefficient. Because probability matrices for all drivers were scaled between 0 and 1, Euclidean distance was used as the distance metric in both analyses, as it preserves the geometric relationships among observations compared to alternative distance metrics.
 
-_Generalized linear models_
+_Generalized additive model_
 
+To investigate the ecological drivers of plant-pollinator interactions, we modelled the number of interactions recorded for each plant-pollinator pair during each sampling period using generalized additive mixed models (GAMMs). Models were fitted using a negative binomial error distribution with a log link to account for overdispersion in interaction counts. Predictor variables included plant resource availability, pollinator abundance, floral morphology, trait matching between plants and pollinators, and phenological overlap between plant flowering and pollinator activity periods. Trait matching was quantified using a Gaussian function describing morphological compatibility between floral and pollinator traits. We also included interactions between plant resource availability and pollinator abundance, and between floral morphology and pollinator abundance, to test whether the effects of floral resources and morphology depend on pollinator availability. All continuous predictors were standardized prior to analysis to facilitate comparison of effect sizes.
+
+Seasonal variation in interaction dynamics was modelled using garden-specific smooth functions of sampling week, allowing temporal trajectories of visitation to vary among study sites. Repeated observations of the same plant-pollinator pair were accounted for using a random-effect smooth term. Differences in sampling effort were controlled by including an offset equal to the logarithm of the total observation time per plant and sampling week, thereby modelling interaction rates rather than raw interaction counts.
+
+The relative contribution of predictors was evaluated using a drop-one model comparison. Each predictor was sequentially removed from the full model and the resulting change in Akaike’s Information Criterion ($\Delta$AIC) was calculated relative to the full model. Larger increases in AIC indicate a stronger contribution of that predictor to explaining variation in plant-pollinator interaction frequency.
+
+_Pollinator preferences_
+
+To identify interaction patterns that cannot be explained by plant and pollinator abundances and sampling structure alone, we compared observed interaction frequencies with expectations derived from null models. Interaction data were aggregated at the level of plant and pollinator families and interaction matrices were constructed separately for each botanical garden and sampling week to preserve the spatiotemporal structure of the data. Within each garden-week matrix, interactions were randomized using a null model that maintains row and column totals, thereby preserving the total number of interactions per plant and pollinator family while randomizing partner identities. For each matrix, 1000 randomized networks were generated. Randomized matrices were then summed across garden-week units to obtain expected interaction frequencies for each plant-pollinator family pair.
+
+Deviations from the null expectation were quantified using standardized effect sizes (SES), calculated as the difference between observed and expected interaction frequencies divided by the standard deviation of the null distribution. Positive SES values indicate associations (more interactions than expected), whereas negative values indicate avoidance. Statistical significance was assessed using two-tailed p-values based on the simulated distributions. Plant-pollinator family pairs that never co-occurred within the same garden and sampling week were considered structurally impossible given the spatiotemporal sampling design and were excluded from the null comparison.
+
+_Random forest_
 
 
 # Results
-
-PROVIDE: Percentage of forbidden links due to phenological mistmatches by garden.
 
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=7,out.width="80%", fig.cap= "\\textbf{Figure 2}. Procrustes association between visitation rate and abundance (a), phenology (b), and traits (size matching; c) across botanical gardens and three levels of temporal complexity (weekly, weekly aggregated and full season). Weekly aggregated values correspond to three seasonal categories (Early, Mid, and Late), obtained by pooling weekly networks into three equal temporal partitions of the full sampling period. Weekly values represent individual weekly networks and are displayed within the corresponding seasonal category. Because multiple weekly values are available per garden and seasonal category, weekly data are shown as individual points together with their mean and 95% confidence intervals (± 1.96 SE). Full-season values correspond to networks aggregated across the entire sampling period for each botanical garden. Temporal complexity is represented by point size, and botanical garden by colour."}
@@ -378,6 +387,157 @@ panel2 = readRDS("../Data/Working_files/panel2_gam.rds")
 ```
 
 \newpage
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8,out.width="105%", fig.cap= "\\textbf{Figure 4}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Asterisks denote significant deviations (\\textit{p} < 0.05). Dark grey cells represent plant-pollinator family pairs that never co-occurred within the same garden and sampling week and were therefore impossible given the sampling structure."}
+
+library(ComplexHeatmap)
+library(circlize)
+library(grid)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
+
+# Load data
+pval_df = readRDS("../Data/Working_files/pval_df.rds")
+SES = readRDS("../Data/Working_files/SES.rds")
+block_mats = readRDS("../Data/Working_files/block_mats.rds")
+
+alpha = 0.05
+p_col = "p_two"   # or "p_fdr" if you computed it
+
+# -----------------------------
+# 1) Build significance matrix aligned to SES
+# -----------------------------
+sig_mat = pval_df %>%
+  transmute(
+    Plant_family,
+    Pollinator_family,
+    Sig = !is.na(.data[[p_col]]) & (.data[[p_col]] < alpha)
+  ) %>%
+  pivot_wider(
+    names_from  = Pollinator_family,
+    values_from = Sig,
+    values_fill = FALSE
+  ) %>%
+  column_to_rownames("Plant_family") %>%
+  as.matrix()
+
+sig_mat = sig_mat[rownames(SES), colnames(SES)]
+
+# -----------------------------
+# 2) Phenology-impossible matrix:
+#    TRUE if a plant-poll family pair never co-occurred in ANY garden-week block
+# -----------------------------
+# Convert each block matrix to presence/absence of "possible interaction"
+# Here, "possible" is defined as: both families are present in that block,
+# which is equivalent to: the cell exists in the padded matrix (it does) and
+# at least one of row/col totals > 0 in that block. A robust way:
+# mark possible cells where BOTH row sum and col sum are > 0 in that block.
+possible_in_block <- function(M) {
+  r_present = rowSums(M) > 0
+  c_present = colSums(M) > 0
+  outer(r_present, c_present, FUN = "&")
+}
+
+possible_list = lapply(block_mats, possible_in_block)
+
+# possible across the whole season if possible in ANY block
+possible_any = Reduce(`|`, possible_list)
+
+# Phenology-impossible cells
+phenology_impossible = !possible_any
+phenology_impossible = phenology_impossible[rownames(SES), colnames(SES)]
+
+# -----------------------------
+# 3) Prepare SES for plotting (cap extremes for contrast)
+# -----------------------------
+cap <- 6
+SES_plot <- SES
+SES_plot[SES_plot >  cap] <-  cap
+SES_plot[SES_plot < -cap] <- -cap
+
+# Keep SES NA as NA (these are "not testable / zero-variance" etc.)
+# Phenology-impossible will be shown via "×" overlay and (optionally) a different NA color.
+
+# Diverging colour function
+col_fun <- colorRamp2(
+  c(-cap, 0, cap),
+  c("#C65DAE", "white", "#FDB863")
+)
+
+# -----------------------------
+# 4) OPTIONAL: reorder rows/cols by number of significant cells
+# -----------------------------
+row_sig_n = rowSums(sig_mat, na.rm = TRUE)
+col_sig_n = colSums(sig_mat, na.rm = TRUE)
+
+row_order = names(sort(row_sig_n, decreasing = TRUE))
+col_order = names(sort(col_sig_n, decreasing = TRUE))
+
+SES_plot = SES_plot[row_order, col_order, drop = FALSE]
+sig_mat  = sig_mat [row_order, col_order, drop = FALSE]
+phenology_impossible <- phenology_impossible[row_order, col_order, drop = FALSE]
+
+# -----------------------------
+# 5) Build heatmap
+# -----------------------------
+ht = Heatmap(
+  SES_plot,
+  col = col_fun,
+  cluster_rows = FALSE,
+  cluster_columns = FALSE,
+  column_names_rot = 45,
+  column_names_gp = gpar(fontsize = 8),
+  row_names_gp = gpar(fontsize = 8),
+  rect_gp = gpar(col = "grey70", lwd = 0.4),
+  na_col = "grey90",
+  name = "SES",
+  column_title = "Pollinator preference",
+  column_title_gp = gpar(fontsize = 16, fontface = "bold"),
+  heatmap_legend_param = list(
+    title = "SES",
+    at = c(-cap, 0, cap),
+    labels = c(paste0("-", cap, " (Avoidance)"), "0", paste0("+", cap, " (Association)"))
+  ),
+  cell_fun = function(j, i, x, y, width, height, fill) {
+    
+    # Dark grey for phenology-impossible cells
+    if (isTRUE(phenology_impossible[i, j])) {
+      grid.rect(
+        x = x, y = y,
+        width = width,
+        height = height,
+        gp = gpar(fill = "grey60",lwd = 0.4, col = "grey70")
+      )
+    }
+    
+    # Significance star
+    if (isTRUE(sig_mat[i, j])) {
+      grid.text("*", x = x, y = y,
+                gp = gpar(col = "black", fontsize = 10))
+    }
+  }
+)
+
+draw(ht, padding = unit(c(10, 15, 10, 15), "mm"))
+
+```
+
+**Figure 5**
+
+\newpage
+
+# References
+
+::: {#refs}
+:::
+
+
+\newpage
+
+# Supplementary information
 
 ```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4,fig.width=4,out.width="50%", fig.cap="\\textbf{Figure S1}.Map showing the locations of the three botanical gardens included in the study."}
 

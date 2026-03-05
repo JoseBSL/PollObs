@@ -19,13 +19,18 @@ library(tidyr)
 library(tibble)
 library(purrr)
 
-alpha <- 0.05
-p_col <- "p_two"   # or "p_fdr" if you computed it
+# Load data
+pval_df = readRDS("Data/Working_files/pval_df.rds")
+SES = readRDS("Data/Working_files/SES.rds")
+block_mats = readRDS("Data/Working_files/block_mats.rds")
+
+alpha = 0.05
+p_col = "p_two"   # or "p_fdr" if you computed it
 
 # -----------------------------
 # 1) Build significance matrix aligned to SES
 # -----------------------------
-sig_mat <- pval_df %>%
+sig_mat = pval_df %>%
   transmute(
     Plant_family,
     Pollinator_family,
@@ -39,7 +44,7 @@ sig_mat <- pval_df %>%
   column_to_rownames("Plant_family") %>%
   as.matrix()
 
-sig_mat <- sig_mat[rownames(SES), colnames(SES)]
+sig_mat = sig_mat[rownames(SES), colnames(SES)]
 
 # -----------------------------
 # 2) Phenology-impossible matrix:
@@ -51,19 +56,19 @@ sig_mat <- sig_mat[rownames(SES), colnames(SES)]
 # at least one of row/col totals > 0 in that block. A robust way:
 # mark possible cells where BOTH row sum and col sum are > 0 in that block.
 possible_in_block <- function(M) {
-  r_present <- rowSums(M) > 0
-  c_present <- colSums(M) > 0
+  r_present = rowSums(M) > 0
+  c_present = colSums(M) > 0
   outer(r_present, c_present, FUN = "&")
 }
 
-possible_list <- lapply(block_mats, possible_in_block)
+possible_list = lapply(block_mats, possible_in_block)
 
 # possible across the whole season if possible in ANY block
-possible_any <- Reduce(`|`, possible_list)
+possible_any = Reduce(`|`, possible_list)
 
 # Phenology-impossible cells
-phenology_impossible <- !possible_any
-phenology_impossible <- phenology_impossible[rownames(SES), colnames(SES)]
+phenology_impossible = !possible_any
+phenology_impossible = phenology_impossible[rownames(SES), colnames(SES)]
 
 # -----------------------------
 # 3) Prepare SES for plotting (cap extremes for contrast)
@@ -85,20 +90,20 @@ col_fun <- colorRamp2(
 # -----------------------------
 # 4) OPTIONAL: reorder rows/cols by number of significant cells
 # -----------------------------
-row_sig_n <- rowSums(sig_mat, na.rm = TRUE)
-col_sig_n <- colSums(sig_mat, na.rm = TRUE)
+row_sig_n = rowSums(sig_mat, na.rm = TRUE)
+col_sig_n = colSums(sig_mat, na.rm = TRUE)
 
-row_order <- names(sort(row_sig_n, decreasing = TRUE))
-col_order <- names(sort(col_sig_n, decreasing = TRUE))
+row_order = names(sort(row_sig_n, decreasing = TRUE))
+col_order = names(sort(col_sig_n, decreasing = TRUE))
 
-SES_plot <- SES_plot[row_order, col_order, drop = FALSE]
-sig_mat  <- sig_mat [row_order, col_order, drop = FALSE]
+SES_plot = SES_plot[row_order, col_order, drop = FALSE]
+sig_mat  = sig_mat [row_order, col_order, drop = FALSE]
 phenology_impossible <- phenology_impossible[row_order, col_order, drop = FALSE]
 
 # -----------------------------
 # 5) Build heatmap
 # -----------------------------
-ht <- Heatmap(
+ht = Heatmap(
   SES_plot,
   col = col_fun,
   cluster_rows = FALSE,
