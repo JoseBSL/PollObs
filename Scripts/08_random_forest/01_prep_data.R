@@ -171,6 +171,7 @@ rf_dat = weekly_data %>%
   ) %>%
   na.omit()
 
+
 # Save data
 saveRDS(rf_dat, "Data/Working_files/rf_dat.rds")
 
