@@ -1,7 +1,7 @@
 ############################################################
 # FINAL supported model only
 ############################################################
-
+# Load libraries
 library(mgcv)
 library(dplyr)
 library(ggplot2)
@@ -10,28 +10,34 @@ library(tibble)
 library(viridis)
 library(patchwork)
 
-# -----------------------------
-# Load + prep data
-# -----------------------------
-weekly_data <- readRDS("Data/Working_files/weekly_data_floral_display.rds")
-
-dat <- weekly_data %>%
+################################################################################
+# Load data
+weekly_data = readRDS("Data/Working_files/weekly_data_for_modelling.rds")
+################################################################################
+# Prepare data
+# Select main variables and standardize data
+dat = weekly_data %>%
   mutate(
     Week = as.numeric(Week),
     Botanical_garden = factor(Botanical_garden),
     Pair = factor(Pair)
   ) %>%
   arrange(Pair, Week) %>%
-  mutate(AR.start = c(TRUE, Pair[-1] != Pair[-n()]))
+  mutate(
+    AR.start = c(TRUE, Pair[-1] != Pair[-n()]),
+    log_flower = log1p(Floral_abundance),
+    log_poll = log1p(Total_pollinator_abundance),
+    log_flower_z = as.numeric(scale(log_flower)),
+    log_poll_z = as.numeric(scale(log_poll)),
+    T_gauss_z = as.numeric(scale(T_gauss)),
+    Flower_width_z = as.numeric(scale(Flower_width)),
+    Overlap_days_z = as.numeric(scale(Overlap_days)),
+    Total_time_plant_week = as.numeric(Total_time_plant_week))
 
-# keep ONLY flower width (standardized)
-stopifnot("Flower_width" %in% names(dat))
-dat <- dat %>% mutate(Flower_width_z = as.numeric(scale(Flower_width)))
-
-# -----------------------------
+################################################################################
 # FINAL supported model
-# -----------------------------
-m_final_ar1 <- bam(
+################################################################################
+m_final_ar1 = bam(
   Total_pair_interactions ~ 
     log_flower_z +
     log_poll_z +
@@ -49,17 +55,14 @@ m_final_ar1 <- bam(
   method="fREML",
   rho=0.3,
   AR.start=dat$AR.start,
-  discrete=TRUE
-)
-
-# -----------------------------
+  discrete=TRUE)
+################################################################################
 # Diagnostics
-# -----------------------------
 concurvity(m_final_ar1, full = TRUE)
 gam.check(m_final_ar1)
 
 set.seed(1)
-sim_res <- simulateResiduals(fittedModel = m_final_ar1, n = 500)
+sim_res = simulateResiduals(fittedModel = m_final_ar1, n = 500)
 plot(sim_res)
 testUniformity(sim_res)
 testDispersion(sim_res)
@@ -69,77 +72,63 @@ coef_tab = as.data.frame(summary(m_final_ar1)$p.table) %>%
   rownames_to_column("term")
 coef_tab = as.data.frame(summary(m_final_ar1)$p.table)
 
-# -----------------------------
-# Save data
-# -----------------------------
+################################################################################
+# Save modelling output
+################################################################################
 saveRDS(m_final_ar1, "Data/Working_files/m_final_ar1.rds")
 saveRDS(dat, "Data/Working_files/dat_model_input.rds")
 saveRDS(coef_tab, "Data/Working_files//m_final_coefficients.rds")
 
-# -----------------------------
+################################################################################
 # Check variable relevance with AIC
-# -----------------------------
-
-terms_to_test <- c(
+################################################################################
+terms_to_test = c(
   "log_flower_z",
   "log_poll_z",
   "Flower_width_z",
   "T_gauss_z",
   "Overlap_days_z",
   "log_flower_z:log_poll_z",
-  "log_poll_z:Flower_width_z"
-)
+  "log_poll_z:Flower_width_z")
 
-
-get_delta_aic <- function(model, term) {
-  m_drop <- update(model, as.formula(paste(". ~ . -", term)))
+# Function to compare models with and without variables
+get_delta_aic = function(model, term) {
+  m_drop = update(model, as.formula(paste(". ~ . -", term)))
   AIC(m_drop) - AIC(model)}
-
-delta_tab <- data.frame(
+# Create table with output
+delta_tab = data.frame(
   term = terms_to_test,
   deltaAIC = sapply(terms_to_test, get_delta_aic, model = m_final_ar1))
 
-
 # Rename variables
-lab_map <- c(
+lab_map = c(
   log_flower_z                = "Flower abundance",
   log_poll_z                  = "Pollinator abundance",
   T_gauss_z                   = "Trait matching",
   Overlap_days_z              = "Phenology overlap",
   Flower_width_z              = "Flower width",
   `log_flower_z:log_poll_z`   = "Flower abund. × Pollinator abund.",
-  `log_poll_z:Flower_width_z` = "Flower width × Pollinator abund."
-)
+  `log_poll_z:Flower_width_z` = "Flower width × Pollinator abund.")
 
-delta_tab$Variable <- lab_map[delta_tab$term]
-delta_tab <- delta_tab %>%
+# Rename variables and reorganize data for plotting
+delta_tab = delta_tab %>%
+  mutate(Variable = lab_map[term]) %>%
   arrange(deltaAIC) %>%
   mutate(Variable = factor(Variable, levels = Variable))
 
-# -----------------------------
+################################################################################
 # Save data
-# -----------------------------
+################################################################################
 saveRDS(delta_tab, "Data/Working_files/delta_tab.rds")
 
-
-# -----------------------------
+################################################################################
 # Relative importance plot (coefficients ±95% CI, link scale)
-# -----------------------------
+################################################################################
 
-lab_map <- c(
-  log_flower_z                = "Flower abundance",
-  log_poll_z                  = "Pollinator abundance",
-  T_gauss_z                   = "Trait matching",
-  Overlap_days_z              = "Phenology overlap",
-  Flower_width_z              = "Flower width",
-  `log_flower_z:log_poll_z`   = "Flower abund. × Pollinator abund.",
-  `log_poll_z:Flower_width_z` = "Flower width x Pollinator abund."
-)
-
-coef_tab <- as.data.frame(summary(m_final_ar1)$p.table) %>%
+coef_tab = as.data.frame(summary(m_final_ar1)$p.table) %>%
   rownames_to_column("term")
 
-imp <- coef_tab %>%
+imp = coef_tab %>%
   filter(term %in% names(lab_map)) %>%
   transmute(
     term,
@@ -153,12 +142,12 @@ imp <- coef_tab %>%
   arrange(absE) %>%
   mutate(Variable = fct_rev(factor(Variable, levels = Variable)))
 
-xlim <- range(c(imp$CI_low, imp$CI_high), na.rm = TRUE)
+xlim = range(c(imp$CI_low, imp$CI_high), na.rm = TRUE)
 
 #Manual fix
 imp$is_interaction = c(FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,FALSE)
 
-p_imp_mag <- ggplot(imp, aes(x = Estimate, y = Variable)) +
+p_imp_mag = ggplot(imp, aes(x = Estimate, y = Variable)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
   geom_errorbarh(aes(xmin = CI_low, xmax = CI_high),
                  height = 0, linewidth = 1.1, colour = "grey30",
@@ -185,20 +174,20 @@ print(p_imp_mag)
 # Prediction curves on response scale (population-level)
 # - exclude Pair RE + garden smooth + garden fixed effect
 # -----------------------------
-bg0   <- levels(dat$Botanical_garden)[1]   # placeholder only
-week0 <- median(dat$Week, na.rm = TRUE)    # placeholder only
-pair0 <- levels(dat$Pair)[1]               # placeholder only
-exclude_all <- c("s(Pair)", "s(Week,Botanical_garden)", "Botanical_garden")
+bg0   = levels(dat$Botanical_garden)[1]   # placeholder only
+week0 = median(dat$Week, na.rm = TRUE)    # placeholder only
+pair0 = levels(dat$Pair)[1]               # placeholder only
+exclude_all = c("s(Pair)", "s(Week,Botanical_garden)", "Botanical_garden")
 
 # Pollinator levels for curves (10th, 75th, 90th percentiles)
-poll_vals <- as.numeric(quantile(dat$log_poll_z, probs = c(0.10, 0.75, 0.90), na.rm = TRUE))
-poll_labs <- c("Low", "High", "Very high")
+poll_vals = as.numeric(quantile(dat$log_poll_z, probs = c(0.10, 0.75, 0.90), na.rm = TRUE))
+poll_labs = c("Low", "High", "Very high")
 
 # ---- Curve A: visitation vs flower abundance ----
-F_seq <- seq(min(dat$log_flower_z, na.rm=TRUE),
+F_seq = seq(min(dat$log_flower_z, na.rm=TRUE),
              max(dat$log_flower_z, na.rm=TRUE), length.out=140)
 
-newF <- expand.grid(
+newF = expand.grid(
   log_flower_z = F_seq,
   log_poll_z = poll_vals,
   Flower_width_z = 0,
@@ -210,17 +199,17 @@ newF <- expand.grid(
   Total_time_plant_week = 1
 )
 
-prF <- predict(m_final_ar1, newdata = newF, type = "response", se.fit = TRUE, exclude = exclude_all)
-newF$fit <- prF$fit
-newF$lwr <- prF$fit - 1.96 * prF$se.fit
-newF$upr <- prF$fit + 1.96 * prF$se.fit
-newF$Poll_group <- factor(newF$log_poll_z, levels = poll_vals, labels = poll_labs)
+prF = predict(m_final_ar1, newdata = newF, type = "response", se.fit = TRUE, exclude = exclude_all)
+newF$fit = prF$fit
+newF$lwr = prF$fit - 1.96 * prF$se.fit
+newF$upr = prF$fit + 1.96 * prF$se.fit
+newF$Poll_group = factor(newF$log_poll_z, levels = poll_vals, labels = poll_labs)
 
 # ---- Curve B: visitation vs flower width ----
-W_seq <- seq(min(dat$Flower_width_z, na.rm=TRUE),
+W_seq = seq(min(dat$Flower_width_z, na.rm=TRUE),
              max(dat$Flower_width_z, na.rm=TRUE), length.out=100)
 
-newW <- expand.grid(
+newW = expand.grid(
   Flower_width_z = W_seq,
   log_poll_z = poll_vals,
   log_flower_z = 0,
@@ -232,17 +221,17 @@ newW <- expand.grid(
   Total_time_plant_week = 1
 )
 
-prW <- predict(m_final_ar1, newdata = newW, type = "response", se.fit = TRUE, exclude = exclude_all)
-newW$fit <- prW$fit
-newW$lwr <- prW$fit - 1.96 * prW$se.fit
-newW$upr <- prW$fit + 1.96 * prW$se.fit
-newW$Poll_group <- factor(newW$log_poll_z, levels = poll_vals, labels = poll_labs)
+prW = predict(m_final_ar1, newdata = newW, type = "response", se.fit = TRUE, exclude = exclude_all)
+newW$fit = prW$fit
+newW$lwr = prW$fit - 1.96 * prW$se.fit
+newW$upr = prW$fit + 1.96 * prW$se.fit
+newW$Poll_group = factor(newW$log_poll_z, levels = poll_vals, labels = poll_labs)
 
 # Shared y limits
-y_lim <- range(c(newF$lwr, newF$upr, newW$lwr, newW$upr), na.rm = TRUE)
+y_lim = range(c(newF$lwr, newF$upr, newW$lwr, newW$upr), na.rm = TRUE)
 
 # Build plots (same y scale)
-p_f_abundance <- ggplot(newF, aes(x = log_flower_z, y = fit, colour = Poll_group, fill = Poll_group)) +
+p_f_abundance = ggplot(newF, aes(x = log_flower_z, y = fit, colour = Poll_group, fill = Poll_group)) +
   geom_line(linewidth = 1.1) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, colour = NA) +
   scale_colour_viridis_d(option = "plasma", end = 0.9) +
@@ -263,7 +252,7 @@ p_f_abundance <- ggplot(newF, aes(x = log_flower_z, y = fit, colour = Poll_group
   theme(
     plot.subtitle = element_text(face = "bold")
   )
-p_f_width <- ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, fill = Poll_group)) +
+p_f_width = ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, fill = Poll_group)) +
   geom_line(linewidth = 1.2) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.18, colour = NA) +
   scale_colour_viridis_d(option = "plasma", end = 0.9, drop = FALSE) +  # <- key
@@ -286,7 +275,7 @@ p_f_width <- ggplot(newW, aes(x = Flower_width_z, y = fit, colour = Poll_group, 
   )
 # Force ONE legend by removing it from the left plot
 p_imp_mag
-p_f_abundance_noleg <- p_f_abundance + theme(legend.position = "none")
+p_f_abundance_noleg = p_f_abundance + theme(legend.position = "none")
 
 p_f_width_leg = p_f_width + theme(legend.position = "right")
   
