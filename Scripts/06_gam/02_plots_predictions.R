@@ -68,8 +68,9 @@ imp2 <- imp %>%
 
 # Shared palette (same gradient, independent scaling in each plot)
 fill_plasma_noleg <- scale_fill_viridis_c(
-  option = "plasma",
-  direction = -1,
+  option = "magma",
+  begin = 0.1, end=0.9,
+  direction = 1,
   guide = "none"
 )
 imp2$Variable <- factor(imp2$Variable, levels = rev(levels(factor(imp2$Variable))))
@@ -110,14 +111,17 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
 # Panel B: ΔAIC plot (drop-one)
 # -----------------------------
 
-aic_breaks = c(0,50,100)
+aic_breaks = c(0,130)
 
 
 fill_magma_aic <- scale_fill_viridis_c(
   option = "magma",
-  direction = -1,
-  breaks = aic_breaks
-)
+  direction = 1,
+  begin = 0.1, end=0.9,
+  breaks = aic_breaks,
+  name = NULL,
+  labels = c("Low", "High"))
+
 p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
   geom_col(aes(fill=deltaAIC),width = 0.65, colour = "black") +
@@ -126,11 +130,10 @@ p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
  #              "TRUE"  = "#FCA636"),  # interactions (plasma orange)
  #   guide = "none"
  # )+
-  fill_plasma_noleg +
+  fill_magma_aic +
   labs(
     x = expression("Model contribution (" * Delta * AIC * ")"),
-    y = NULL,
-    fill = expression(bold(Delta*AIC))) +
+    y = NULL) +
   theme_minimal(base_size = 15) +
   theme(
     panel.grid.major.y = element_blank(),
@@ -205,6 +208,7 @@ newW$Poll_group <- factor(newW$log_poll_z, levels = poll_vals, labels = poll_lab
 
 y_lim <- range(c(newF$lwr, newF$upr, newW$lwr, newW$upr), na.rm = TRUE)
 
+
 p_f_abundance <- ggplot(
   newF,
   aes(x = log_flower_z, y = fit,
@@ -225,15 +229,15 @@ p_f_abundance <- ggplot(
   ) +
   scale_colour_manual(
     breaks = c("Low", "High", "Very high"),
-    values = c("Low" = "#B35806",
-               "High" = "#F46D43",
-               "Very high" = "#FCA636")
+    values = c("Low" = "#671B80FF",
+               "High" = "#F1605DFF",
+               "Very high" = "#FEC98DFF")
   ) +
   scale_fill_manual(
     breaks = c("Low", "High", "Very high"),
-    values = c("Low" = "#B35806",
-               "High" = "#F46D43",
-               "Very high" = "#FCA636"),
+    values = c("Low" = "#671B80FF",
+               "High" = "#F1605DFF",
+               "Very high" = "#FEC98DFF"),
     guide = "none"
   ) +
   theme_bw(base_size = 15) +
@@ -257,7 +261,7 @@ p_f_abundance <- ggplot(
     fill = "none",
     linetype = guide_legend(
       override.aes = list(
-        colour = c("#B35806", "#F46D43", "#FCA636"),
+        colour = c("#671B80FF", "#F1605DFF","#FEC98DFF"),
         linewidth = 1.5,
         fill = NA
       )
@@ -272,22 +276,22 @@ p_f_width <- ggplot(
   geom_line(linewidth = 1.5) +
   geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.18, colour = NA) +
   scale_linetype_manual(
-    breaks = c("Low", "High", "Very high"),
+    breaks = c("Very high", "High", "Low"),
     values = c("Low" = "dotted",
                "High" = "dashed",
                "Very high" = "solid")
   ) +
   scale_colour_manual(
-    breaks = c("Low", "High", "Very high"),
-    values = c("Low" = "#B35806",
-               "High" = "#F46D43",
-               "Very high" = "#FCA636")
+    breaks = c("Very high", "High", "Low"),
+    values = c("Low" = "#671B80FF",
+               "High" = "#F1605DFF",
+               "Very high" = "#FEC98DFF")
   ) +
   scale_fill_manual(
-    breaks = c("Low", "High", "Very high"),
-    values = c("Low" = "#B35806",
-               "High" = "#F46D43",
-               "Very high" = "#FCA636"),
+    breaks = c("Very high", "High", "Low"),
+    values = c("Low" = "#671B80FF",
+               "High" = "#F1605DFF",
+               "Very high" = "#FEC98DFF"),
     guide = "none"
   ) +
   guides(
