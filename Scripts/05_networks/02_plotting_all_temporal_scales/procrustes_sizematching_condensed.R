@@ -92,46 +92,52 @@ add_ypos <- function(df, jitter = 0) {
 }
 
 set.seed(1)
-wk_pts     <- add_ypos(weekly_pts, jitter = 0.04)
+wk_pts     <- add_ypos(weekly_pts, jitter = 0.035)
 wk_mean_ci <- add_ypos(weekly_sum, jitter = 0)
 wk_agg     <- add_ypos(seasonal_pts, jitter = 0)
 wk_full    <- add_ypos(full_pts, jitter = 0)
 
 # ---- separators ----
-sep_df <- tibble(y = c(1.5, 2.5, 3.5))
+sep_df <- tibble(
+  y = c(1.5, 2.5, 3.5),
+  kind = c("light","light","strong")
+)
 
-# ---- Plot ----
 panel_trait_swapped <- ggplot() +
   
-  # separators (solid)
+  # separators (black solid)
   geom_hline(
     data = sep_df,
     aes(yintercept = y),
     linetype = "solid",
-    colour = "gray80",
+    colour = "gray82",
     inherit.aes = FALSE
+  ) +
+  scale_linewidth_manual(
+    values = c(light = 0.5, strong = 1.0),
+    guide = "none"
   ) +
   
   # WEEKLY cloud
-  geom_point(
-    data = wk_pts,
-    aes(
-      x = Procrustes_r, y = y,
-      colour = Botanical_garden,
-      size = "Weekly"
-    ),
-    shape = 16,
-    alpha = 0.5
-  ) +
+#  geom_point(
+#    data = wk_pts,
+#    aes(
+#      x = Procrustes_r, y = y,
+#      colour = Botanical_garden,
+#      size = "Weekly"
+#    ),
+#    shape = 16,
+#    alpha = 0.4
+#  ) +
   
   # WEEKLY mean ± 95% CI (ONLY weekly)
   geom_errorbarh(
     data = wk_mean_ci,
     aes(xmin = lwr, xmax = upr, y = y, colour = Botanical_garden),
     inherit.aes = FALSE,
-    height = 0.05,
-    linewidth = 1,
-    alpha = 0.7
+    height = 0.045,
+    linewidth = 1.1,
+    alpha = 0.85
   ) +
   geom_point(
     data = wk_mean_ci,
@@ -179,27 +185,37 @@ panel_trait_swapped <- ggplot() +
     limits = c(0.5, length(season_levels_full) + 0.5)
   ) +
   
-  # garden colours (UNCHANGED)
+  # garden colours
   scale_colour_viridis_d(
     option = "plasma",
-    begin = 0, end = 0.8,
+    begin = 0.08, end = 0.82,
     name = "Botanical garden",
     drop = FALSE
   ) +
   
-  # Temporal complexity legend via SIZE (UNCHANGED)
+  # Temporal complexity legend via SIZE (different-sized dots)
   scale_size_manual(
-    name   = "Temporal complexity",
+    name   = "Temporal aggregation",
     breaks = c("Weekly", "Weekly aggregated", "Full season"),
-    values = c("Weekly" = 3.0, "Weekly aggregated" = 5.8, "Full season" = 8.2),
+    values = c(
+      "Weekly" = 2.4,
+      "Weekly aggregated" = 4.7,
+      "Full season" = 6.6
+    ),
     drop = FALSE
   ) +
   
   guides(
+    # Temporal legend first
     size = guide_legend(
       order = 1,
-      override.aes = list(colour = "grey30", alpha = 1, shape = 16)
+      override.aes = list(
+        colour = "grey30",
+        alpha  = 1,
+        shape  = 16
+      )
     ),
+    # Garden legend second
     colour = guide_legend(
       order = 2,
       override.aes = list(shape = 16, alpha = 1, size = 5.0)
@@ -222,7 +238,7 @@ panel_trait_swapped <- ggplot() +
   labs(
     x = "Procrustes r",
     y = NULL,
-    title = "b) Size matching"
+    title = "b) Trait-matching"
   )
 
 panel_trait_swapped
