@@ -923,7 +923,142 @@ p2
 
 \newpage
 
-```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 2.5, fig.width= 4, fig.cap= "\\textbf{Figure S3}. Accumulation curves of pollinator species across botanical gardens and sampling methods (dashed and solid lines). Each grey line represents one iteration of the accumulation curve, with a total of 100 iterations per garden and sampling method. The coloured lines represent the rarefied mean accumulation curves, with the dot indicating the total number of observed species. The segments of the lines extending beyond the dot represent the extrapolated number of expected species."}
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="60%", fig.height= 3, fig.width= 3, fig.cap= "\\textbf{Figure S3}. Position of focal plant species within the global angiosperm reproductive trait spectrum. Blue points represent species from the global dataset of floral reproductive traits described by Lanuza et al 2023. Purple points correspond to the PhenObs species monitored in this study. Arrows indicate the loadings of the main reproductive traits on the first two principal components. The focal species cluster within the region of the spectrum associated with higher investment in floral traits linked to pollinator attraction, consistent with the focus on pollinator-dependent taxa in this study. This figure illustrates the position of the sampled taxa within the broader reproductive trait space rather than representing a formal analysis."}
+
+# Global trait spectrum with PhenObs species highlighted
+# Plot 1 only
+
+# Load libraries
+library(dplyr)
+library(ggplot2)
+
+# Theme
+theme_ms <- function(base_size = 8, base_family = "Helvetica") {
+  theme_bw(base_size = base_size, base_family = base_family) +
+    theme(
+      text = element_text(color = "black"),
+      axis.title = element_text(size = rel(1.4)),
+      axis.text = element_text(size = rel(1.4), color = "black"),
+      legend.title = element_text(face = "bold"),
+      legend.text = element_text(size = rel(1.2)),
+      legend.background = element_rect(fill = "transparent"),
+      legend.key.size = unit(0.4, "lines"),
+      panel.border = element_rect(color = "black", linewidth = 1),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major = element_blank(),
+      plot.title = element_text(size = rel(2.5), face = "bold")
+    )
+}
+
+# Load global PCA data
+p1 <- readRDS("../Data/Working_files/global_pca_phenobs_species_output.rds")
+d1 <- readRDS("../Data/Working_files/global_pca_phenobs_species_data.rds")
+
+
+
+PC = p1
+# Calculate variance explained
+perc <- round(diag(PC$Eval) / sum(PC$Eval) * 100, 1)
+
+
+# Global PCA graph
+global_pollobs_pca <- function(PC, trait_data, x = "PC1", y = "PC2") {
+  perc <- round(diag(PC$Eval) / sum(PC$Eval) * 100, 1)
+
+  data <- data.frame(PC$S)
+  dat <- data.frame(x = data[[x]], y = data[[y]])
+  
+  # Optional density function
+  get_density <- function(x, y, ...) {
+    dens <- MASS::kde2d(x, y, ...)
+    ix <- findInterval(x, dens$x)
+    iy <- findInterval(y, dens$y)
+    ii <- cbind(ix, iy)
+    dens$z[ii]
+  }
+  
+  dat$density <- get_density(dat$x, dat$y, h = c(2, 2), n = 1000)
+  dat$PhenObs <- as.factor(trait_data$Pollobs)
+  
+  plot <- ggplot(dat, aes(-x, -y, colour = PhenObs)) +
+    geom_point(size = 1.5, alpha = 0.85) +
+    scale_colour_manual(values = c("#1a78ab", "#cc67ff"))
+  
+  # Add arrows
+  datapc <- data.frame(PC$L)
+  mult <- min(
+    (max(data[[y]]) - min(data[[y]])) / (max(datapc[[y]]) - min(datapc[[y]])),
+    (max(data[[x]]) - min(data[[x]])) / (max(datapc[[x]]) - min(datapc[[x]]))
+  )
+  
+  datapc <- transform(
+    datapc,
+    v1 = 0.65 * mult * get(x),
+    v2 = 0.65 * mult * get(y)
+  )
+  
+  plot <- plot +
+    geom_segment(
+      data = datapc,
+      aes(x = 0, y = 0, xend = -v1, yend = -v2),
+      linewidth = 1.2,
+      arrow = arrow(length = unit(0.5, "cm")),
+      alpha = 1,
+      color = "black",
+      linejoin = "round",
+      lineend = "round"
+    ) +
+    geom_segment(
+      data = datapc,
+      aes(x = 0, y = 0, xend = -v1, yend = -v2),
+      linewidth = 0.8,
+      linetype = 2,
+      alpha = 0.8,
+      color = "black"
+    )
+  
+  # Trait labels
+  rownames(PC$L) <- c("S", "FN", "FS", "SL", "ON", "PH")
+  PCAloadings <- data.frame(Variables = rownames(PC$L), PC$L)
+  
+  plot <- plot +
+    annotate(
+      "text",
+      x = -(PCAloadings$PC1 * c(4.6, 5.2, 5.25, 7.9, 7.1, 6)),
+      y = -(PCAloadings$PC2 * c(4.45, 4.2, 5.4, 7.7, 6, 6.5) + c(0, 0, 0, 0, -0.1, 0)),
+      label = PCAloadings$Variables,
+      color = "black",
+      size = 4,
+      fontface = 2
+    )
+  
+  plot +
+    theme_ms() +
+    ylim(-4, 4) +
+    xlim(-4, 4) +
+    scale_y_reverse() +
+    xlab(paste0("PC1 (", perc[1], "%)")) +
+    ylab(paste0("PC2 (", perc[2], "%)")) +
+    theme(
+      legend.position = "top",
+      legend.justification = c(0, 1)
+    )
+}
+
+# Create plot 1
+plot1 <- global_pollobs_pca(PC = p1, trait_data = d1)
+
+# Show plot
+plot1
+
+```
+
+
+\newpage
+
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 2.5, fig.width= 4, fig.cap= "\\textbf{Figure S4}. Accumulation curves of pollinator species across botanical gardens and sampling methods (dashed and solid lines). Each grey line represents one iteration of the accumulation curve, with a total of 100 iterations per garden and sampling method. The coloured lines represent the rarefied mean accumulation curves, with the dot indicating the total number of observed species. The segments of the lines extending beyond the dot represent the extrapolated number of expected species."}
 
 # ======================================================
 # Compute standardized accumulation curve
