@@ -34,19 +34,19 @@ weekly_pts <- pheno_week %>%
   select(-any_of("Season")) %>%
   left_join(week_season, by = c("Botanical_garden","Sampling_week")) %>%
   transmute(
-    Mantel_r = as.numeric(Mantel_corr),
+    Mantel_corr = as.numeric(Mantel_corr),
     Season = factor(as.character(Season), levels = season_levels_full),
     Botanical_garden = factor(as.character(Botanical_garden), levels = garden_levels)
   ) %>%
-  filter(is.finite(Mantel_r), !is.na(Season), !is.na(Botanical_garden))
+  filter(is.finite(Mantel_corr), !is.na(Season), !is.na(Botanical_garden))
 
 # ---- Weekly mean ± 95% CI ----
 weekly_sum <- weekly_pts %>%
   group_by(Season, Botanical_garden) %>%
   summarise(
     n = n(),
-    mean_r = mean(Mantel_r, na.rm = TRUE),
-    se = sd(Mantel_r, na.rm = TRUE) / sqrt(n),
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    se = sd(Mantel_corr, na.rm = TRUE) / sqrt(n),
     lwr = pmax(mean_r - 1.96 * se, 0),
     upr = pmin(mean_r + 1.96 * se, 1),
     .groups = "drop"
@@ -55,20 +55,20 @@ weekly_sum <- weekly_pts %>%
 # ---- Seasonal aggregated points ----
 seasonal_pts <- pheno_season %>%
   transmute(
-    Mantel_r = as.numeric(Mantel_corr),
+    Mantel_corr = as.numeric(Mantel_corr),
     Season = factor(as.character(Season), levels = season_levels_full),
     Botanical_garden = factor(as.character(Botanical_garden), levels = garden_levels)
   ) %>%
-  filter(is.finite(Mantel_r), !is.na(Season), !is.na(Botanical_garden))
+  filter(is.finite(Mantel_corr), !is.na(Season), !is.na(Botanical_garden))
 
 # ---- Full-season points ----
 full_pts <- pheno_full %>%
   transmute(
-    Mantel_r = as.numeric(Mantel_corr),
+    Mantel_corr = as.numeric(Mantel_corr),
     Season = factor("Full", levels = season_levels_full),
     Botanical_garden = factor(as.character(Botanical_garden), levels = garden_levels)
   ) %>%
-  filter(is.finite(Mantel_r), !is.na(Botanical_garden))
+  filter(is.finite(Mantel_corr), !is.na(Botanical_garden))
 
 # ---- helper to create y with garden offsets; reduced jitter only for weekly ----
 add_ypos <- function(df, jitter = 0) {
@@ -83,7 +83,7 @@ add_ypos <- function(df, jitter = 0) {
 }
 
 set.seed(1)
-wk_pts     <- add_ypos(weekly_pts, jitter = 0.04)
+wk_pts     <- add_ypos(weekly_pts, jitter = 0.035)
 wk_mean_ci <- add_ypos(weekly_sum, jitter = 0)
 wk_agg     <- add_ypos(seasonal_pts, jitter = 0)
 wk_full    <- add_ypos(full_pts, jitter = 0)
@@ -94,14 +94,14 @@ sep_df <- tibble(
   kind = c("light","light","strong")
 )
 
-panel_phenology_swapped <- ggplot() +
+panel_pheno_swapped <- ggplot() +
   
   # separators (black solid)
   geom_hline(
     data = sep_df,
     aes(yintercept = y),
     linetype = "solid",
-    colour = "gray80",
+    colour = "gray82",
     inherit.aes = FALSE
   ) +
   scale_linewidth_manual(
@@ -110,25 +110,25 @@ panel_phenology_swapped <- ggplot() +
   ) +
   
   # WEEKLY cloud
-  geom_point(
-    data = wk_pts,
-    aes(
-      x = Mantel_r, y = y,
-      colour = Botanical_garden,
-      size = "Weekly"
-    ),
-    shape = 16,
-    alpha = 0.5
-  ) +
+  #  geom_point(
+  #    data = wk_pts,
+  #    aes(
+  #      x = Mantel_corr, y = y,
+  #      colour = Botanical_garden,
+  #      size = "Weekly"
+  #    ),
+  #    shape = 16,
+  #    alpha = 0.4
+  #  ) +
   
   # WEEKLY mean ± 95% CI (ONLY weekly)
   geom_errorbarh(
     data = wk_mean_ci,
     aes(xmin = lwr, xmax = upr, y = y, colour = Botanical_garden),
     inherit.aes = FALSE,
-    height = 0.05,
-    linewidth = 1,
-    alpha = 0.7
+    height = 0.045,
+    linewidth = 1.1,
+    alpha = 0.85
   ) +
   geom_point(
     data = wk_mean_ci,
@@ -146,7 +146,7 @@ panel_phenology_swapped <- ggplot() +
   geom_point(
     data = wk_agg,
     aes(
-      x = Mantel_r, y = y,
+      x = Mantel_corr, y = y,
       colour = Botanical_garden,
       size = "Weekly aggregated"
     ),
@@ -159,7 +159,7 @@ panel_phenology_swapped <- ggplot() +
   geom_point(
     data = wk_full,
     aes(
-      x = Mantel_r, y = y,
+      x = Mantel_corr, y = y,
       colour = Botanical_garden,
       size = "Full season"
     ),
@@ -179,19 +179,19 @@ panel_phenology_swapped <- ggplot() +
   # garden colours
   scale_colour_viridis_d(
     option = "plasma",
-    begin = 0, end = 0.8,
+    begin = 0.08, end = 0.82,
     name = "Botanical garden",
     drop = FALSE
   ) +
   
   # Temporal complexity legend via SIZE (different-sized dots)
   scale_size_manual(
-    name   = "Temporal complexity",
+    name   = "Temporal scale",
     breaks = c("Weekly", "Weekly aggregated", "Full season"),
     values = c(
-      "Weekly" = 3.0,
-      "Weekly aggregated" = 5.8,
-      "Full season" = 8.2
+      "Weekly" = 2.4,
+      "Weekly aggregated" = 4.7,
+      "Full season" = 6.6
     ),
     drop = FALSE
   ) +
@@ -231,6 +231,6 @@ panel_phenology_swapped <- ggplot() +
     y = NULL,
     title = "c) Phenology"
   )
+panel_pheno_swapped
 
-panel_phenology_swapped
-saveRDS(panel_phenology_swapped, "Data/Working_files/panel_phenology_swapped_mantel.rds")
+saveRDS(panel_pheno_swapped, "Data/Working_files/panel_phenology_swapped_mantel.rds")
