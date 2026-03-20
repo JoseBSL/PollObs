@@ -195,7 +195,7 @@ panel_trait_swapped <- ggplot() +
   
   # Temporal complexity legend via SIZE (different-sized dots)
   scale_size_manual(
-    name   = "Temporal aggregation",
+    name   = "Temporal scale",
     breaks = c("Weekly", "Weekly aggregated", "Full season"),
     values = c(
       "Weekly" = 2.4,

@@ -105,7 +105,10 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
     legend.position = "right",
     axis.text.y = element_text(size=18,face = ifelse(imp2$is_interaction, "bold", "plain")),
     plot.margin = margin(5.5, 0, 5.5, 5.5)
-  )
+  ) +
+  ggtitle("a)") +
+  theme(plot.title = element_text(face = "bold", hjust = 0))
+
 
 # -----------------------------
 # Panel B: ΔAIC plot (drop-one)
@@ -146,7 +149,10 @@ p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
     plot.margin = margin(8.5, 0, 5.5, 0),
     axis.ticks.y = element_line(colour = "black"),
     axis.ticks.length = unit(4, "pt")
-  )
+  )+
+  ggtitle("b)") +
+  theme(plot.title = element_text(face = "bold", hjust = 0))
+
 
 top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()| p_aic) + plot_layout(widths = c(0.1, 3.2,0.7, 3.2))
 
@@ -246,7 +252,7 @@ p_f_abundance <- ggplot(
     y = "Predicted visitation",
     linetype = "Pollinator abundance",
     colour = "Pollinator abundance",
-    subtitle = "Flower abund. × Pollinator abund."
+    subtitle = "c) Flower abund. × Pollinator abund."
   ) +
   theme(
     plot.subtitle = element_text(face = "bold", size=18),
@@ -305,7 +311,7 @@ p_f_width <- ggplot(
     y = "Predicted visitation",
     linetype = "Pollinator\nabundance",
     colour = "Pollinator\nabundance",
-    subtitle = "Flower width × Pollinator abund."
+    subtitle = "d) Flower width × Pollinator abund."
   ) +
   theme(
     plot.subtitle = element_text(face = "bold", size=18),
