@@ -150,6 +150,7 @@ weekly_data = interaction_data %>%
 plant_traits = plant_traits %>%
   mutate(Style_length = as.numeric(Style_length))
 # Add missing species
+online_data = read_csv("Data/Trait_data/Raw/online_data.csv")
 online_data = online_data %>%
   mutate(Style_length = as.numeric(Style_length))
 plant_traits = bind_rows(plant_traits, online_data)
@@ -190,6 +191,20 @@ weekly_data = weekly_data %>%
   left_join(plant_traits_clean, by = "Plant")
 
 ################################################################################
+#Load nectar data 
+nectar = read_csv("Data/Trait_data/Raw/Nectar_volume.csv")
+#Select columns of interest
+#Note the microcaps were 1ul and 32 mm length
+nectar1 = nectar %>% 
+  select(Species, Nectar_length_microcap) %>% 
+  mutate(Nectar_volume = Nectar_length_microcap * 1 / 32) %>% 
+  group_by(Species) %>% 
+  summarise(Mean_nectar_volume = mean(Nectar_volume)) %>% 
+  rename(Plant = Species)
+
+weekly_data = left_join(weekly_data, nectar1, by="Plant")
+
+################################################################################
 # Add poll trait data
 weekly_data = left_join(weekly_data, poll_traits, by="Pair")
 # Filter out pairs with missing trait data
@@ -202,9 +217,9 @@ weekly_data = weekly_data %>%
 weekly_data = left_join(weekly_data, pheno_overlap)
 # Checks
 weekly_data %>% filter(is.na(Overlap_days))
-colnames(checks)
 weekly_data = weekly_data %>% 
   filter(!is.na(Overlap_days))
+
 # Save data
 saveRDS(weekly_data, "Data/Working_files/weekly_data_for_modelling.rds")
 ################################################################################
