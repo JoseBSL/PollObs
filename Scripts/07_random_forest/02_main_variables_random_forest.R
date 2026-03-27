@@ -133,3 +133,6 @@ gof_rf = tibble(
 
 gof_rf
 
+# R2 (variance explained)
+r2_rf = 1 - sum((test_dat$log_visit - pred_test)^2) / 
+  sum((test_dat$log_visit - mean(test_dat$log_visit))^2)
