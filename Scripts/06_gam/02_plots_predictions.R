@@ -29,6 +29,7 @@ lab_map <- c(
   T_gauss_z                   = "Trait matching",
   Overlap_days_z              = "Phenology overlap",
   Flower_width_z              = "Flower width",
+  Mean_nectar_volume_z        = "Nectar volume",
   `log_flower_z:log_poll_z`   = "Flower abund. × Pollinator abund.",
   `log_poll_z:Flower_width_z` = "Flower width × Pollinator abund."
 )
@@ -51,7 +52,7 @@ imp <- coef_tab %>%
     absE      = abs(Estimate),
     is_interaction = grepl(":", term)
   ) %>%
-  arrange(absE) %>%
+  arrange(Estimate) %>%
   mutate(Variable = fct_rev(factor(Variable, levels = Variable)))
 
 xlim <- range(c(imp$CI_low, imp$CI_high), na.rm = TRUE)
@@ -107,7 +108,7 @@ p_imp_mag2 <- ggplot(imp2, aes(x = Estimate, y = Variable)) +
     plot.margin = margin(5.5, 0, 5.5, 5.5)
   ) +
   ggtitle("a)") +
-  theme(plot.title = element_text(face = "bold", hjust = 0))
+  theme(plot.title = element_text(face = "bold", hjust = -1))
 
 
 # -----------------------------
@@ -125,36 +126,38 @@ fill_magma_aic <- scale_fill_viridis_c(
   name = NULL,
   labels = c("Low", "High"))
 
-p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
-  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
-  geom_col(aes(fill=deltaAIC),width = 0.65, colour = "black") +
- # scale_fill_manual(
- #   values = c("FALSE" = "#B12A90",   # main effects
- #              "TRUE"  = "#FCA636"),  # interactions (plasma orange)
- #   guide = "none"
- # )+
-  fill_magma_aic +
-  labs(
-    x = expression("Model contribution (" * Delta * AIC * ")"),
-    y = NULL) +
-  theme_minimal(base_size = 15) +
-  theme(
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.text.y = element_blank(),
-    legend.title = element_text(face = "bold"),
-    legend.position = "right",
-    legend.box.margin = margin(l = -10),   # pull legend closer (try -5 to -15)
-    legend.margin = margin(l = -5),
-    plot.margin = margin(8.5, 0, 5.5, 0),
-    axis.ticks.y = element_line(colour = "black"),
-    axis.ticks.length = unit(4, "pt")
-  )+
-  ggtitle("b)") +
-  theme(plot.title = element_text(face = "bold", hjust = 0))
+#p_aic <- ggplot(imp2, aes(y = Variable, x = deltaAIC)) +
+#  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.7, colour = "grey40") +
+#  geom_col(aes(fill=deltaAIC),width = 0.65, colour = "black") +
+# # scale_fill_manual(
+# #   values = c("FALSE" = "#B12A90",   # main effects
+# #              "TRUE"  = "#FCA636"),  # interactions (plasma orange)
+# #   guide = "none"
+# # )+
+#  fill_magma_aic +
+#  labs(
+#    x = expression("Model contribution (" * Delta * AIC * ")"),
+#    y = NULL) +
+#  theme_minimal(base_size = 15) +
+#  theme(
+#    panel.grid.major.y = element_blank(),
+#    panel.grid.minor = element_blank(),
+#    axis.text.y = element_blank(),
+#    legend.title = element_text(face = "bold"),
+#    legend.position = "right",
+#    legend.box.margin = margin(l = -10),   # pull legend closer (try -5 to -15)
+#    legend.margin = margin(l = -5),
+#    plot.margin = margin(8.5, 0, 5.5, 0),
+#    axis.ticks.y = element_line(colour = "black"),
+#    axis.ticks.length = unit(4, "pt")
+#  )+
+#  ggtitle("b)") +
+#  theme(plot.title = element_text(face = "bold", hjust = 0))
+#
+#
+#top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()| p_aic) + plot_layout(widths = c(0.1, 3.2,0.7, 3.2))
 
-
-top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()| p_aic) + plot_layout(widths = c(0.1, 3.2,0.7, 3.2))
+top_panel <- (plot_spacer() | p_imp_mag2 |plot_spacer()) + plot_layout(widths = c(1, 3.2,0.6))
 
 # -----------------------------
 # Predictions (population-level)
@@ -178,6 +181,7 @@ newF <- expand.grid(
   Flower_width_z = 0,
   T_gauss_z = 0,
   Overlap_days_z = 0,
+  Mean_nectar_volume_z = 0,
   Botanical_garden = bg0,
   Week = week0,
   Pair = pair0,
@@ -200,6 +204,7 @@ newW <- expand.grid(
   log_flower_z = 0,
   T_gauss_z = 0,
   Overlap_days_z = 0,
+  Mean_nectar_volume_z = 0,
   Botanical_garden = bg0,
   Week = week0,
   Pair = pair0,
@@ -252,7 +257,7 @@ p_f_abundance <- ggplot(
     y = "Predicted visitation",
     linetype = "Pollinator abundance",
     colour = "Pollinator abundance",
-    subtitle = "c) Flower abund. × Pollinator abund."
+    subtitle = "b) Flower abund. × Pollinator abund."
   ) +
   theme(
     plot.subtitle = element_text(face = "bold", size=18),
@@ -311,7 +316,7 @@ p_f_width <- ggplot(
     y = "Predicted visitation",
     linetype = "Pollinator\nabundance",
     colour = "Pollinator\nabundance",
-    subtitle = "d) Flower width × Pollinator abund."
+    subtitle = "c) Flower width × Pollinator abund."
   ) +
   theme(
     plot.subtitle = element_text(face = "bold", size=18),

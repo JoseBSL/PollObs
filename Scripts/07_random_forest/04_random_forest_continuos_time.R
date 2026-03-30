@@ -21,6 +21,7 @@ rf_cont = weekly_data %>%
     Mean_Temperature,
     Floral_abundance,
     Total_pollinator_abundance,
+    Mean_nectar_volume,
     t_plant,
     T_gauss,
     Overlap_days
@@ -124,7 +125,8 @@ rf_stack <- rf_windows %>%
     "Floral_abundance",
     "T_gauss",
     "Flower_width",
-    "Overlap_days"
+    "Overlap_days",
+    "Mean_nectar_volume"
   ))
 
 ################################################################################
@@ -139,7 +141,8 @@ rf_stack = rf_stack %>%
       Floral_abundance = "Flower abundance",
       T_gauss = "Trait matching",
       Flower_width = "Flower width",
-      Overlap_days = "Phenology overlap"))  
+      Overlap_days = "Phenology overlap",
+      Mean_nectar_volume = "Nectar volume"))  
 
 #Save data
 saveRDS(rf_stack, "Data/Working_files/rf_stack.rds")
@@ -155,7 +158,9 @@ ggplot(rf_stack,
     "Flower abundance" = "#F39B7F",
     "Trait matching" = "#00A087",
     "Flower width" = "#4DBBD5",
-    "Phenology overlap" = "grey49"
+    "Phenology overlap" = "grey49",
+    "Nectar volume" = "#8491B4"
+   
   )) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(expand = c(0, 0)) +

@@ -23,18 +23,20 @@ shap_importance <- shap_importance %>%
     Floral_abundance = "Flower abundance",
     T_gauss = "Trait matching",
     Flower_width = "Flower width",
-    Overlap_days = "Phenology overlap"
+    Overlap_days = "Phenology overlap",
+    Mean_nectar_volume = "Nectar volume"
+    
   ))
 
 
 cols <- c(
-  "Pollinator abundance" = "#E64B35",
-  "Flower abundance" = "#F39B7F",
-  "Trait matching" = "#00A087",
-  "Flower width" = "#4DBBD5",
-  "Phenology overlap" = "grey49"
+  "Pollinator abundance"= "#E64B35",
+  "Flower abundance"    = "#F39B7F",
+  "Trait matching"      = "#00A087",
+  "Flower width"        = "#4DBBD5",
+  "Phenology overlap"   = "grey49",
+  "Nectar volume"       = "#8491B4"
 )
-
 
 var_levels = shap_importance %>%
   arrange(desc(mean_abs_shap)) %>% 
