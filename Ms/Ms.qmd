@@ -365,7 +365,7 @@ final_plot_col
 
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=12,out.width="105%", fig.cap= "\\textbf{Figure 3}. Effects of ecological drivers (i.e., abundance, traits, and phenology) on the number of plant-pollinator interactions. (a) Standardized model coefficients (log link scale) with 95% confidence intervals, illustrating the direction and relative strength of the ecological drivers. (b) Relative importance of ecological drivers expressed as increment of AIC, indicating the change in model fit associated with each predictor. (c-d) Predicted number of plant-pollinator interactions across gradients of flower abundance (c) and flower width. Lines show predicted values from the fitted model and shaded areas represent 95% confidence intervals. Different line types and colour gradients indicate pollinator abundance levels corresponding to the 10th (low), 75th (high), and 90th (very high) percentiles of standardized log pollinator abundance."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=11,out.width="105%", fig.cap= "\\textbf{Figure 3}. Effects of ecological drivers (i.e., abundance, traits, and phenology) on the number of plant-pollinator interactions. (a) Standardized model coefficients (log link scale) with 95% confidence intervals, illustrating the direction and relative strength of the ecological drivers. (b) Relative importance of ecological drivers expressed as increment of AIC, indicating the change in model fit associated with each predictor. (c-d) Predicted number of plant-pollinator interactions across gradients of flower abundance (c) and flower width. Lines show predicted values from the fitted model and shaded areas represent 95% confidence intervals. Different line types and colour gradients indicate pollinator abundance levels corresponding to the 10th (low), 75th (high), and 90th (very high) percentiles of standardized log pollinator abundance."}
 
 library(patchwork)
 
@@ -410,18 +410,10 @@ shap_importance <- shap_importance %>%
     Floral_abundance = "Flower abundance",
     T_gauss = "Trait matching",
     Flower_width = "Flower width",
-    Overlap_days = "Phenology overlap"
+    Overlap_days = "Phenology overlap",
+    Mean_nectar_volume = "Nectar volume"
+    
   ))
-
-
-cols <- c(
-  "Pollinator abundance" = "#E64B35",
-  "Flower abundance" = "#F39B7F",
-  "Trait matching" = "#00A087",
-  "Flower width" = "#4DBBD5",
-  "Phenology overlap" = "grey49"
-)
-
 
 var_levels = shap_importance %>%
   arrange(desc(mean_abs_shap)) %>% 
@@ -493,7 +485,7 @@ p2 + p1 + plot_layout(widths = c(1, 1))
 \newpage
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8,out.width="105%", fig.cap= "\\textbf{Figure 5}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at the family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Black dots denote significant deviations from the null model (\\textit{p} < 0.05). Crossed white cells indicate plant-pollinator family pairs that never co-occurred within the same garden and sampling week."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8.5,out.width="105%", fig.cap= "\\textbf{Figure 5}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at the family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Black dots denote significant deviations from the null model (\\textit{p} < 0.01). Crossed white cells indicate plant-pollinator family pairs that never co-occurred within the same garden and sampling week."}
 
 library(ComplexHeatmap)
 library(circlize)
@@ -508,27 +500,31 @@ pval_df   <- readRDS("../Data/Working_files/pval_df.rds")
 SES       <- readRDS("../Data/Working_files/SES.rds")
 block_mats <- readRDS("../Data/Working_files/block_mats.rds")
 
-alpha <- 0.05
+alpha <- 0.01
 p_col <- "p_two"   # or "p_fdr" if you computed it
 
 # -----------------------------
 # 1) Build significance matrix aligned to SES
 # -----------------------------
-sig_mat <- pval_df %>%
+sig_mat = pval_df %>%
   transmute(
     Plant_family,
     Pollinator_family,
     Sig = !is.na(.data[[p_col]]) & (.data[[p_col]] < alpha)
   ) %>%
   pivot_wider(
-    names_from  = Pollinator_family,
+    names_from = Pollinator_family,
     values_from = Sig,
     values_fill = FALSE
   ) %>%
   column_to_rownames("Plant_family") %>%
   as.matrix()
 
-sig_mat <- sig_mat[rownames(SES), colnames(SES), drop = FALSE]
+sig_mat = sig_mat[rownames(SES), colnames(SES), drop = FALSE]
+
+# keep only strong deviations
+sig_mat = sig_mat & abs(SES) >= 6
+
 
 # -----------------------------
 # 2) Phenology-impossible matrix:
@@ -585,8 +581,8 @@ ht <- Heatmap(
   cluster_rows = FALSE,
   cluster_columns = FALSE,
   column_names_rot = 45,
-  column_names_gp = gpar(fontsize = 8),
-  row_names_gp = gpar(fontsize = 8),
+  column_names_gp = gpar(fontsize = 9),
+  row_names_gp = gpar(fontsize = 9),
   rect_gp = gpar(col = "grey88", lwd = 0.25),
   na_col = "grey95",
   name = "SES",
@@ -612,14 +608,14 @@ ht <- Heatmap(
       )
       
       grid.segments(
-        x0 = x - width * 0.35, y0 = y - height * 0.35,
-        x1 = x + width * 0.35, y1 = y + height * 0.35,
-        gp = gpar(col = "grey55", lwd = 0.8)
+        x0 = x - width * 0.22, y0 = y - height * 0.22,
+        x1 = x + width * 0.22, y1 = y + height * 0.22,
+        gp = gpar(col = "grey55", lwd = 0.6)
       )
       grid.segments(
-        x0 = x - width * 0.35, y0 = y + height * 0.35,
-        x1 = x + width * 0.35, y1 = y - height * 0.35,
-        gp = gpar(col = "grey55", lwd = 0.8)
+        x0 = x - width * 0.22, y0 = y + height * 0.22,
+        x1 = x + width * 0.22, y1 = y - height * 0.22,
+        gp = gpar(col = "grey55", lwd = 0.6)
       )
     }
     
@@ -629,7 +625,7 @@ ht <- Heatmap(
         x = x, y = y,
         pch = 16,
         size = unit(1.2, "mm"),
-        gp = gpar(col = "black")
+        gp = gpar(col = "grey20")
       )
     }
   }
@@ -639,12 +635,12 @@ ht <- Heatmap(
 # 6) Custom legends for symbols
 # -----------------------------
 lgd_sig <- Legend(
-  labels = "P < 0.05",
+  labels = "P < 0.01",
   title = NULL,
   type = "points",
   pch = 16,
   size = unit(1.2, "mm"),
-  legend_gp = gpar(col = "black")
+  legend_gp = gpar(col = "grey20")
 )
 
 lgd_impossible <- Legend(
@@ -658,14 +654,14 @@ lgd_impossible <- Legend(
       gp = gpar(fill = "white", col = "grey85", lwd = 0.3)
     )
     grid.segments(
-      x0 = x - w * 0.3, y0 = y - h * 0.3,
-      x1 = x + w * 0.3, y1 = y + h * 0.3,
-      gp = gpar(col = "grey55", lwd = 0.8)
+      x0 = x - w * 0.22, y0 = y - h * 0.22,
+      x1 = x + w * 0.22, y1 = y + h * 0.22,
+      gp = gpar(col = "grey55", lwd = 0.6)
     )
     grid.segments(
-      x0 = x - w * 0.3, y0 = y + h * 0.3,
-      x1 = x + w * 0.3, y1 = y - h * 0.3,
-      gp = gpar(col = "grey55", lwd = 0.8)
+      x0 = x - w * 0.22, y0 = y + h * 0.22,
+      x1 = x + w * 0.22, y1 = y - h * 0.22,
+      gp = gpar(col = "grey55", lwd = 0.6)
     )
   })
 )
@@ -1460,6 +1456,208 @@ plot_av_dprime_poll_abundance <- ggplot(average_specialization, aes(x=Week,y=av_
 
 
 (plot_av_dprime_poll_interactions|plot_av_dprime_poll_abundance) + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+
+```
+
+\newpage
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=12,out.width="95%", fig.cap= "\\textbf{Figure S7}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at the family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Black dots denote significant deviations from the null model (\\textit{p} < 0.01). Crossed white cells indicate plant-pollinator family pairs that never co-occurred within the same garden and sampling week."}
+
+library(ComplexHeatmap)
+library(circlize)
+library(grid)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
+
+# Load data
+pval_df   <- readRDS("../Data/Working_files/pval_df_genus.rds")
+SES       <- readRDS("../Data/Working_files/SES_genus.rds")
+block_mats <- readRDS("../Data/Working_files/block_mats_genus.rds")
+
+alpha <- 0.01
+p_col <- "p_two"   # or "p_fdr" if you computed it
+
+# -----------------------------
+# 1) Build significance matrix aligned to SES
+# -----------------------------
+sig_mat = pval_df %>%
+  transmute(
+    Plant_family,
+    Pollinator_genus,
+    Sig = !is.na(.data[[p_col]]) & (.data[[p_col]] < alpha)
+  ) %>%
+  pivot_wider(
+    names_from = Pollinator_genus,
+    values_from = Sig,
+    values_fill = FALSE
+  ) %>%
+  column_to_rownames("Plant_family") %>%
+  as.matrix()
+
+sig_mat = sig_mat[rownames(SES), colnames(SES), drop = FALSE]
+
+# keep only strong deviations
+sig_mat = sig_mat & abs(SES) >= 6
+
+
+# -----------------------------
+# 2) Phenology-impossible matrix:
+#    TRUE if a plant-pollinator family pair never co-occurred in ANY block
+# -----------------------------
+possible_in_block <- function(M) {
+  r_present <- rowSums(M) > 0
+  c_present <- colSums(M) > 0
+  outer(r_present, c_present, FUN = "&")
+}
+
+possible_list <- lapply(block_mats, possible_in_block)
+
+# possible across the whole season if possible in ANY block
+possible_any <- Reduce(`|`, possible_list)
+
+# Phenology-impossible cells
+phenology_impossible <- !possible_any
+phenology_impossible <- phenology_impossible[rownames(SES), colnames(SES), drop = FALSE]
+
+# -----------------------------
+# 3) Prepare SES for plotting (cap extremes for contrast)
+# -----------------------------
+cap <- 6
+SES_plot <- SES
+SES_plot[SES_plot >  cap] <-  cap
+SES_plot[SES_plot < -cap] <- -cap
+
+# Diverging colour function
+col_fun <- colorRamp2(
+  c(-cap, 0, cap),
+  c("#99159FFF", "#F4F4F4", "#FDAE32FF")
+)
+
+# -----------------------------
+# 4) Reorder rows/cols by number of significant cells
+# -----------------------------
+row_sig_n <- rowSums(sig_mat, na.rm = TRUE)
+col_sig_n <- colSums(sig_mat, na.rm = TRUE)
+
+row_order <- names(sort(row_sig_n, decreasing = TRUE))
+col_order <- names(sort(col_sig_n, decreasing = TRUE))
+
+SES_plot <- SES_plot[row_order, col_order, drop = FALSE]
+sig_mat  <- sig_mat[row_order, col_order, drop = FALSE]
+phenology_impossible <- phenology_impossible[row_order, col_order, drop = FALSE]
+
+# -----------------------------
+# 5) Build heatmap
+# -----------------------------
+ht <- Heatmap(
+  SES_plot,
+  col = col_fun,
+  cluster_rows = FALSE,
+  cluster_columns = FALSE,
+  show_heatmap_legend = FALSE,
+  column_names_rot = 90,
+  column_names_gp = gpar(fontsize = 10.5),
+  row_names_gp = gpar(fontsize = 10.5),
+  rect_gp = gpar(col = "grey88", lwd = 0.25),
+  na_col = "grey95",
+  name = "SES",
+  column_title = "Pollinator preference",
+  column_title_gp = gpar(fontsize = 20, fontface = "bold"),
+  heatmap_legend_param = list(
+    title = "SES",
+    at = c(-cap, 0, cap),
+    labels = c(
+      paste0("-", cap, " (Avoidance)"),
+      "0",
+      paste0("+", cap, " (Association)")
+    )
+  ),
+  cell_fun = function(j, i, x, y, width, height, fill) {
+    
+    # Phenology-impossible cells: white background + diagonal cross
+    if (isTRUE(phenology_impossible[i, j])) {
+      grid.rect(
+        x = x, y = y,
+        width = width, height = height,
+        gp = gpar(fill = "white", col = "grey85", lwd = 0.3)
+      )
+      
+      grid.segments(
+        x0 = x - width * 0.22, y0 = y - height * 0.22,
+        x1 = x + width * 0.22, y1 = y + height * 0.22,
+        gp = gpar(col = "grey55", lwd = 0.6)
+      )
+      grid.segments(
+        x0 = x - width * 0.22, y0 = y + height * 0.22,
+        x1 = x + width * 0.22, y1 = y - height * 0.22,
+        gp = gpar(col = "grey55", lwd = 0.6)
+      )
+    }
+    
+    # Significant cells: black dot
+    if (isTRUE(sig_mat[i, j]) && !isTRUE(phenology_impossible[i, j])) {
+      grid.points(
+        x = x, y = y,
+        pch = 16,
+        size = unit(1.2, "mm"),
+        gp = gpar(col = "grey20")
+      )
+    }
+  }
+)
+
+# -----------------------------
+# 6) Custom legends for symbols
+# -----------------------------
+lgd_sig <- Legend(
+  labels = "P < 0.01",
+  title = NULL,
+  type = "points",
+  pch = 16,
+  size = unit(1.2, "mm"),
+  legend_gp = gpar(col = "grey20")
+)
+
+lgd_impossible <- Legend(
+  labels = "Spatiotemporally impossible",
+  title = NULL,
+  graphics = list(function(x, y, w, h) {
+    grid.rect(
+      x = x, y = y,
+      width = w * 0.9,
+      height = h * 0.9,
+      gp = gpar(fill = "white", col = "grey85", lwd = 0.3)
+    )
+    grid.segments(
+      x0 = x - w * 0.22, y0 = y - h * 0.22,
+      x1 = x + w * 0.22, y1 = y + h * 0.22,
+      gp = gpar(col = "grey55", lwd = 0.6)
+    )
+    grid.segments(
+      x0 = x - w * 0.22, y0 = y + h * 0.22,
+      x1 = x + w * 0.22, y1 = y - h * 0.22,
+      gp = gpar(col = "grey55", lwd = 0.6)
+    )
+  })
+)
+
+extra_legends <- packLegend(
+  lgd_sig,
+  lgd_impossible,
+  direction = "vertical",
+  gap = unit(1, "mm")
+)
+
+# -----------------------------
+# 7) Draw heatmap + extra legends
+# -----------------------------
+draw(
+  ht
+)
 
 
 ```

@@ -27,6 +27,7 @@ rf_dat <- weekly_data %>%
     Mean_Temperature,
     Floral_abundance,
     Total_pollinator_abundance,
+    Mean_nectar_volume,
     t_plant,
     T_gauss,
     Overlap_days
