@@ -40,15 +40,6 @@ make_phen_plot <- function(dat, title_text) {
     mutate(Doy = Doy - 30)
   
   ggplot(d1, aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
-    geom_text(
-      data = label_data,
-      aes(label = Species),
-      fontface = "italic",
-      vjust = -0.3,
-      hjust = -0.1,
-      size = 2,
-      color = "black"
-    ) +
     stat_smooth(
       method = "gam",
       method.args = list(family = poisson),
@@ -60,12 +51,13 @@ make_phen_plot <- function(dat, title_text) {
     theme(
       legend.position = "none",
       strip.background = element_blank(),
-      strip.text.x = element_blank(),
-      panel.spacing = unit(-1.5, "lines")
+      strip.text.y.left = element_text(angle = 0,face = "italic", size = 7,  hjust = 0),
+      strip.placement = "outside",
+      panel.spacing = unit(-1.2, "lines")
     ) +
     coord_cartesian(expand = FALSE) +
     scale_y_continuous(expand = c(0, 0), breaks = NULL, labels = NULL) +
-    facet_wrap(~Species, ncol = 1) +
+    facet_wrap(~Species, ncol = 1, strip.position = "left") +
     scale_fill_manual(values = cols) +
     labs(
       x = "Day of the year",
