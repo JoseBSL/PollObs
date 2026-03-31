@@ -9,51 +9,55 @@ jena_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_jena.rds")
 halle_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_halle.rds")
 leipzig_phen = readRDS("Data/Phenology_data/clean_plant_phenobs_leipzig.rds")
 
+halle_phen %>% 
+  filter(Species == "Origanum vulgare") %>% 
+  arrange(Doy)
+
+halle_phen %>% 
+  filter(Species == "Origanum vulgare", Flowers_opening == "y")
+
 make_phen_plot <- function(dat, title_text) {
   
-  v = unique(dat$Species)
+  d1 <- dat %>%
+    mutate(Flowering_intensity = if_else(Flowers_opening == "no", 0, Flowering_intensity)) %>%
+    group_by(Species, Doy) %>%
+    summarise(Flowering_intensity = mean(Flowering_intensity, na.rm = TRUE), .groups = "drop") %>%
+    group_by(Species) %>%
+    filter(any(Flowering_intensity > 0, na.rm = TRUE)) %>%
+    ungroup()
   
-  d1 = dat %>% 
-    filter(Species %in% v) %>% 
-    mutate(Flowering_intensity = if_else(Flowers_opening == "no", 0, Flowering_intensity))
-  
-  # Find first flowering day to order species
-  lev_species = d1 %>% 
-    group_by(Species) %>% 
-    filter(Flowers_opening == "y") %>% 
-    slice_min(Doy) %>% 
-    arrange(Doy) %>% 
+  lev_species <- d1 %>%
+    filter(Flowering_intensity > 0, !is.na(Doy)) %>%
+    group_by(Species) %>%
+    summarise(first_doy = min(Doy), .groups = "drop") %>%
+    arrange(first_doy) %>%
     pull(Species)
   
-  d1$Species = factor(d1$Species, levels = lev_species)
+  d1 <- d1 %>%
+    mutate(Species = factor(Species, levels = lev_species))
   
-  # Plasma palette
-  cols = plasma(nlevels(d1$Species), begin = 0.05, end = 0.95)
+  cols <- plasma(nlevels(d1$Species), begin = 0.05, end = 0.95)
   
-  label_data = d1 %>% 
-    group_by(Species) %>% 
-    filter(Flowers_opening == "y") %>% 
-    slice_min(Doy) %>% 
-    arrange(Doy) %>% 
-    mutate(Flowering_intensity = 0) %>% 
-    select(Species, Doy, Flowering_intensity) %>% 
-    mutate(Doy = Doy - 30)
-  
-  ggplot(d1, aes(x = Doy, y = Flowering_intensity, fill = Species)) + 
-    stat_smooth(
-      method = "gam",
-      method.args = list(family = poisson),
-      geom = "area",
-      alpha = 0.75,
-      span = 0.1
-    ) +
+  ggplot(d1, aes(x = Doy, y = Flowering_intensity, fill = Species, group = Species)) +
+    geom_area(alpha = 0.75) +
     theme_minimal() +
     theme(
       legend.position = "none",
       strip.background = element_blank(),
-      strip.text.y.left = element_text(angle = 0,face = "italic", size = 7,  hjust = 0),
+      strip.text.y.left = element_text(
+        angle = 0,
+        face = "italic",
+        size = 7.5,
+        hjust = 1,
+        color = "black",
+        margin = margin(r = 6)
+      ),
       strip.placement = "outside",
-      panel.spacing = unit(-1.2, "lines")
+      panel.spacing = unit(0.15, "lines"),
+      panel.grid.major.x = element_line(color = "grey85", linewidth = 0.3),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank()
     ) +
     coord_cartesian(expand = FALSE) +
     scale_y_continuous(expand = c(0, 0), breaks = NULL, labels = NULL) +
