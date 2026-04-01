@@ -65,7 +65,7 @@ species_centers <- plant_data %>%
 # Synchronization by garden
 bootstrap_sync <- function(df, n_boot = 1000) {
   
-  duration <- max(df$center, na.rm = TRUE) - min(df$center, na.rm = TRUE)
+  duration <- quantile(df$center, 0.95) - quantile(df$center, 0.05)
   
   if (nrow(df) < 2 || duration <= 0) {
     return(tibble(
