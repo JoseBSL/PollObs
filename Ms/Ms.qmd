@@ -1297,9 +1297,93 @@ guides(
 
 \newpage
 
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%", fig.height= 2.5, fig.width= 4, fig.cap= "\\textbf{Figure S5}. Phenological centres of flowering plants and pollinators across botanical gardens. Distributions of phenological centres (day of year, DOY) are shown for pollinators and flowering plants in Jena, Halle and Leipzig. Pollinator phenology was estimated at the regional level from occurrence records and is therefore represented as a single distribution. Half-eye densities and boxplots show the distribution and spread of values, with black points indicating medians and horizontal line segments representing individual observations. Pollinators peaked later in the season than plants."}
+
+library(dplyr)
+library(ggplot2)
+library(ggdist)
+
+# Read processed data
+pollinator_centers <- readRDS("../Data/Working_files/pollinator_pheno_centers.rds")
+plant_centers <- readRDS("../Data/Working_files/plant_pheno_centers.rds")
+
+# Combine plant (by garden) and pollinator centres
+plot_data <- bind_rows(
+  plant_centers %>%
+    transmute(Group = paste(Garden, "plants"), center),
+  pollinator_centers %>%
+    transmute(Group = "Pollinators", center)
+) %>%
+  mutate(
+    Group = factor(
+      Group,
+      levels = c("Pollinators", "Jena plants", "Halle plants", "Leipzig plants")
+    )
+  )
+
+# Median per group
+plot_summary <- plot_data %>%
+  group_by(Group) %>%
+  summarise(
+    q50 = median(center, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Define colours
+my_colors <- c(
+  "Pollinators"    = "grey70",
+  "Jena plants"    = "#B12A90FF",
+  "Halle plants"   = "#0D0887FF",
+  "Leipzig plants" = "#FCA636FF"
+)
+
+# Plot
+ggplot(plot_data, aes(x = Group, y = center, fill = Group)) +
+  
+  geom_point(
+    shape = 95,
+    size = 4,
+    alpha = 0.75
+  )+
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    .width = 0,
+    justification = -0.2,
+    point_colour = NA,
+    alpha = 0.5
+  ) +
+  geom_boxplot(
+    width = 0.15,
+    outlier.shape = NA,
+    alpha = 0.6
+  )  +
+  geom_point(
+    data = plot_summary,
+    aes(x = Group, y = q50),
+    inherit.aes = FALSE,
+    size = 2.5,
+    colour = "black"
+  ) +
+  scale_fill_manual(values = my_colors) +
+  coord_cartesian(ylim = c(0, NA), clip = "off") +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 8),
+    axis.text = element_text(size = 7),
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    panel.border = element_rect(colour = "black",
+                fill = NA,
+                linewidth = 0.5),
+    panel.grid.minor = element_blank()) +
+  labs(y = "Phenological center (DOY)")
+```
+
+\newpage
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=7,out.width="80%", fig.cap= "\\textbf{Figure S5}. Mantel correlation between visitation rate and abundance (a), phenology (b), and traits (size matching; c) across botanical gardens and three levels of temporal complexity (weekly, weekly aggregated and full season). Weekly aggregated values correspond to three seasonal categories (Early, Mid, and Late), obtained by pooling weekly networks into three equal temporal partitions of the full sampling period. Weekly values represent individual weekly networks and are displayed within the corresponding seasonal category. Because multiple weekly values are available per garden and seasonal category, weekly data are shown as individual points together with their mean and 95% confidence intervals (± 1.96 SE). Full-season values correspond to networks aggregated across the entire sampling period for each botanical garden. Temporal complexity is represented by point size, and botanical garden by colour."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=7,out.width="80%", fig.cap= "\\textbf{Figure S6}. Mantel correlation between visitation rate and abundance (a), phenology (b), and traits (size matching; c) across botanical gardens and three levels of temporal complexity (weekly, weekly aggregated and full season). Weekly aggregated values correspond to three seasonal categories (Early, Mid, and Late), obtained by pooling weekly networks into three equal temporal partitions of the full sampling period. Weekly values represent individual weekly networks and are displayed within the corresponding seasonal category. Because multiple weekly values are available per garden and seasonal category, weekly data are shown as individual points together with their mean and 95% confidence intervals (± 1.96 SE). Full-season values correspond to networks aggregated across the entire sampling period for each botanical garden. Temporal complexity is represented by point size, and botanical garden by colour."}
 
 library(patchwork)
 library(ggplot2)
@@ -1359,7 +1443,7 @@ final_plot_col
 
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=5,fig.width=8,out.width="80%", fig.cap= "\\textbf{Figure S6}. Temporal variation in mean pollinator selectivity across botanical gardens. Weekly mean selectivity (d') was calculated from interaction frequency matrices (a) and after accounting for floral resource availability (b)."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=5,fig.width=8,out.width="80%", fig.cap= "\\textbf{Figure S7}. Temporal variation in mean pollinator selectivity across botanical gardens. Weekly mean selectivity (d') was calculated from interaction frequency matrices (a) and after accounting for floral resource availability (b)."}
 
 
 library(dplyr)
@@ -1463,7 +1547,7 @@ plot_av_dprime_poll_abundance <- ggplot(average_specialization, aes(x=Week,y=av_
 \newpage
 
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=12,out.width="95%", fig.cap= "\\textbf{Figure S7}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at the family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Black dots denote significant deviations from the null model (\\textit{p} < 0.01). Crossed white cells indicate plant-pollinator family pairs that never co-occurred within the same garden and sampling week."}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=9,fig.width=12,out.width="95%", fig.cap= "\\textbf{Figure S8}. Heatmap of standardized effect sizes (SES) comparing observed plant-pollinator interactions at the family level with expectations from a spatiotemporally constrained null model. Purple indicates avoidance and orange indicates association relative to the null expectation. Black dots denote significant deviations from the null model (\\textit{p} < 0.01). Crossed white cells indicate plant-pollinator family pairs that never co-occurred within the same garden and sampling week."}
 
 library(ComplexHeatmap)
 library(circlize)
