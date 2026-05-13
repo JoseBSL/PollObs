@@ -1,0 +1,16 @@
+Group,Traits,Mean,SD,Min,Max
+a) Plant traits,Autonomous selfing,6.45,21.67,0,88
+a) Plant traits,Corolla diameter,26.22,22.09,4.5,115
+a) Plant traits,Flower lifespan,8.08,8.38,1,48
+a) Plant traits,Flowering length,50.48,26.62,10,129
+a) Plant traits,Flowers per plant,550.97,1406.11,1,8000
+a) Plant traits,Nectar volume,1.33,3.8,0,23.25
+a) Plant traits,Ovule number,66.68,92,1,390
+a) Plant traits,Plant height,0.53,0.33,0.04,1.49
+a) Plant traits,Pollen per flower,381413.84,1461347.93,73.5,11994432
+a) Plant traits,Pollen size,42.1,28.81,17.5,240
+a) Plant traits,Seed mass,0.01,0.04,0,0.35
+a) Plant traits,Style length,9.48,13.25,0,84.85
+b) Pollinator traits,Body length,9.04,3.56,2.07,23.98
+b) Pollinator traits,IT,3.05,1.37,1.18,9.13
+b) Pollinator traits,Proboscis length,3.92,3.13,0.4,17.91
