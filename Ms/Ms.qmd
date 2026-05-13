@@ -86,7 +86,7 @@ In this study, we evaluate how abundance, trait matching and phenology shape pla
 \vspace{-2cm}
 
 
-```{r, out.width="1\\linewidth", include=TRUE, fig.align="left", echo=FALSE}
+```{r, out.width="1.2\\linewidth", include=TRUE, fig.align="left", echo=FALSE}
 knitr::include_graphics("../Data/figure1.pdf")
 ```
 

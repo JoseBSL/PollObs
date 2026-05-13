@@ -75,7 +75,7 @@ p2 = ggplot(example_sp, aes(x = Doy, y = Probability)) +
   labs(title = highlight_species,
        x = "Day of Year",
        y = "Flying probability") +
-  theme_minimal() +
+  theme_bw() +
   geom_point(data = sp_data, aes(x = Doy, y = n_individuals/(max(n_individuals)), color = Probability), alpha= 0.5) +
   geom_vline(data = sp_data1, aes(xintercept = Doy), linetype = "dashed", color = "black") +
   scale_color_viridis_c(name = "Flying \n probability") +

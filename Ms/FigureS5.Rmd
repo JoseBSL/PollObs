@@ -1,0 +1,149 @@
+---
+output: pdf_document
+---
+
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8,out.width="100%", fig.cap=""}
+
+# Load libraries
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+library(viridis)
+
+# ---- GLOBAL SIZE SETTINGS ----
+base_size <- 16
+axis_title_size <- 16
+axis_text_size <- 14
+legend_title_size <- 15
+legend_text_size <- 14
+label_size <- 5
+title_size <- 16
+
+# Read pollinator phenology
+all <- readRDS("../Data/Working_files/pollinator_phenology.rds")
+
+# Create order of species for plotting
+plot_order <- all %>% 
+  filter(Flying_period == "Yes") %>% 
+  group_by(Species) %>% 
+  slice_min(Doy, with_ties = FALSE) %>% 
+  arrange(-Doy) %>% 
+  select(Doy, Species) %>% 
+  rename(Order = Doy) %>% 
+  ungroup() %>% 
+  mutate(Order_number = row_number() * 50)
+
+# Arrange dataframe
+all_ordered <- left_join(all, plot_order, by = "Species") %>% 
+  group_by(Species) %>% 
+  arrange(Order_number) %>% 
+  mutate(Order_number = if_else(Flying_period == "No", NA_real_, Order_number))
+
+# Highlight species
+highlight_species <- "Sphecodes albilabris"
+
+highlighted_species_data <- all_ordered %>% 
+  filter(Species == highlight_species,
+         Flying_period == "Yes") %>% 
+  slice_min(Doy, with_ties = FALSE) %>% 
+  mutate(Doy = 80)
+
+# ---- PANEL A ----
+p1 <- all_ordered %>%
+  ggplot(aes(x = Doy, y = Order_number, group = Species, color = Probability)) +
+  geom_line(linewidth = 1) +
+  scale_color_viridis_c(name = "Flying\nprobability") +
+  coord_cartesian(clip = "off") +
+  scale_y_continuous(expand = c(0.02, 0)) +
+  xlab("Day of the year") +
+  ylab("Pollinator species") +
+  theme_bw(base_size = base_size) +
+  theme(
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title = element_text(size = axis_title_size),
+    axis.text.x = element_text(size = axis_text_size),
+    legend.title = element_text(size = legend_title_size),
+    legend.text = element_text(size = legend_text_size),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    plot.margin = margin(10, 60, 10, 10)  # IMPORTANT for label space
+  ) +
+  geom_point(
+    data = highlighted_species_data, 
+    aes(x = Doy, y = Order_number),
+    color = "black", 
+    shape = 8,
+    size = 3,
+    inherit.aes = FALSE
+  ) +
+  geom_text(
+    data = highlighted_species_data, 
+    aes(x = Doy, y = Order_number, label = Species),
+    size = label_size,
+    hjust = 0,   # <-- move text RIGHT instead of left
+    nudge_x = 5, # <-- push label inside panel
+    fontface = "italic",
+    inherit.aes = FALSE
+  )
+
+# ---- PANEL B ----
+oc2 <- readRDS("../Data/Working_files/poll_occurrences_over_60_records.rds")
+
+example_sp <- all_ordered %>% 
+  filter(Species == highlight_species)
+
+sp_data <- oc2 %>% 
+  filter(Species == highlight_species) %>% 
+  left_join(example_sp, by = c("Species", "Doy"))
+
+sp_data1 <- oc2 %>% 
+  filter(Species == highlight_species,
+         !is.na(PollObs))
+
+p2 <- ggplot(example_sp, aes(x = Doy, y = Probability)) +
+  geom_line(color = "black", linewidth = 1) +
+  labs(
+    title = highlight_species,
+    x = "Day of year",
+    y = "Flying probability"
+  ) +
+  theme_bw(base_size = base_size) +
+  geom_point(
+    data = sp_data,
+    aes(
+      x = Doy,
+      y = n_individuals / max(n_individuals, na.rm = TRUE),
+      color = Probability
+    ),
+    alpha = 0.6,
+    size = 2,
+    inherit.aes = FALSE
+  ) +
+  geom_vline(
+    data = sp_data1,
+    aes(xintercept = Doy),
+    linetype = "dashed",
+    color = "black",
+    linewidth = 0.6,
+    inherit.aes = FALSE
+  ) +
+  scale_color_viridis_c(name = "Flying\nprobability") +
+  guides(colour = "none") +
+  theme(
+    plot.title = element_text(size = title_size, face = "italic"),
+    axis.title = element_text(size = axis_title_size),
+    axis.text = element_text(size = axis_text_size),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 2)
+  )
+
+
+
+# ---- COMBINE ----
+
+
+p_final <- p1 / p2 
+
+p_final
+
+```
