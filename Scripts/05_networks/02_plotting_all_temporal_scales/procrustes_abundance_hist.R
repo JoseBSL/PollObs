@@ -228,27 +228,27 @@ panel_abundance_combined <- ggplot() +
     stroke = 0.55
   ) +
   
-  annotation_custom(
-    grob = textGrob("Early", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Early"],
-    xmax = season_centers$x[season_centers$Season == "Early"],
-    ymin = -Inf, ymax = -Inf
-  ) +
-  annotation_custom(
-    grob = textGrob("Mid", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Mid"],
-    xmax = season_centers$x[season_centers$Season == "Mid"],
-    ymin = -Inf, ymax = -Inf
-  ) +
-  annotation_custom(
-    grob = textGrob("Late", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Late"],
-    xmax = season_centers$x[season_centers$Season == "Late"],
-    ymin = -Inf, ymax = -Inf
-  ) +
+#  annotation_custom(
+#    grob = textGrob("Early", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Early"],
+#    xmax = season_centers$x[season_centers$Season == "Early"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
+#  annotation_custom(
+#    grob = textGrob("Mid", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Mid"],
+#    xmax = season_centers$x[season_centers$Season == "Mid"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
+#  annotation_custom(
+#    grob = textGrob("Late", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Late"],
+#    xmax = season_centers$x[season_centers$Season == "Late"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
   
   scale_fill_manual(values = garden_cols, name = "Botanical garden") +
   scale_colour_manual(values = garden_cols, guide = "none") +
@@ -301,14 +301,14 @@ panel_abundance_combined <- ggplot() +
   coord_cartesian(clip = "off") +
   
   labs(
-    x = "Sampling week",
+    x = NULL,
     y = "Procrustes r",
     title = "Abundance"
   ) +
   
   theme_classic(base_size = 11) +
   theme(
-    plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
+    plot.title = element_text(face = "bold", size = 12, hjust = 0.5, margin = margin(b = 2)),
     axis.title = element_text(size = 11, face = "bold"),
     axis.text = element_text(size = 9, colour = "black"),
     
@@ -329,7 +329,9 @@ panel_abundance_combined <- ggplot() +
     axis.ticks.length = unit(1.4, "mm"),
     axis.title.x = element_text(margin = margin(t = 12)),
     
-    plot.margin = margin(6, 10, 50, 6)
+    plot.margin = margin(3, 7, 3, 7)
   )
 
 panel_abundance_combined
+
+saveRDS(panel_abundance_combined, "Data/Working_files/panel_abundance_barplot_procrustes.rds")
