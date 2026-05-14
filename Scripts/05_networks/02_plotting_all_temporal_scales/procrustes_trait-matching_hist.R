@@ -4,24 +4,39 @@ library(lubridate)
 library(grid)
 
 # ---- Load inputs ----
-abund_week <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds") %>%
+trait_week <- readRDS("Data/Working_files/PROTEST_trait_week_result.rds") %>%
   filter(Test == "Int_frequency_network") %>% 
   filter(!Sampling_week == 12, !Sampling_week == 13)
 
 # Do small tweak to avoid overlapping lines in the late season
-abund_season <- readRDS("Data/Working_files/PROTEST_abund_season_result.rds") %>% 
+trait_season <- readRDS("Data/Working_files/PROTEST_trait_season_result.rds") %>% 
   mutate(
     Procrustes_r = if_else(
-      Botanical_garden == "Leipzig" & Season == "Late",
-      0.89,
+      Botanical_garden == "Halle" & Season == "Early",
+      0.78,
       Procrustes_r)) %>% 
   mutate(
     Procrustes_r = if_else(
-      Botanical_garden == "Jena" & Season == "Late",
-      0.97,
+      Botanical_garden == "Jena" & Season == "Mid",
+      0.62,
+      Procrustes_r))%>% 
+  mutate(
+    Procrustes_r = if_else(
+      Botanical_garden == "Halle" & Season == "Mid",
+      0.71,
+      Procrustes_r))%>% 
+  mutate(
+    Procrustes_r = if_else(
+      Botanical_garden == "Halle" & Season == "Late",
+      0.765,
       Procrustes_r))
 
-abund_full <- readRDS("Data/Working_files/PROTEST_abund_full_result.rds") 
+trait_full <- readRDS("Data/Working_files/PROTEST_trait_full_result.rds") %>% 
+  mutate(
+    Procrustes_r = if_else(
+      Botanical_garden == "Jena",
+      0.32,
+      Procrustes_r))
 
 groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
   mutate(
@@ -58,7 +73,7 @@ garden_y_offset <- c(
 )
 
 # ---- Observed weeks only; shift weeks >= 30 down by 1 ----
-week_lookup <- abund_week %>%
+week_lookup <- trait_week %>%
   distinct(Sampling_week) %>%
   arrange(Sampling_week) %>%
   mutate(
@@ -99,7 +114,7 @@ weekly_bars_full <- expand.grid(
 ) %>%
   as_tibble() %>%
   left_join(week_lookup, by = "Sampling_week") %>%
-  left_join(abund_week, by = c("Sampling_week", "Botanical_garden")) %>%
+  left_join(trait_week, by = c("Sampling_week", "Botanical_garden")) %>%
   mutate(
     Botanical_garden = factor(Botanical_garden, levels = garden_levels),
     has_value = !is.na(Procrustes_r),
@@ -108,7 +123,7 @@ weekly_bars_full <- expand.grid(
   )
 
 # ---- Seasonal bars ----
-season_bars <- abund_season %>%
+season_bars <- trait_season %>%
   filter(!is.na(Procrustes_r)) %>%
   mutate(
     Season = factor(Season, levels = season_levels),
@@ -122,7 +137,7 @@ season_bars <- abund_season %>%
 global_week_min <- min(season_week_bounds$plot_week_min, na.rm = TRUE)
 global_week_max <- max(season_week_bounds$plot_week_max, na.rm = TRUE)
 
-full_bar <- abund_full %>%
+full_bar <- trait_full %>%
   filter(!is.na(Procrustes_r)) %>%
   mutate(
     Botanical_garden = factor(Botanical_garden, levels = garden_levels),
@@ -152,7 +167,7 @@ x_limits <- c(
 )
 
 # ---- Plot ----
-panel_abundance_combined <- ggplot() +
+panel_trait_combined <- ggplot() +
   
   geom_vline(
     data = season_dividers,
@@ -228,27 +243,27 @@ panel_abundance_combined <- ggplot() +
     stroke = 0.55
   ) +
   
-  annotation_custom(
-    grob = textGrob("Early", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Early"],
-    xmax = season_centers$x[season_centers$Season == "Early"],
-    ymin = -Inf, ymax = -Inf
-  ) +
-  annotation_custom(
-    grob = textGrob("Mid", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Mid"],
-    xmax = season_centers$x[season_centers$Season == "Mid"],
-    ymin = -Inf, ymax = -Inf
-  ) +
-  annotation_custom(
-    grob = textGrob("Late", y = unit(-1.7, "lines"),
-                    gp = gpar(fontsize = 9, fontface = "bold")),
-    xmin = season_centers$x[season_centers$Season == "Late"],
-    xmax = season_centers$x[season_centers$Season == "Late"],
-    ymin = -Inf, ymax = -Inf
-  ) +
+#  annotation_custom(
+#    grob = textGrob("Early", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Early"],
+#    xmax = season_centers$x[season_centers$Season == "Early"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
+#  annotation_custom(
+#    grob = textGrob("Mid", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Mid"],
+#    xmax = season_centers$x[season_centers$Season == "Mid"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
+#  annotation_custom(
+#    grob = textGrob("Late", y = unit(-1.7, "lines"),
+#                    gp = gpar(fontsize = 9, fontface = "bold")),
+#    xmin = season_centers$x[season_centers$Season == "Late"],
+#    xmax = season_centers$x[season_centers$Season == "Late"],
+#    ymin = -Inf, ymax = -Inf
+#  ) +
   
   scale_fill_manual(values = garden_cols, name = "Botanical garden") +
   scale_colour_manual(values = garden_cols, guide = "none") +
@@ -301,14 +316,14 @@ panel_abundance_combined <- ggplot() +
   coord_cartesian(clip = "off") +
   
   labs(
-    x = "Sampling week",
+    x = NULL,
     y = "Procrustes r",
-    title = "Abundance"
+    title = "Trait-matching"
   ) +
   
   theme_classic(base_size = 11) +
   theme(
-    plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
+    plot.title = element_text(face = "bold", size = 12, hjust = 0.5, margin = margin(b = 2)),
     axis.title = element_text(size = 11, face = "bold"),
     axis.text = element_text(size = 9, colour = "black"),
     
@@ -329,7 +344,9 @@ panel_abundance_combined <- ggplot() +
     axis.ticks.length = unit(1.4, "mm"),
     axis.title.x = element_text(margin = margin(t = 12)),
     
-    plot.margin = margin(6, 10, 50, 6)
+    plot.margin = margin(3, 7, 3, 7)
   )
 
-panel_abundance_combined
+panel_trait_combined
+
+saveRDS(panel_trait_combined, "Data/Working_files/paneltrait_barplot_procrustes.rds")

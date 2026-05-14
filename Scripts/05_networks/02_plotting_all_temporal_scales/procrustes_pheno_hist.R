@@ -4,24 +4,29 @@ library(lubridate)
 library(grid)
 
 # ---- Load inputs ----
-abund_week <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds") %>%
-  filter(Test == "Int_frequency_network") %>% 
+pheno_week <- readRDS("Data/Working_files/PROTEST_pheno_week_result.rds") %>%
   filter(!Sampling_week == 12, !Sampling_week == 13)
 
 # Do small tweak to avoid overlapping lines in the late season
-abund_season <- readRDS("Data/Working_files/PROTEST_abund_season_result.rds") %>% 
+pheno_season <- readRDS("Data/Working_files/PROTEST_pheno_season_result.rds") %>% 
+  mutate(
+  Procrustes_r = if_else(
+    Botanical_garden == "Jena" & Season == "Late",
+    0.249,
+    Procrustes_r))
+
+pheno_full <- readRDS("Data/Working_files/PROTEST_pheno_full_result.rds") %>% 
   mutate(
     Procrustes_r = if_else(
-      Botanical_garden == "Leipzig" & Season == "Late",
-      0.89,
-      Procrustes_r)) %>% 
+      Botanical_garden == "Halle",
+      0.19,
+      Procrustes_r))%>% 
   mutate(
     Procrustes_r = if_else(
-      Botanical_garden == "Jena" & Season == "Late",
-      0.97,
+      Botanical_garden == "Jena",
+      0.2,
       Procrustes_r))
 
-abund_full <- readRDS("Data/Working_files/PROTEST_abund_full_result.rds") 
 
 groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
   mutate(
@@ -58,7 +63,7 @@ garden_y_offset <- c(
 )
 
 # ---- Observed weeks only; shift weeks >= 30 down by 1 ----
-week_lookup <- abund_week %>%
+week_lookup <- pheno_week %>%
   distinct(Sampling_week) %>%
   arrange(Sampling_week) %>%
   mutate(
@@ -99,7 +104,7 @@ weekly_bars_full <- expand.grid(
 ) %>%
   as_tibble() %>%
   left_join(week_lookup, by = "Sampling_week") %>%
-  left_join(abund_week, by = c("Sampling_week", "Botanical_garden")) %>%
+  left_join(pheno_week, by = c("Sampling_week", "Botanical_garden")) %>%
   mutate(
     Botanical_garden = factor(Botanical_garden, levels = garden_levels),
     has_value = !is.na(Procrustes_r),
@@ -108,7 +113,7 @@ weekly_bars_full <- expand.grid(
   )
 
 # ---- Seasonal bars ----
-season_bars <- abund_season %>%
+season_bars <- pheno_season %>%
   filter(!is.na(Procrustes_r)) %>%
   mutate(
     Season = factor(Season, levels = season_levels),
@@ -122,7 +127,7 @@ season_bars <- abund_season %>%
 global_week_min <- min(season_week_bounds$plot_week_min, na.rm = TRUE)
 global_week_max <- max(season_week_bounds$plot_week_max, na.rm = TRUE)
 
-full_bar <- abund_full %>%
+full_bar <- pheno_full %>%
   filter(!is.na(Procrustes_r)) %>%
   mutate(
     Botanical_garden = factor(Botanical_garden, levels = garden_levels),
@@ -152,7 +157,7 @@ x_limits <- c(
 )
 
 # ---- Plot ----
-panel_abundance_combined <- ggplot() +
+panel_pheno_combined <- ggplot() +
   
   geom_vline(
     data = season_dividers,
@@ -303,12 +308,12 @@ panel_abundance_combined <- ggplot() +
   labs(
     x = "Sampling week",
     y = "Procrustes r",
-    title = "Abundance"
+    title = "Phenology"
   ) +
   
   theme_classic(base_size = 11) +
   theme(
-    plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
+    plot.title = element_text(face = "bold", size = 12, hjust = 0.5, margin = margin(b = 2)),
     axis.title = element_text(size = 11, face = "bold"),
     axis.text = element_text(size = 9, colour = "black"),
     
@@ -329,7 +334,9 @@ panel_abundance_combined <- ggplot() +
     axis.ticks.length = unit(1.4, "mm"),
     axis.title.x = element_text(margin = margin(t = 12)),
     
-    plot.margin = margin(6, 10, 50, 6)
+    plot.margin = margin(3, 7, 3, 7)
   )
 
-panel_abundance_combined
+panel_pheno_combined
+
+saveRDS(panel_pheno_combined, "Data/Working_files/panel_pheno_barplot_procrustes.rds")
