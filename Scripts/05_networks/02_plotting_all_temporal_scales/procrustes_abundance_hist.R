@@ -1,75 +1,75 @@
+# ============================================================
+# Phenology PROTEST plot
+# Weekly mean + weekly min/max ribbon + seasonal/full lines
+# ============================================================
+
 library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(grid)
 
 # ---- Load inputs ----
-abund_week <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds") %>%
-  filter(Test == "Int_frequency_network") %>% 
-  filter(!Sampling_week == 12, !Sampling_week == 13)
 
-# Do small tweak to avoid overlapping lines in the late season
-abund_season <- readRDS("Data/Working_files/PROTEST_abund_season_result.rds") %>% 
-  mutate(
-    Procrustes_r = if_else(
-      Botanical_garden == "Leipzig" & Season == "Late",
-      0.89,
-      Procrustes_r)) %>% 
-  mutate(
-    Procrustes_r = if_else(
-      Botanical_garden == "Jena" & Season == "Late",
-      0.97,
-      Procrustes_r))
+abundance_week <- readRDS("Data/Working_files/PROTEST_abund_week_result.rds") %>%
+  filter(!Sampling_week %in% c(12, 13)) %>%
+  filter(Test == "Int_frequency_network")
 
-abund_full <- readRDS("Data/Working_files/PROTEST_abund_full_result.rds") 
+abundance_season <- readRDS("Data/Working_files/PROTEST_abund_season_result.rds")
 
-groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
-  mutate(
-    Sampling_week = isoweek(Date),
-    Sampling_week_plot = if_else(Sampling_week >= 30, Sampling_week - 1, Sampling_week)
-  )
+abundance_full <- readRDS("Data/Working_files/PROTEST_abund_full_result.rds")
 
-# ---- Levels ----
+# ---- Settings ----
+
 season_levels <- c("Early", "Mid", "Late")
 garden_levels <- c("Halle", "Jena", "Leipzig")
+type_levels <- c("Weekly", "Weekly aggregated", "Full season")
 
-garden_cols <- c(
-  "Halle"   = "#0D0887FF",
-  "Jena"    = "#B12A90FF",
-  "Leipzig" = "#FCA636FF"
+label_y_pos <- unit(-1.7, "lines")
+
+# ---- Colours ----
+
+weekly_line_col <- "#4C78A8"
+weekly_fill_col <- "#8FB6E8"
+
+
+season_line_col <- "#A06AA1"
+season_fill_col <- "#C9A3C9"
+
+full_line_col <- "#C46A32"
+full_fill_col <- "#E28A45"
+
+legend_cols <- c(
+  "Weekly" = weekly_line_col,
+  "Weekly aggregated" = season_line_col,
+  "Full season" = full_line_col
 )
 
-garden_shapes <- c(
-  "Halle"   = 21,
-  "Jena"    = 22,
-  "Leipzig" = 24
+legend_fills <- c(
+  "Weekly" = weekly_fill_col,
+  "Weekly aggregated" = season_fill_col,
+  "Full season" = full_fill_col
 )
 
-garden_offset <- c(
-  "Halle"   = -0.25,
-  "Jena"    =  0.00,
-  "Leipzig" =  0.25
+legend_linetypes <- c(
+  "Weekly" = "solid",
+  "Weekly aggregated" = "longdash",
+  "Full season" = "dotted"
 )
 
-garden_y_offset <- c(
-  "Halle"   = -0.018,
-  "Jena"    =  0,
-  "Leipzig" =  0.018
-)
+# ---- Week lookup ----
 
-# ---- Observed weeks only; shift weeks >= 30 down by 1 ----
-week_lookup <- abund_week %>%
+week_lookup <- abundance_week %>%
   distinct(Sampling_week) %>%
   arrange(Sampling_week) %>%
   mutate(
-    Sampling_week_plot = if_else(Sampling_week >= 30, Sampling_week - 1, Sampling_week)
+    Sampling_week_plot = if_else(
+      Sampling_week >= 30,
+      Sampling_week - 1,
+      Sampling_week
+    )
   )
 
-all_weeks_plot <- sort(unique(week_lookup$Sampling_week_plot))
-
-# ---- Equal visual divisions after shifting ----
 week_seasons <- week_lookup %>%
-  distinct(Sampling_week, Sampling_week_plot) %>%
   arrange(Sampling_week_plot) %>%
   mutate(
     week_index = row_number(),
@@ -89,70 +89,175 @@ season_week_bounds <- week_seasons %>%
     plot_week_min = min(Sampling_week_plot),
     plot_week_max = max(Sampling_week_plot),
     .groups = "drop"
-  ) %>%
-  arrange(Season)
-
-# ---- Weekly bars ----
-weekly_bars_full <- expand.grid(
-  Sampling_week = week_lookup$Sampling_week,
-  Botanical_garden = garden_levels
-) %>%
-  as_tibble() %>%
-  left_join(week_lookup, by = "Sampling_week") %>%
-  left_join(abund_week, by = c("Sampling_week", "Botanical_garden")) %>%
-  mutate(
-    Botanical_garden = factor(Botanical_garden, levels = garden_levels),
-    has_value = !is.na(Procrustes_r),
-    Procrustes_r_plot = if_else(has_value, Procrustes_r, 0),
-    x_pos = Sampling_week_plot + garden_offset[as.character(Botanical_garden)]
   )
 
-# ---- Seasonal bars ----
-season_bars <- abund_season %>%
-  filter(!is.na(Procrustes_r)) %>%
-  mutate(
-    Season = factor(Season, levels = season_levels),
-    Botanical_garden = factor(Botanical_garden, levels = garden_levels),
-    y_offset = garden_y_offset[as.character(Botanical_garden)]
-  ) %>%
-  left_join(season_week_bounds, by = "Season") %>%
-  filter(!is.na(plot_week_min), !is.na(plot_week_max))
-
-# ---- Full-season bars ----
 global_week_min <- min(season_week_bounds$plot_week_min, na.rm = TRUE)
 global_week_max <- max(season_week_bounds$plot_week_max, na.rm = TRUE)
 
-full_bar <- abund_full %>%
-  filter(!is.na(Procrustes_r)) %>%
-  mutate(
-    Botanical_garden = factor(Botanical_garden, levels = garden_levels),
-    y_offset = garden_y_offset[as.character(Botanical_garden)],
-    plot_week_min = global_week_min,
-    plot_week_max = global_week_max
-  )
-
-# ---- Labels, dividers, axis ----
 season_centers <- season_week_bounds %>%
   mutate(x = (plot_week_min + plot_week_max) / 2)
 
-season_dividers <- tibble(
-  x = c(20.5, 27.5)
-)
+season_dividers <- tibble(x = c(20.5, 27.5))
 
 x_axis <- week_lookup %>%
   distinct(Sampling_week_plot, Sampling_week) %>%
   arrange(Sampling_week_plot)
 
-x_breaks <- x_axis$Sampling_week_plot
-x_labels <- x_axis$Sampling_week
+# ---- Weekly summary ----
 
-x_limits <- c(
-  global_week_min - 0.7,
-  global_week_max + 0.8
-)
+weekly_summary <- abundance_week %>%
+  left_join(week_lookup, by = "Sampling_week") %>%
+  group_by(Sampling_week_plot) %>%
+  summarise(
+    mean_r = mean(Procrustes_r, na.rm = TRUE),
+    min_r  = min(Procrustes_r, na.rm = TRUE),
+    max_r  = max(Procrustes_r, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(Type = factor("Weekly", levels = type_levels))
+
+# ---- Seasonal summary ----
+
+season_bars <- abundance_season %>%
+  filter(!is.na(Procrustes_r)) %>%
+  mutate(
+    Season = factor(Season, levels = season_levels),
+    Botanical_garden = factor(Botanical_garden, levels = garden_levels)
+  ) %>%
+  left_join(season_week_bounds, by = "Season") %>%
+  filter(!is.na(plot_week_min), !is.na(plot_week_max))
+
+season_summary <- season_bars %>%
+  group_by(Season, plot_week_min, plot_week_max) %>%
+  summarise(
+    mean_r = mean(Procrustes_r, na.rm = TRUE),
+    min_r  = min(Procrustes_r, na.rm = TRUE),
+    max_r  = max(Procrustes_r, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(Type = factor("Weekly aggregated", levels = type_levels))
+
+# ---- Full-season summary ----
+
+full_summary <- abundance_full %>%
+  filter(!is.na(Procrustes_r)) %>%
+  summarise(
+    mean_r = mean(Procrustes_r, na.rm = TRUE),
+    min_r  = min(Procrustes_r, na.rm = TRUE),
+    max_r  = max(Procrustes_r, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    plot_week_min = global_week_min,
+    plot_week_max = global_week_max,
+    Type = factor("Full season", levels = type_levels)
+  )
 
 # ---- Plot ----
-panel_abundance_combined <- ggplot() +
+
+main_abundance_plot <- ggplot() +
+  
+  geom_rect(
+    data = full_summary,
+    aes(
+      xmin = plot_week_min,
+      xmax = plot_week_max,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.055
+  ) +
+  
+  geom_rect(
+    data = season_summary,
+    aes(
+      xmin = plot_week_min,
+      xmax = plot_week_max,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.10
+  ) +
+  
+  geom_ribbon(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.22
+  ) +
+  
+  geom_segment(
+    data = full_summary,
+    aes(
+      x = plot_week_min,
+      xend = plot_week_max,
+      y = mean_r,
+      yend = mean_r,
+      colour = Type,
+      linetype = Type
+    ),
+    linewidth = 1
+  ) +
+  
+  geom_segment(
+    data = season_summary,
+    aes(
+      x = plot_week_min,
+      xend = plot_week_max,
+      y = mean_r,
+      yend = mean_r,
+      colour = Type,
+      linetype = Type
+    ),
+    linewidth = 1
+  ) +
+  
+  geom_errorbar(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      ymin = min_r,
+      ymax = max_r
+    ),
+    width = 0.08,
+    linewidth = 0.4,
+    colour = weekly_line_col,
+    alpha = 0.7
+  ) +
+  
+  geom_line(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      y = mean_r,
+      colour = Type,
+      linetype = Type,
+      group = 1
+    ),
+    linewidth = 1.05
+  ) +
+  
+  geom_point(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      y = mean_r,
+      colour = Type
+    ),
+    shape = 21,
+    fill = "white",
+    size = 4,
+    stroke = 1
+  ) +
   
   geom_vline(
     data = season_dividers,
@@ -161,134 +266,52 @@ panel_abundance_combined <- ggplot() +
     colour = "black"
   ) +
   
-  geom_col(
-    data = weekly_bars_full,
-    aes(
-      x = x_pos,
-      y = Procrustes_r_plot,
-      fill = Botanical_garden
-    ),
-    width = 0.2,
-    colour = "black",
-    linewidth = 0.25,
-    alpha = 0.5
+  annotation_custom(
+    textGrob("Early", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Early"],
+    xmax = season_centers$x[season_centers$Season == "Early"],
+    ymin = -Inf,
+    ymax = -Inf
   ) +
   
-  geom_segment(
-    data = season_bars,
-    aes(
-      x = plot_week_min - 0.45,
-      xend = plot_week_max + 0.45,
-      y = Procrustes_r + y_offset,
-      yend = Procrustes_r + y_offset,
-      linetype = "Season"
-    ),
-    colour = "black",
-    linewidth = 0.45,
-    lineend = "round"
+  annotation_custom(
+    textGrob("Mid", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Mid"],
+    xmax = season_centers$x[season_centers$Season == "Mid"],
+    ymin = -Inf,
+    ymax = -Inf
   ) +
   
-  geom_point(
-    data = season_bars,
-    aes(
-      x = (plot_week_min + plot_week_max) / 2,
-      y = Procrustes_r + y_offset,
-      shape = Botanical_garden,
-      fill = Botanical_garden
-    ),
-    colour = "black",
-    size = 2,
-    stroke = 0.45
+  annotation_custom(
+    textGrob("Late", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Late"],
+    xmax = season_centers$x[season_centers$Season == "Late"],
+    ymin = -Inf,
+    ymax = -Inf
   ) +
   
-  geom_segment(
-    data = full_bar,
-    aes(
-      x = plot_week_min - 0.45,
-      xend = plot_week_max + 0.45,
-      y = Procrustes_r + y_offset,
-      yend = Procrustes_r + y_offset,
-      linetype = "Full season"
-    ),
-    colour = "black",
-    linewidth = 0.45,
-    lineend = "round"
+  scale_fill_manual(
+    values = legend_fills,
+    breaks = type_levels,
+    name = "Min-max range"
   ) +
   
-  geom_point(
-    data = full_bar,
-    aes(
-      x = (plot_week_min + plot_week_max) / 2,
-      y = Procrustes_r + y_offset,
-      shape = Botanical_garden,
-      fill = Botanical_garden
-    ),
-    colour = "black",
-    size = 2,
-    stroke = 0.55
+  scale_colour_manual(
+    values = legend_cols,
+    breaks = type_levels,
+    name = "Mean"
   ) +
   
-#  annotation_custom(
-#    grob = textGrob("Early", y = unit(-1.7, "lines"),
-#                    gp = gpar(fontsize = 9, fontface = "bold")),
-#    xmin = season_centers$x[season_centers$Season == "Early"],
-#    xmax = season_centers$x[season_centers$Season == "Early"],
-#    ymin = -Inf, ymax = -Inf
-#  ) +
-#  annotation_custom(
-#    grob = textGrob("Mid", y = unit(-1.7, "lines"),
-#                    gp = gpar(fontsize = 9, fontface = "bold")),
-#    xmin = season_centers$x[season_centers$Season == "Mid"],
-#    xmax = season_centers$x[season_centers$Season == "Mid"],
-#    ymin = -Inf, ymax = -Inf
-#  ) +
-#  annotation_custom(
-#    grob = textGrob("Late", y = unit(-1.7, "lines"),
-#                    gp = gpar(fontsize = 9, fontface = "bold")),
-#    xmin = season_centers$x[season_centers$Season == "Late"],
-#    xmax = season_centers$x[season_centers$Season == "Late"],
-#    ymin = -Inf, ymax = -Inf
-#  ) +
-  
-  scale_fill_manual(values = garden_cols, name = "Botanical garden") +
-  scale_colour_manual(values = garden_cols, guide = "none") +
-  scale_shape_manual(values = garden_shapes, guide = "none") +
   scale_linetype_manual(
-    name = NULL,
-    values = c(
-      "Season" = "solid",
-      "Full season" = "22"
-    )
-  ) +
-  scale_alpha_manual(
-    values = c(`TRUE` = 0.55, `FALSE` = 0.06),
-    guide = "none"
-  ) +
-  guides(
-    fill = guide_legend(
-      order = 1,
-      override.aes = list(
-        shape = garden_shapes,
-        colour = garden_cols,
-        fill = garden_cols,
-        alpha = 0.55,
-        size = 3,
-        linetype = 0
-      )
-    ),
-    linetype = guide_legend(
-      order = 2,
-      override.aes = list(
-        colour = "black",
-        linewidth = 0.6
-      )
-    )
+    values = legend_linetypes,
+    breaks = type_levels,
+    name = "Mean"
   ) +
   
   scale_x_continuous(
-    breaks = x_breaks,
-    labels = x_labels,
-    limits = x_limits,
+    breaks = x_axis$Sampling_week_plot,
+    labels = x_axis$Sampling_week,
+    limits = c(global_week_min - 0.7, global_week_max + 0.8),
     expand = c(0, 0)
   ) +
   
@@ -301,9 +324,15 @@ panel_abundance_combined <- ggplot() +
   coord_cartesian(clip = "off") +
   
   labs(
-    x = NULL,
+    x = "Sampling week",
     y = "Procrustes r",
     title = "Abundance"
+  ) +
+  
+  guides(
+    colour = guide_legend(order = 1),
+    linetype = guide_legend(order = 1),
+    fill = guide_legend(order = 2)
   ) +
   
   theme_classic(base_size = 11) +
@@ -311,27 +340,20 @@ panel_abundance_combined <- ggplot() +
     plot.title = element_text(face = "bold", size = 12, hjust = 0.5, margin = margin(b = 2)),
     axis.title = element_text(size = 11, face = "bold"),
     axis.text = element_text(size = 9, colour = "black"),
-    
-    panel.border = element_rect(
-      colour = "black",
-      fill = NA,
-      linewidth = 0.6
-    ),
-    
+    panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.6),
     axis.line = element_blank(),
     panel.grid = element_blank(),
-    
-    legend.position = "bottom",
+    legend.position = "right",
+    legend.box = "vertical",
     legend.title = element_text(face = "bold", size = 9),
-    legend.text = element_text(size = 9),
-    
+    legend.text = element_text(size = 8.5),
     axis.ticks = element_line(colour = "black", linewidth = 0.35),
     axis.ticks.length = unit(1.4, "mm"),
     axis.title.x = element_text(margin = margin(t = 12)),
-    
-    plot.margin = margin(3, 7, 3, 7)
+    plot.margin = margin(3, 2, 8, 7)
   )
 
-panel_abundance_combined
+main_abundance_plot
 
-saveRDS(panel_abundance_combined, "Data/Working_files/panel_abundance_barplot_procrustes.rds")
+
+saveRDS(main_abundance_plot, "Data/Working_files/main_abundance_plot_protest.rds")
