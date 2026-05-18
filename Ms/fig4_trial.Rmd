@@ -1,0 +1,337 @@
+---
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=12, out.width="100%"}
+
+# ======================================================
+# SES histogram + clustered categorical guild heatmap
+# Pollinator + plant species counts in labels
+# ======================================================
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(patchwork)
+
+alpha <- 0.05
+critical_value <- qnorm(0.975)
+top_n_plants <- 18
+
+cat_levels <- c("Avoidance", "No difference", "Preference")
+cat_labels <- c("Avoidance", "No difference", "Preference")
+
+plot_cols <- c(
+  "Avoidance" = "#F1A340",
+  "No difference" = "grey85",
+  "Preference" = "#7B3294"
+)
+
+guild_order <- c(
+  "Apidae", "Andrenidae", "Halictidae", "Megachilidae",
+  "Colletidae", "Melittidae", "Non-bee Hymenoptera",
+  "Bombylids", "Syrphids", "Other Diptera",
+  "Lepidoptera", "Coleoptera", "Other taxa"
+)
+
+# -----------------------------
+# Load data
+# -----------------------------
+
+SES <- readRDS("../Data/Working_files/SES_genus.rds")
+SES_guild <- readRDS("../Data/Working_files/SES_guild_split_bees.rds")
+pval_df_guild <- readRDS("../Data/Working_files/pval_df_guild_split_bees.rds")
+raw_data <- readRDS("../Data/Working_files/interaction_data.rds")
+
+# -----------------------------
+# Count pollinator species per guild
+# -----------------------------
+
+poll_order <- c("Hymenoptera", "Diptera", "Coleoptera", "Lepidoptera")
+
+bee_families <- c(
+  "Apidae", "Andrenidae", "Halictidae",
+  "Megachilidae", "Colletidae", "Melittidae"
+)
+
+guild_n_species <- raw_data %>%
+  filter(
+    !is.na(Pollinator_accepted_name),
+    Pollinator_rank == "SPECIES",
+    Pollinator_order %in% poll_order
+  ) %>%
+  mutate(
+    Pollinator_guild = case_when(
+      Pollinator_order == "Hymenoptera" &
+        Pollinator_family %in% bee_families ~ Pollinator_family,
+      Pollinator_order == "Hymenoptera" ~ "Non-bee Hymenoptera",
+      Pollinator_family == "Bombyliidae" ~ "Bombylids",
+      Pollinator_family == "Syrphidae" ~ "Syrphids",
+      Pollinator_order == "Diptera" ~ "Other Diptera",
+      Pollinator_order == "Lepidoptera" ~ "Lepidoptera",
+      Pollinator_order == "Coleoptera" ~ "Coleoptera",
+      TRUE ~ "Other taxa"
+    )
+  ) %>%
+  distinct(Pollinator_guild, Pollinator_accepted_name) %>%
+  count(Pollinator_guild, name = "n_species")
+
+# -----------------------------
+# Count plant species per family
+# -----------------------------
+
+plant_n_species <- raw_data %>%
+  filter(!is.na(Plant_accepted_name)) %>%
+  distinct(Plant_family, Plant_accepted_name) %>%
+  count(Plant_family, name = "n_species")
+
+# ======================================================
+# A) SES histogram
+# ======================================================
+
+SES_df <- as.data.frame(SES) %>%
+  rownames_to_column("Plant_family") %>%
+  pivot_longer(-Plant_family, names_to = "Pollinator_genus", values_to = "SES") %>%
+  filter(!is.na(SES)) %>%
+  mutate(
+    category = case_when(
+      SES < -critical_value ~ "Avoidance",
+      SES >  critical_value ~ "Preference",
+      TRUE ~ "No difference"
+    ),
+    category = factor(category, levels = cat_levels)
+  )
+
+x_lim <- quantile(abs(SES_df$SES), 0.85, na.rm = TRUE)
+
+p_ses <- ggplot(SES_df, aes(x = SES, fill = category)) +
+  geom_histogram(
+    bins = 1100,
+    alpha = 0.9,
+    colour = "white",
+    linewidth = 0.2,
+    position = "identity"
+  ) +
+  ggtitle("a)") +
+  geom_vline(
+    xintercept = c(-critical_value, critical_value),
+    linetype = "longdash",
+    colour = "grey35"
+  ) +
+  geom_vline(xintercept = 0, colour = "#3B3B3B") +
+  scale_fill_manual(values = plot_cols, guide = "none") +
+  coord_cartesian(xlim = c(-x_lim, x_lim), expand = FALSE) +
+  labs(x = "Standardized effect size (SES)", y ="Count") +
+  theme_bw(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    panel.border = element_rect(size = 1.5),
+    axis.title = element_text(size = 15, face = "bold"),
+    axis.text = element_text(size = 13, colour = "black"),
+    plot.title = element_text(size= 20, face= "bold")
+
+  )
+
+# ======================================================
+# B) Heatmap data
+# ======================================================
+
+heat_df <- as.data.frame(SES_guild) %>%
+  rownames_to_column("Plant_family") %>%
+  pivot_longer(-Plant_family, names_to = "Pollinator_guild", values_to = "SES") %>%
+  left_join(pval_df_guild, by = c("Plant_family", "Pollinator_guild")) %>%
+  filter(!is.na(SES)) %>%
+  mutate(
+    category = case_when(
+      p_two < alpha & SES > 0 ~ "Avoidance",
+      p_two < alpha & SES < 0 ~ "Preference",
+      TRUE ~ "No difference"
+    ),
+    category = factor(category, levels = cat_levels)
+  )
+
+plant_keep <- heat_df %>%
+  group_by(Plant_family) %>%
+  summarise(signal = sum(abs(SES)), .groups = "drop") %>%
+  slice_max(signal, n = top_n_plants) %>%
+  pull(Plant_family)
+
+heat_df <- heat_df %>%
+  filter(Plant_family %in% plant_keep)
+
+ses_mat <- heat_df %>%
+  select(Plant_family, Pollinator_guild, SES) %>%
+  pivot_wider(names_from = Pollinator_guild, values_from = SES, values_fill = 0) %>%
+  column_to_rownames("Plant_family") %>%
+  as.matrix()
+
+plant_order <- rownames(ses_mat)[hclust(dist(ses_mat))$order]
+
+guild_labels <- guild_n_species %>%
+  mutate(label = paste0(Pollinator_guild, " (", n_species, ")")) %>%
+  select(Pollinator_guild, label) %>%
+  deframe()
+
+plant_labels <- plant_n_species %>%
+  filter(Plant_family %in% plant_order) %>%
+  mutate(label = paste0(Plant_family, " (", n_species, ")")) %>%
+  select(Plant_family, label) %>%
+  deframe()
+
+heat_df <- heat_df %>%
+  mutate(
+    Plant_family = factor(
+      Plant_family,
+      levels = plant_order,
+      labels = plant_labels[plant_order]
+    ),
+    Pollinator_guild = factor(
+      Pollinator_guild,
+      levels = rev(guild_order[guild_order %in% names(guild_labels)]),
+      labels = rev(guild_labels[guild_order[guild_order %in% names(guild_labels)]])
+    )
+  )
+
+# ======================================================
+# C) Heatmap
+# ======================================================
+
+p_heat <- ggplot(
+  heat_df,
+  aes(x = Plant_family, y = Pollinator_guild, fill = category)) +
+  geom_tile(colour = "white", alpha= 0.9) +
+  scale_fill_manual(values = plot_cols, name = "Observed against null") +
+  labs(x = "Plant family", y = "Pollinator guild") +
+  theme_classic(base_size = 13) +
+  ggtitle("b)") +
+  theme(
+    axis.text.x = element_text(angle = 60, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title = element_text(size = 15, face = "bold"),
+    legend.position = "top",
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 11),
+    legend.background = element_rect(colour = "black"),
+    legend.box.background = element_rect(colour = "black"),
+    legend.margin = margin(4, 20, 4, 8),
+    plot.title = element_text(size= 20, face= "bold")
+  )
+
+# ======================================================
+# Combined plot
+# ======================================================
+
+p_ses <- p_ses +
+  theme(plot.margin = margin(1, 1, 1, 1))
+
+p_ses <- p_ses +
+  guides(fill = "none")
+p_heat <- p_heat +
+  theme(
+    legend.position = "bottom",
+    legend.justification = "center",
+    legend.direction = "horizontal",
+    legend.title = element_text(hjust = 0.5),
+    legend.box.margin = margin(t = -5),
+    legend.margin = margin(2, 2, 2, 2),
+    plot.title = element_text(size= 20, face= "bold")
+
+  ) +
+  guides(
+    fill = guide_legend(
+      nrow = 1,
+      byrow = TRUE
+    )
+  )
+
+p_heat <- p_heat +
+  scale_y_discrete(position = "right") +
+  theme(
+    axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(face = "bold")
+  )
+
+library(cowplot)
+
+# Dummy legend plot
+legend_plot <- ggplot(
+  data.frame(category = factor(cat_levels, levels = cat_levels)),
+  aes(x = category, fill = category)
+) +
+  geom_bar(alpha = 0) +
+  scale_fill_manual(
+    values = plot_cols,
+    breaks = cat_levels,
+    labels = cat_labels,
+    name = "Observed against null",
+    drop = FALSE
+  ) +
+  guides(
+    fill = guide_legend(
+      nrow = 1,
+      byrow = TRUE,
+      title.position = "top",
+      title.hjust = 0.5,
+      override.aes = list(alpha = 1)
+    )
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 11),
+    legend.background = element_rect(colour = "black", fill = "white"),
+    legend.box.background = element_rect(colour = "black", fill = "white", linewidth = 1.5 )
+  ) +
+  theme(
+  legend.position = "bottom",
+  legend.box.margin = margin(0, 0, 0, 0),
+    legend.margin = margin(t = 4, r = 6, b = 6, l = 6),
+      plot.margin = margin(0, 0, 2, 0)
+
+)
+
+# Remove legends from main plots
+p_ses_noleg <- p_ses +
+  theme(legend.position = "none") +
+  guides(fill = "none")
+
+p_heat_noleg <- p_heat +
+  theme(legend.position = "none") +
+  guides(fill = "none")
+
+# Horizontal plots
+plots_row <- plot_grid(
+  p_ses_noleg,
+  p_heat_noleg,
+  ncol = 2,
+  align = "h",
+  axis = "tb",
+  rel_widths = c(1, 1.4)
+)
+
+plots_row <- plots_row +
+  theme(plot.margin = margin(t = 0, r = 0, b = -20, l = 0))
+
+# Final figure with visible centered legend
+combined_plot <- plot_grid(
+  plots_row,
+  legend_plot,
+  ncol = 1,
+  rel_heights = c(1, 0.18)
+)
+
+combined_plot
+```
+
