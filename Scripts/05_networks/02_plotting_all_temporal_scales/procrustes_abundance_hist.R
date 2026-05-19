@@ -326,7 +326,7 @@ main_abundance_plot <- ggplot() +
   labs(
     x = "Sampling week",
     y = "Procrustes r",
-    title = "Abundance"
+    title = "a) Abundance"
   ) +
   
   guides(

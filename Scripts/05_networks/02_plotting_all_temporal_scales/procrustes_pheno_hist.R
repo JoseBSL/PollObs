@@ -325,7 +325,7 @@ main_pheno_plot <- ggplot() +
   labs(
     x = "Sampling week",
     y = "Procrustes r",
-    title = "Phenology"
+    title = "c) Phenology"
   ) +
   
   guides(
