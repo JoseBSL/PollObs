@@ -1,22 +1,16 @@
-# ============================================================
-# Phenology PROTEST plot
-# Weekly mean + weekly min/max ribbon + seasonal/full lines
-# With ordered legend
-# ============================================================
-
-library(ggplot2)
 library(dplyr)
+library(ggplot2)
 library(lubridate)
-library(grid)
+library(viridis)
+library(tibble)
 
 # ---- Load inputs ----
+trait_week   <- readRDS("Data/Working_files/Mantel_trait_week_result.rds")
+trait_season <- readRDS("Data/Working_files/Mantel_trait_season_result.rds")
+trait_full   <- readRDS("Data/Working_files/Mantel_trait_full_result.rds")
 
-pheno_week <- readRDS("Data/Working_files/PROTEST_pheno_week_result.rds") %>%
-  filter(!Sampling_week %in% c(12, 13))
-
-pheno_season <- readRDS("Data/Working_files/PROTEST_pheno_season_result.rds")
-
-pheno_full <- readRDS("Data/Working_files/PROTEST_pheno_full_result.rds")
+groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
+  mutate(Sampling_week = isoweek(Date))
 
 # ---- Settings ----
 
@@ -30,6 +24,7 @@ label_y_pos <- unit(-1.7, "lines")
 
 weekly_line_col <- "#4C78A8"
 weekly_fill_col <- "#8FB6E8"
+
 
 season_line_col <- "#A06AA1"
 season_fill_col <- "#C9A3C9"
@@ -57,7 +52,7 @@ legend_linetypes <- c(
 
 # ---- Week lookup ----
 
-week_lookup <- pheno_week %>%
+week_lookup <- trait_week %>%
   distinct(Sampling_week) %>%
   arrange(Sampling_week) %>%
   mutate(
@@ -104,21 +99,21 @@ x_axis <- week_lookup %>%
 
 # ---- Weekly summary ----
 
-weekly_summary <- pheno_week %>%
+weekly_summary <- trait_week %>%
   left_join(week_lookup, by = "Sampling_week") %>%
   group_by(Sampling_week_plot) %>%
   summarise(
-    mean_r = mean(Procrustes_r, na.rm = TRUE),
-    min_r  = min(Procrustes_r, na.rm = TRUE),
-    max_r  = max(Procrustes_r, na.rm = TRUE),
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   mutate(Type = factor("Weekly", levels = type_levels))
 
 # ---- Seasonal summary ----
 
-season_bars <- pheno_season %>%
-  filter(!is.na(Procrustes_r)) %>%
+season_bars <- trait_season %>%
+  filter(!is.na(Mantel_corr)) %>%
   mutate(
     Season = factor(Season, levels = season_levels),
     Botanical_garden = factor(Botanical_garden, levels = garden_levels)
@@ -129,21 +124,21 @@ season_bars <- pheno_season %>%
 season_summary <- season_bars %>%
   group_by(Season, plot_week_min, plot_week_max) %>%
   summarise(
-    mean_r = mean(Procrustes_r, na.rm = TRUE),
-    min_r  = min(Procrustes_r, na.rm = TRUE),
-    max_r  = max(Procrustes_r, na.rm = TRUE),
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   mutate(Type = factor("Weekly aggregated", levels = type_levels))
 
 # ---- Full-season summary ----
 
-full_summary <- pheno_full %>%
-  filter(!is.na(Procrustes_r)) %>%
+full_summary <- trait_full %>%
+  filter(!is.na(Mantel_corr)) %>%
   summarise(
-    mean_r = mean(Procrustes_r, na.rm = TRUE),
-    min_r  = min(Procrustes_r, na.rm = TRUE),
-    max_r  = max(Procrustes_r, na.rm = TRUE),
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   mutate(
@@ -154,7 +149,7 @@ full_summary <- pheno_full %>%
 
 # ---- Plot ----
 
-main_pheno_plot <- ggplot() +
+main_trait_plot <- ggplot() +
   
   geom_rect(
     data = full_summary,
@@ -324,8 +319,8 @@ main_pheno_plot <- ggplot() +
   
   labs(
     x = "Sampling week",
-    y = "Procrustes r",
-    title = "c) Phenology"
+    y = "Mantel r",
+    title = "b) Trait-matching"
   ) +
   
   guides(
@@ -352,6 +347,7 @@ main_pheno_plot <- ggplot() +
     plot.margin = margin(3, 2, 8, 7)
   )
 
-main_pheno_plot
+main_trait_plot
 
-saveRDS(main_pheno_plot, "Data/Working_files/main_pheno_plot_protest.rds")
+
+saveRDS(main_trait_plot, "Data/Working_files/main_trait_plot_mantel.rds")
