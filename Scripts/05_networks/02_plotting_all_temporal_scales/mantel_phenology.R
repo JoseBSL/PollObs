@@ -1,10 +1,10 @@
-# FIGURE 2 (PHENOLOGY): Mantel output version (uses Mantel_corr)
-
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(viridis)
+library(tibble)
 
-# --- Load inputs ---
+# ---- Load inputs ----
 pheno_week   <- readRDS("Data/Working_files/Mantel_pheno_week_result.rds")
 pheno_season <- readRDS("Data/Working_files/Mantel_pheno_season_result.rds")
 pheno_full   <- readRDS("Data/Working_files/Mantel_pheno_full_result.rds")
@@ -12,149 +12,340 @@ pheno_full   <- readRDS("Data/Working_files/Mantel_pheno_full_result.rds")
 groupped_dates <- readRDS("Data/Working_files/groupped_dates.rds") %>%
   mutate(Sampling_week = isoweek(Date))
 
-season_cols   <- c(Early = "#66c2a5", Mid = "#fee08b", Late = "#f46d43")
+# ---- Settings ----
+
 season_levels <- c("Early", "Mid", "Late")
+garden_levels <- c("Halle", "Jena", "Leipzig")
+type_levels <- c("Weekly", "Weekly aggregated", "Full season")
 
-week_season <- groupped_dates %>%
-  mutate(Season = factor(Season, levels = season_levels)) %>%
-  count(Botanical_garden, Sampling_week, Season, name = "n") %>%
-  group_by(Botanical_garden, Sampling_week) %>%
-  slice_max(n, n = 1, with_ties = FALSE) %>%
-  ungroup() %>%
-  select(Botanical_garden, Sampling_week, Season)
+label_y_pos <- unit(-1.7, "lines")
 
-# --- Weekly data used for violin + dotplot ---
-pheno_week_box <- pheno_week %>%
-  select(-any_of("Season")) %>%
-  left_join(week_season, by = c("Botanical_garden", "Sampling_week")) %>%
-  mutate(
-    Season   = factor(Season, levels = season_levels),
-    Mantel_r = as.numeric(Mantel_corr)
-  ) %>%
-  filter(is.finite(Mantel_r))
+# ---- Colours ----
 
-# --- Seasonal points (one per garden × season) ---
-pheno_season_dot <- pheno_season %>%
-  mutate(
-    Season   = factor(Season, levels = season_levels),
-    Mantel_r = as.numeric(Mantel_corr)
-  ) %>%
-  select(Botanical_garden, Season, Mantel_r) %>%
-  filter(is.finite(Mantel_r))
+weekly_line_col <- "#4C78A8"
+weekly_fill_col <- "#8FB6E8"
 
-# --- Full-season dashed line (one per garden) ---
-pheno_full_line <- pheno_full %>%
-  mutate(Mantel_r = as.numeric(Mantel_corr)) %>%
-  select(Botanical_garden, Mantel_r) %>%
-  filter(is.finite(Mantel_r))
+season_line_col <- "#A06AA1"
+season_fill_col <- "#C9A3C9"
 
-panel_labels <- data.frame(
-  Botanical_garden = c("Halle", "Jena", "Leipzig"),
-  label = c("d) Halle", "e) Jena", "f) Leipzig"),
-  x = -Inf, y = Inf
+full_line_col <- "#C46A32"
+full_fill_col <- "#E28A45"
+
+legend_cols <- c(
+  "Weekly" = weekly_line_col,
+  "Weekly aggregated" = season_line_col,
+  "Full season" = full_line_col
 )
 
-dummy_weekly <- pheno_week_box %>%
-  distinct(Botanical_garden, Season) %>%
-  mutate(Mantel_r = 0) %>%
-  slice(1)
+legend_fills <- c(
+  "Weekly" = weekly_fill_col,
+  "Weekly aggregated" = season_fill_col,
+  "Full season" = full_fill_col
+)
 
-panel2 <- ggplot(pheno_week_box, aes(x = Season, y = Mantel_r, fill = Season)) +
+legend_linetypes <- c(
+  "Weekly" = "solid",
+  "Weekly aggregated" = "longdash",
+  "Full season" = "dotted"
+)
+
+# ---- Week lookup ----
+
+week_lookup <- pheno_week %>%
+  distinct(Sampling_week) %>%
+  arrange(Sampling_week) %>%
+  mutate(
+    Sampling_week_plot = if_else(
+      Sampling_week >= 30,
+      Sampling_week - 1,
+      Sampling_week
+    )
+  )
+
+week_seasons <- week_lookup %>%
+  arrange(Sampling_week_plot) %>%
+  mutate(
+    week_index = row_number(),
+    Season = case_when(
+      week_index <= 7  ~ "Early",
+      week_index <= 14 ~ "Mid",
+      week_index <= 21 ~ "Late",
+      TRUE ~ NA_character_
+    ),
+    Season = factor(Season, levels = season_levels)
+  ) %>%
+  filter(!is.na(Season))
+
+season_week_bounds <- week_seasons %>%
+  group_by(Season) %>%
+  summarise(
+    plot_week_min = min(Sampling_week_plot),
+    plot_week_max = max(Sampling_week_plot),
+    .groups = "drop"
+  )
+
+global_week_min <- min(season_week_bounds$plot_week_min, na.rm = TRUE)
+global_week_max <- max(season_week_bounds$plot_week_max, na.rm = TRUE)
+
+season_centers <- season_week_bounds %>%
+  mutate(x = (plot_week_min + plot_week_max) / 2)
+
+season_dividers <- tibble(x = c(20.5, 27.5))
+
+x_axis <- week_lookup %>%
+  distinct(Sampling_week_plot, Sampling_week) %>%
+  arrange(Sampling_week_plot)
+
+# ---- Weekly summary ----
+
+weekly_summary <- pheno_week %>%
+  left_join(week_lookup, by = "Sampling_week") %>%
+  group_by(Sampling_week_plot) %>%
+  summarise(
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(Type = factor("Weekly", levels = type_levels))
+
+# ---- Seasonal summary ----
+
+season_bars <- pheno_season %>%
+  filter(!is.na(Mantel_corr)) %>%
+  mutate(
+    Season = factor(Season, levels = season_levels),
+    Botanical_garden = factor(Botanical_garden, levels = garden_levels)
+  ) %>%
+  left_join(season_week_bounds, by = "Season") %>%
+  filter(!is.na(plot_week_min), !is.na(plot_week_max))
+
+season_summary <- season_bars %>%
+  group_by(Season, plot_week_min, plot_week_max) %>%
+  summarise(
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(Type = factor("Weekly aggregated", levels = type_levels))
+
+# ---- Full-season summary ----
+
+full_summary <- pheno_full %>%
+  filter(!is.na(Mantel_corr)) %>%
+  summarise(
+    mean_r = mean(Mantel_corr, na.rm = TRUE),
+    min_r  = min(Mantel_corr, na.rm = TRUE),
+    max_r  = max(Mantel_corr, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    plot_week_min = global_week_min,
+    plot_week_max = global_week_max,
+    Type = factor("Full season", levels = type_levels)
+  )
+
+# ---- Plot ----
+
+main_pheno_plot <- ggplot() +
   
-  geom_violin(alpha = 0.45, width = 0.5, colour = NA, adjust = 1.2,
-              scale = "width", trim = TRUE, cut = 0) +
-  
-  geom_hline(
-    data = pheno_full_line,
-    aes(yintercept = Mantel_r, linetype = "Full season"),
-    color = "black", linewidth = 0.4, inherit.aes = FALSE
+  geom_rect(
+    data = full_summary,
+    aes(
+      xmin = plot_week_min,
+      xmax = plot_week_max,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.055
   ) +
   
-  geom_dotplot(
-    aes(fill = Season),
-    binaxis = "y", stackdir = "center",
-    dotsize = 1.35, alpha = 0.85, binwidth = 0.04, stackratio = 1.25
+  geom_rect(
+    data = season_summary,
+    aes(
+      xmin = plot_week_min,
+      xmax = plot_week_max,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.10
+  ) +
+  
+  geom_ribbon(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      ymin = min_r,
+      ymax = max_r,
+      fill = Type
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.22
+  ) +
+  
+  geom_segment(
+    data = full_summary,
+    aes(
+      x = plot_week_min,
+      xend = plot_week_max,
+      y = mean_r,
+      yend = mean_r,
+      colour = Type,
+      linetype = Type
+    ),
+    linewidth = 1
+  ) +
+  
+  geom_segment(
+    data = season_summary,
+    aes(
+      x = plot_week_min,
+      xend = plot_week_max,
+      y = mean_r,
+      yend = mean_r,
+      colour = Type,
+      linetype = Type
+    ),
+    linewidth = 1
+  ) +
+  
+  geom_errorbar(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      ymin = min_r,
+      ymax = max_r
+    ),
+    width = 0.08,
+    linewidth = 0.4,
+    colour = weekly_line_col,
+    alpha = 0.7
+  ) +
+  
+  geom_line(
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      y = mean_r,
+      colour = Type,
+      linetype = Type,
+      group = 1
+    ),
+    linewidth = 1.05
   ) +
   
   geom_point(
-    data = dummy_weekly,
-    aes(x = Season, y = Mantel_r, size = "Weekly"),
-    inherit.aes = FALSE, alpha = 0
+    data = weekly_summary,
+    aes(
+      x = Sampling_week_plot,
+      y = mean_r,
+      colour = Type
+    ),
+    shape = 21,
+    fill = "white",
+    size = 4,
+    stroke = 1
   ) +
   
-  geom_point(
-    data = pheno_season_dot,
-    aes(x = Season, y = Mantel_r, fill = Season, size = "Seasonal"),
-    inherit.aes = FALSE,
-    shape = 23, stroke = 0.5, alpha = 0.95,
-    position = position_nudge(x = +0.5)
+  geom_vline(
+    data = season_dividers,
+    aes(xintercept = x),
+    linewidth = 0.35,
+    colour = "black"
   ) +
   
-  facet_wrap(~Botanical_garden, ncol = 1) +
-  theme_minimal() +
-  coord_cartesian(ylim = c(0, 1), clip = "off") +
-  
-  geom_text(
-    data = panel_labels,
-    aes(x = x, y = y, label = label),
-    inherit.aes = FALSE,
-    hjust = -0.05, vjust = -0.6,
-    fontface = "bold", size = 5
+  annotation_custom(
+    textGrob("Early", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Early"],
+    xmax = season_centers$x[season_centers$Season == "Early"],
+    ymin = -Inf,
+    ymax = -Inf
   ) +
   
-  scale_y_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1)) +
-  scale_fill_manual(values = season_cols, drop = FALSE) +
+  annotation_custom(
+    textGrob("Mid", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Mid"],
+    xmax = season_centers$x[season_centers$Season == "Mid"],
+    ymin = -Inf,
+    ymax = -Inf
+  ) +
   
-  scale_size_manual(
-    name   = "Temporal complexity",
-    breaks = c("Weekly", "Seasonal"),
-    labels = c(Weekly = "Weekly", Seasonal = "Weekly aggregated"),
-    values = c(Weekly = 1.4, Seasonal = 2.4)
+  annotation_custom(
+    textGrob("Late", y = label_y_pos, gp = gpar(fontsize = 10, fontface = "bold")),
+    xmin = season_centers$x[season_centers$Season == "Late"],
+    xmax = season_centers$x[season_centers$Season == "Late"],
+    ymin = -Inf,
+    ymax = -Inf
+  ) +
+  
+  scale_fill_manual(
+    values = legend_fills,
+    breaks = type_levels,
+    name = "Min-max range"
+  ) +
+  
+  scale_colour_manual(
+    values = legend_cols,
+    breaks = type_levels,
+    name = "Mean"
   ) +
   
   scale_linetype_manual(
-    name   = "Temporal complexity",
-    breaks = c("Full season"),
-    values = c("Full season" = "dashed")
+    values = legend_linetypes,
+    breaks = type_levels,
+    name = "Mean"
+  ) +
+  
+  scale_x_continuous(
+    breaks = x_axis$Sampling_week_plot,
+    labels = x_axis$Sampling_week,
+    limits = c(global_week_min - 0.7, global_week_max + 0.8),
+    expand = c(0, 0)
+  ) +
+  
+  scale_y_continuous(
+    limits = c(0, 1.05),
+    breaks = c(0, 0.5, 1),
+    expand = c(0, 0)
+  ) +
+  
+  coord_cartesian(clip = "off") +
+  
+  labs(
+    x = "Sampling week",
+    y = "Mantel r",
+    title = "c) Phenology"
   ) +
   
   guides(
-    fill  = "none",
-    color = "none",
-    size = guide_legend(
-      order = 1,
-      title = "Temporal complexity",
-      override.aes = list(
-        shape = c(21, 23),
-        color = c("black", "black"),
-        fill  = c("grey70", "grey70"),
-        alpha = c(1, 1)
-      )
-    ),
-    linetype = guide_legend(
-      order = 2,
-      title = NULL,
-      override.aes = list(color = "black", linewidth = 0.8)
-    )
+    colour = guide_legend(order = 1),
+    linetype = guide_legend(order = 1),
+    fill = guide_legend(order = 2)
   ) +
   
+  theme_classic(base_size = 11) +
   theme(
-    axis.text.x = element_text(angle = 0, hjust = 0.5),
-    panel.spacing = unit(1.8, "lines"),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
-    axis.ticks.y = element_line(color = "black", linewidth = 0.5),
-    axis.ticks.length = unit(0.2, "cm"),
-    strip.background = element_blank(),
-    strip.text = element_blank(),
-    strip.placement = "outside",
-    plot.margin = margin(t = 60, r = 20, b = 20, l = 20),
-    panel.grid.minor = element_blank(),
-    legend.position = "none",
-    plot.title = element_text(face = "bold", size = 10, vjust = 4.5)
-  ) +
-  ylab(NULL) +
-  xlab(NULL) +
-  ggtitle("Visitation rate – Phenology")
+    plot.title = element_text(face = "bold", size = 12, hjust = 0.5, margin = margin(b = 2)),
+    axis.title = element_text(size = 11, face = "bold"),
+    axis.text = element_text(size = 9, colour = "black"),
+    panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.6),
+    axis.line = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "right",
+    legend.box = "vertical",
+    legend.title = element_text(face = "bold", size = 9),
+    legend.text = element_text(size = 8.5),
+    axis.ticks = element_line(colour = "black", linewidth = 0.35),
+    axis.ticks.length = unit(1.4, "mm"),
+    axis.title.x = element_text(margin = margin(t = 12)),
+    plot.margin = margin(3, 2, 8, 7)
+  )
 
-panel2
-saveRDS(panel2, "Data/Working_files/Figures2_panel2.rds")
+main_pheno_plot
+
+saveRDS(main_pheno_plot, "Data/Working_files/main_pheno_plot_mantel.rds")
