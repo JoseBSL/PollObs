@@ -1,18 +1,3 @@
----
-format:
-  pdf:
-    include-in-header: 
-      text: |
-        \usepackage{lscape}
-        \newcommand{\blandscape}{\begin{landscape}}
-        \newcommand{\elandscape}{\end{landscape}}
-        \usepackage{caption}
-        \captionsetup[figure]{labelformat=empty}
-        \captionsetup[table]{labelformat=empty}
-        \usepackage{lineno}
----
-
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=12, out.width="100%"}
 
 # ======================================================
 # SES histogram + clustered categorical guild heatmap
@@ -49,9 +34,9 @@ guild_order <- c(
 # Load data
 # -----------------------------
 
-SES_guild <- readRDS("../Data/Working_files/SES_guild_split_bees.rds")
-pval_df_guild <- readRDS("../Data/Working_files/pval_df_guild_split_bees.rds")
-raw_data <- readRDS("../Data/Working_files/interaction_data.rds")
+SES <- readRDS("Data/Working_files/SES_guild_split_bees25.rds")
+pval_df_guild <- readRDS("Data/Working_files/pval_df_guild_split_bees25.rds")
+raw_data <- readRDS("Data/Working_files/interaction_data.rds")
 
 # -----------------------------
 # Count pollinator species per guild
@@ -99,7 +84,7 @@ plant_n_species <- raw_data %>%
 # A) SES histogram
 # ======================================================
 
-SES_df <- as.data.frame(SES_guild) %>%
+SES_df <- as.data.frame(SES) %>%
   rownames_to_column("Plant_family") %>%
   pivot_longer(-Plant_family, names_to = "Pollinator_genus", values_to = "SES") %>%
   filter(!is.na(SES)) %>%
@@ -139,7 +124,7 @@ p_ses <- ggplot(SES_df, aes(x = SES, fill = category)) +
     axis.title = element_text(size = 15, face = "bold"),
     axis.text = element_text(size = 13, colour = "black"),
     plot.title = element_text(size= 20, face= "bold")
-
+    
   )
 
 # ======================================================
@@ -245,7 +230,7 @@ p_heat <- p_heat +
     legend.box.margin = margin(t = -5),
     legend.margin = margin(2, 2, 2, 2),
     plot.title = element_text(size= 20, face= "bold")
-
+    
   ) +
   guides(
     fill = guide_legend(
@@ -294,12 +279,12 @@ legend_plot <- ggplot(
     legend.box.background = element_rect(colour = "black", fill = "white", linewidth = 1.5 )
   ) +
   theme(
-  legend.position = "bottom",
-  legend.box.margin = margin(0, 0, 0, 0),
+    legend.position = "bottom",
+    legend.box.margin = margin(0, 0, 0, 0),
     legend.margin = margin(t = 4, r = 6, b = 6, l = 6),
-      plot.margin = margin(0, 0, 2, 0)
-
-)
+    plot.margin = margin(0, 0, 2, 0)
+    
+  )
 
 # Remove legends from main plots
 p_ses_noleg <- p_ses +
@@ -332,5 +317,5 @@ combined_plot <- plot_grid(
 )
 
 combined_plot
-```
+
 
