@@ -1,51 +1,93 @@
 ---
-format:
-  pdf:
-    include-in-header: 
-      text: |
-        \usepackage{lscape}
-        \newcommand{\blandscape}{\begin{landscape}}
-        \newcommand{\elandscape}{\end{landscape}}
-        \usepackage{caption}
-        \captionsetup[figure]{labelformat=empty}
-        \captionsetup[table]{labelformat=empty}
-        \usepackage{lineno}
+output: pdf_document
+
+header-includes:
+  - \usepackage{lscape}
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelformat=empty}
+  - \captionsetup[table]{labelformat=empty}
 ---
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=8, out.width="100%"}
 
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="90%",fig.align='center', fig.height= 2.5, fig.width= 4, fig.cap= "\\textbf{Figure S7}. Phenological centres of flowering plants and pollinators across botanical gardens. Distributions of phenological centres (day of year, DOY) are shown for pollinators and flowering plants in Jena, Halle and Leipzig. Pollinator phenology was estimated at the regional level from occurrence records and is therefore represented as a single distribution. Half-eye densities and boxplots show the distribution and spread of values, with black points indicating medians and horizontal line segments representing individual observations. Pollinators peaked later in the season than plants."}
+
+library(dplyr)
 library(ggplot2)
+library(ggdist)
 
-panel_trait_swapped = readRDS("../Data/Working_files/main_trait_plot_mantel.rds")
-panel_pheno_swapped = readRDS("../Data/Working_files/main_pheno_plot_mantel.rds")
-panel_abundance_swapped = readRDS("../Data/Working_files/main_abundance_plot_mantel.rds")
+# Read processed data
+pollinator_centers <- readRDS("../Data/Working_files/pollinator_pheno_centers.rds")
+plant_centers <- readRDS("../Data/Working_files/plant_pheno_centers.rds")
 
-
-library(patchwork)
-
-final_plot <- panel_abundance_swapped /
-  panel_trait_swapped /
-  panel_pheno_swapped +
-  
-  plot_layout(
-    ncol = 1,
-    guides = "collect"
-  ) &
-  
-  theme(
-    legend.position = "right",
-    legend.box = "vertical",
-    
-    # ---- increase global text sizes ----
-    axis.title = element_text(size = 14, face = "bold"),
-    axis.text = element_text(size = 12),
-    plot.title = element_text(size = 18, face = "bold"),
-    
-    legend.title = element_text(size = 13, face = "bold"),
-    legend.text = element_text(size = 11)
+# Combine plant (by garden) and pollinator centres
+plot_data <- bind_rows(
+  plant_centers %>%
+    transmute(Group = paste(Garden, "plants"), center),
+  pollinator_centers %>%
+    transmute(Group = "Pollinators", center)
+) %>%
+  mutate(
+    Group = factor(
+      Group,
+      levels = c("Pollinators", "Jena plants", "Halle plants", "Leipzig plants")
+    )
   )
 
-final_plot
+# Median per group
+plot_summary <- plot_data %>%
+  group_by(Group) %>%
+  summarise(
+    q50 = median(center, na.rm = TRUE),
+    .groups = "drop"
+  )
 
+# Define colours
+my_colors <- c(
+  "Pollinators"    = "grey70",
+  "Jena plants"    = "#B12A90FF",
+  "Halle plants"   = "#0D0887FF",
+  "Leipzig plants" = "#FCA636FF"
+)
+
+# Plot
+ggplot(plot_data, aes(x = Group, y = center, fill = Group)) +
+  
+  geom_point(
+    shape = 95,
+    size = 4,
+    alpha = 0.75
+  )+
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    .width = 0,
+    justification = -0.2,
+    point_colour = NA,
+    alpha = 0.5
+  ) +
+  geom_boxplot(
+    width = 0.15,
+    outlier.shape = NA,
+    alpha = 0.6
+  )  +
+  geom_point(
+    data = plot_summary,
+    aes(x = Group, y = q50),
+    inherit.aes = FALSE,
+    size = 2.5,
+    colour = "black"
+  ) +
+  scale_fill_manual(values = my_colors) +
+  coord_cartesian(ylim = c(0, NA), clip = "off") +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 8),
+    axis.text = element_text(size = 7),
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    panel.border = element_rect(colour = "black",
+                fill = NA,
+                linewidth = 0.5),
+    panel.grid.minor = element_blank()) +
+  labs(y = "Phenological center (DOY)")
 ```
-
