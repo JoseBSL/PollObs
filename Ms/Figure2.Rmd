@@ -1,0 +1,110 @@
+---
+output: pdf_document
+
+header-includes:
+  - \usepackage{lscape}
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelformat=empty}
+  - \captionsetup[table]{labelformat=empty}
+---
+
+```{r, echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4, fig.width=8, out.width="105%", fig.cap="\\textbf{Figure 2}."}
+
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+
+# Load data
+shap_importance = readRDS("../Data/Working_files/shap_importance.rds")
+rf_stack = readRDS("../Data/Working_files/rf_stack.rds")
+
+base_theme = theme_classic(base_size = 14) +
+  theme(
+    axis.text = element_text(color = "#222222"),
+    axis.ticks = element_line(color = "#222222"),
+    axis.line = element_line(color = "#222222", linewidth = 0.7)
+  )
+
+# Recode names
+shap_importance <- shap_importance %>% 
+  mutate(variable = recode(
+    variable,
+    Total_pollinator_abundance = "Pollinator abundance",
+    Floral_abundance = "Flower abundance",
+    T_gauss = "Trait matching",
+    Flower_width = "Flower width",
+    Overlap_days = "Phenology overlap",
+    Mean_nectar_volume = "Nectar volume"
+  ))
+
+rf_stack <- rf_stack %>% 
+  mutate(variable = recode(
+    variable,
+    Total_pollinator_abundance = "Pollinator abundance",
+    Floral_abundance = "Flower abundance",
+    T_gauss = "Trait matching",
+    Flower_width = "Flower width",
+    Overlap_days = "Phenology overlap",
+    Mean_nectar_volume = "Nectar volume"
+  ))
+
+# Order variables by SHAP importance
+var_levels = shap_importance %>%
+  arrange(desc(mean_abs_shap)) %>% 
+  pull(variable)
+
+shap_importance <- shap_importance %>%
+  mutate(variable = factor(variable, levels = var_levels))
+
+rf_stack <- rf_stack %>%
+  mutate(variable = factor(variable, levels = var_levels))
+
+# Muted magma-like palette, slightly closer to the conceptual figure
+rf_cols <- c(
+  "Pollinator abundance" = "#E8B57F",
+  "Trait matching"       = "#D46F5E",
+  "Flower abundance"     = "#B85A86",
+  "Flower width"         = "#7D3F86",
+  "Phenology overlap"    = "#4F2A6F",
+  "Nectar volume"        = "#1D1A2B"
+)
+
+p1 <- ggplot(shap_importance,
+             aes(y = factor(variable, levels = rev(var_levels)),
+                 x = mean_abs_shap,
+                 fill = variable)) +
+  geom_col(orientation = "y", width = 0.8, color = "white", linewidth = 0.6) +
+  scale_y_discrete(position = "right") +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values = rf_cols) +
+  labs(x = "Mean SHAP value", y = NULL) +
+  ggtitle("b) Overall importance") +
+  base_theme +
+  theme(
+    axis.text.y.left = element_blank(),
+    axis.ticks.y.left = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "none",
+    axis.text.y = element_text(face = "bold")
+  )
+
+p2 <- ggplot(rf_stack,
+             aes(x = Week_center,
+                 y = importance_rel,
+                 fill = variable)) +
+  geom_area(alpha = 0.93) +
+  scale_fill_manual(values = rf_cols) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1.05)) +
+  labs(x = "Week", y = "Relative importance (SHAP)") +
+  base_theme +
+  theme(legend.position = "none") +
+  ggtitle("a) Temporal importance") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+
+p2 <- p2 + theme(plot.margin = margin(5.5, 0, 5.5, 5.5))
+p1 <- p1 + theme(plot.margin = margin(5.5, 5.5, 5.5, 0))
+
+p1 = plot_spacer() / p1 & plot_layout(heights = c(0.2, 1.45))
+
+p2 + p1 + plot_layout(widths = c(1, 1))

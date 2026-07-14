@@ -1,0 +1,454 @@
+---
+output: pdf_document
+
+header-includes:
+  - \usepackage{lscape}
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelformat=empty}
+  - \captionsetup[table]{labelformat=empty}
+---
+
+```{r echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, out.width="100%", fig.height= 4, fig.width= 6.5, fig.cap= "\\textbf{Figure S4}.  Spatial and climatic characterization of the GBIF record-extraction region used to estimate pollinator phenology. (A) Geographic extent (black rectangle) centred on Jena, Halle, and Leipzig. (B) Distribution of long-term annual mean temperature (WorldClim v2.1 climatological normals) within the extraction region. Colored vertical lines denote the temperatures of the three study cities, supporting the use of the selected region as a compromise between maximizing occurrence records and limiting climatic heterogeneity."}
+
+
+# ============================================================
+# FIGURE S1
+#
+# Panel A:
+# Europe map showing the GBIF extraction rectangle
+# and the three study cities as coloured points
+#
+# Panel B:
+# Histogram of annual mean temperature within the rectangle
+# with coloured vertical lines for Jena, Halle, and Leipzig
+# ============================================================
+
+
+# ============================================================
+# 1. LOAD PACKAGES
+# ============================================================
+
+library(sf)
+library(terra)
+library(geodata)
+library(ggplot2)
+library(dplyr)
+library(tibble)
+library(maps)
+library(patchwork)
+
+
+# ============================================================
+# 2. DEFINE DIRECTORIES
+# ============================================================
+
+working_directory <- "../Data/Working_files"
+climate_directory <- "../Data/Climate"
+
+dir.create(
+  working_directory,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+dir.create(
+  climate_directory,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+
+# ============================================================
+# 3. LOAD EXTRACTION RECTANGLE
+# ============================================================
+
+rectangle <- readRDS(
+  file.path(
+    working_directory,
+    "rectangle.rds"
+  )
+)
+
+rectangle <- st_transform(
+  rectangle,
+  crs = 4326
+)
+
+
+# ============================================================
+# 4. DEFINE STUDY CITIES
+# ============================================================
+
+cities <- tibble(
+  City = factor(
+    c(
+      "Jena",
+      "Halle",
+      "Leipzig"
+    ),
+    levels = c(
+      "Jena",
+      "Halle",
+      "Leipzig"
+    )
+  ),
+  Longitude = c(
+    11.5892,
+    11.9688,
+    12.3731
+  ),
+  Latitude = c(
+    50.9271,
+    51.4969,
+    51.3397
+  )
+)
+
+cities_sf <- st_as_sf(
+  cities,
+  coords = c(
+    "Longitude",
+    "Latitude"
+  ),
+  crs = 4326,
+  remove = FALSE
+)
+
+
+# ============================================================
+# 5. DEFINE CITY COLOURS
+# ============================================================
+
+city_colors <- c(
+  "Jena" = "#B12A90FF",
+  "Halle" = "#0D0887FF",
+  "Leipzig" = "#FCA636FF"
+)
+
+
+# ============================================================
+# 6. DOWNLOAD OR LOAD WORLDCLIM BIOCLIMATIC DATA
+# ============================================================
+#
+# BIO1 = long-term annual mean temperature
+# ============================================================
+
+worldclim_bio <- geodata::worldclim_global(
+  var = "bio",
+  res = 10,
+  path = climate_directory,
+  version = "2.1"
+)
+
+annual_mean_temperature <- worldclim_bio[[1]]
+
+names(annual_mean_temperature) <- "Temperature_C"
+
+
+# ============================================================
+# 7. CROP ANNUAL MEAN TEMPERATURE TO RECTANGLE
+# ============================================================
+
+rectangle_vect <- terra::vect(
+  rectangle
+)
+
+rectangle_vect <- terra::project(
+  rectangle_vect,
+  terra::crs(annual_mean_temperature)
+)
+
+annual_temperature_rectangle <- terra::crop(
+  annual_mean_temperature,
+  rectangle_vect
+)
+
+annual_temperature_rectangle <- terra::mask(
+  annual_temperature_rectangle,
+  rectangle_vect
+)
+
+
+# ============================================================
+# 8. CHECK TEMPERATURE UNITS
+# ============================================================
+#
+# WorldClim is normally returned in °C, but this protects
+# against rasters stored as °C × 10.
+# ============================================================
+
+temperature_range <- terra::global(
+  annual_temperature_rectangle,
+  fun = c(
+    "min",
+    "max"
+  ),
+  na.rm = TRUE
+)
+
+maximum_absolute_temperature <- max(
+  abs(
+    unlist(
+      temperature_range
+    )
+  ),
+  na.rm = TRUE
+)
+
+if (maximum_absolute_temperature > 100) {
+
+  annual_mean_temperature <-
+    annual_mean_temperature / 10
+
+  annual_temperature_rectangle <-
+    annual_temperature_rectangle / 10
+}
+
+
+# ============================================================
+# 9. EXTRACT TEMPERATURE AT THE THREE CITIES
+# ============================================================
+
+cities_vect <- terra::vect(
+  cities_sf
+)
+
+cities_vect <- terra::project(
+  cities_vect,
+  terra::crs(annual_mean_temperature)
+)
+
+city_temperature <- terra::extract(
+  annual_mean_temperature,
+  cities_vect,
+  ID = FALSE
+)
+
+cities_climate <- bind_cols(
+  cities,
+  as.data.frame(
+    city_temperature
+  )
+)
+
+names(cities_climate)[4] <- "Temperature_C"
+
+
+# ============================================================
+# 10. CONVERT RECTANGLE TEMPERATURE RASTER TO DATAFRAME
+# ============================================================
+
+temperature_data <- terra::as.data.frame(
+  annual_temperature_rectangle,
+  xy = TRUE,
+  na.rm = TRUE
+)
+
+names(temperature_data)[3] <- "Temperature_C"
+
+temperature_data <- temperature_data %>%
+  filter(
+    !is.na(Temperature_C),
+    is.finite(Temperature_C)
+  )
+
+
+# ============================================================
+# 11. PREPARE EUROPE BASEMAP
+# ============================================================
+
+world_map <- map_data(
+  "world"
+)
+
+
+# ============================================================
+# 12. PANEL A: EUROPE MAP
+# ============================================================
+
+panel_A <- ggplot() +
+
+  geom_polygon(
+    data = world_map,
+    aes(
+      x = long,
+      y = lat,
+      group = group
+    ),
+    fill = "grey90",
+    colour = "white",
+    linewidth = 0.15
+  ) +
+
+  geom_sf(
+    data = rectangle,
+    fill = NA,
+    colour = "black",
+    linewidth = 1.1,
+    inherit.aes = FALSE
+  ) +
+
+  geom_sf(
+    data = cities_sf,
+    aes(
+      colour = City
+    ),
+    size = 4,
+    stroke = 1.2,
+    inherit.aes = FALSE
+  ) +
+
+  scale_colour_manual(
+    values = city_colors,
+    breaks = c(
+      "Jena",
+      "Halle",
+      "Leipzig"
+    ),
+    name = "Study city"
+  ) +
+
+  coord_sf(
+    crs = st_crs(4326),
+    xlim = c(-15, 35),
+    ylim = c(35, 65),
+    expand = FALSE
+  ) +
+
+  labs(
+    title = "A",
+    subtitle = "GBIF record-extraction region",
+    x = NULL,
+    y = NULL
+  ) +
+
+  theme_minimal(
+    base_size = 11
+  ) +
+
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 15
+    ),
+    plot.subtitle = element_text(
+      face = "bold",
+      size = 11
+    ),
+    panel.background = element_rect(
+      fill = "aliceblue",
+      colour = NA
+    ),
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    ),
+    panel.grid.major = element_line(
+      colour = "white",
+      linewidth = 0.25
+    ),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+
+# ============================================================
+# 13. PANEL B: ANNUAL MEAN TEMPERATURE HISTOGRAM
+# ============================================================
+
+panel_B <- ggplot(
+  temperature_data,
+  aes(
+    x = Temperature_C
+  )
+) +
+
+  geom_histogram(
+    bins = 35,
+    fill = "grey75",
+    colour = "white",
+    linewidth = 0.25
+  ) +
+
+  geom_vline(
+    data = cities_climate,
+    aes(
+      xintercept = Temperature_C,
+      colour = City
+    ),
+    linewidth = 1.5,
+    alpha = 0.95
+  ) +
+
+  scale_colour_manual(
+    values = city_colors,
+    breaks = c(
+      "Jena",
+      "Halle",
+      "Leipzig"
+    ),
+    name = "Study city"
+  ) +
+
+  labs(
+    title = "B",
+    subtitle = "Annual mean temperature",
+    x = "Annual mean temperature (°C)",
+    y = "Number of raster cells"
+  ) +
+
+  theme_minimal(
+    base_size = 11
+  ) +
+
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 15
+    ),
+    plot.subtitle = element_text(
+      face = "bold",
+      size = 11
+    ),
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    ),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(
+      face = "bold"
+    )
+  )
+
+
+# ============================================================
+# 14. COMBINE PANELS
+# ============================================================
+
+figure_S1 <- panel_A + panel_B +
+
+  plot_layout(
+    widths = c(
+      1.1,
+      1
+    ),
+    guides = "collect"
+  ) &
+
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(
+      face = "bold"
+    )
+  )
+
+print(figure_S1)
+
+
+
+
+
+```

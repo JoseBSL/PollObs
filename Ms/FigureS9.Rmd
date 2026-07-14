@@ -1,0 +1,191 @@
+---
+format:
+  pdf:
+    geometry:
+      - top=0.4in
+      - bottom=0.4in
+      - left=-1in
+      - right=0.35in
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=16,fig.align='center',out.width="100%"}
+
+
+
+#| echo: false
+#| message: false
+#| cache: false
+#| warning: false
+#| fig-height: 10
+#| fig-width: 16
+#| fig-align: center
+#| out-width: 100%
+
+library(ggplot2)
+library(patchwork)
+
+abund_halle <- readRDS(
+  "../Data/Working_files/main_abundance_plot_protest_Halle.rds"
+)
+abund_jena <- readRDS(
+  "../Data/Working_files/main_abundance_plot_protest_Jena.rds"
+)
+abund_leipzig <- readRDS(
+  "../Data/Working_files/main_abundance_plot_protest_Leipzig.rds"
+)
+
+pheno_halle <- readRDS(
+  "../Data/Working_files/main_pheno_plot_protest_Halle.rds"
+)
+pheno_jena <- readRDS(
+  "../Data/Working_files/main_pheno_plot_protest_Jena.rds"
+)
+pheno_leipzig <- readRDS(
+  "../Data/Working_files/main_pheno_plot_protest_Leipzig.rds"
+)
+
+trait_matching_halle <- readRDS(
+  "../Data/Working_files/main_trait_plot_protest_Halle.rds"
+)
+trait_matching_jena <- readRDS(
+  "../Data/Working_files/main_trait_plot_protest_Jena.rds"
+)
+trait_matching_leipzig <- readRDS(
+  "../Data/Working_files/main_trait_plot_protest_Leipzig.rds"
+)
+
+garden_label <- function(label) {
+  ggplot() +
+    annotate(
+      "text",
+      x = 0.9,
+      y = 0.5,
+      label = label,
+      angle = 90,
+      fontface = "bold",
+      size = 7,
+      hjust = 0.5,
+      vjust = 1
+    ) +
+    coord_cartesian(
+      xlim = c(0, 1),
+      ylim = c(0, 1),
+      clip = "off",
+      expand = FALSE
+    ) +
+    theme_void() +
+    theme(
+      plot.margin = margin(0, 0, 0, 0)
+    )
+}
+
+# Quitar título, números y ticks del eje x
+# en Halle y Jena
+no_x_axis <- theme(
+  axis.title.x = element_blank(),
+  axis.text.x = element_blank(),
+  axis.ticks.x = element_blank()
+)
+
+# En Leipzig se conserva el título del eje x,
+# pero se eliminan números y ticks
+bottom_x <- theme(
+  axis.text.x = element_blank(),
+  axis.ticks.x = element_blank()
+)
+
+# Ocultar únicamente la leyenda asociada a fill:
+# "Min-max range"
+no_fill_legend <- guides(
+  fill = "none"
+)
+
+# Halle row
+abund_halle <- abund_halle +
+  labs(title = "Abundance") +
+  no_x_axis +
+  no_fill_legend
+
+pheno_halle <- pheno_halle +
+  labs(title = "Phenology") +
+  no_x_axis +
+  no_fill_legend
+
+trait_matching_halle <- trait_matching_halle +
+  labs(title = "Trait-matching") +
+  no_x_axis +
+  no_fill_legend
+
+# Jena row
+abund_jena <- abund_jena +
+  labs(title = NULL) +
+  no_x_axis +
+  no_fill_legend
+
+pheno_jena <- pheno_jena +
+  labs(title = NULL) +
+  no_x_axis +
+  no_fill_legend
+
+trait_matching_jena <- trait_matching_jena +
+  labs(title = NULL) +
+  no_x_axis +
+  no_fill_legend
+
+# Leipzig row
+abund_leipzig <- abund_leipzig +
+  labs(title = NULL) +
+  bottom_x +
+  no_fill_legend
+
+pheno_leipzig <- pheno_leipzig +
+  labs(title = NULL) +
+  bottom_x +
+  no_fill_legend
+
+trait_matching_leipzig <- trait_matching_leipzig +
+  labs(title = NULL) +
+  bottom_x +
+  no_fill_legend
+
+final_panel <- (
+  garden_label("Halle") |
+    abund_halle |
+    pheno_halle |
+    trait_matching_halle
+) / (
+  garden_label("Jena") |
+    abund_jena |
+    pheno_jena |
+    trait_matching_jena
+) / (
+  garden_label("Leipzig") |
+    abund_leipzig |
+    pheno_leipzig |
+    trait_matching_leipzig
+) +
+  plot_layout(
+    widths = c(0.03, 1, 1, 1),
+    guides = "collect",
+    axes = "collect"
+  ) &
+  theme(
+    legend.position = "right",
+    plot.title = element_text(
+      face = "bold",
+      hjust = 0.5,
+      vjust = 2.5,
+      size = 18
+    )
+  )
+
+final_panel
+
+```
+
