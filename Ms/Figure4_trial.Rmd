@@ -1,0 +1,1191 @@
+---
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        \captionsetup[table]{labelformat=empty}
+        \usepackage{lineno}
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, fig.height=4.8, fig.width=10, out.width="100%"}
+
+# ======================================================
+# SES histogram + order-divided pollinator guild heatmap
+#
+# Panel A:
+#   - SES histogram
+#   - shaded avoidance/preference regions
+#   - reduced height and top alignment
+#
+# Panel B:
+#   - one faceted heatmap
+#   - divisions by pollinator order
+#   - guilds retained inside each order
+#   - visible order icons in a reserved numeric column
+#   - one shared plant-family x-axis
+# ======================================================
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(cowplot)
+library(ggimage)
+library(rsvg)
+library(grid)
+
+# ======================================================
+# General settings
+# ======================================================
+
+alpha <- 0.05
+critical_value <- qnorm(0.975)
+top_n_plants <- 18
+
+region_alpha <- 0.07
+
+# Height of panel A relative to its panel container
+ses_relative_height <- 0.80
+
+cat_levels <- c(
+  "Avoidance",
+  "No difference",
+  "Preference"
+)
+
+cat_labels <- c(
+  "Avoidance",
+  "No difference",
+  "Preference"
+)
+
+plot_cols <- c(
+  "Avoidance" = "#F1A340",
+  "No difference" = "grey85",
+  "Preference" = "#7B3294"
+)
+
+# ======================================================
+# Pollinator guild definitions
+# ======================================================
+
+hymenoptera_guilds <- c(
+  "Apidae",
+  "Andrenidae",
+  "Halictidae",
+  "Megachilidae",
+  "Colletidae",
+  "Melittidae",
+  "Non-bee Hymenoptera"
+)
+
+diptera_guilds <- c(
+  "Bombylids",
+  "Syrphids",
+  "Other Diptera"
+)
+
+lepidoptera_guilds <- "Lepidoptera"
+coleoptera_guilds <- "Coleoptera"
+
+guild_order <- c(
+  hymenoptera_guilds,
+  diptera_guilds,
+  lepidoptera_guilds,
+  coleoptera_guilds
+)
+
+order_levels <- c(
+  "Hymenoptera",
+  "Diptera",
+  "Lepidoptera",
+  "Coleoptera"
+)
+
+# ======================================================
+# Icon files
+# ======================================================
+
+icon_svg <- c(
+  Hymenoptera = "../icons/bee.svg",
+  Diptera = "../icons/fly.svg",
+  Lepidoptera = "../icons/butterfly.svg",
+  Coleoptera = "../icons/beetle.svg"
+)
+
+missing_icons <- icon_svg[
+  !file.exists(icon_svg)
+]
+
+if (length(missing_icons) > 0) {
+
+  stop(
+    paste0(
+      "The following icon files could not be found:\n",
+      paste(
+        missing_icons,
+        collapse = "\n"
+      )
+    )
+  )
+
+}
+
+# Convert SVG files to temporary PNG files.
+# PNG output is generally more reliable when rendering PDF.
+
+convert_svg_to_png <- function(
+  svg_file,
+  icon_name
+) {
+
+  png_file <- file.path(
+    tempdir(),
+    paste0(
+      "pollinator_icon_",
+      gsub(
+        "[^A-Za-z0-9]",
+        "_",
+        icon_name
+      ),
+      ".png"
+    )
+  )
+
+  rsvg_png(
+    svg = svg_file,
+    file = png_file,
+    width = 800,
+    height = 800
+  )
+
+  png_file
+}
+
+icon_png <- vapply(
+  names(icon_svg),
+  function(icon_name) {
+
+    convert_svg_to_png(
+      svg_file = icon_svg[[icon_name]],
+      icon_name = icon_name
+    )
+
+  },
+  character(1)
+)
+
+# Check that converted files exist
+if (any(!file.exists(icon_png))) {
+
+  stop(
+    "One or more SVG icons could not be converted to PNG."
+  )
+
+}
+
+# ======================================================
+# Load data
+# ======================================================
+
+SES_guild <- readRDS(
+  "../Data/Working_files/SES_guild_split_bees.rds"
+)
+
+pval_df_guild <- readRDS(
+  "../Data/Working_files/pval_df_guild_split_bees.rds"
+)
+
+raw_data <- readRDS(
+  "../Data/Working_files/interaction_data.rds"
+)
+
+# ======================================================
+# Count pollinator species per guild
+# ======================================================
+
+poll_orders <- c(
+  "Hymenoptera",
+  "Diptera",
+  "Coleoptera",
+  "Lepidoptera"
+)
+
+bee_families <- c(
+  "Apidae",
+  "Andrenidae",
+  "Halictidae",
+  "Megachilidae",
+  "Colletidae",
+  "Melittidae"
+)
+
+guild_n_species <- raw_data %>%
+  filter(
+    !is.na(Pollinator_accepted_name),
+    Pollinator_rank == "SPECIES",
+    Pollinator_order %in% poll_orders
+  ) %>%
+  mutate(
+    Pollinator_guild = case_when(
+
+      Pollinator_order == "Hymenoptera" &
+        Pollinator_family %in% bee_families ~
+        Pollinator_family,
+
+      Pollinator_order == "Hymenoptera" ~
+        "Non-bee Hymenoptera",
+
+      Pollinator_family == "Bombyliidae" ~
+        "Bombylids",
+
+      Pollinator_family == "Syrphidae" ~
+        "Syrphids",
+
+      Pollinator_order == "Diptera" ~
+        "Other Diptera",
+
+      Pollinator_order == "Lepidoptera" ~
+        "Lepidoptera",
+
+      Pollinator_order == "Coleoptera" ~
+        "Coleoptera",
+
+      TRUE ~
+        NA_character_
+    )
+  ) %>%
+  filter(
+    !is.na(Pollinator_guild)
+  ) %>%
+  distinct(
+    Pollinator_guild,
+    Pollinator_accepted_name
+  ) %>%
+  count(
+    Pollinator_guild,
+    name = "n_species"
+  )
+
+# ======================================================
+# Count plant species per family
+# ======================================================
+
+plant_n_species <- raw_data %>%
+  filter(
+    !is.na(Plant_family),
+    !is.na(Plant_accepted_name)
+  ) %>%
+  distinct(
+    Plant_family,
+    Plant_accepted_name
+  ) %>%
+  count(
+    Plant_family,
+    name = "n_species"
+  )
+
+# ======================================================
+# A) SES histogram data
+# ======================================================
+
+SES_df <- as.data.frame(
+  SES_guild
+) %>%
+  rownames_to_column(
+    "Plant_family"
+  ) %>%
+  pivot_longer(
+    cols = -Plant_family,
+    names_to = "Pollinator_guild",
+    values_to = "SES"
+  ) %>%
+  filter(
+    !is.na(SES)
+  ) %>%
+  mutate(
+    category = case_when(
+      SES < -critical_value ~
+        "Avoidance",
+
+      SES > critical_value ~
+        "Preference",
+
+      TRUE ~
+        "No difference"
+    ),
+
+    category = factor(
+      category,
+      levels = cat_levels
+    )
+  )
+
+x_lim <- quantile(
+  abs(SES_df$SES),
+  probs = 0.85,
+  na.rm = TRUE
+)
+
+x_lim <- max(
+  x_lim,
+  critical_value * 1.05
+)
+
+# ======================================================
+# A) SES histogram
+# ======================================================
+
+p_ses <- ggplot(
+  SES_df,
+  aes(
+    x = SES,
+    fill = category
+  )
+) +
+
+  # Avoidance-region shading
+  annotate(
+    "rect",
+    xmin = -x_lim,
+    xmax = -critical_value,
+    ymin = -Inf,
+    ymax = Inf,
+    fill = unname(
+      plot_cols["Avoidance"]
+    ),
+    alpha = region_alpha
+  ) +
+
+  # Preference-region shading
+  annotate(
+    "rect",
+    xmin = critical_value,
+    xmax = x_lim,
+    ymin = -Inf,
+    ymax = Inf,
+    fill = unname(
+      plot_cols["Preference"]
+    ),
+    alpha = region_alpha
+  ) +
+
+  geom_histogram(
+    bins = 1100,
+    position = "identity",
+    alpha = 0.9,
+    colour = "white",
+    linewidth = 0.2
+  ) +
+
+  geom_vline(
+    xintercept = c(
+      -critical_value,
+      critical_value
+    ),
+    linetype = "longdash",
+    colour = "grey35",
+    linewidth = 0.6
+  ) +
+
+  geom_vline(
+    xintercept = 0,
+    colour = "#3B3B3B",
+    linewidth = 0.7
+  ) +
+
+  scale_fill_manual(
+    values = plot_cols,
+    guide = "none"
+  ) +
+
+  coord_cartesian(
+    xlim = c(
+      -x_lim,
+      x_lim
+    ),
+    expand = FALSE
+  ) +
+
+  labs(
+    title = "a)",
+    x = "Standardized effect size (SES)",
+    y = "Count"
+  ) +
+
+  theme_bw(
+    base_size = 13
+  ) +
+
+  theme(
+    panel.grid = element_blank(),
+
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.9
+    ),
+
+    axis.title = element_text(
+      size = 14,
+      face = "bold"
+    ),
+
+    axis.text = element_text(
+      size = 12,
+      colour = "black"
+    ),
+
+    plot.title = element_text(
+      size = 20,
+      face = "bold",
+      hjust = 0
+    ),
+
+    plot.margin = margin(
+      t = 1,
+      r = 2,
+      b = 1,
+      l = 1
+    )
+  )
+
+# ======================================================
+# B) Heatmap data
+# ======================================================
+
+heat_df <- as.data.frame(
+  SES_guild
+) %>%
+  rownames_to_column(
+    "Plant_family"
+  ) %>%
+  pivot_longer(
+    cols = -Plant_family,
+    names_to = "Pollinator_guild",
+    values_to = "SES"
+  ) %>%
+  left_join(
+    pval_df_guild,
+    by = c(
+      "Plant_family",
+      "Pollinator_guild"
+    )
+  ) %>%
+  filter(
+    !is.na(SES),
+    Pollinator_guild %in% guild_order
+  ) %>%
+  mutate(
+    Pollinator_order_group = case_when(
+
+      Pollinator_guild %in%
+        hymenoptera_guilds ~
+        "Hymenoptera",
+
+      Pollinator_guild %in%
+        diptera_guilds ~
+        "Diptera",
+
+      Pollinator_guild ==
+        "Lepidoptera" ~
+        "Lepidoptera",
+
+      Pollinator_guild ==
+        "Coleoptera" ~
+        "Coleoptera",
+
+      TRUE ~
+        NA_character_
+    ),
+
+    category = case_when(
+
+      p_two < alpha &
+        SES > 0 ~
+        "Avoidance",
+
+      p_two < alpha &
+        SES < 0 ~
+        "Preference",
+
+      TRUE ~
+        "No difference"
+    ),
+
+    category = factor(
+      category,
+      levels = cat_levels
+    ),
+
+    Pollinator_order_group = factor(
+      Pollinator_order_group,
+      levels = order_levels
+    )
+  ) %>%
+  filter(
+    !is.na(
+      Pollinator_order_group
+    )
+  )
+
+# ======================================================
+# Select plant families with strongest SES signal
+# ======================================================
+
+plant_keep <- heat_df %>%
+  group_by(
+    Plant_family
+  ) %>%
+  summarise(
+    signal = sum(
+      abs(SES),
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) %>%
+  slice_max(
+    order_by = signal,
+    n = top_n_plants,
+    with_ties = FALSE
+  ) %>%
+  pull(
+    Plant_family
+  )
+
+heat_df <- heat_df %>%
+  filter(
+    Plant_family %in%
+      plant_keep
+  )
+
+# ======================================================
+# Cluster plant families
+# ======================================================
+
+ses_mat <- heat_df %>%
+  select(
+    Plant_family,
+    Pollinator_guild,
+    SES
+  ) %>%
+  pivot_wider(
+    names_from =
+      Pollinator_guild,
+    values_from = SES,
+    values_fill = 0
+  ) %>%
+  column_to_rownames(
+    "Plant_family"
+  ) %>%
+  as.matrix()
+
+if (nrow(ses_mat) > 1) {
+
+  plant_order <- rownames(
+    ses_mat
+  )[
+    hclust(
+      dist(ses_mat)
+    )$order
+  ]
+
+} else {
+
+  plant_order <- rownames(
+    ses_mat
+  )
+
+}
+
+# ======================================================
+# Species-count labels
+# ======================================================
+
+guild_labels <- guild_n_species %>%
+  mutate(
+    label = paste0(
+      Pollinator_guild,
+      " (",
+      n_species,
+      ")"
+    )
+  ) %>%
+  select(
+    Pollinator_guild,
+    label
+  ) %>%
+  deframe()
+
+plant_labels <- plant_n_species %>%
+  filter(
+    Plant_family %in%
+      plant_order
+  ) %>%
+  mutate(
+    label = paste0(
+      Plant_family,
+      " (",
+      n_species,
+      ")"
+    )
+  ) %>%
+  select(
+    Plant_family,
+    label
+  ) %>%
+  deframe()
+
+# Fallback guild labels
+
+missing_guild_labels <- setdiff(
+  unique(
+    heat_df$Pollinator_guild
+  ),
+  names(guild_labels)
+)
+
+if (
+  length(
+    missing_guild_labels
+  ) > 0
+) {
+
+  guild_labels <- c(
+    guild_labels,
+    setNames(
+      missing_guild_labels,
+      missing_guild_labels
+    )
+  )
+
+}
+
+# Fallback plant labels
+
+missing_plant_labels <- setdiff(
+  plant_order,
+  names(plant_labels)
+)
+
+if (
+  length(
+    missing_plant_labels
+  ) > 0
+) {
+
+  plant_labels <- c(
+    plant_labels,
+    setNames(
+      missing_plant_labels,
+      missing_plant_labels
+    )
+  )
+
+}
+
+# ======================================================
+# Numeric positions for the heatmap
+#
+# x = 0.28 is reserved for the order icons.
+# Plant families begin at x = 1.
+# ======================================================
+
+plant_position_df <- tibble(
+  Plant_family = plant_order,
+  plant_x = seq_along(
+    plant_order
+  ),
+  plant_label = unname(
+    plant_labels[
+      plant_order
+    ]
+  )
+)
+
+heat_df <- heat_df %>%
+  left_join(
+    plant_position_df,
+    by = "Plant_family"
+  )
+
+# ======================================================
+# Guild-factor ordering
+# ======================================================
+
+guilds_present <- guild_order[
+  guild_order %in%
+    unique(
+      heat_df$Pollinator_guild
+    )
+]
+
+# Reverse because discrete y axes are plotted bottom-to-top
+guild_levels_plot <- rev(
+  guilds_present
+)
+
+heat_df <- heat_df %>%
+  mutate(
+    Pollinator_guild_label =
+      factor(
+        Pollinator_guild,
+        levels =
+          guild_levels_plot,
+        labels =
+          unname(
+            guild_labels[
+              guild_levels_plot
+            ]
+          )
+      )
+  )
+
+# ======================================================
+# Icon positions
+#
+# Each order icon is positioned on the central guild row
+# of its corresponding facet.
+# ======================================================
+
+middle_guild <- function(
+  guilds
+) {
+
+  available <- guilds[
+    guilds %in%
+      guilds_present
+  ]
+
+  if (
+    length(available) == 0
+  ) {
+
+    return(
+      NA_character_
+    )
+
+  }
+
+  available[
+    ceiling(
+      length(available) / 2
+    )
+  ]
+}
+
+icon_guilds <- c(
+  Hymenoptera = middle_guild(
+    hymenoptera_guilds
+  ),
+
+  Diptera = middle_guild(
+    diptera_guilds
+  ),
+
+  Lepidoptera = middle_guild(
+    lepidoptera_guilds
+  ),
+
+  Coleoptera = middle_guild(
+    coleoptera_guilds
+  )
+)
+
+# Larger values than before, so icons remain visible
+icon_sizes <- c(
+  Hymenoptera = 0.115,
+  Diptera = 0.105,
+  Lepidoptera = 0.100,
+  Coleoptera = 0.100
+)
+
+icon_df <- tibble(
+  Pollinator_order_group =
+    factor(
+      names(icon_guilds),
+      levels = order_levels
+    ),
+
+  Pollinator_guild =
+    unname(
+      icon_guilds
+    ),
+
+  icon_x = 0.28,
+
+  image = unname(
+    icon_png[
+      names(icon_guilds)
+    ]
+  ),
+
+  icon_size = unname(
+    icon_sizes[
+      names(icon_guilds)
+    ]
+  )
+) %>%
+  filter(
+    !is.na(
+      Pollinator_guild
+    )
+  ) %>%
+  mutate(
+    Pollinator_guild_label =
+      factor(
+        Pollinator_guild,
+        levels =
+          guild_levels_plot,
+        labels =
+          unname(
+            guild_labels[
+              guild_levels_plot
+            ]
+          )
+      )
+  )
+
+# ======================================================
+# B) Faceted heatmap
+# ======================================================
+
+p_heat <- ggplot() +
+
+  # Heatmap tiles
+  geom_tile(
+    data = heat_df,
+    aes(
+      x = plant_x,
+      y =
+        Pollinator_guild_label,
+      fill = category
+    ),
+    width = 1,
+    height = 1,
+    colour = "white",
+    linewidth = 0.2,
+    alpha = 0.9
+  ) +
+
+  # Order icons in the reserved area at x = 0.28
+  geom_image(
+    data = icon_df,
+    aes(
+      x = icon_x,
+      y =
+        Pollinator_guild_label,
+      image = image,
+      size = icon_size
+    ),
+    inherit.aes = FALSE,
+    asp = 1
+  ) +
+
+  scale_size_identity() +
+
+  facet_grid(
+    rows = vars(
+      Pollinator_order_group
+    ),
+    scales = "free_y",
+    space = "free_y",
+    drop = TRUE
+  ) +
+
+  scale_fill_manual(
+    values = plot_cols,
+    breaks = cat_levels,
+    labels = cat_labels,
+    name =
+      "Observed against null",
+    drop = FALSE
+  ) +
+
+  scale_x_continuous(
+    limits = c(
+      0,
+      length(plant_order) +
+        0.5
+    ),
+
+    breaks = seq_along(
+      plant_order
+    ),
+
+    labels = unname(
+      plant_labels[
+        plant_order
+      ]
+    ),
+
+    expand = expansion(
+      mult = 0
+    )
+  ) +
+
+  scale_y_discrete(
+    position = "right",
+    expand = expansion(
+      mult = 0
+    ),
+    drop = TRUE
+  ) +
+
+  labs(
+    title = "b)",
+    x = "Plant family",
+    y = "Pollinator guild"
+  ) +
+
+  coord_cartesian(
+    clip = "on"
+  ) +
+
+  theme_classic(
+    base_size = 13
+  ) +
+
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.5
+    ),
+
+    panel.spacing.y = unit(
+      0.13,
+      "cm"
+    ),
+
+    axis.text.x = element_text(
+      angle = 90,
+      hjust = 1,
+      vjust = 0.5,
+      size = 9,
+      colour = "black"
+    ),
+
+    axis.text.y = element_text(
+      size = 9,
+      colour = "black",
+      margin = margin(
+        l = 2
+      )
+    ),
+
+    axis.title.x = element_text(
+      size = 14,
+      face = "bold",
+      margin = margin(
+        t = 6
+      )
+    ),
+
+    axis.title.y = element_text(
+      size = 14,
+      face = "bold",
+      margin = margin(
+        l = 8
+      )
+    ),
+
+    axis.ticks.x =
+      element_blank(),
+
+    # Hide order-name facet labels
+    strip.text.y =
+      element_blank(),
+
+    strip.background =
+      element_blank(),
+
+    legend.position = "none",
+
+    plot.title = element_text(
+      size = 20,
+      face = "bold",
+      hjust = 0,
+      margin = margin(
+        b = 2
+      )
+    ),
+
+    plot.margin = margin(
+      t = 1,
+      r = 1,
+      b = 1,
+      l = 1
+    )
+  )
+
+# ======================================================
+# Shared legend
+# ======================================================
+
+legend_plot <- ggplot(
+  data.frame(
+    category = factor(
+      cat_levels,
+      levels = cat_levels
+    )
+  ),
+  aes(
+    x = category,
+    fill = category
+  )
+) +
+
+  geom_bar(
+    alpha = 0
+  ) +
+
+  scale_fill_manual(
+    values = plot_cols,
+    breaks = cat_levels,
+    labels = cat_labels,
+    name =
+      "Observed against null",
+    drop = FALSE
+  ) +
+
+  guides(
+    fill = guide_legend(
+      nrow = 1,
+      byrow = TRUE,
+      title.position = "top",
+      title.hjust = 0.5,
+      override.aes = list(
+        alpha = 1
+      )
+    )
+  ) +
+
+  theme_void() +
+
+  theme(
+    legend.position = "bottom",
+
+    legend.title = element_text(
+      size = 11,
+      face = "bold"
+    ),
+
+    legend.text = element_text(
+      size = 10
+    ),
+
+    legend.key.size = unit(
+      0.48,
+      "cm"
+    ),
+
+    legend.background =
+      element_rect(
+        colour = "black",
+        fill = "white",
+        linewidth = 0.8
+      ),
+
+    legend.box.background =
+      element_rect(
+        colour = "black",
+        fill = "white",
+        linewidth = 1
+      ),
+
+    legend.box.margin =
+      margin(
+        0,
+        0,
+        0,
+        0
+      ),
+
+    legend.margin = margin(
+      t = 3,
+      r = 5,
+      b = 5,
+      l = 5
+    ),
+
+    plot.margin = margin(
+      t = 0,
+      r = 0,
+      b = 1,
+      l = 0
+    )
+  )
+
+shared_legend <- get_legend(
+  legend_plot
+)
+
+# ======================================================
+# Panel A: remove legend
+# ======================================================
+
+p_ses_noleg <- p_ses +
+
+  theme(
+    legend.position = "none"
+  ) +
+
+  guides(
+    fill = "none"
+  )
+
+# ======================================================
+# Panel A: shorter and top aligned
+# ======================================================
+
+p_ses_short <- ggdraw() +
+
+  draw_plot(
+    p_ses_noleg,
+    x = 0,
+    y =
+      1 -
+      ses_relative_height,
+    width = 1,
+    height =
+      ses_relative_height
+  )
+
+# ======================================================
+# Combine panels
+# ======================================================
+
+plots_row <- plot_grid(
+  p_ses_short,
+  p_heat,
+  ncol = 2,
+  rel_widths = c(
+    1,
+    1.68
+  ),
+  align = "h",
+  axis = "t"
+)
+
+# ======================================================
+# Final figure
+# ======================================================
+
+combined_plot <- plot_grid(
+  plots_row,
+  shared_legend,
+  ncol = 1,
+  rel_heights = c(
+    1,
+    0.12
+  )
+)
+
+combined_plot
+```
