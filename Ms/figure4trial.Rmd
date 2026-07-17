@@ -421,8 +421,46 @@ plant_labels <- plant_n_species %>%
   ) %>%
   deframe()
 
+guild_levels_present <- guild_order[
+  guild_order %in% names(guild_labels)
+]
+
 heat_df <- heat_df %>%
   mutate(
+    # Retain the unlabelled guild names for assigning orders
+    Pollinator_order_group = case_when(
+      Pollinator_guild %in% c(
+        "Apidae",
+        "Andrenidae",
+        "Halictidae",
+        "Megachilidae",
+        "Colletidae",
+        "Melittidae",
+        "Non-bee Hymenoptera"
+      ) ~ "Hymenoptera",
+
+      Pollinator_guild %in% c(
+        "Bombylids",
+        "Syrphids",
+        "Other Diptera"
+      ) ~ "Diptera",
+
+      Pollinator_guild == "Lepidoptera" ~ "Lepidoptera",
+      Pollinator_guild == "Coleoptera" ~ "Coleoptera",
+      TRUE ~ "Other taxa"
+    ),
+
+    Pollinator_order_group = factor(
+      Pollinator_order_group,
+      levels = c(
+        "Hymenoptera",
+        "Diptera",
+        "Lepidoptera",
+        "Coleoptera",
+        "Other taxa"
+      )
+    ),
+
     Plant_family = factor(
       Plant_family,
       levels = plant_order,
@@ -431,24 +469,27 @@ heat_df <- heat_df %>%
 
     Pollinator_guild = factor(
       Pollinator_guild,
-      levels = rev(
-        guild_order[
-          guild_order %in% names(guild_labels)
-        ]
-      ),
-      labels = rev(
-        guild_labels[
-          guild_order[
-            guild_order %in% names(guild_labels)
-          ]
-        ]
-      )
+      levels = rev(guild_levels_present),
+      labels = rev(guild_labels[guild_levels_present])
     )
   )
 
 # ======================================================
-# C) Heatmap
+# C) Heatmap separated by pollinator order
+#    Order labels hidden; guild title restored
 # ======================================================
+
+guild_header_df <- data.frame(
+  Pollinator_order_group = factor(
+    "Hymenoptera",
+    levels = levels(heat_df$Pollinator_order_group)
+  ),
+
+  # Use the top guild row in the Hymenoptera facet
+  Pollinator_guild = guild_labels["Apidae"],
+
+  label = "Pollinator guild"
+)
 
 p_heat <- ggplot(
   heat_df,
@@ -461,100 +502,100 @@ p_heat <- ggplot(
 
   geom_tile(
     colour = "white",
+    linewidth = 0.35,
     alpha = 0.9
+  ) +
+
+  # Keep separate panels for each pollinator order,
+  # but do not display the order names
+  facet_grid(
+    rows = vars(Pollinator_order_group),
+    scales = "free_y",
+    space = "free_y",
+    drop = TRUE
   ) +
 
   scale_fill_manual(
     values = plot_cols,
-    name = "Observed against null"
+    breaks = cat_levels,
+    labels = cat_labels,
+    name = "Observed against null",
+    drop = FALSE
   ) +
 
-  labs(
-    x = "Plant family",
-    y = "Pollinator guild"
+  scale_x_discrete(
+    expand = expansion(mult = 0)
   ) +
+
+  scale_y_discrete(
+    position = "right",
+    expand = expansion(mult = 0)
+  ) +
+
+labs(
+  x = "Plant family",
+  y = NULL
+) +
+
+  ggtitle("b)") +
 
   theme_classic(
     base_size = 13
   ) +
 
-  ggtitle("b)") +
-
   theme(
+    # Plant-family labels
     axis.text.x = element_text(
       angle = 90,
       hjust = 1,
-      size = 10
+      vjust = 0.5,
+      size = 10,
+      colour = "black"
     ),
 
-    axis.text.y = element_text(
-      size = 10
+    # Pollinator-guild labels
+    axis.text.y.right = element_text(
+      size = 10,
+      colour = "black",
+      margin = margin(l = 3)
     ),
 
-    axis.title = element_text(
+    axis.ticks.y = element_blank(),
+
+    axis.title.x = element_text(
       size = 15,
       face = "bold"
     ),
 
-    legend.position = "top",
+    # Restore the Pollinator guild title on the right
+    axis.title.y = element_blank(),
 
-    legend.title = element_text(
-      size = 12,
-      face = "bold"
+    # Remove pollinator-order tags completely
+    strip.text.y = element_blank(),
+    strip.text.y.left = element_blank(),
+    strip.text.y.right = element_blank(),
+    strip.background.y = element_blank(),
+
+    # Retain visible separation between orders
+    panel.spacing.y = unit(
+      2.5,
+      "mm"
     ),
 
-    legend.text = element_text(
-      size = 11
-    ),
+    panel.grid = element_blank(),
 
-    legend.background = element_rect(
-      colour = "black"
-    ),
-
-    legend.box.background = element_rect(
-      colour = "black"
-    ),
-
-    legend.margin = margin(
-      4,
-      20,
-      4,
-      8
-    ),
-
-    plot.title = element_text(
-      size = 20,
-      face = "bold"
-    )
-  )
-
-# ======================================================
-# Combined plot
-# ======================================================
-
-p_ses <- p_ses +
-  theme(
-    plot.margin = margin(
-      1,
-      1,
-      1,
-      1
-    )
-  )
-
-p_ses <- p_ses +
-  guides(
-    fill = "none"
-  )
-
-p_heat <- p_heat +
-  theme(
     legend.position = "bottom",
     legend.justification = "center",
     legend.direction = "horizontal",
 
     legend.title = element_text(
+      size = 12,
+      face = "bold",
       hjust = 0.5
+    ),
+
+    legend.text = element_text(
+      size = 11
     ),
 
     legend.box.margin = margin(
@@ -571,6 +612,13 @@ p_heat <- p_heat +
     plot.title = element_text(
       size = 20,
       face = "bold"
+    ),
+
+    plot.margin = margin(
+      1,
+      1,
+      1,
+      1
     )
   ) +
 
@@ -579,22 +627,39 @@ p_heat <- p_heat +
       nrow = 1,
       byrow = TRUE
     )
+  ) +
+    geom_text(
+    data = guild_header_df,
+    aes(
+      x = Inf,
+      y = Pollinator_guild,
+      label = label
+    ),
+    inherit.aes = FALSE,
+    hjust = 0,
+    vjust = -1.5,
+    fontface = "bold",
+    size = 4.8
+  )+
+  coord_cartesian(
+    clip = "off"
   )
 
-p_heat <- p_heat +
+# ======================================================
+# Combined plot
+# ======================================================
 
-  scale_y_discrete(
-    position = "right"
-  ) +
-
+p_ses <- p_ses +
   theme(
-    axis.text.y = element_text(
-      size = 10
-    ),
-
-    axis.title.y = element_text(
-      face = "bold"
+    plot.margin = margin(
+      1,
+      1,
+      1,
+      1
     )
+  ) +
+  guides(
+    fill = "none"
   )
 
 # ======================================================
@@ -697,6 +762,8 @@ p_ses_noleg <- p_ses +
     fill = "none"
   )
 
+
+
 p_heat_noleg <- p_heat +
   theme(
     legend.position = "none"
@@ -726,7 +793,7 @@ plots_row <- plots_row +
     plot.margin = margin(
       t = 0,
       r = 0,
-      b = -20,
+      b = -10,
       l = 0
     )
   )
