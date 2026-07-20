@@ -329,7 +329,7 @@ main_trait_plot <- ggplot() +
   labs(
     x = "Sampling week",
     y = "Procrustes r",
-    title = "c) Trait-matching"
+    title = "c) Trait matching"
   ) +
   
   guides(
