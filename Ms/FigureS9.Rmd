@@ -4,8 +4,8 @@ format:
     geometry:
       - top=0.4in
       - bottom=0.4in
-      - left=-1in
-      - right=0.35in
+      - left=0in
+      - right=0.4in
     include-in-header:
       text: |
         \usepackage{caption}
@@ -14,7 +14,7 @@ format:
         \usepackage{lineno}
 ---
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=10,fig.width=16,fig.align='center',out.width="100%"}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=6,fig.width=12,fig.align='center',out.width="90%"}
 
 
 
@@ -118,7 +118,7 @@ pheno_halle <- pheno_halle +
   no_fill_legend
 
 trait_matching_halle <- trait_matching_halle +
-  labs(title = "Trait-matching") +
+  labs(title = "Trait matching") +
   no_x_axis +
   no_fill_legend
 
