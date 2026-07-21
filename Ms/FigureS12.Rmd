@@ -12,11 +12,14 @@ format:
         \usepackage{lineno}
 ---
 
-```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=8,fig.width=8, out.width="100%"}
+```{r ,echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=13,fig.width=10, out.width="100%"}
 
 # ======================================================
-# Clustered family-level heatmap
-# Pollinator and plant species counts included in labels
+# Clustered plant family × pollinator genus heatmap
+# Based on the outputs:
+#   SES_genus.rds
+#   pval_df_genus.rds
+#   block_mats_genus.rds
 # ======================================================
 
 library(ggplot2)
@@ -24,16 +27,14 @@ library(dplyr)
 library(tidyr)
 library(tibble)
 
+# -----------------------------
+# Settings
+# -----------------------------
+
 alpha <- 0.05
 top_n_plants <- 18
 
 cat_levels <- c(
-  "Avoidance",
-  "No difference",
-  "Preference"
-)
-
-cat_labels <- c(
   "Avoidance",
   "No difference",
   "Preference"
@@ -52,44 +53,34 @@ poll_order <- c(
   "Lepidoptera"
 )
 
-# ======================================================
-# Load data
-# ======================================================
+# -----------------------------
+# Load outputs and raw data
+# -----------------------------
 
-SES_family <- readRDS(
-  "../Data/Working_files/SES.rds"
+SES <- readRDS(
+  "../Data/Working_files/SES_genus.rds"
 )
 
-pval_df_family <- readRDS(
-  "../Data/Working_files/pval_df.rds"
+pval_df <- readRDS(
+  "../Data/Working_files/pval_df_genus.rds"
+)
+
+block_mats <- readRDS(
+  "../Data/Working_files/block_mats_genus.rds"
 )
 
 raw_data <- readRDS(
   "../Data/Working_files/interaction_data.rds"
 )
 
-# ======================================================
-# Count pollinator species per family
-# ======================================================
-
-pollinator_family_n_species <- raw_data %>%
-  filter(
-    !is.na(Pollinator_accepted_name),
-    Pollinator_rank == "SPECIES",
-    Pollinator_order %in% poll_order,
-    !is.na(Pollinator_family)
-  ) %>%
-  distinct(
-    Pollinator_family,
-    Pollinator_accepted_name
-  ) %>%
-  count(
-    Pollinator_family,
-    name = "n_species"
-  )
+# Confirm that the matrices have names
+stopifnot(
+  !is.null(rownames(SES)),
+  !is.null(colnames(SES))
+)
 
 # ======================================================
-# Count plant species per family
+# Count plant species within each plant family
 # ======================================================
 
 plant_n_species <- raw_data %>%
@@ -107,28 +98,69 @@ plant_n_species <- raw_data %>%
   )
 
 # ======================================================
-# Prepare family-level heatmap data
+# Count pollinator species within each pollinator genus
 # ======================================================
 
-heat_df <- as.data.frame(SES_family) %>%
+pollinator_genus_n_species <- raw_data %>%
+  filter(
+    !is.na(Pollinator_genus),
+    !is.na(Pollinator_accepted_name),
+    Pollinator_rank == "SPECIES",
+    Pollinator_order %in% poll_order
+  ) %>%
+  distinct(
+    Pollinator_genus,
+    Pollinator_accepted_name
+  ) %>%
+  count(
+    Pollinator_genus,
+    name = "n_species"
+  )
+
+# ======================================================
+# Convert the SES matrix to long format
+# ======================================================
+
+heat_df <- as.data.frame(SES) %>%
   rownames_to_column("Plant_family") %>%
   pivot_longer(
     cols = -Plant_family,
-    names_to = "Pollinator_family",
+    names_to = "Pollinator_genus",
     values_to = "SES"
   ) %>%
   left_join(
-    pval_df_family,
+    pval_df,
     by = c(
       "Plant_family",
-      "Pollinator_family"
+      "Pollinator_genus"
     )
+  )
+
+# Check that all non-missing SES values matched a p-value
+n_missing_pvalues <- heat_df %>%
+  filter(
+    !is.na(SES),
+    is.na(p_two)
   ) %>%
-  filter(!is.na(SES)) %>%
+  nrow()
+
+if (n_missing_pvalues > 0) {
+  warning(
+    n_missing_pvalues,
+    " non-missing SES values did not have a matching p-value."
+  )
+}
+
+# Retain cells for which SES and p-values could be calculated
+heat_df <- heat_df %>%
+  filter(
+    !is.na(SES),
+    !is.na(p_two)
+  ) %>%
   mutate(
     category = case_when(
-      p_two < alpha & SES > 0 ~ "Preference",
       p_two < alpha & SES < 0 ~ "Avoidance",
+      p_two < alpha & SES > 0 ~ "Preference",
       TRUE ~ "No difference"
     ),
     category = factor(
@@ -138,7 +170,7 @@ heat_df <- as.data.frame(SES_family) %>%
   )
 
 # ======================================================
-# Retain plant families with the strongest SES signals
+# Select plant families with the strongest SES signal
 # ======================================================
 
 plant_keep <- heat_df %>%
@@ -166,28 +198,44 @@ heat_df <- heat_df %>%
 ses_mat <- heat_df %>%
   select(
     Plant_family,
-    Pollinator_family,
+    Pollinator_genus,
     SES
   ) %>%
+  distinct() %>%
   pivot_wider(
-    names_from = Pollinator_family,
+    names_from = Pollinator_genus,
     values_from = SES,
     values_fill = 0
   ) %>%
   column_to_rownames("Plant_family") %>%
   as.matrix()
 
-# Cluster plant and pollinator families
-plant_order <- rownames(ses_mat)[
-  hclust(dist(ses_mat))$order
-]
+# -----------------------------
+# Cluster plant families
+# -----------------------------
 
-pollinator_order <- colnames(ses_mat)[
-  hclust(dist(t(ses_mat)))$order
-]
+if (nrow(ses_mat) > 1) {
+  plant_order <- rownames(ses_mat)[
+    hclust(dist(ses_mat))$order
+  ]
+} else {
+  plant_order <- rownames(ses_mat)
+}
+
+# -----------------------------
+# Cluster pollinator genera
+# -----------------------------
+
+if (ncol(ses_mat) > 1) {
+  pollinator_order <- colnames(ses_mat)[
+    hclust(dist(t(ses_mat)))$order
+  ]
+} else {
+  pollinator_order <- colnames(ses_mat)
+}
 
 # ======================================================
-# Create labels containing species richness
+# Labels containing species richness
 # ======================================================
 
 plant_labels <- plant_n_species %>%
@@ -208,35 +256,32 @@ plant_labels <- plant_n_species %>%
   ) %>%
   deframe()
 
-pollinator_labels <- pollinator_family_n_species %>%
+pollinator_labels <- pollinator_genus_n_species %>%
   filter(
-    Pollinator_family %in% pollinator_order
+    Pollinator_genus %in% pollinator_order
   ) %>%
   mutate(
     label = paste0(
-      Pollinator_family,
+      Pollinator_genus,
       " (",
       n_species,
       ")"
     )
   ) %>%
   select(
-    Pollinator_family,
+    Pollinator_genus,
     label
   ) %>%
   deframe()
 
-# Add fallback labels in case a family has no species count
+# Fallback labels when no richness value is available
 missing_plant_labels <- setdiff(
   plant_order,
   names(plant_labels)
 )
 
 if (length(missing_plant_labels) > 0) {
-  plant_labels[missing_plant_labels] <- paste0(
-    missing_plant_labels,
-    " (0)"
-  )
+  plant_labels[missing_plant_labels] <- missing_plant_labels
 }
 
 missing_pollinator_labels <- setdiff(
@@ -245,50 +290,53 @@ missing_pollinator_labels <- setdiff(
 )
 
 if (length(missing_pollinator_labels) > 0) {
-  pollinator_labels[missing_pollinator_labels] <- paste0(
-    missing_pollinator_labels,
-    " (0)"
-  )
+  pollinator_labels[missing_pollinator_labels] <-
+    missing_pollinator_labels
 }
 
-# Apply clustered ordering and display labels
+# ======================================================
+# Apply ordering and labels
+# ======================================================
+
 heat_df <- heat_df %>%
   mutate(
     Plant_family = factor(
       Plant_family,
       levels = plant_order,
-      labels = plant_labels[plant_order]
+      labels = unname(
+        plant_labels[plant_order]
+      )
     ),
-    Pollinator_family = factor(
-      Pollinator_family,
+    Pollinator_genus = factor(
+      Pollinator_genus,
       levels = rev(pollinator_order),
-      labels = rev(
-        pollinator_labels[pollinator_order]
+      labels = unname(
+        rev(pollinator_labels[pollinator_order])
       )
     )
   )
 
 # ======================================================
-# Family-level heatmap with legend
+# Plot
 # ======================================================
 
 p_heat <- ggplot(
   heat_df,
   aes(
     x = Plant_family,
-    y = Pollinator_family,
+    y = Pollinator_genus,
     fill = category
   )
 ) +
   geom_tile(
     colour = "white",
-    linewidth = 0.4,
+    linewidth = 0.35,
     alpha = 0.9
   ) +
   scale_fill_manual(
     values = plot_cols,
     breaks = cat_levels,
-    labels = cat_labels,
+    labels = cat_levels,
     name = "Observed against null",
     drop = FALSE
   ) +
@@ -305,11 +353,13 @@ p_heat <- ggplot(
   ) +
   labs(
     x = "Plant family",
-    y = "Pollinator family"
+    y = "Pollinator genus"
   ) +
   scale_y_discrete(
-    position = "right"
+    position = "right",
+    drop = FALSE
   ) +
+  coord_cartesian(clip = "off") +
   theme_classic(
     base_size = 13
   ) +
@@ -321,13 +371,10 @@ p_heat <- ggplot(
       size = 12
     ),
     axis.text.y = element_text(
-      size = 12
+      size = 11
     ),
     axis.title = element_text(
       size = 18,
-      face = "bold"
-    ),
-    axis.title.y = element_text(
       face = "bold"
     ),
     axis.ticks = element_blank(),
@@ -360,17 +407,14 @@ p_heat <- ggplot(
       b = 5,
       l = 8
     ),
-
     plot.margin = margin(
       t = 5,
       r = 5,
       b = 5,
-      l = 27
+      l = 22
     )
   )
 
 p_heat
-
-
 ```
 
