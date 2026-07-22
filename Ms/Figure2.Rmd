@@ -8,7 +8,7 @@ header-includes:
   - \captionsetup[table]{labelformat=empty}
 ---
 
-```{r, echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4, fig.width=8, out.width="105%", fig.cap="\\textbf{Figure 2}."}
+```{r, echo=FALSE, message=FALSE, cache=FALSE, warning=FALSE, fig.height=4, fig.width=8, out.width="105%"}
 
 library(dplyr)
 library(ggplot2)
