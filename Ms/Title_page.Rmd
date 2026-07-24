@@ -1,121 +1,38 @@
 ---
-output: pdf_document
+output:
+  pdf_document:
+    latex_engine: xelatex
+
 header-includes:
-  - \usepackage{ragged2e}
   - \usepackage{graphicx}
   - \usepackage{caption}
   - \usepackage{placeins}
-  - \usepackage{caption}
-  - \captionsetup[figure]{labelformat=empty}
   - \usepackage{float}
   - \usepackage{lineno}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
+  - \captionsetup[figure]{labelformat=empty}
   - \linenumbers
 ---
 
-\begin{center}
-{\LARGE\bfseries
-Seasonal Variation Mediates the Importance of Species Attributes in Plant--Pollinator Interactions
-}
+**Title:** Seasonal Variation Mediates the Importance of Species Attributes in Plant-Pollinator Interactions
 
-\vspace{1em}
+**Authors and mails:** Jose B. Lanuza$^{1,2}$ (\href{mailto:barragansljose@gmail.com}{barragansljose@gmail.com}), Alfonso Allen-Perkins$^{3}$ (\href{mailto:alfonsoallenperkins@gmail.com}{alfonsoallenperkins@gmail.com}), Will Glenny$^{1}$ (\href{mailto:willglenny@gmail.com}{willglenny@gmail.com}), Anna Traveset$^{2}$ (\href{mailto:atraveset@csic.es}{atraveset@csic.es}), Henriette F. Morgenroth$^{1}$ (\href{mailto:hfmorgenroth@gmail.com}{hfmorgenroth@gmail.com}), Raymond Umazekabiri$^{1}$ (\href{mailto:Raymond.Umazekabiri@monash.edu}{Raymond.Umazekabiri@monash.edu}), Marc Hoffmann$^{1}$ (\href{mailto:hoffmann.marc@fn.de}{hoffmann.marc@fn.de}), Panagiotis Theodorou$^{1,4}$ (\href{mailto:panatheod@gmail.com}{panatheod@gmail.com}), Robert J. Paxton$^{1,4}$ (\href{mailto:robert.paxton@zoologie.uni-halle.de}{robert.paxton@zoologie.uni-halle.de}), Isabell Hensen$^{1,5}$ (\href{mailto:isabell.hensen@botanik.uni-halle.de}{isabell.hensen@botanik.uni-halle.de}), Robert Rauschkolb$^{1,6,7}$ (\href{mailto:phenobs@uni-jena.de}{phenobs@uni-jena.de}), Christine Römermann$^{1,6,7}$ (\href{mailto:christine.roemermann@uni-jena.de}{christine.roemermann@uni-jena.de}), Oliver Schweiger$^{1,8}$ (\href{mailto:oliver.schweiger@ufz.de}{oliver.schweiger@ufz.de})
+and Tiffany Knight$^{1}$ (\href{mailto:tiffany.knight@idiv.de}{tiffany.knight@idiv.de})
 
-{\large
-Jose B. Lanuza$^{1,2,*}$ \thanks{jose.lanuza@imedea.uib-csic.es},
-Alfonso Allen-Perkins$^{3}$,
-Will Glenny$^{1}$,
-Anna Traveset$^{2}$,
-Henriette F. Morgenroth$^{1}$,
-Raymond Umazekabiri$^{1}$,
-Marc Hoffmann$^{1}$,
-Panagiotis Theodorou$^{1,4}$,
-Robert J. Paxton$^{1,4}$,
-Isabell Hensen$^{1,5}$,
-Robert Rauschkolb$^{1,6,7}$,
-Christine Römermann$^{1,6,7}$,
-Oliver Schweiger$^{1,8}$,
-and Tiffany M. Knight$^{1}$
-}
-\end{center}
 
-\vspace{1em}
+**Affiliations:** $^{1}$\hspace{0.5em}German Centre for Integrative Biodiversity Research (iDiv) Halle–Jena–Leipzig, Puschstr. 4, 04103 Leipzig, Germany. $^{2}$\hspace{0.5em}Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain. $^{3}$\hspace{0.5em}Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, Madrid, Spain. $^{4}$\hspace{0.5em}Institute for Biology; General Zoology, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany. $^{5}$\hspace{0.5em}Institute of Biology/Geobotany and Botanical Garden, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany. $^{6}$\hspace{0.5em}Institute of Biodiversity, Ecology and Evolution, Friedrich Schiller University Jena, Germany. $^{7}$\hspace{0.5em}Senckenberg Institute for Plant Form and Function (SIP), Jena, Germany. $^{8}$\hspace{0.5em}UFZ – Helmholtz Centre for Environmental Research, Department of Community Ecology, Halle, Germany
 
-\footnotesize
+**Running title**: Seasonal drivers of plant-pollinator interactions
 
-$^{1}$ German Centre for Integrative Biodiversity Research (iDiv) Halle--Jena--Leipzig, Puschstr. 4, 04103 Leipzig, Germany.
+**Keywords**: Plant-pollinator interactions; Species attributes; Species abundance; Trait matching; Phenology; Temporal resolution; Seasonal variation
 
-$^{2}$ Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain.
+**Word count**: Abstract, 190 words; main text, 4989 words.
 
-$^{3}$ Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, Madrid, Spain.
+**Number of references**: 76
 
-$^{4}$ Institute for Biology, General Zoology, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany.
+**Number of figures and tables**: 4 figures and 0 tables.
 
-$^{5}$ Institute of Biology/Geobotany and Botanical Garden, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany.
-
-$^{6}$ Institute of Biodiversity, Ecology and Evolution, Friedrich Schiller University Jena, Germany.
-
-$^{7}$ Senckenberg Institute for Plant Form and Function (SIP), Jena, Germany.
-
-$^{8}$ Department of Community Ecology, UFZ--Helmholtz Centre for Environmental Research, Halle, Germany.
-
-\vspace{1em}
-\noindent\rule{\textwidth}{0.5pt}
-
-\normalsize
-
-\textbf{Running title:}
-Seasonal drivers of plant--pollinator interactions
-
-\medskip
-
-\textbf{Article type:}
-Letter
-
-\medskip
-
-\textbf{Keywords:}
-plant--pollinator interactions; phenology; abundance; trait matching; temporal resolution; ecological networks; visitation rate; random forest; pollination ecology; community ecology
-
-\medskip
-
-\textbf{Abstract:} XXX words
-
-\textbf{Main text:} XXXX words
-
-\textbf{Text boxes:} None
-
-\medskip
-
-\textbf{References:} XX
-
-\textbf{Figures:} X
-
-\textbf{Tables:} X
-
-\textbf{Text boxes:} 0
-
-\medskip
-
-\textbf{Statement of authorship}
-
-J.B.L. conceived the study. J.B.L., T.M.K., and O.S. designed the study. J.B.L. compiled the data, performed the analyses, and wrote the first draft of the manuscript. A.A.-P. contributed to analytical methods. All authors contributed to data collection and/or interpretation of the results, critically revised the manuscript, and approved the final version.
-
-\medskip
-
-\textbf{Data accessibility statement}
-
-The data supporting the findings of this study are openly available in Zenodo at \url{https://doi.org/10.5281/zenodo.15183272}. The R code used to reproduce all analyses and figures is openly available in Zenodo at \url{https://doi.org/10.5281/zenodo.21243408}.
-
-\medskip
-
-\textbf{Corresponding author}
-
-Jose B. Lanuza
-
-Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC)
-
-07190 Esporles, Mallorca, Balearic Islands, Spain
-
-E-mail: jose.lanuza@imedea.uib-csic.es
-
-Telephone: +34 XXX XXX XXX
-
+\textbf{Corresponding author:} Jose B. Lanuza, Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain; 
+\href{mailto:barragansljose@gmail.com}{barragansljose@gmail.com}; 
++34 616 375 981
