@@ -8,21 +8,26 @@ header-includes:
   - \usepackage{caption}
   - \captionsetup[figure]{labelformat=empty}
   - \usepackage{float}
+  - \usepackage{lineno}
+  - \linenumbers
 ---
 
 \begin{center}
 {\LARGE\bfseries Seasonal Variation Mediates the Importance of Species Attributes in Plant-Pollinator Interactions}
 
-\vspace{0.75em}
+\vspace{1em}
 
 \parbox{0.88\textwidth}{\centering\bfseries
 Jose B. Lanuza$^{1,2}$, Alfonso Allen-Perkins$^{3}$, Will Glenny$^{1}$, Anna Traveset$^{2}$, Henriette F. Morgenroth$^{1}$, Raymond~Umazekabiri$^{1}$, Marc Hoffmann$^{1}$, Panagiotis Theodorou$^{1,4}$, Robert J. Paxton$^{1,4}$, Isabell Hensen$^{1,5}$, Robert Rauschkolb$^{1,6,7}$, Christine Römermann$^{1,6,7}$, Oliver Schweiger$^{1,8}$, and Tiffany Knight$^{1}$}
 
 \end{center}
 
-\small
+\footnotesize
 
 $^{1}$\hspace{0.5em}German Centre for Integrative Biodiversity Research (iDiv) Halle–Jena–Leipzig, Puschstr. 4, 04103 Leipzig, Germany. $^{2}$\hspace{0.5em}Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain. $^{3}$\hspace{0.5em}Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, Madrid, Spain. $^{4}$\hspace{0.5em}Institute for Biology; General Zoology, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany. $^{5}$\hspace{0.5em}Institute of Biology/Geobotany and Botanical Garden, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany. $^{6}$\hspace{0.5em}Institute of Biodiversity, Ecology and Evolution, Friedrich Schiller University Jena, Germany. $^{7}$\hspace{0.5em}Senckenberg Institute for Plant Form and Function (SIP), Jena, Germany. $^{8}$\hspace{0.5em}UFZ – Helmholtz Centre for Environmental Research, Department of Community Ecology, Halle, Germany
+
+
+\noindent\rule{\textwidth}{0.4pt}
 
 \normalsize
 
@@ -30,7 +35,7 @@ $^{1}$\hspace{0.5em}German Centre for Integrative Biodiversity Research (iDiv) H
 
 \large
 
-Predicting species interactions remains a major challenge, as multiple species attributes operate simultaneously and their relative importance may vary seasonally and with temporal resolution. Here, we assess how the relative contributions of abundance, trait matching, and phenology to plant-pollinator interactions vary through a flowering season and across temporal resolutions using interaction data from three European botanical gardens. We show that predictive models explain a substantial proportion of variation in visitation patterns, with floral and pollinator abundances consistently explaining most variation across the flowering season. Trait matching between pollinator body size and floral size also contributes to visitation patterns, playing a secondary but persistent role in shaping interactions, while phenology plays a relatively minor role at broader temporal resolutions but becomes more important at finer temporal scales. Additionally, null models accounting for spatio-temporal variation in floral and pollinator abundance reveal consistent patterns of pollinator preference and avoidance, indicating that abundance alone cannot explain the observed interaction patterns. Our results show that seasonal variation and temporal resolution differentially shape the importance of species attributes, highlighting the need for multi-variable approaches that account for temporal dynamics to accurately explain and predict ecological interactions.
+\textbf{Predicting species interactions remains a major challenge, as multiple species attributes operate simultaneously and their relative importance may vary seasonally and with temporal resolution. Here, we assess how the relative contributions of abundance, trait matching, and phenology to plant-pollinator interactions vary through a flowering season and across temporal resolutions using interaction data from three European botanical gardens. We show that predictive models explain a substantial proportion of variation in visitation patterns, with floral and pollinator abundances consistently explaining most variation across the flowering season. Trait matching between pollinator body size and floral size also contributes to visitation patterns, playing a secondary but persistent role in shaping interactions, while phenology plays a relatively minor role at broader temporal resolutions but becomes more important at finer temporal scales. Additionally, null models accounting for spatio-temporal variation in floral and pollinator abundance reveal consistent patterns of pollinator preference and avoidance, indicating that abundance alone cannot explain the observed interaction patterns. Our results show that seasonal variation and temporal resolution differentially shape the importance of species attributes, highlighting the need for multi-variable approaches that account for temporal dynamics to accurately explain and predict ecological interactions.}
 
 ## Introduction
 
@@ -76,6 +81,8 @@ In total, 243 species of floral visitors were recorded across focal and non-foca
 
 In total, we recorded 6,541 plant-pollinator interactions at the species level, with 2,774 in Halle, 2,132 in Leipzig, and 1,635 in Jena (including 1,262, 821, and 739 focal interactions, respectively). Most interactions involved Hymenoptera (78%) and Diptera (17%), with honeybees alone accounting for 21% of all interactions. Excluding honeybees, most interactions still involved Hymenoptera (71%) and Diptera (22%). These patterns were consistent across the three gardens.
 Overall, the two sampling approaches provided a comprehensive overview of the pollinator assemblages within these botanical gardens. Accumulation curves (**Figure S3**) indicate that sampling effort was sufficient to characterize pollinator assemblages associated with focal plants across gardens. However, observations of non-focal plants proved more efficient at capturing overall pollinator diversity at the garden scale, yielding a more complete representation of the pollinator assemblage with lower sampling effort while covering a broader range of plant species.
+
+\pagebreak
 
 **Data description**
 
@@ -256,6 +263,7 @@ p2 + p1 + plot_layout(widths = c(1, 1))
 
 ```
 
+\pagebreak
 
 *Variation in species-attribute effects across temporal resolution*
 
@@ -1154,7 +1162,7 @@ Morán-López, T., Benadi, G., Lara-Romero, C., Chacoff, N., Vitali, A., Pescado
 
 Nordt, B., Hensen, I., Bucher, S. F., Freiberg, M., Primack, R. B., Stevens, A.-D., Bonn, A., Wirth, C., Jakubka, D., Plos, C., & others. (2021). The PhenObs initiative: A standardised protocol for monitoring phenological responses to climate change using herbaceous plant species in botanical gardens. *Functional Ecology, 35*(4), 821–834.
 
-Oksanen, J., Kindt, R., Legendre, P., O'Hara, B., Stevens, M. H. H., Oksanen, M. J., & Suggests, M. (2007). *vegan: Community ecology package* (R package).
+Oksanen, J., Simpson, G., Blanchet, F., Kindt, R., Legendre, P., Minchin, P., O'Hara, R., Solymos, P., Stevens, M., Szoecs, E., Wagner, H., Bedward, M., Bolker, B., Borcard, D., Carvalho, G., De Caceres, M., Durand, S., Evangelista, H., Hannigan, G., Hill, M., Lahti, L., Martino, C., Ouellette, M., Ribeiro Cunha, E., Smith, T., Stier, A., Ter Braak, C., & Weedon, J. (2026). *vegan: Community Ecology Package* (R package version 2.8-0). https://vegandevs.github.io/vegan/
 
 Olesen, J. M., Bascompte, J., Dupont, Y. L., Elberling, H., Rasmussen, C., & Jordano, P. (2011). Missing and forbidden links in mutualistic networks. *Proceedings of the Royal Society B: Biological Sciences, 278*(1706), 725–732.
 
