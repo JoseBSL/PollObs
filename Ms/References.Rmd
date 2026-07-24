@@ -1,0 +1,159 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2026-07-22"
+---
+
+## References
+
+Arroyo-Correa, B., Bartomeus, I., & Jordano, P. (2021). Individual-based plant–pollinator networks are structured by phenotypic and microsite plant traits. *Journal of Ecology, 109*(8), 2832–2844.
+
+Ballantyne, G., Baldock, K. C. R., & Willmer, P. G. (2015). Constructing more informative plant–pollinator networks: Visitation and pollen deposition networks in a heathland plant community. *Proceedings of the Royal Society B: Biological Sciences, 282*(1814), 20151130.
+
+Ballarin, C. S., Amorim, F. W., Arroyo-Correa, B., & Jordano, P. (2026). Floral resource diversity drives spatiotemporal variation in plant–pollinator network structure. *Oikos, 2026*(6), e11730.
+
+Barreto, E., Duchenne, F., Beck, H., Bello, C., Bobato, R., Brenes, E., Bôlla, D., Büttner, N., Caron, A. P., Castro, J. A., et al. (2025). Hummingbird flower visitation rates vary with species traits, floral abundance and phenology across bioregions. *Oikos, 2025*(9), e11354.
+
+Bartomeus, I., Gravel, D., Tylianakis, J. M., Aizen, M. A., Dickie, I. A., & Bernard-Verdier, M. (2016). A common framework for identifying linkage rules across different types of interactions. *Functional Ecology, 30*(12), 1894–1903.
+
+Bascompte, J., & Jordano, P. (2007). Plant-animal mutualistic networks: The architecture of biodiversity. *Annual Review of Ecology, Evolution, and Systematics, 38*(1), 567–593.
+
+Benadi, G., Dormann, C. F., Fründ, J., Stephan, R., & Vázquez, D. P. (2022). Quantitative prediction of interactions in bipartite networks based on traits, abundances, and phylogeny. *The American Naturalist, 199*(6), 841–854.
+
+Benadi, G., Hovestadt, T., Poethke, H.-J., & Blüthgen, N. (2014). Specialization and phenological synchrony of plant–pollinator interactions along an altitudinal gradient. *Journal of Animal Ecology, 83*(3), 639–650.
+
+Blüthgen, N., Menzel, F., & Blüthgen, N. (2006). Measuring specialization in species interaction networks. *BMC Ecology, 6*, 1–12.
+
+Blüthgen, N., & Staab, M. (2024). A critical evaluation of network approaches for studying species interactions. *Annual Review of Ecology, Evolution, and Systematics, 55*.
+
+Bramon Mora, B., Shin, E., CaraDonna, P. J., & Stouffer, D. B. (2020). Untangling the seasonal dynamics of plant–pollinator communities. *Nature Communications, 11*(1), 4086.
+
+Breiman, L. (2001). Random forests. *Machine Learning, 45*(1), 5–32.
+
+Brosi, B. J. (2016). Pollinator specialization: From the individual to the community. *New Phytologist, 210*(4), 1190–1194.
+
+Burkle, L. A., & Alarcón, R. (2011). The future of plant–pollinator diversity: Understanding interaction networks across time, space, and global change. *American Journal of Botany, 98*(3), 528–538.
+
+Canard, E., Mouquet, N., Mouillot, D., Stanko, M., Miklisova, D., & Gravel, D. (2014). Empirical evaluation of neutral interactions in host–parasite networks. *The American Naturalist, 183*(4), 468–479.
+
+CaraDonna, P. J., Burkle, L. A., Schwarz, B., Resasco, J., Knight, T. M., Benadi, G., Blüthgen, N., Dormann, C. F., Fang, Q., Fründ, J., et al. (2021). Seeing through the static: The temporal dimension of plant–animal mutualistic interactions. *Ecology Letters, 24*(1), 149–161.
+
+CaraDonna, P. J., Petry, W. K., Brennan, R. M., Cunningham, J. L., Bronstein, J. L., Waser, N. M., & Sanders, N. J. (2017). Interaction rewiring and the rapid turnover of plant–pollinator networks. *Ecology Letters, 20*(3), 385–394.
+
+Chacoff, N. P., Vázquez, D. P., Lomáscolo, S. B., Stevani, E. L., Dorado, J., & Padrón, B. (2012). Evaluating sampling completeness in a desert plant–pollinator network. *Journal of Animal Ecology, 81*(1), 190–200.
+
+Crea, C., Ali, R. A., & Rader, R. (2016). A new model for ecological networks using species-level traits. *Methods in Ecology and Evolution, 7*(2), 232–241.
+
+Dalsgaard, B., Maruyama, P. K., Sonne, J., Hansen, K., Zanata, T. B., Abrahamczyk, S., et al. (2021). The influence of biogeographical and evolutionary histories on morphological trait-matching and resource specialization in mutualistic hummingbird–plant networks. *Functional Ecology, 35*(5), 1120–1133.
+
+de Manincor, N., Hautekeete, N., Piquot, Y., Schatz, B., Vanappelghem, C., & Massol, F. (2020). Does phenology explain plant–pollinator interactions at different latitudes? An assessment of its explanatory power in plant–hoverfly networks in French calcareous grasslands. *Oikos, 129*(5), 753–765.
+
+Domínguez-García, V., Molina, F. P., Allen-Perkins, A., Godoy, O., & Bartomeus, I. (2026). Plant–pollinator interaction rewiring boosts year-to-year community persistence. *Ecology Letters, 29*(1), e70293.
+
+Dormann, C. F., Fründ, J., & Schaefer, H. M. (2017). Identifying causes of patterns in ecological networks: Opportunities and limitations. *Annual Review of Ecology, Evolution, and Systematics, 48*(1), 559–584.
+
+Dormann, C. F., Gruber, B., & Fründ, J. (2008). Introducing the bipartite package: Analysing ecological networks. *Interaction, 1*, 8–11.
+
+Duchenne, F., Domínguez-García, V., Molina, F. P., & Bartomeus, I. (2026). Coevolution of phenological traits shapes plant–pollinator coexistence. *Proceedings of the Royal Society B: Biological Sciences, 293*(2064).
+
+Eklöf, A., Jacob, U., Kopp, J., Bosch, J., Castro-Urgal, R., Chacoff, N. P., Dalsgaard, B., de Sassi, C., Galetti, M., Guimarães, P. R., Lomáscolo, S. B., Martín González, A. M., Pizo, M. A., Rader, R., Rodrigo, A., Tylianakis, J. M., Vázquez, D. P., & Allesina, S. (2013). The dimensionality of ecological networks. *Ecology Letters, 16*(5), 577–583.
+
+Encinas-Viso, F., Revilla, T. A., & Etienne, R. S. (2012). Phenology drives mutualistic network structure and diversity. *Ecology Letters, 15*(3), 198–208.
+
+E-Vojtkó, A., de Bello, F., Durka, W., Kühn, I., & Götzenberger, L. (2020). The neglected importance of floral traits in trait-based plant community assembly. *Journal of Vegetation Science, 31*(4), 529–539.
+
+Földesi, R., Howlett, B. G., Grass, I., & Batáry, P. (2021). Larger pollinators deposit more pollen on stigmas across multiple plant species—A meta-analysis. *Journal of Applied Ecology, 58*(4), 699–707.
+
+Fort, H., Vázquez, D. P., & Lan, B. L. (2016). Abundance and generalisation in mutualistic networks: Solving the chicken-and-egg dilemma. *Ecology Letters, 19*(1), 4–11.
+
+Gómez-Martínez, C., González-Estévez, M. A., Cursach, J., & Lázaro, A. (2022). Pollinator richness, pollination networks, and diet adjustment along local and landscape gradients of resource diversity. *Ecological Applications, 32*(6), e2634.
+
+Greenwell, B., & Greenwell, M. B. (2020). *fastshap* (R package version 0.0.7). https://CRAN.R-project.org/package=fastshap
+
+Guimarães, P. R., Jr. (2020). The structure of ecological networks across levels of organization. *Annual Review of Ecology, Evolution, and Systematics, 51*(1), 433–460.
+
+He, Y.-D., Lázaro, A., Bergamo, P. J., Liang, H., Yang, C.-F., & Ye, Z.-M. (2025). Disentangling the mechanisms behind indirect interactions between plants via shared pollinators: Effects of neutral and niche-based processes. *Journal of Ecology, 113*(12), 3622–3636.
+
+Jordano, P. (2016). Sampling networks of ecological interactions. *Functional Ecology, 30*(12), 1883–1893.
+
+Junker, R. R., Blüthgen, N., Brehm, T., Binkenstein, J., Paulus, J., Schaefer, H. M., & Stang, M. (2013). Specialization on traits as basis for the niche breadth of flower visitors and as structuring mechanism of ecological networks. *Functional Ecology, 27*(2), 329–341.
+
+Kaiser-Bunbury, C. N., Vázquez, D. P., Stang, M., & Ghazoul, J. (2014). Determinants of the microstructure of plant–pollinator networks. *Ecology, 95*(12), 3314–3324.
+
+Kelly, T. T., & Elle, E. (2021). Investigating bee dietary preferences along a gradient of floral resources: How does resource use align with resource availability? *Insect Science, 28*(2), 555–565.
+
+Kendall, L. K., Rader, R., Gagic, V., Cariveau, D. P., Albrecht, M., Baldock, K. C., Freitas, B. M., Hall, M., Holzschuh, A., Molina, F. P., & others. (2019). Pollinator size and its consequences: Robust estimates of body size in pollinating insects. *Ecology and Evolution, 9*(4), 1702–1714.
+
+Klumpers, S. G., Stang, M., & Klinkhamer, P. G. (2019). Foraging efficiency and size matching in a plant–pollinator community: The importance of sugar content and tongue length. *Ecology Letters, 22*(3), 469–479.
+
+Kudo, G., & Cooper, E. J. (2019). When spring ephemerals fail to meet pollinators: Mechanism of phenological mismatch and its impact on plant reproduction. *Proceedings of the Royal Society B: Biological Sciences, 286*(1904).
+
+Kuppler, J., Höfers, M. K., Wiesmann, L., & Junker, R. R. (2016). Time-invariant differences between plant individuals in interactions with arthropods correlate with intraspecific variation in plant phenology, morphology and floral scent. *New Phytologist, 210*(4), 1357–1368.
+
+Lanuza, J. B., Rader, R., Stavert, J., Kendall, L. K., Saunders, M. E., & Bartomeus, I. (2023). Covariation among reproductive traits in flowering plants shapes their interactions with pollinators. *Functional Ecology, 37*(7), 2072–2084.
+
+Leong, M., Ponisio, L. C., Kremen, C., Thorp, R. W., & Roderick, G. K. (2016). Temporal dynamics influenced by global change: Bee community phenology in urban, agricultural, and natural landscapes. *Global Change Biology, 22*(3), 1046–1053.
+
+Morán-López, T., Benadi, G., Lara-Romero, C., Chacoff, N., Vitali, A., Pescador, D., Lomáscolo, S. B., Morente-López, J., Vázquez, D. P., & Morales, J. M. (2022). Flexible diets enable pollinators to cope with changes in plant community composition. *Journal of Ecology, 110*(8), 1913–1927.
+
+Nordt, B., Hensen, I., Bucher, S. F., Freiberg, M., Primack, R. B., Stevens, A.-D., Bonn, A., Wirth, C., Jakubka, D., Plos, C., & others. (2021). The PhenObs initiative: A standardised protocol for monitoring phenological responses to climate change using herbaceous plant species in botanical gardens. *Functional Ecology, 35*(4), 821–834.
+
+Oksanen, J., Simpson, G., Blanchet, F., Kindt, R., Legendre, P., Minchin, P., O'Hara, R., Solymos, P., Stevens, M., Szoecs, E., Wagner, H., Bedward, M., Bolker, B., Borcard, D., Carvalho, G., De Caceres, M., Durand, S., Evangelista, H., Hannigan, G., Hill, M., Lahti, L., Martino, C., Ouellette, M., Ribeiro Cunha, E., Smith, T., Stier, A., Ter Braak, C., & Weedon, J. (2026). *vegan: Community Ecology Package* (R package version 2.8-0). https://vegandevs.github.io/vegan/
+
+Olesen, J. M., Bascompte, J., Dupont, Y. L., Elberling, H., Rasmussen, C., & Jordano, P. (2011). Missing and forbidden links in mutualistic networks. *Proceedings of the Royal Society B: Biological Sciences, 278*(1706), 725–732.
+
+Olito, C., & Fox, J. W. (2015). Species traits and abundances predict metrics of plant–pollinator network structure, but not pairwise interactions. *Oikos, 124*(4), 428–436.
+
+Payrató-Borràs, C., Gracia-Lázaro, C., Hernández, L., & Moreno, Y. (2024). Beyond the aggregated paradigm: Phenology and structure in mutualistic networks. *Journal of Physics: Complexity, 5*(2), 025013.
+
+Peralta, G., CaraDonna, P. J., Rakosy, D., Fründ, J., Tudanca, M. P. P., Dormann, C. F., Burkle, L. A., Kaiser-Bunbury, C. N., Knight, T. M., Resasco, J., & others. (2024). Predicting plant–pollinator interactions: Concepts, methods, and challenges. *Trends in Ecology & Evolution, 39*(5), 494–505.
+
+Peralta, G., Perry, G. L., Vázquez, D. P., Dehling, D. M., & Tylianakis, J. M. (2020). Strength of niche processes for species interactions is lower for generalists and exotic species. *Journal of Animal Ecology, 89*(9), 2145–2155.
+
+Peralta, G., Vázquez, D. P., Chacoff, N. P., Lomáscolo, S. B., Perry, G. L. W., & Tylianakis, J. M. (2020). Trait matching and phenological overlap increase the spatio-temporal stability and functionality of plant–pollinator interactions. *Ecology Letters, 23*(7), 1107–1116.
+
+Pichler, M., Boreux, V., Klein, A.-M., Schleuning, M., & Hartig, F. (2020). Machine learning algorithms to infer trait-matching and predict species interactions in ecological networks. *Methods in Ecology and Evolution, 11*(2), 281–293.
+
+Poisot, T., Stouffer, D. B., & Gravel, D. (2015). Beyond species: Why ecological interaction networks vary through space and time. *Oikos, 124*(3), 243–251.
+
+R Core Team. (2025). *R: A language and environment for statistical computing*. R Foundation for Statistical Computing. https://www.R-project.org/
+
+Resasco, J., Chacoff, N. P., & Vázquez, D. P. (2021). Plant–pollinator interactions between generalists persist over time and space. *Ecology, 102*(6), e03359.
+
+Rocha-Ortega, M., Rodriguez, P., & Córdoba-Aguilar, A. (2021). Geographical, temporal and taxonomic biases in insect GBIF data on biodiversity and extinction. *Ecological Entomology, 46*(4), 718–728.
+
+Sánchez-Martín, R., Barreto, E., Maxwell, M. F., Duchenne, F., Beck, H., Bobato, R., Brenes, E., Bôlla, D., Büttner, N., Caron, A. P., & others. (2025). Mechanisms influencing network topology in plant–hummingbird pollination networks. *Proceedings of the Royal Society B: Biological Sciences, 292*(2059).
+
+Sazatornil, F. D., More, M., Benitez-Vieyra, S., Cocucci, A. A., Kitching, I. J., Schlumpberger, B. O., Oliveira, P. E., Sazima, M., & Amorim, F. W. (2016). Beyond neutral and forbidden links: Morphological matches and the assembly of mutualistic hawkmoth–plant networks. *Journal of Animal Ecology, 85*(6), 1586–1594.
+
+Schemske, D. W., Mittelbach, G. G., Cornell, H. V., Sobel, J. M., & Roy, K. (2009). Is there a latitudinal gradient in the importance of biotic interactions? *Annual Review of Ecology, Evolution, and Systematics, 40*(1), 245–269.
+
+Schwarz, B., Vázquez, D. P., CaraDonna, P. J., Knight, T. M., Benadi, G., Dormann, C. F., Gauzens, B., Motivans, E., Resasco, J., Blüthgen, N., & others. (2020). Temporal scale-dependence of plant–pollinator networks. *Oikos, 129*(9), 1289–1302.
+
+Simmons, B. I., Balmford, A., Bladon, A. J., Christie, A. P., De Palma, A., Dicks, L. V., Gallego-Zamorano, J., Johnston, A., Martin, P. A., Purvis, A., & others. (2019). Worldwide insect declines: An important message, but interpret with caution. *Ecology and Evolution, 9*(7), 3678–3680.
+
+Stang, M., Klinkhamer, P. G., & Van der Meijden, E. (2007). Asymmetric specialization and extinction risk in plant–flower visitor webs: A matter of morphology or abundance? *Oecologia, 151*(3), 442–453.
+
+Strydom, T., Catchen, M. D., Banville, F., Caron, D., Dansereau, G., Desjardins-Proulx, P., ... & Poisot, T. (2021). A roadmap towards predicting species interaction networks (across space and time). *Philosophical Transactions of the Royal Society B: Biological Sciences, 376*(1837), 20210063.
+
+Sweet, F. S., Apfelbeck, B., Hanusch, M., Garland Monteagudo, C., & Weisser, W. W. (2022). Data from public and governmental databases show that a large proportion of the regional animal species pool occur in cities in Germany. *Journal of Urban Ecology, 8*(1), juac002.
+
+Tylianakis, J. M., & Morris, R. J. (2017). Ecological networks across environmental gradients. *Annual Review of Ecology, Evolution, and Systematics, 48*(1), 25–48.
+
+Valdovinos, F. S. (2019). Mutualistic networks: Moving closer to a predictive theory. *Ecology Letters, 22*(9), 1517–1534.
+
+Vázquez, D. P., Blüthgen, N., Cagnolo, L., & Chacoff, N. P. (2009). Uniting pattern and process in plant–animal mutualistic networks: A review. *Annals of Botany, 103*(9), 1445–1457.
+
+Vázquez, D. P., Lomáscolo, S. B., Maldonado, M. B., Chacoff, N. P., Dorado, J., Stevani, E. L., & Vitale, N. L. (2012). The strength of plant–pollinator interactions. *Ecology, 93*(4), 719–725.
+
+Vázquez, D. P., Vitale, N., Dorado, J., Amico, G., & Stevani, E. L. (2023). Phenological mismatches and the demography of solitary bees. *Proceedings of the Royal Society B: Biological Sciences, 290*(1990).
+
+Vizentin-Bugoni, J., Maruyama, P. K., & Sazima, M. (2014). Processes entangling interactions in communities: Forbidden links are more important than abundance in a hummingbird–plant network. *Proceedings of the Royal Society B: Biological Sciences, 281*(1780), 20132397.
+
+Williams, R. J., Anandanadesan, A., & Purves, D. (2010). The probabilistic niche model reveals the niche structure and role of body size in a complex food web. *PLoS ONE, 5*(8), e12092.
+
+Wood, S. (2015). *mgcv: Mixed GAM computation vehicle with automatic smoothness estimation* (R package).
+
+Wright, M. N., Wager, S., Probst, P., & Wright, M. M. N. (2019). *ranger: A fast implementation of random forests* (R package, Version 0.11.2).
+
+Zhao, Y.-H., Lázaro, A., Li, H.-D., Tao, Z.-B., Liang, H., Zhou, W., Ren, Z.-X., Xu, K., Li, D.-Z., & Wang, H. (2022). Morphological trait-matching in plant–Hymenoptera and plant–Diptera mutualisms across an elevational gradient. *Journal of Animal Ecology, 91*(1), 196–209.

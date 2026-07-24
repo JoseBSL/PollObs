@@ -1,0 +1,121 @@
+---
+output: pdf_document
+header-includes:
+  - \usepackage{ragged2e}
+  - \usepackage{graphicx}
+  - \usepackage{caption}
+  - \usepackage{placeins}
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelformat=empty}
+  - \usepackage{float}
+  - \usepackage{lineno}
+  - \linenumbers
+---
+
+\begin{center}
+{\LARGE\bfseries
+Seasonal Variation Mediates the Importance of Species Attributes in Plant--Pollinator Interactions
+}
+
+\vspace{1em}
+
+{\large
+Jose B. Lanuza$^{1,2,*}$ \thanks{jose.lanuza@imedea.uib-csic.es},
+Alfonso Allen-Perkins$^{3}$,
+Will Glenny$^{1}$,
+Anna Traveset$^{2}$,
+Henriette F. Morgenroth$^{1}$,
+Raymond Umazekabiri$^{1}$,
+Marc Hoffmann$^{1}$,
+Panagiotis Theodorou$^{1,4}$,
+Robert J. Paxton$^{1,4}$,
+Isabell Hensen$^{1,5}$,
+Robert Rauschkolb$^{1,6,7}$,
+Christine Römermann$^{1,6,7}$,
+Oliver Schweiger$^{1,8}$,
+and Tiffany M. Knight$^{1}$
+}
+\end{center}
+
+\vspace{1em}
+
+\footnotesize
+
+$^{1}$ German Centre for Integrative Biodiversity Research (iDiv) Halle--Jena--Leipzig, Puschstr. 4, 04103 Leipzig, Germany.
+
+$^{2}$ Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC), Mallorca, Balearic Islands, Spain.
+
+$^{3}$ Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada, ETSIDI, Universidad Politécnica de Madrid, Madrid, Spain.
+
+$^{4}$ Institute for Biology, General Zoology, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany.
+
+$^{5}$ Institute of Biology/Geobotany and Botanical Garden, Martin Luther University Halle-Wittenberg, Halle (Saale), Germany.
+
+$^{6}$ Institute of Biodiversity, Ecology and Evolution, Friedrich Schiller University Jena, Germany.
+
+$^{7}$ Senckenberg Institute for Plant Form and Function (SIP), Jena, Germany.
+
+$^{8}$ Department of Community Ecology, UFZ--Helmholtz Centre for Environmental Research, Halle, Germany.
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.5pt}
+
+\normalsize
+
+\textbf{Running title:}
+Seasonal drivers of plant--pollinator interactions
+
+\medskip
+
+\textbf{Article type:}
+Letter
+
+\medskip
+
+\textbf{Keywords:}
+plant--pollinator interactions; phenology; abundance; trait matching; temporal resolution; ecological networks; visitation rate; random forest; pollination ecology; community ecology
+
+\medskip
+
+\textbf{Abstract:} XXX words
+
+\textbf{Main text:} XXXX words
+
+\textbf{Text boxes:} None
+
+\medskip
+
+\textbf{References:} XX
+
+\textbf{Figures:} X
+
+\textbf{Tables:} X
+
+\textbf{Text boxes:} 0
+
+\medskip
+
+\textbf{Statement of authorship}
+
+J.B.L. conceived the study. J.B.L., T.M.K., and O.S. designed the study. J.B.L. compiled the data, performed the analyses, and wrote the first draft of the manuscript. A.A.-P. contributed to analytical methods. All authors contributed to data collection and/or interpretation of the results, critically revised the manuscript, and approved the final version.
+
+\medskip
+
+\textbf{Data accessibility statement}
+
+The data supporting the findings of this study are openly available in Zenodo at \url{https://doi.org/10.5281/zenodo.15183272}. The R code used to reproduce all analyses and figures is openly available in Zenodo at \url{https://doi.org/10.5281/zenodo.21243408}.
+
+\medskip
+
+\textbf{Corresponding author}
+
+Jose B. Lanuza
+
+Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC)
+
+07190 Esporles, Mallorca, Balearic Islands, Spain
+
+E-mail: jose.lanuza@imedea.uib-csic.es
+
+Telephone: +34 XXX XXX XXX
+
