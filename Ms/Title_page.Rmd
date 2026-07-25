@@ -15,6 +15,43 @@ header-includes:
   - \linenumbers
 ---
 
+
+# Cover letter
+
+**July 25, 2026**
+
+**Jose B. Lanuza**  
+Mediterranean Institute for Advanced Studies (IMEDEA, UIB-CSIC)  
+Mallorca, Balearic Islands, Spain  
+
+**E-mail:** <barragansljose@gmail.com>  
+**Phone:** +34 616 375 981
+
+---
+
+It is our pleasure to submit our manuscript entitled **"Seasonal Variation Mediates the Importance of Species Attributes in Plant-Pollinator Interactions"** for consideration for publication in *Ecology Letters*.
+
+For decades, ecologists have debated the relative importance of species attributes in shaping interaction networks. However, interaction networks are static representations of systems that fluctuate through time, and the relative importance of species attributes may change depending on the temporal grain. This manuscript disentangles the relative contributions of species abundance, phenology, and trait matching across different temporal grains to improve predictions of plant-pollinator interactions. By combining complementary analytical approaches, we obtain highly consistent results that provide robust support for our conclusions.
+
+Our results reveal that, although the relative influence of species attributes changes seasonally, a clear hierarchical structure persists, with species abundance emerging as the primary driver of interactions and morphological trait matching exerting persistent but comparatively weaker effects. Phenology becomes increasingly important at finer temporal resolutions, where temporal aggregation is reduced. This study demonstrates that incorporating temporal variation into assessments of driver importance enables the identification of the dominant processes governing species interactions. We argue that only by integrating time-resolved, high-quality data can these processes be accurately quantified and ultimately used to improve predictions of ecological networks. To our knowledge, this is the first study to quantify how the relative importance of species attributes changes through time.
+
+**Novelty relative to previous work by the authors.** This manuscript is the first study led by our corresponding author to investigate the temporal dynamics of plant-pollinator networks. Although some of our coauthors have previously explored temporal variation in ecological networks, none of our previous work has examined within-season variation or investigated how the relative importance of species attributes changes across different levels of temporal aggregation. Previous studies primarily relied on temporally aggregated networks and did not have access to the high-quality, time-resolved data required to quantify these fine-scale ecological mechanisms over time.
+
+The manuscript is fully reproducible. All code and data are publicly available through GitHub and permanently archived on Zenodo (<https://doi.org/10.5281/zenodo.21559439>), and the preprint is openly available on bioRxiv (<https://doi.org/10.64898/2026.07.21.739935>).
+
+Thank you for your consideration, and please do not hesitate to contact me with any questions.
+
+Sincerely,
+
+**Jose B. Lanuza**  
+*(on behalf of all authors)*
+
+
+\newpage
+
+
+# Title page
+
 **Title:** Seasonal Variation Mediates the Importance of Species Attributes in Plant-Pollinator Interactions
 
 **Authors and mails:** Jose B. Lanuza$^{1,2}$ (\href{mailto:barragansljose@gmail.com}{barragansljose@gmail.com}), Alfonso Allen-Perkins$^{3}$ (\href{mailto:alfonsoallenperkins@gmail.com}{alfonsoallenperkins@gmail.com}), Will Glenny$^{1}$ (\href{mailto:willglenny@gmail.com}{willglenny@gmail.com}), Anna Traveset$^{2}$ (\href{mailto:atraveset@csic.es}{atraveset@csic.es}), Henriette F. Morgenroth$^{1}$ (\href{mailto:hfmorgenroth@gmail.com}{hfmorgenroth@gmail.com}), Raymond Umazekabiri$^{1}$ (\href{mailto:Raymond.Umazekabiri@monash.edu}{Raymond.Umazekabiri@monash.edu}), Marc Hoffmann$^{1}$ (\href{mailto:hoffmann.marc@fn.de}{hoffmann.marc@fn.de}), Panagiotis Theodorou$^{1,4}$ (\href{mailto:panatheod@gmail.com}{panatheod@gmail.com}), Robert J. Paxton$^{1,4}$ (\href{mailto:robert.paxton@zoologie.uni-halle.de}{robert.paxton@zoologie.uni-halle.de}), Isabell Hensen$^{1,5}$ (\href{mailto:isabell.hensen@botanik.uni-halle.de}{isabell.hensen@botanik.uni-halle.de}), Robert Rauschkolb$^{1,6,7}$ (\href{mailto:phenobs@uni-jena.de}{phenobs@uni-jena.de}), Christine Römermann$^{1,6,7}$ (\href{mailto:christine.roemermann@uni-jena.de}{christine.roemermann@uni-jena.de}), Oliver Schweiger$^{1,8}$ (\href{mailto:oliver.schweiger@ufz.de}{oliver.schweiger@ufz.de})
@@ -39,3 +76,4 @@ and Tiffany Knight$^{1}$ (\href{mailto:tiffany.knight@idiv.de}{tiffany.knight@id
 **Statement of authorship**: J.B.L., P.T., R.J.P., I.H., R.R., C.R., O.S., and T.K. conceived the study. J.B.L., H.F.M., and R.U. collected the data. M.H. identified the insect specimens. J.B.L. and A.A.-P. performed the analyses. J.B.L. wrote the first draft of the manuscript. All authors contributed substantially to the interpretation of the results, critically revised the manuscript, and approved the final version for publication.
 
 **Data accessibility statement**: All code and data supporting the findings of this study are openly available at  https://doi.org/10.5281/zenodo.21559439.
+
