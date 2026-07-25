@@ -1,0 +1,22 @@
+---
+output:
+  pdf_document:
+    latex_engine: xelatex
+
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{caption}
+  - \usepackage{placeins}
+  - \usepackage{float}
+  - \usepackage{lineno}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
+  - \captionsetup[figure]{labelformat=empty}
+  - \linenumbers
+---
+
+# Abstract
+
+\large
+
+Predicting species interactions remains challenging because multiple species attributes operate simultaneously and their relative importance varies seasonally and with temporal resolution. Here, we assess how the contributions of abundance, trait matching, and phenology to plant-pollinator interactions vary through a flowering season and across temporal resolutions using data from three European botanical gardens. Predictive models explained substantial variation in visitation patterns, with floral and pollinator abundances consistently accounting for most variation. Trait matching between pollinator body size and floral size also contributed, playing a secondary but persistent role, whereas phenology became more important only at finer temporal scales. Null models accounting for spatio-temporal variation in floral and pollinator abundance revealed consistent patterns of pollinator preference and avoidance, indicating that abundance alone cannot explain observed interactions. Our results highlight the need for multi-variable approaches that incorporate temporal dynamics to improve predictions of ecological interactions.

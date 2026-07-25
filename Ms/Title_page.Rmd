@@ -38,3 +38,4 @@ and Tiffany Knight$^{1}$ (\href{mailto:tiffany.knight@idiv.de}{tiffany.knight@id
 
 **Statement of authorship**: J.B.L., P.T., R.J.P., I.H., R.R., C.R., O.S., and T.K. conceived the study. J.B.L., H.F.M., and R.U. collected the data. M.H. identified the insect specimens. J.B.L. and A.A.-P. performed the analyses. J.B.L. wrote the first draft of the manuscript. All authors contributed substantially to the interpretation of the results, critically revised the manuscript, and approved the final version for publication.
 
+**Data accessibility statement**: All code and data supporting the findings of this study are openly available at  https://doi.org/10.5281/zenodo.21559439.
